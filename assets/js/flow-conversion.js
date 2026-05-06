@@ -125,6 +125,7 @@
       if (dInfo.error) return setError(dInfo.error);
       const A = calcArea(dInfo.D);
       const Q = u * A;
+      if (!validateOutputs({ A, Q })) return;
       result = renderFlowrate(Q, A, u, dInfo);
     } else if (currentMode === 'velocity') {
       const Q = getSI('Q');
@@ -134,6 +135,7 @@
       if (dInfo.error) return setError(dInfo.error);
       const A = calcArea(dInfo.D);
       const u = Q / A;
+      if (!validateOutputs({ A, u })) return;
       result = renderVelocity(u, A, Q, dInfo);
     } else if (currentMode === 'diameter') {
       const Q = getSI('Q');
@@ -142,10 +144,22 @@
       if (Q <= 0 || u <= 0) return setError('体積流量と平均流速は正の値で入力してください。');
       const A = Q / u;
       const D = Math.sqrt(4 * A / Math.PI);
+      if (!validateOutputs({ A, D })) return;
       result = renderDiameter(D, A, Q, u);
     }
 
     $('result-area').innerHTML = result;
+  }
+
+  function validateOutputs(values) {
+    for (const k in values) {
+      const v = values[k];
+      if (!isFinite(v) || v <= 0) {
+        setError('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
+        return false;
+      }
+    }
+    return true;
   }
 
   function unitsTable(field, valueSI) {

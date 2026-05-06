@@ -68,6 +68,12 @@
     const u2 = u1 * (A1 / A2);
     const Q = u1 * A1;
 
+    for (const [k, v] of Object.entries({ A1, A2, u2, Q })) {
+      if (!isFinite(v) || v <= 0) {
+        return setError('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
+      }
+    }
+
     $('result-area').innerHTML = render(u2, Q, A1, A2, u1, D1, D2);
   }
 

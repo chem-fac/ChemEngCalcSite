@@ -249,13 +249,14 @@ button { font-family: inherit; cursor: pointer; }
   gap: 16px;
 }
 .cat-grid-launch {
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: repeat(5, minmax(0, 220px));
+  justify-content: center;
 }
 .cat-coming {
   background: linear-gradient(135deg, var(--brand-faint) 0%, #ffffff 100%);
   border: 1.5px dashed rgba(0,105,56,0.45);
   border-radius: 8px;
-  padding: 28px;
+  padding: 18px 12px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -263,6 +264,8 @@ button { font-family: inherit; cursor: pointer; }
   text-align: center;
   position: relative;
   overflow: hidden;
+  aspect-ratio: 1 / 1;
+  width: 100%;
 }
 .cat-coming::before {
   content: "";
@@ -272,23 +275,24 @@ button { font-family: inherit; cursor: pointer; }
   pointer-events: none;
 }
 .cat-coming-label {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.45em;
-  padding-left: 0.45em;
+  letter-spacing: 0.4em;
+  padding-left: 0.4em;
   color: var(--brand);
   background: #fff;
-  padding: 7px 18px;
+  padding: 6px 14px;
   border: 1px solid var(--brand);
   border-radius: 999px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   position: relative;
   z-index: 1;
 }
 .cat-coming-title {
-  font-size: 13.5px;
+  font-size: 12px;
+  line-height: 1.55;
   color: var(--text-sub);
-  margin-bottom: 16px;
+  margin-bottom: 0;
   position: relative;
   z-index: 1;
 }
@@ -312,13 +316,17 @@ button { font-family: inherit; cursor: pointer; }
   background: #fff;
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 24px 16px 20px;
+  padding: 22px 12px 18px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 10px;
   transition: all 0.18s;
   color: var(--text);
+  aspect-ratio: 1 / 1;
+  width: 100%;
 }
 .cat-card:hover {
   border-color: var(--brand);
@@ -327,37 +335,27 @@ button { font-family: inherit; cursor: pointer; }
   text-decoration: none;
 }
 .cat-card .icon {
-  width: 84px;
-  height: 84px;
+  width: 144px;
+  height: 144px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 12px;
   color: var(--brand);
 }
 .cat-card .icon svg { width: 100%; height: 100%; }
 .cat-card .icon img {
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
   object-fit: contain;
   display: block;
 }
+.cat-card .icon img[src*="heat_transfer"] { transform: scale(1.2); }
 .cat-card .name {
   font-weight: 700;
-  font-size: 15px;
-  margin-bottom: 8px;
-}
-.cat-card .desc {
-  font-size: 12px;
-  color: var(--text-sub);
-  line-height: 1.6;
-  margin-bottom: 12px;
-  flex: 1;
-}
-.cat-card .more {
-  color: var(--brand);
-  font-size: 16px;
-  line-height: 1;
+  font-size: 17px;
+  letter-spacing: 0.04em;
 }
 
 /* ===== Category landing: tool list ===== */
@@ -428,6 +426,57 @@ button { font-family: inherit; cursor: pointer; }
   line-height: 1;
   flex: 0 0 auto;
 }
+
+/* ===== Category empty state ===== */
+.cat-empty {
+  background: linear-gradient(135deg, var(--brand-faint) 0%, #ffffff 100%);
+  border: 1.5px dashed rgba(0,105,56,0.45);
+  border-radius: 8px;
+  padding: 56px 28px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cat-empty::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(-45deg, transparent 0 18px, rgba(0,105,56,0.035) 18px 36px);
+  pointer-events: none;
+}
+.cat-empty-label {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.45em;
+  padding-left: 0.45em;
+  color: var(--brand);
+  background: #fff;
+  padding: 7px 18px;
+  border: 1px solid var(--brand);
+  border-radius: 999px;
+  margin-bottom: 18px;
+  position: relative;
+  z-index: 1;
+}
+.cat-empty-text {
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--text-sub);
+  margin: 0 0 18px;
+  position: relative;
+  z-index: 1;
+}
+.cat-empty-back {
+  display: inline-block;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--brand);
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+}
+.cat-empty-back:hover { text-decoration: underline; }
 
 /* ===== Info columns ===== */
 .info-section {

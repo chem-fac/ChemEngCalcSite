@@ -23,6 +23,18 @@
       url: "tools/fluid/",
       category: "カテゴリ",
       keywords: ["流動", "流体", "配管", "圧力損失", "fluid"]
+    },
+    {
+      title: "伝熱（カテゴリ）",
+      url: "tools/heat-transfer/",
+      category: "カテゴリ",
+      keywords: ["伝熱", "熱交換器", "加熱", "冷却", "熱伝達", "熱通過", "heat", "transfer"]
+    },
+    {
+      title: "撹拌混合（カテゴリ）",
+      url: "tools/mixing/",
+      category: "カテゴリ",
+      keywords: ["撹拌", "攪拌", "混合", "撹拌槽", "翼", "動力", "スケールアップ", "mixing", "agitation"]
     }
   ];
 

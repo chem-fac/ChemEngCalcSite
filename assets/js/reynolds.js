@@ -120,6 +120,7 @@
       if (!validatePositive({rho, u, D, mu}, ['密度', '平均流速', '管内径', '粘度'])) return;
       const Re = (rho * u * D) / mu;
       const A = Math.PI * D * D / 4;
+      if (!validateResult({ Re, A })) return;
       renderResult({ Re, u, D, A, mode: 'velocity', inputs: {rho, u, D, mu} });
 
     } else if (currentMode === 'flowrate') {
@@ -128,6 +129,7 @@
       const A = Math.PI * D * D / 4;
       const u = Q / A;
       const Re = (rho * u * D) / mu;
+      if (!validateResult({ u, Re, A })) return;
       renderResult({ Re, u, D, A, mode: 'flowrate', inputs: {rho, Q, D, mu} });
 
     } else if (currentMode === 'kinematic') {
@@ -135,8 +137,21 @@
       if (!validatePositive({u, D, nu}, ['平均流速', '管内径', '動粘度'])) return;
       const Re = (u * D) / nu;
       const A = Math.PI * D * D / 4;
+      if (!validateResult({ Re, A })) return;
       renderResult({ Re, u, D, A, mode: 'kinematic', inputs: {u, D, nu} });
     }
+  }
+
+  function validateResult(values) {
+    for (const k in values) {
+      const v = values[k];
+      if (!isFinite(v) || v <= 0) {
+        showError('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
+        renderPlaceholder();
+        return false;
+      }
+    }
+    return true;
   }
 
   function validatePositive(values, labels) {
