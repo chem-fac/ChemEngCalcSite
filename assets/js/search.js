@@ -13,6 +13,12 @@
       keywords: ["流量", "流速", "配管径", "管内径", "換算", "断面積", "単位換算", "体積流量", "配管設計", "円管"]
     },
     {
+      title: "連続の式（配管断面変化）",
+      url: "tools/fluid/continuity/",
+      category: "流動",
+      keywords: ["連続の式", "continuity", "質量保存", "断面変化", "レジューサ", "絞り", "流速変化", "非圧縮", "Au"]
+    },
+    {
       title: "流動（カテゴリ）",
       url: "tools/fluid/",
       category: "カテゴリ",
