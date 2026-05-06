@@ -1440,6 +1440,48 @@ details.formula .body {
   color: var(--text-sub);
 }
 
+/* ===== Support page ===== */
+.doc-page .support-h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 22px 0 8px;
+  color: var(--text);
+}
+.doc-page .support-cta {
+  margin: 14px 0 8px;
+}
+.support-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  text-decoration: none;
+  border: 1px solid var(--brand);
+  transition: opacity 0.15s;
+}
+.support-btn:hover { opacity: 0.85; }
+.support-btn--primary {
+  background: var(--brand);
+  color: #fff;
+}
+.support-btn--ghost {
+  background: #fff;
+  color: var(--brand);
+}
+.support-qr {
+  margin: 8px 0 12px;
+}
+.support-qr img {
+  width: 160px;
+  height: 160px;
+  border: 1px solid var(--border);
+  background: #fff;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+
 /* ===== Responsive ===== */
 @media (max-width: 1080px) {
   .cat-grid { grid-template-columns: repeat(4, 1fr); }
