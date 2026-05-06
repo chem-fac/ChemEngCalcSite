@@ -45,10 +45,13 @@
     <div class="hero-content">
       <h1>化学工学計算支援ツール</h1>
       <p class="lead">現場と学習を支える、化学工学計算の実用ツール集</p>
-      <form class="search" onsubmit="event.preventDefault();">
-        <input type="text" placeholder="計算したい内容を検索（例：レイノルズ数）">
-        <button type="submit">検索</button>
-      </form>
+      <div class="search-wrap">
+        <form class="search" id="siteSearchForm" onsubmit="event.preventDefault();window.__siteSearch&&window.__siteSearch.submit();">
+          <input id="siteSearchInput" type="text" autocomplete="off" placeholder="計算したい内容を検索（例：レイノルズ数）">
+          <button type="submit">検索</button>
+        </form>
+        <div id="siteSearchResults" class="search-results" hidden></div>
+      </div>
 
     </div>
     <div class="hero-illust-removed" hidden>
@@ -430,5 +433,6 @@
 </footer>
 
 <script src="assets/js/share.js"></script>
+<script src="assets/js/search.js"></script>
 </body>
 </html>
