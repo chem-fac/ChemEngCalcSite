@@ -128,6 +128,7 @@ button { font-family: inherit; cursor: pointer; }
 }
 .search input {
   flex: 1;
+  min-width: 0;
   border: none;
   outline: none;
   padding: 16px 18px 16px 46px;
@@ -1487,9 +1488,34 @@ details.formula .body {
   .footer-brand { align-items: flex-start; }
 }
 @media (max-width: 768px) {
-  .hero-inner { grid-template-columns: 1fr; padding: 48px 20px 64px; min-height: auto; }
+  .hero-inner { grid-template-columns: 1fr; padding: 42px 20px 56px; min-height: auto; }
   .hero-bg { opacity: 0.25; }
-  .hero h1 { font-size: 32px; }
+  .hero h1 {
+    font-size: 31px;
+    line-height: 1.28;
+    overflow-wrap: anywhere;
+    word-break: keep-all;
+  }
+  .hero .lead {
+    font-size: 15.5px;
+    line-height: 1.7;
+    margin-bottom: 22px;
+    overflow-wrap: anywhere;
+    word-break: keep-all;
+  }
+  .search {
+    max-width: 100%;
+  }
+  .search input {
+    padding: 14px 14px 14px 42px;
+    font-size: 14px;
+    background-position: 14px center;
+  }
+  .search button {
+    flex: 0 0 auto;
+    padding: 0 18px;
+    font-size: 14px;
+  }
   .cat-grid { grid-template-columns: repeat(2, 1fr); }
   .tool-layout { grid-template-columns: 1fr; }
   .related-grid { grid-template-columns: 1fr; }
