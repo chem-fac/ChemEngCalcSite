@@ -8,6 +8,8 @@
     u: { ms: 1, cms: 0.01 },
     Q: { m3s: 1, m3h: 1 / 3600, Lmin: 1 / 60000, Lh: 1 / 3600000 },
     D: { m: 1, cm: 0.01, mm: 0.001, inch: 0.0254 },
+    Do: { m: 1, cm: 0.01, mm: 0.001, inch: 0.0254 },
+    t: { m: 1, cm: 0.01, mm: 0.001, inch: 0.0254 },
   };
 
   // ====== Output unit options ======
@@ -31,12 +33,34 @@
   };
 
   let currentMode = 'flowrate'; // flowrate | velocity | diameter
+  let dInputMode = 'inner';      // inner | outer
 
   function getSI(field) {
     const v = parseFloat($(field).value);
     const unit = $(field + '_unit').value;
     if (!isFinite(v)) return NaN;
     return v * TO_SI[field][unit];
+  }
+
+  // Returns { D, source: 'inner'|'outer', Do_si, t_si } or { error: string }
+  function getInnerDiameter() {
+    if (dInputMode === 'inner') {
+      const D = getSI('D');
+      if (!isFinite(D) || D <= 0) return { error: '管内径を正の数値で入力してください。' };
+      return { D, source: 'inner' };
+    }
+    const Do = getSI('Do');
+    const t = getSI('t');
+    if (!isFinite(Do) || !isFinite(t)) return { error: '外径と肉厚を数値で入力してください。' };
+    if (Do <= 0 || t <= 0) return { error: '外径と肉厚は正の値で入力してください。' };
+    const D = Do - 2 * t;
+    if (D <= 0) return { error: '外径に対して肉厚が大きすぎます。Di = Do − 2t > 0 となる値を入力してください。' };
+    return { D, source: 'outer', Do, t };
+  }
+
+  function diameterMetaText(info) {
+    if (info.source !== 'outer') return '';
+    return `<div>外径 <span class="sym">D<sub>o</sub></span> = ${fmtNum(info.Do * 1000)} mm, 肉厚 <span class="sym">t</span> = ${fmtNum(info.t * 1000)} mm → 実内径 <span class="sym">D<sub>i</sub></span> = ${fmtNum(info.D * 1000)} mm</div>`;
   }
 
   function fmtNum(v, sig = 4) {
@@ -67,7 +91,6 @@
       const visible = modes.includes(currentMode);
       row.hidden = !visible;
     });
-    clearResult();
     clearError();
   }
 
@@ -96,20 +119,22 @@
 
     if (currentMode === 'flowrate') {
       const u = getSI('u');
-      const D = getSI('D');
-      if (!isFinite(u) || !isFinite(D)) return setError('平均流速と管内径を数値で入力してください。');
-      if (u <= 0 || D <= 0) return setError('平均流速と管内径は正の値で入力してください。');
-      const A = calcArea(D);
+      if (!isFinite(u)) return setError('平均流速を数値で入力してください。');
+      if (u <= 0) return setError('平均流速は正の値で入力してください。');
+      const dInfo = getInnerDiameter();
+      if (dInfo.error) return setError(dInfo.error);
+      const A = calcArea(dInfo.D);
       const Q = u * A;
-      result = renderFlowrate(Q, A, u, D);
+      result = renderFlowrate(Q, A, u, dInfo);
     } else if (currentMode === 'velocity') {
       const Q = getSI('Q');
-      const D = getSI('D');
-      if (!isFinite(Q) || !isFinite(D)) return setError('体積流量と管内径を数値で入力してください。');
-      if (Q <= 0 || D <= 0) return setError('体積流量と管内径は正の値で入力してください。');
-      const A = calcArea(D);
+      if (!isFinite(Q)) return setError('体積流量を数値で入力してください。');
+      if (Q <= 0) return setError('体積流量は正の値で入力してください。');
+      const dInfo = getInnerDiameter();
+      if (dInfo.error) return setError(dInfo.error);
+      const A = calcArea(dInfo.D);
       const u = Q / A;
-      result = renderVelocity(u, A, Q, D);
+      result = renderVelocity(u, A, Q, dInfo);
     } else if (currentMode === 'diameter') {
       const Q = getSI('Q');
       const u = getSI('u');
@@ -131,7 +156,7 @@
     return `<table class="unit-table"><tbody>${rows}</tbody></table>`;
   }
 
-  function renderFlowrate(Q, A, u, D) {
+  function renderFlowrate(Q, A, u, dInfo) {
     const primary = OUT_UNITS.Q[0];
     return `
       <div class="result-target">体積流量 <span class="sym">Q</span></div>
@@ -140,12 +165,13 @@
       ${unitsTable('Q', Q)}
       <div class="result-meta">
         <div>断面積 <span class="sym">A</span> = ${fmtNum(A * 10000)} cm² (= ${fmtNum(A)} m²)</div>
-        <div>入力 <span class="sym">u</span> = ${fmtNum(u)} m/s, <span class="sym">D</span> = ${fmtNum(D * 1000)} mm</div>
+        <div>入力 <span class="sym">u</span> = ${fmtNum(u)} m/s, <span class="sym">D</span> = ${fmtNum(dInfo.D * 1000)} mm</div>
+        ${diameterMetaText(dInfo)}
       </div>
     `;
   }
 
-  function renderVelocity(u, A, Q, D) {
+  function renderVelocity(u, A, Q, dInfo) {
     const primary = OUT_UNITS.u[0];
     return `
       <div class="result-target">平均流速 <span class="sym">u</span></div>
@@ -154,7 +180,8 @@
       ${unitsTable('u', u)}
       <div class="result-meta">
         <div>断面積 <span class="sym">A</span> = ${fmtNum(A * 10000)} cm² (= ${fmtNum(A)} m²)</div>
-        <div>入力 <span class="sym">Q</span> = ${fmtNum(Q * 3600)} m³/h, <span class="sym">D</span> = ${fmtNum(D * 1000)} mm</div>
+        <div>入力 <span class="sym">Q</span> = ${fmtNum(Q * 3600)} m³/h, <span class="sym">D</span> = ${fmtNum(dInfo.D * 1000)} mm</div>
+        ${diameterMetaText(dInfo)}
       </div>
     `;
   }
@@ -175,9 +202,19 @@
   }
 
   function reset() {
-    ['Q', 'u', 'D'].forEach(f => { const el = $(f); if (el) el.value = ''; });
+    ['Q', 'u', 'D', 'Do', 't'].forEach(f => { const el = $(f); if (el) el.value = ''; });
     clearError();
     clearResult();
+  }
+
+  function applyDInputMode() {
+    document.querySelectorAll('.d-mode-tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.dMode === dInputMode);
+    });
+    document.querySelectorAll('.d-mode-pane').forEach(p => {
+      p.hidden = p.dataset.dPane !== dInputMode;
+    });
+    clearError();
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -187,8 +224,15 @@
         applyMode();
       });
     });
+    document.querySelectorAll('.d-mode-tab').forEach(t => {
+      t.addEventListener('click', () => {
+        dInputMode = t.dataset.dMode;
+        applyDInputMode();
+      });
+    });
     $('calc-btn').addEventListener('click', calculate);
     $('reset-btn').addEventListener('click', reset);
     applyMode();
+    applyDInputMode();
   });
 })();

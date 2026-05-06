@@ -113,16 +113,53 @@
 
         <div class="input-row" data-field="D" data-show-when="flowrate velocity">
           <label>管内径 <span class="sym">D</span></label>
-          <div class="input-group">
-            <input type="number" id="D" step="any" placeholder="例：50">
-            <select id="D_unit" aria-label="管内径の単位">
-              <option value="mm">mm</option>
-              <option value="cm">cm</option>
-              <option value="m">m</option>
-              <option value="inch">inch</option>
-            </select>
+          <div class="d-mode-switch" role="tablist" aria-label="管内径の入力方法">
+            <button type="button" class="d-mode-tab active" data-d-mode="inner">実内径を入力</button>
+            <button type="button" class="d-mode-tab" data-d-mode="outer">外径＋肉厚から計算</button>
           </div>
-          <p class="hint">配管の<strong>呼び径ではなく実内径</strong>を入力してください。スケジュール番号や肉厚で内径は変わります。</p>
+
+          <div class="d-mode-pane" data-d-pane="inner">
+            <div class="input-group">
+              <input type="number" id="D" step="any" placeholder="例：50">
+              <select id="D_unit" aria-label="管内径の単位">
+                <option value="mm">mm</option>
+                <option value="cm">cm</option>
+                <option value="m">m</option>
+                <option value="inch">inch</option>
+              </select>
+            </div>
+            <p class="hint">配管の<strong>呼び径ではなく実内径</strong>を入力してください。スケジュール番号や肉厚で内径は変わります。</p>
+          </div>
+
+          <div class="d-mode-pane" data-d-pane="outer" hidden>
+            <div class="input-pair">
+              <div>
+                <div class="sub-label">外径 <span class="sym">D<sub>o</sub></span></div>
+                <div class="input-group">
+                  <input type="number" id="Do" step="any" placeholder="例：60.5">
+                  <select id="Do_unit" aria-label="外径の単位">
+                    <option value="mm">mm</option>
+                    <option value="cm">cm</option>
+                    <option value="m">m</option>
+                    <option value="inch">inch</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <div class="sub-label">肉厚 <span class="sym">t</span></div>
+                <div class="input-group">
+                  <input type="number" id="t" step="any" placeholder="例：3.9">
+                  <select id="t_unit" aria-label="肉厚の単位">
+                    <option value="mm">mm</option>
+                    <option value="cm">cm</option>
+                    <option value="m">m</option>
+                    <option value="inch">inch</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <p class="hint">外径と肉厚から実内径を計算します（<span class="sym">D<sub>i</sub></span> = <span class="sym">D<sub>o</sub></span> − 2<span class="sym">t</span>）。規格管のカタログ値（外径・肉厚）が手に入る場合に便利です。</p>
+          </div>
         </div>
 
         <div class="btn-row">
