@@ -92,7 +92,7 @@ button { font-family: inherit; cursor: pointer; }
 .hero-inner {
   max-width: 1280px;
   margin: 0 auto;
-  padding: clamp(72px, 8vw, 96px) 32px clamp(64px, 7vw, 84px);
+  padding: clamp(72px, 8vw, 96px) 32px clamp(32px, 3.5vw, 48px);
   min-height: clamp(180px, 22vw, 260px);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(240px, 1fr);
@@ -184,7 +184,7 @@ button { font-family: inherit; cursor: pointer; }
 .section {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 60px 32px;
+  padding: 32px 32px 60px;
 }
 .section-title {
   display: flex;
@@ -317,14 +317,11 @@ button { font-family: inherit; cursor: pointer; }
 
 /* ===== Info columns ===== */
 .info-section {
-  background: var(--bg-soft);
-  padding: 60px 0;
-  border-top: 1px solid var(--border);
-}
-.info-grid {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 32px 60px;
+}
+.info-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
@@ -335,16 +332,6 @@ button { font-family: inherit; cursor: pointer; }
   border-radius: 8px;
   padding: 24px 26px;
 }
-.info-card h3 {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 16px;
-  font-weight: 700;
-  margin: 0 0 18px;
-  color: var(--brand);
-}
-.info-card h3 svg { width: 18px; height: 18px; }
 .info-list {
   list-style: none;
   margin: 0 0 16px;
@@ -1276,14 +1263,14 @@ details.formula .body {
 
 /* ===== Profile section ===== */
 .profile-section {
-  background: var(--bg-soft);
-  border-top: 1px solid var(--border);
-  padding: 60px 0;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px 60px;
 }
 .profile-inner {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 0 32px;
+  max-width: none;
+  margin: 0;
+  padding: 0;
 }
 .profile-card {
   background: #fff;
@@ -1325,15 +1312,19 @@ details.formula .body {
   padding: 22px 0 0;
   border-top: 1px solid var(--border);
   display: grid;
-  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 36px;
 }
 .profile-links li {
   display: grid;
-  grid-template-columns: 150px 1fr;
-  gap: 4px 16px;
+  grid-template-columns: 130px 1fr;
+  gap: 4px 14px;
   align-items: baseline;
   font-size: 14px;
   line-height: 1.6;
+}
+@media (max-width: 900px) {
+  .profile-links { grid-template-columns: 1fr; }
 }
 .profile-link-label {
   font-size: 11px;
