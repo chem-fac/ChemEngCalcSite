@@ -5,6 +5,18 @@
       url: "tools/fluid/reynolds/",
       category: "流動",
       keywords: ["レイノルズ", "Reynolds", "Re", "配管", "層流", "乱流", "流速", "流量", "管内径", "粘度", "動粘度", "円管"]
+    },
+    {
+      title: "流量・流速・配管径換算",
+      url: "tools/fluid/flow-conversion/",
+      category: "流動",
+      keywords: ["流量", "流速", "配管径", "管内径", "換算", "断面積", "単位換算", "体積流量", "配管設計", "円管"]
+    },
+    {
+      title: "流動（カテゴリ）",
+      url: "tools/fluid/",
+      category: "カテゴリ",
+      keywords: ["流動", "流体", "配管", "圧力損失", "fluid"]
     }
   ];
 
