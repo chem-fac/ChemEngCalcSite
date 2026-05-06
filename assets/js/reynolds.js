@@ -71,8 +71,8 @@
   }
 
   function regimeOf(Re) {
-    if (Re < 2300) return 'laminar';
-    if (Re <= 4000) return 'transition';
+    if (Re <= 2300) return 'laminar';
+    if (Re < 4000) return 'transition';
     return 'turbulent';
   }
 
