@@ -1544,19 +1544,26 @@ details.formula .body {
     overflow-wrap: anywhere;
     word-break: keep-all;
   }
+  .search-wrap { max-width: 100%; width: 100%; }
   .search {
     max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
   }
   .search input {
-    padding: 13px 12px 13px 40px;
-    font-size: 14px;
-    background-position: 14px center;
+    width: 1%;
+    flex: 1 1 0;
     min-width: 0;
+    padding: 13px 10px 13px 38px;
+    font-size: 14px;
+    background-position: 12px center;
+    background-size: 16px 16px;
   }
   .search button {
     flex: 0 0 auto;
-    padding: 0 16px;
-    font-size: 14px;
+    padding: 0 14px;
+    font-size: 13.5px;
+    white-space: nowrap;
   }
   .cat-grid { grid-template-columns: repeat(2, 1fr); }
   .tool-page { padding: 24px 16px; }
