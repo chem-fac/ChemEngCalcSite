@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ファニングの式・管摩擦係数（圧力損失） | 化学工学計算支援ツール</title>
+  <meta name="description"
+    content="ファニングの式 ΔP = 4f(ρu²/2)(L/D) で配管の圧力損失を計算します。層流は f = 16/Re、乱流はコールブルック／プラントル・カルマン式を反復解で計算。">
+  <link rel="canonical" href="https://tools.chem-fac.com/tools/fluid/fanning/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="化学工学計算支援ツール">
+  <meta property="og:title" content="ファニングの式・管摩擦係数（圧力損失） | 化学工学計算支援ツール">
+  <meta property="og:description"
+    content="ファニングの式 ΔP = 4f(ρu²/2)(L/D) で配管の圧力損失を計算します。層流は f = 16/Re、乱流はコールブルック／プラントル・カルマン式を反復解で計算。">
+  <meta property="og:url" content="https://tools.chem-fac.com/tools/fluid/fanning/">
+  <meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@chem_fac">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/main.css">
+  <link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-7MQ7VEMWHY');
+  </script>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="inner">
+      <a href="../../../" class="logo">
+        <img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">
+        化学工学計算支援ツール
+      </a>
+      <nav class="site-nav">
+        <a href="../../../#updates">更新情報</a>
+        <a href="../../../faq/">よくある質問</a>
+        <a href="../../../support/">支援する</a>
+        <a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="tool-page tool-page-wide">
+
+    <nav class="breadcrumb">
+      <a href="../../../">ホーム</a>
+      <span class="sep">›</span>
+      <a href="../">流動</a>
+      <span class="sep">›</span>
+      <span class="current">ファニングの式・管摩擦係数</span>
+    </nav>
+
+    <!-- ===== Hero ===== -->
+    <section class="tool-hero tool-hero-simple">
+      <div class="tool-hero-content">
+        <span class="cat-tag">流動</span>
+        <h1>ファニングの式・管摩擦係数（圧力損失）</h1>
+        <p class="tool-subcopy">$\Delta P = 4f \cdot \dfrac{\rho u^{2}}{2} \cdot \dfrac{L}{D}$ で配管の圧力損失を計算します。</p>
+      </div>
+    </section>
+
+    <!-- ===== Calculator ===== -->
+    <section class="calc-card" id="calculator">
+      <div class="calc-grid">
+
+        <div class="calc-pane calc-input-pane">
+          <h2>入力</h2>
+
+          <div class="input-row">
+            <label>密度 <span class="sym">ρ</span></label>
+            <div class="input-group">
+              <input type="number" id="rho" step="any" placeholder="例：998">
+              <select id="rho_unit" aria-label="密度の単位">
+                <option value="kgm3">kg/m³</option>
+                <option value="gcm3">g/cm³</option>
+              </select>
+            </div>
+            <p class="hint">運転温度・圧力での流体密度を入力してください（水20℃なら約998 kg/m³）。</p>
+          </div>
+
+          <div class="input-row">
+            <label>平均流速 <span class="sym">u</span></label>
+            <div class="input-group">
+              <input type="number" id="u" step="any" placeholder="例：1.5">
+              <select id="u_unit" aria-label="流速の単位">
+                <option value="ms">m/s</option>
+                <option value="cms">cm/s</option>
+              </select>
+            </div>
+            <p class="hint">配管断面で平均した流速。流量から求めたい場合は<a href="../flow-conversion/">流量・流速・配管径換算</a>をご利用ください。</p>
+          </div>
+
+          <div class="input-row">
+            <label>管内径 <span class="sym">D</span></label>
+            <div class="input-group">
+              <input type="number" id="D" step="any" placeholder="例：50">
+              <select id="D_unit" aria-label="管内径の単位">
+                <option value="mm">mm</option>
+                <option value="cm">cm</option>
+                <option value="m">m</option>
+                <option value="inch">inch</option>
+              </select>
+            </div>
+            <p class="hint">配管の<strong>呼び径ではなく実内径</strong>を入力してください。</p>
+          </div>
+
+          <div class="input-row">
+            <label>配管長さ <span class="sym">L</span></label>
+            <div class="input-group">
+              <input type="number" id="L" step="any" placeholder="例：50">
+              <select id="L_unit" aria-label="配管長さの単位">
+                <option value="m">m</option>
+                <option value="km">km</option>
+              </select>
+            </div>
+            <p class="hint">直管の総延長を入力してください。エルボ・バルブの相当長を含めたい場合は別途加算してください。</p>
+          </div>
+
+          <div class="input-row">
+            <label>粘度 <span class="sym">μ</span></label>
+            <div class="input-group">
+              <input type="number" id="mu" step="any" placeholder="例：1.0">
+              <select id="mu_unit" aria-label="粘度の単位">
+                <option value="mPas">mPa·s</option>
+                <option value="cP">cP</option>
+                <option value="Pas">Pa·s</option>
+              </select>
+            </div>
+            <p class="hint">運転温度での粘度を入力してください（水20℃なら約1.0 mPa·s）。1 mPa·s = 1 cP。</p>
+          </div>
+
+          <div class="input-row">
+            <label>管内壁粗さ <span class="sym">ε</span>（任意）</label>
+            <div class="input-group">
+              <input type="text" id="eps" inputmode="decimal" placeholder="例：0.045">
+              <select id="eps_unit" aria-label="粗さの単位">
+                <option value="mm">mm</option>
+                <option value="um">μm</option>
+                <option value="m">m</option>
+              </select>
+            </div>
+            <div class="preset-row" style="margin-top:8px;">
+              <label for="eps_preset"
+                style="display:block;font-size:12px;font-weight:600;color:var(--text-sub);margin-bottom:5px;">代表的な粗さプリセット</label>
+              <select id="eps_preset"
+                style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:4px;background:#fff;font-family:inherit;font-size:13px;">
+                <option value="">（選択してください）</option>
+                <option value="plastic">樹脂管 PVC・PEなど：0.005 mm</option>
+                <option value="drawn">銅・真鍮・アルミ引抜管 新品：0.0015 mm</option>
+                <option value="sus">ステンレス配管・平滑仕上げ：0.003 mm</option>
+                <option value="sus_ep">電解研磨ステンレス：0.0005 mm</option>
+                <option value="steel">炭素鋼管・新品：0.045 mm</option>
+                <option value="galvan">亜鉛めっき鋼管：0.15 mm</option>
+                <option value="rusty">鋼管・腐食あり：0.5 mm</option>
+                <option value="cast_new">鋳鉄管・新品：0.26 mm</option>
+                <option value="concrete">コンクリート管・平均：0.36 mm</option>
+              </select>
+            </div>
+            <p class="hint">未入力ならステンレス配管・平滑仕上げ（ε = 0.003 mm）として計算します。鋼管・鋳鉄管など他の材質ではプリセットを選ぶか、値を入力してください。明示的に <code>0</code> を入力すると平滑管として計算します。</p>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn btn-primary" id="calc-btn">計算する</button>
+            <button class="btn btn-ghost" id="reset-btn">リセット</button>
+          </div>
+
+          <div id="error" class="error-msg" style="display:none;"></div>
+        </div>
+
+        <div class="calc-pane calc-result-pane">
+          <h2>計算結果</h2>
+          <div id="result-area">
+            <div class="placeholder">入力値を入れて「計算する」を押してください</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== Explanation sections ===== -->
+    <section class="explain-block">
+      <h2>ファニングの式</h2>
+      <p>円管内の定常な流れにおける、直管部分の摩擦による圧力損失 $\Delta P$ は、ファニング (Fanning) の式で次のように表されます。</p>
+      <div class="math-block">$$ \Delta P = 4f \cdot \dfrac{\rho u^{2}}{2} \cdot \dfrac{L}{D} $$</div>
+      <p>ここで、$f$ は<strong>管摩擦係数</strong>と呼ばれる無次元数で、流れの状態（層流・乱流）、配管内壁の粗さ、レイノルズ数 $Re$ によって決まります。</p>
+      <p>各記号の意味は次の通りです。</p>
+      <ul>
+        <li>$\Delta P$：圧力損失［Pa］</li>
+        <li>$f$：管摩擦係数［－］</li>
+        <li>$\rho$：流体密度［kg/m³］</li>
+        <li>$u$：平均流速［m/s］</li>
+        <li>$L$：配管長さ［m］</li>
+        <li>$D$：配管内径［m］</li>
+        <li>$Re = \rho u D / \mu$：レイノルズ数［－］</li>
+        <li>$\varepsilon$：配管内壁の凹凸の平均高さ（粗さ）［m］</li>
+      </ul>
+    </section>
+
+    <section class="explain-block">
+      <h2>ダルシー・ワイスバッハの式との関係</h2>
+      <p>同じ圧力損失を、別の摩擦係数 $\lambda$ を用いて次のように書くこともできます。これを<strong>ダルシー・ワイスバッハ (Darcy–Weisbach) の式</strong>と呼びます。</p>
+      <div class="math-block">$$ \Delta P = \lambda \cdot \dfrac{\rho u^{2}}{2} \cdot \dfrac{L}{D} $$</div>
+      <p>定義の異なる管摩擦係数 $f$（ファニング定義）と $\lambda$（ダルシー定義）の間には、次の関係があります。</p>
+      <div class="math-block">$$ \lambda = 4 f $$</div>
+      <p>つまり両者は本質的に同じ式で、係数の取り方が違うだけです。教科書や文献によって使い分けられているので、混同しないようにしてください。</p>
+    </section>
+
+    <section class="explain-block">
+      <h2>管摩擦係数の計算式</h2>
+      <h3>層流（$Re \leq 2{,}300$）</h3>
+      <p>層流では、配管内壁の粗さは流れに影響しません。摩擦係数は次の式で求まります。</p>
+      <div class="math-block">$$ f = \dfrac{16}{Re} $$</div>
+
+      <h3>乱流・平滑管</h3>
+      <p>平滑管の乱流では、広いレイノルズ数範囲で精度が高いプラントル・カルマンの式が知られています。</p>
+      <div class="math-block">$$ \dfrac{1}{\sqrt{4f}} = -2\, \log_{10}\!\left( \dfrac{2.51}{Re\sqrt{4f}} \right) $$
+      </div>
+
+      <h3>乱流・粗面管（コールブルックの式）</h3>
+      <p>鋼管などプラントで多く使われる粗面管の乱流では、コールブルックの式が標準的です。</p>
+      <div class="math-block">$$ \dfrac{1}{\sqrt{4f}} = -2\, \log_{10}\!\left( \dfrac{\varepsilon / D}{3.7} +
+        \dfrac{2.51}{Re\sqrt{4f}} \right) $$</div>
+    </section>
+
+    <section class="explain-block">
+      <h2>代表的な管内壁粗さ ε の目安</h2>
+      <table class="regime-table">
+        <thead>
+          <tr>
+            <th>配管</th>
+            <th>推奨代表値 <span class="sym">ε</span> [mm]</th>
+            <th>参考範囲 [mm]</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>樹脂管 PVC・PEなど</td>
+            <td><strong>0.005</strong></td>
+            <td>0.0015 〜 0.007</td>
+          </tr>
+          <tr>
+            <td>銅・真鍮・アルミ引抜管 新品</td>
+            <td><strong>0.0015</strong></td>
+            <td>0.001 〜 0.002</td>
+          </tr>
+          <tr>
+            <td>ステンレス配管・平滑仕上げ</td>
+            <td><strong>0.003</strong></td>
+            <td>0.0004 〜 0.006</td>
+          </tr>
+          <tr>
+            <td>電解研磨ステンレス</td>
+            <td><strong>0.0005</strong></td>
+            <td>0.0001 〜 0.0008</td>
+          </tr>
+          <tr>
+            <td>炭素鋼管・新品</td>
+            <td><strong>0.045</strong></td>
+            <td>0.045 〜 0.09</td>
+          </tr>
+          <tr>
+            <td>亜鉛めっき鋼管</td>
+            <td><strong>0.15</strong></td>
+            <td>0.15</td>
+          </tr>
+          <tr>
+            <td>鋼管・腐食あり</td>
+            <td><strong>0.5</strong></td>
+            <td>0.15 〜 4</td>
+          </tr>
+          <tr>
+            <td>鋳鉄管・新品</td>
+            <td><strong>0.26</strong></td>
+            <td>0.25 〜 0.8</td>
+          </tr>
+          <tr>
+            <td>コンクリート管・平均</td>
+            <td><strong>0.36</strong></td>
+            <td>0.3 〜 1.0</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="caution-text">粗さは経年劣化やスケール付着で大きく変動します。設計値はあくまで目安として扱い、重要案件ではメーカー情報や実測値を確認してください。</p>
+      <p class="caution-text">出典：<a href="https://www.engineeringtoolbox.com/surface-roughness-ventilation-ducts-d_209.html" target="_blank" rel="noopener">The Engineering ToolBox — Surfaces - Roughness &amp; Surface Coefficients</a> ／ <a href="https://docs.bentley.com/LiveContent/web/Bentley%20HAMMER%20SS6-v1/en/GUID-DFA7FCDD-F131-4209-9CA7-EEF8E6E883A7.html" target="_blank" rel="noopener">Bentley HAMMER — Darcy-Weisbach Roughness Heights e for Closed Conduits</a></p>
+    </section>
+
+    <!-- ===== Reference ===== -->
+    <section class="explain-block reference-block">
+      <h2>参考資料</h2>
+      <a href="https://amzn.to/4uAk39X" class="reference-card" data-asin="4627674120" target="_blank"
+        rel="noopener nofollow sponsored">
+        <div class="ref-image" aria-hidden="true"></div>
+        <div class="ref-body">
+          <span class="ref-tag">書籍</span>
+          <p class="ref-title">明解入門 流体力学（第2版）</p>
+          <p class="ref-meta">杉山 弘・松村 昌典・河合 秀樹・風間 俊治 著 / 森北出版</p>
+          <span class="ref-cta">Amazonで見る</span>
+        </div>
+      </a>
+      <p class="reference-note">※ 上記リンクはAmazonアソシエイトのリンクを含みます。</p>
+    </section>
+
+    <!-- ===== Related tools ===== -->
+    <section class="related">
+      <h3>関連ツール</h3>
+      <div class="related-grid">
+        <a href="../reynolds/" class="related-card">
+          <span class="small">流動</span>
+          レイノルズ数（配管）
+        </a>
+        <a href="../flow-conversion/" class="related-card">
+          <span class="small">流動</span>
+          流量・流速・配管径換算
+        </a>
+        <a href="../continuity/" class="related-card">
+          <span class="small">流動</span>
+          連続の式（配管断面変化）
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>サイトについて</h4>
+        <ul>
+          <li><a href="../../../about/">当サイトについて</a></li>
+          <li><a href="../../../privacy/">プライバシーポリシー</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>サポート</h4>
+        <ul>
+          <li><a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a></li>
+          <li><a href="../../../faq/">よくある質問</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>その他</h4>
+        <ul>
+          <li><a href="../../../terms/">利用規約</a></li>
+          <li><a href="../../../disclaimer/">免責事項</a></li>
+        </ul>
+      </div>
+      <div class="footer-brand">
+        <a href="../../../" class="logo">
+          <img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">
+          化学工学計算支援ツール
+        </a>
+        <div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../../assets/js/fanning.js"></script>
+  <script src="../../../assets/js/share.js"></script>
+  <script src="../../../assets/js/references.js"></script>
+</body>
+
+</html>

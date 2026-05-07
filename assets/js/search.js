@@ -19,6 +19,12 @@
       keywords: ["連続の式", "continuity", "質量保存", "断面変化", "レジューサ", "絞り", "流速変化", "非圧縮", "Au"]
     },
     {
+      title: "ファニングの式・管摩擦係数（圧力損失）",
+      url: "tools/fluid/fanning/",
+      category: "流動",
+      keywords: ["ファニング", "Fanning", "管摩擦係数", "摩擦係数", "圧力損失", "ダルシー", "Darcy", "Weisbach", "コールブルック", "Colebrook", "プラントル", "カルマン", "ブラジウス", "Blasius", "ニクラゼ", "粗さ", "粗面管", "平滑管", "ヘッド", "動圧", "圧損"]
+    },
+    {
       title: "流動（カテゴリ）",
       url: "tools/fluid/",
       category: "カテゴリ",
@@ -35,6 +41,12 @@
       url: "tools/mixing/",
       category: "カテゴリ",
       keywords: ["撹拌", "攪拌", "混合", "撹拌槽", "翼", "動力", "スケールアップ", "mixing", "agitation"]
+    },
+    {
+      title: "蒸留(カテゴリ)",
+      url: "tools/distillation/",
+      category: "カテゴリ",
+      keywords: ["蒸留", "気液平衡", "還流比", "段数", "リボイラ", "コンデンサ", "distillation", "VLE", "McCabe", "Thiele", "ラウール", "アントワン"]
     }
   ];
 
