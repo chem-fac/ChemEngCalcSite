@@ -1736,6 +1736,7 @@ details.formula .body {
 /* ===== Responsive ===== */
 @media (max-width: 1080px) {
   .cat-grid { grid-template-columns: repeat(4, 1fr); }
+  .cat-grid-launch { grid-template-columns: repeat(4, minmax(0, 200px)); }
   .info-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
   .footer-brand { align-items: flex-start; }
@@ -1781,6 +1782,7 @@ details.formula .body {
     white-space: nowrap;
   }
   .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  .cat-grid-launch { grid-template-columns: repeat(2, 1fr); }
   .tool-page { padding: 24px 16px; }
   .tool-hero { padding: 24px 0 20px; margin-bottom: 24px; }
   .tool-hero h1 { font-size: 22px; }
