@@ -47,6 +47,12 @@
       url: "tools/distillation/",
       category: "カテゴリ",
       keywords: ["蒸留", "気液平衡", "還流比", "段数", "リボイラ", "コンデンサ", "distillation", "VLE", "McCabe", "Thiele", "ラウール", "アントワン"]
+    },
+    {
+      title: "抽出（カテゴリ）",
+      url: "tools/extraction/",
+      category: "カテゴリ",
+      keywords: ["抽出", "液液抽出", "溶媒抽出", "分配係数", "抽出段数", "物質収支", "三角線図", "向流抽出", "単抽出", "多段抽出", "extraction", "solvent", "LLE", "partition"]
     }
   ];
 
