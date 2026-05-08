@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-07T13:50:46.763246+00:00",
+  "generated_at": "2026-05-08T02:29:37.095291+00:00",
   "marketplace": "www.amazon.co.jp",
   "items": {
     "4254250339": {
@@ -13,8 +13,10 @@
     },
     "4627674120": {
       "asin": "4627674120",
-      "title": "明解入門 流体力学（第2版）",
-      "image_url": "",
+      "title": "明解入門 流体力学(第2版)",
+      "image_url": "https://m.media-amazon.com/images/I/41P+eUgTg+L._SL500_.jpg",
+      "image_width": 352,
+      "image_height": 500,
       "affiliate_url": "https://amzn.to/4uAk39X",
       "fallback_meta": "杉山 弘・松村 昌典・河合 秀樹・風間 俊治 著 / 森北出版"
     }
