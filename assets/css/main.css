@@ -352,7 +352,7 @@ button { font-family: inherit; cursor: pointer; }
   object-fit: contain;
   display: block;
 }
-.cat-card .icon img[src*="heat_transfer"] { transform: scale(1.2); }
+.cat-card .icon img[src*="heat_transfer"] { transform: scale(1); }
 .cat-card .name {
   font-weight: 700;
   font-size: 17px;
