@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -41,7 +41,7 @@
       化学工学計算支援ツール
     </a>
     <nav class="site-nav">
-      <a href="../../#updates">更新情報</a>
+      <a href="../../updates/">更新情報</a>
       <a href="../../faq/">よくある質問</a>
       <a href="../../support/">支援する</a>
       <a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a>
@@ -66,14 +66,114 @@
     </div>
   </section>
 
-  <!-- ===== Empty state ===== -->
+  <!-- ===== In-category search ===== -->
+  <section class="cat-search-section">
+    <div class="search-wrap">
+      <form class="search" id="catSearchForm" onsubmit="event.preventDefault();">
+        <input id="catSearchInput" type="text" autocomplete="off" placeholder="撹拌混合カテゴリ内で検索（例：動力、混合時間）">
+      </form>
+    </div>
+    <p class="cat-search-empty" id="catSearchEmpty" hidden>該当するツールが見つかりませんでした。</p>
+  </section>
+
+  <!-- ===== Tools list ===== -->
   <section class="tool-list-section">
-    <div class="cat-empty">
-      <div class="cat-empty-label">準備中</div>
-      <p class="cat-empty-text">このカテゴリのツールは現在準備中です。公開され次第こちらに掲載します。</p>
-      <a href="../../" class="cat-empty-back">‹ トップページに戻る</a>
+    <div class="tool-list" id="toolList">
+
+      <a href="reynolds/" class="tool-list-card"
+         data-keywords="撹拌レイノルズ数 Reynolds Re 層流 遷移流 乱流 翼径 回転数 撹拌槽 流れの状態">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">撹拌混合</span>
+          <h3 class="tool-list-title">撹拌レイノルズ数</h3>
+          <p class="tool-list-desc">Re = ρnd²/μ から、層流／遷移流／乱流の判定を行います。撹拌の基本指標。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="kamei-hiraoka/" class="tool-list-card"
+         data-keywords="亀井 平岡 Kamei Hiraoka Np0 動力数 所要動力 パドル 傾斜パドル タービン プロペラ アンカー ヘリカルリボン 邪魔板なし バッフル無し">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">撹拌混合</span>
+          <h3 class="tool-list-title">亀井・平岡の式（バッフル無し撹拌所要動力）</h3>
+          <p class="tool-list-desc">バッフル無し撹拌槽の動力数 Np0 と所要動力を、翼種ごとの亀井・平岡の相関式で計算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="baffled-power/" class="tool-list-card"
+         data-keywords="バッフルあり撹拌所要動力 邪魔板 baffled power Np Npmax Np0 動力数 バッフル幅 バッフル枚数">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">撹拌混合</span>
+          <h3 class="tool-list-title">バッフルあり撹拌所要動力</h3>
+          <p class="tool-list-desc">邪魔板幅・枚数・液深さからバッフル補正後の動力数 Np を求め、撹拌所要動力を計算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="power/" class="tool-list-card"
+         data-keywords="撹拌所要動力 動力数 トルク 変換 所要動力 power Np torque kW HP モーター選定">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">撹拌混合</span>
+          <h3 class="tool-list-title">撹拌所要動力／動力数／トルク変換</h3>
+          <p class="tool-list-desc">P = Np·ρ·n³·d⁵ と P = 2πnT で、撹拌所要動力・動力数・トルクを相互変換します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="flow/" class="tool-list-card"
+         data-keywords="撹拌流量 吐出流量 循環流量 Np 動力数 Nqd Nqc 同伴流量 循環時間">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">撹拌混合</span>
+          <h3 class="tool-list-title">吐出流量・循環流量</h3>
+          <p class="tool-list-desc">動力数 Np と翼寸法から吐出流量数 Nqd を推算し、吐出流量 qd・循環流量 qc を計算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="time/" class="tool-list-card"
+         data-keywords="混合時間 mixing time θM Np Nqd バッフル 液深さ">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">撹拌混合</span>
+          <h3 class="tool-list-title">混合時間</h3>
+          <p class="tool-list-desc">乱流域・乱流域（液深さ加味）・層流域の3パターンに対応した混合時間 θM の計算ツール。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="vortex/" class="tool-list-card"
+         data-keywords="液面変化 渦 vortex バッフル なし 中心 低下 槽壁 上昇 フルード Fr">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">撹拌混合</span>
+          <h3 class="tool-list-title">撹拌液面変化（バッフルなし槽の渦）</h3>
+          <p class="tool-list-desc">バッフルなし槽の中心の液面低下 ΔH₁ と槽壁の上昇 ΔH₂ を、フルード数を使って推算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
     </div>
   </section>
+
+  <script>
+  (function () {
+    const input = document.getElementById('catSearchInput');
+    const list = document.getElementById('toolList');
+    const empty = document.getElementById('catSearchEmpty');
+    if (!input || !list) return;
+    const cards = Array.from(list.querySelectorAll('.tool-list-card'));
+    function filter() {
+      const q = input.value.trim().toLowerCase();
+      let visible = 0;
+      cards.forEach(c => {
+        const hay = (c.textContent + ' ' + (c.dataset.keywords || '')).toLowerCase();
+        const show = !q || hay.includes(q);
+        c.hidden = !show;
+        if (show) visible++;
+      });
+      empty.hidden = !(q && visible === 0);
+    }
+    input.addEventListener('input', filter);
+  })();
+  </script>
 
 </main>
 

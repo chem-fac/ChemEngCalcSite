@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const TOOLS = [
     {
       title: "レイノルズ数（配管）",
@@ -31,16 +31,70 @@
       keywords: ["流動", "流体", "配管", "圧力損失", "fluid"]
     },
     {
+      title: "撹拌混合（カテゴリ）",
+      url: "tools/mixing/",
+      category: "カテゴリ",
+      keywords: ["撹拌", "攪拌", "混合", "撹拌槽", "翼", "動力", "スケールアップ", "mixing", "agitation"]
+    },
+    {
       title: "伝熱（カテゴリ）",
       url: "tools/heat-transfer/",
       category: "カテゴリ",
       keywords: ["伝熱", "熱交換器", "加熱", "冷却", "熱伝達", "熱通過", "heat", "transfer"]
     },
     {
-      title: "撹拌混合（カテゴリ）",
-      url: "tools/mixing/",
-      category: "カテゴリ",
-      keywords: ["撹拌", "攪拌", "混合", "撹拌槽", "翼", "動力", "スケールアップ", "mixing", "agitation"]
+      title: "撹拌レイノルズ数",
+      url: "tools/mixing/reynolds/",
+      category: "撹拌混合",
+      keywords: ["撹拌レイノルズ数", "Reynolds", "Re", "層流", "遷移流", "乱流", "撹拌槽", "翼径", "回転数", "agitation", "impeller"]
+    },
+    {
+      title: "撹拌所要動力／動力数／トルク変換",
+      url: "tools/mixing/power/",
+      category: "撹拌混合",
+      keywords: ["撹拌所要動力", "所要動力", "動力数", "Np", "power", "トルク", "torque", "変換", "kW", "HP", "馬力", "モーター", "選定"]
+    },
+    {
+      title: "バッフルあり撹拌所要動力",
+      url: "tools/mixing/baffled-power/",
+      category: "撹拌混合",
+      keywords: ["バッフルあり", "邪魔板", "撹拌所要動力", "動力数", "Np", "Npmax", "Np0", "power", "バッフル幅", "バッフル枚数"]
+    },
+    {
+      title: "吐出流量・循環流量",
+      url: "tools/mixing/flow/",
+      category: "撹拌混合",
+      keywords: ["撹拌流量", "吐出流量", "循環流量", "動力数", "Np", "Nqd", "Nqc", "同伴流量", "循環時間", "flow", "discharge"]
+    },
+    {
+      title: "混合時間",
+      url: "tools/mixing/time/",
+      category: "撹拌混合",
+      keywords: ["混合時間", "mixing time", "θM", "Np", "Nqd", "バッフル", "邪魔板", "液深さ", "層流", "乱流"]
+    },
+    {
+      title: "撹拌液面変化(バッフルなし槽の渦)",
+      url: "tools/mixing/vortex/",
+      category: "撹拌混合",
+      keywords: ["液面変化", "渦", "vortex", "バッフルなし", "邪魔板なし", "中心", "低下", "槽壁", "上昇", "フルード", "Fr"]
+    },
+    {
+      title: "亀井・平岡の式(バッフル無し撹拌所要動力)",
+      url: "tools/mixing/kamei-hiraoka/",
+      category: "撹拌混合",
+      keywords: ["亀井", "平岡", "Kamei", "Hiraoka", "Np0", "Np", "動力数", "所要動力", "パドル翼", "傾斜パドル", "タービン", "プロペラ", "アンカー", "ヘリカルリボン", "大型翼", "邪魔板なし", "バッフル無し"]
+    },
+    {
+      title: "アントワン式（蒸気圧・沸点）",
+      url: "tools/distillation/antoine/",
+      category: "蒸留",
+      keywords: ["アントワン", "Antoine", "蒸気圧", "沸点", "純物質", "VLE", "log P", "水", "エタノール", "メタノール", "ベンゼン", "トルエン", "アセトン", "vapor pressure"]
+    },
+    {
+      title: "アレニウスの式（反応速度定数・活性化エネルギー）",
+      url: "tools/reaction/arrhenius/",
+      category: "反応",
+      keywords: ["アレニウス", "Arrhenius", "活性化エネルギー", "Ea", "頻度因子", "前指数因子", "反応速度定数", "速度定数", "k", "アレニウスプロット", "kinetics"]
     },
     {
       title: "蒸留(カテゴリ)",
@@ -53,6 +107,54 @@
       url: "tools/extraction/",
       category: "カテゴリ",
       keywords: ["抽出", "液液抽出", "溶媒抽出", "分配係数", "抽出段数", "物質収支", "三角線図", "向流抽出", "単抽出", "多段抽出", "extraction", "solvent", "LLE", "partition"]
+    },
+    {
+      title: "反応（カテゴリ）",
+      url: "tools/reaction/",
+      category: "カテゴリ",
+      keywords: ["反応", "化学反応", "反応速度", "反応器", "反応工学", "CSTR", "PFR", "回分", "batch", "kinetics", "reactor"]
+    },
+    {
+      title: "固液分離（カテゴリ）",
+      url: "tools/separation/",
+      category: "カテゴリ",
+      keywords: ["固液分離", "ろ過", "濾過", "沈降", "遠心分離", "分離", "ケーク", "filtration", "settling", "centrifuge", "separation"]
+    },
+    {
+      title: "集塵（カテゴリ）",
+      url: "tools/dust-collection/",
+      category: "カテゴリ",
+      keywords: ["集塵", "粉塵", "ダスト", "サイクロン", "バグフィルタ", "電気集塵", "粒子", "dust", "cyclone", "bag filter", "particle"]
+    },
+    {
+      title: "吸収（カテゴリ）",
+      url: "tools/absorption/",
+      category: "カテゴリ",
+      keywords: ["吸収", "ガス吸収", "吸収塔", "物質移動", "ヘンリー", "Henry", "充填塔", "packed tower", "KGa", "HTU", "NTU", "absorption"]
+    },
+    {
+      title: "吸着（カテゴリ）",
+      url: "tools/adsorption/",
+      category: "カテゴリ",
+      keywords: ["吸着", "活性炭", "吸着塔", "破過", "等温線", "ラングミュア", "フロイントリッヒ", "adsorption", "breakthrough", "Langmuir", "Freundlich"]
+    },
+    {
+      title: "晶析（カテゴリ）",
+      url: "tools/crystallization/",
+      category: "カテゴリ",
+      keywords: ["晶析", "結晶化", "溶解度", "過飽和", "核発生", "粒径", "結晶", "crystallization", "crystal", "supersaturation"]
+    },
+    {
+      title: "調湿・乾燥（カテゴリ）",
+      url: "tools/moisture/",
+      category: "カテゴリ",
+      keywords: ["調湿", "乾燥", "湿度", "乾燥速度", "絶対湿度", "相対湿度", "湿り空気", "psychrometric", "drying", "humidity", "moisture"]
+    },
+    {
+      title: "計装・制御（カテゴリ）",
+      url: "tools/instrumentation-control/",
+      category: "カテゴリ",
+      keywords: ["計装", "制御", "プロセス制御", "PID", "センサ", "トランスミッタ", "調節弁", "制御弁", "流量計", "温度計", "圧力計", "instrumentation", "control", "process control"]
     }
   ];
 

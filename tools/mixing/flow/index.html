@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>吐出流量・循環流量 | 化学工学計算支援ツール</title>
+<meta name="description" content="動力数 Np と翼寸法から吐出流量数 Nqd を推算し、吐出流量 qd と循環流量 qc を計算します。">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/mixing/flow/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="吐出流量・循環流量 | 化学工学計算支援ツール">
+<meta property="og:description" content="動力数 Np と翼寸法から吐出流量数 Nqd を推算し、吐出流量 qd と循環流量 qc を計算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/mixing/flow/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">撹拌混合</a><span class="sep">›</span><span class="current">吐出流量・循環流量</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">撹拌混合</span>
+      <h1>吐出流量・循環流量</h1>
+      <p class="tool-subcopy">動力数 $N_p$ と翼寸法から吐出流量数 $N_{qd}$ を推算し、吐出流量 $q_d$ と循環流量 $q_c$ を計算します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card" id="calculator">
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+
+        <div class="input-row">
+          <label>動力数 <span class="sym">N<sub>p</sub></span></label>
+          <div class="input-group">
+            <input type="number" id="Np" step="any" placeholder="例：1.5">
+          </div>
+          <p class="hint">翼形状・撹拌レイノルズ数・バッフル条件に応じた動力数を入力してください。動力数は<a href="../kamei-hiraoka/">亀井・平岡の式（バッフル無し）</a>または<a href="../baffled-power/">バッフルあり撹拌所要動力</a>で計算できます。</p>
+        </div>
+
+        <div class="input-row">
+          <label>羽根枚数 <span class="sym">n<sub>p</sub></span></label>
+          <div class="input-group">
+            <input type="number" id="np" step="1" placeholder="例：4">
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label>回転数 <span class="sym">n</span></label>
+          <div class="input-group">
+            <input type="number" id="n" step="any" placeholder="例：100">
+            <select id="n_unit"><option value="rpm">rpm</option><option value="rps">1/s</option></select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label>翼幅 <span class="sym">b</span></label>
+          <div class="input-group">
+            <input type="number" id="b" step="any" placeholder="例：60">
+            <select id="b_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label>翼径 <span class="sym">d</span></label>
+          <div class="input-group">
+            <input type="number" id="d" step="any" placeholder="例：300">
+            <select id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label>槽径 <span class="sym">D</span></label>
+          <div class="input-group">
+            <input type="number" id="D" step="any" placeholder="例：900">
+            <select id="D_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label>液深さ <span class="sym">H</span>（任意・循環時間計算用）</label>
+          <div class="input-group">
+            <input type="number" id="H" step="any" placeholder="例：900">
+            <select id="H_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+          </div>
+          <p class="hint">入力すると、液量 $V$ と循環時間 $t_c = V/q_c$ も計算します。</p>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>乱流条件では、動力数 $N_p$ から吐出流量数 $N_{qd}$ を概算できます。吐出流量数が分かれば、吐出流量 $q_d$ と循環流量 $q_c$ はそれぞれ $n d^3$ を掛けて求めます。</p>
+    <div class="math-block">$$ N_{qd}=0.32\left(n_p^{0.7}\dfrac{b}{d}\right)^{0.25}\left(\dfrac{D}{d}\right)^{0.34}N_p^{0.5} $$</div>
+    <div class="math-block">$$ q_d = N_{qd} n d^{3}, \qquad N_{qd} = \dfrac{q_d}{n d^{3}} $$</div>
+    <p>循環流量数 $N_{qc}$ は、吐出流量数に槽内での同伴流量を加えた形で整理します。</p>
+    <div class="math-block">$$ N_{qc}=N_{qd}\left[1+0.16\left\{\left(\dfrac{D}{d}\right)^2-1\right\}\right] $$</div>
+    <div class="math-block">$$ q_c = N_{qc} n d^{3}, \qquad q_c = \dfrac{V}{t_c} $$</div>
+    <ul class="symbol-list">
+      <li>$q_d$：吐出流量［m³/s］</li>
+      <li>$q_c$：循環流量［m³/s］</li>
+      <li>$t_c$：循環時間［s］</li>
+      <li>$V$：槽内液量［m³］</li>
+      <li>$N_p$：動力数［-］</li>
+      <li>$N_{qd}$：吐出流量数［-］</li>
+      <li>$N_{qc}$：循環流量数［-］</li>
+      <li>$n_p$：羽根枚数［-］</li>
+      <li>$n$：回転数［1/s］</li>
+      <li>$b$：翼幅［m］</li>
+      <li>$d$：翼径［m］</li>
+      <li>$D$：槽径［m］</li>
+      <li>$H$：液深さ［m］</li>
+    </ul>
+    <p class="caution-text">上式は乱流条件下の概算式です。層流・遷移域や特殊翼では、翼ごとの実測値や別の相関式を参照してください。</p>
+  </section>
+
+  <section class="explain-block">
+    <h2>動力数を計算する</h2>
+    <p>動力数 $N_p$ が分からない場合は、バッフルの有無に応じて次のページで計算してください。</p>
+    <div class="related-grid">
+      <a href="../kamei-hiraoka/" class="related-card"><span class="small">バッフル無し</span>亀井・平岡の式（バッフル無し撹拌所要動力）</a>
+      <a href="../baffled-power/" class="related-card"><span class="small">バッフルあり</span>バッフルあり撹拌所要動力</a>
+    </div>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/4ts1HHl" class="reference-card" data-asin="4883616568" target="_blank" rel="noopener nofollow sponsored" style="margin-bottom:12px;">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">最新ミキシング技術の基礎と応用（化学工学の進歩42）</p><p class="ref-meta">化学工学会 著 / 三恵社</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../reynolds/" class="related-card"><span class="small">撹拌混合</span>撹拌レイノルズ数</a>
+      <a href="../power/" class="related-card"><span class="small">撹拌混合</span>撹拌所要動力／動力数／トルク変換</a>
+      <a href="../baffled-power/" class="related-card"><span class="small">撹拌混合</span>バッフルあり撹拌所要動力</a>
+      <a href="../time/" class="related-card"><span class="small">撹拌混合</span>混合時間</a>
+      <a href="../vortex/" class="related-card"><span class="small">撹拌混合</span>撹拌液面変化（バッフルなし）</a>
+      <a href="../kamei-hiraoka/" class="related-card"><span class="small">撹拌混合</span>亀井・平岡の式（バッフル無し撹拌所要動力）</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+
+<script src="../../../assets/js/mix-flow.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

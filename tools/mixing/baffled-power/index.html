@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>バッフルあり撹拌所要動力 | 化学工学計算支援ツール</title>
+<meta name="description" content="邪魔板（バッフル）あり撹拌槽の動力数 Np と撹拌所要動力を、バッフル幅・枚数・液深さ・Np0・Npmax から推算します。">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/mixing/baffled-power/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="バッフルあり撹拌所要動力 | 化学工学計算支援ツール">
+<meta property="og:description" content="バッフル条件を考慮して撹拌槽の動力数 Np と所要動力を計算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/mixing/baffled-power/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">撹拌混合</a><span class="sep">›</span><span class="current">バッフルあり撹拌所要動力</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">撹拌混合</span>
+      <h1>バッフルあり撹拌所要動力</h1>
+      <p class="tool-subcopy">邪魔板幅・枚数・液深さからバッフル補正後の動力数 $N_p$ を求め、撹拌所要動力 $P$ に換算します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card" id="calculator">
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+
+        <div class="input-row">
+          <label>翼種・推算式</label>
+          <select id="model" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;background:#fff;font-family:inherit;font-size:14px;">
+            <option value="">（選択してください）</option>
+            <option value="paddle">パドル翼</option>
+            <option value="pitched">傾斜パドル翼／プロペラ翼</option>
+            <option value="large">大型翼（マックスブレンド・フルゾーン・MR205）</option>
+            <option value="hr320">スーパーミックスHR320</option>
+            <option value="hr320s">スーパーミックスHR320S</option>
+          </select>
+          <p class="hint" id="model-note">翼種を選ぶと一部の代表値を入力します。Np0 は亀井・平岡の式などで求めたバッフル無し動力数を入力してください。</p>
+        </div>
+
+        <div class="input-row">
+          <label>バッフル無し動力数 <span class="sym">N<sub>p0</sub></span></label>
+          <div class="input-group"><input type="number" id="Np0" step="any" placeholder="例：0.75"></div>
+          <p class="hint">前段の「亀井・平岡の式（バッフル無し撹拌所要動力）」で求めた値を使えます。</p>
+        </div>
+        <div class="input-row">
+          <label>完全邪魔板条件の動力数 <span class="sym">N<sub>Pmax</sub></span>（任意）</label>
+          <div class="input-group"><input type="number" id="Npmax" step="any" placeholder="自動計算または手入力"></div>
+          <p class="hint">空欄ならパドル翼・傾斜パドル翼は形状から自動計算します。大型翼は手入力してください。</p>
+        </div>
+
+        <div class="input-row">
+          <label>翼径 <span class="sym">d</span></label>
+          <div class="input-group"><input type="number" id="d" step="any" placeholder="例：300"><select id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div>
+        </div>
+        <div class="input-row">
+          <label>翼幅 <span class="sym">b</span></label>
+          <div class="input-group"><input type="number" id="b" step="any" placeholder="例：60"><select id="b_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div>
+        </div>
+        <div class="input-row">
+          <label>槽径 <span class="sym">D</span></label>
+          <div class="input-group"><input type="number" id="D" step="any" placeholder="例：900"><select id="D_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div>
+        </div>
+        <div class="input-row">
+          <label>液深さ <span class="sym">H</span></label>
+          <div class="input-group"><input type="number" id="H" step="any" placeholder="例：900"><select id="H_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div>
+        </div>
+        <div class="input-row">
+          <label>バッフル幅 <span class="sym">B</span></label>
+          <div class="input-group"><input type="number" id="B" step="any" placeholder="例：90"><select id="B_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div>
+        </div>
+        <div class="input-row">
+          <label>バッフル枚数 <span class="sym">n<sub>B</sub></span></label>
+          <div class="input-group"><input type="number" id="nB" step="1" placeholder="例：4"></div>
+        </div>
+        <div class="input-row">
+          <label>バッフル長さ <span class="sym">h<sub>B</sub></span>（任意）</label>
+          <div class="input-group"><input type="number" id="hB" step="any" placeholder="空欄なら H"><select id="hB_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div>
+        </div>
+        <div class="input-row">
+          <label>羽根枚数 <span class="sym">n<sub>p</sub></span></label>
+          <div class="input-group"><input type="number" id="np" step="1" placeholder="例：4"></div>
+        </div>
+        <div class="input-row">
+          <label>羽根取り付け角度 <span class="sym">θ</span></label>
+          <div class="input-group"><input type="number" id="theta" step="any" placeholder="例：45"><span class="unit-static">deg</span></div>
+        </div>
+        <div class="input-row">
+          <label>密度 <span class="sym">ρ</span></label>
+          <div class="input-group"><input type="number" id="rho" step="any" placeholder="例：998"><select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select></div>
+        </div>
+        <div class="input-row">
+          <label>回転数 <span class="sym">n</span></label>
+          <div class="input-group"><input type="number" id="n" step="any" placeholder="例：300"><select id="n_unit"><option value="rpm">rpm</option><option value="rps">1/s</option></select></div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>バッフルあり条件では、完全邪魔板条件の動力数 $N_{Pmax}$ とバッフル補正変数 $x$ から、バッフル付きの動力数 $N_p$ を求めます。補正式の計算値がバッフル無し動力数 $N_{p0}$ を下回る場合は $N_{p0}$ を採用します。</p>
+    <div class="math-block">$$ N_p = \left(1+x^{-3}\right)^{-1/3}N_{Pmax} $$</div>
+    <div class="math-block">$$ P = N_p\rho n^3d^5 $$</div>
+    <p>パドル翼では $x=4.5(B/D)n_B^{0.8}(H/D)/N_{Pmax}^{0.2}+N_{p0}/N_{Pmax}$ を基本にします。傾斜パドル翼、プロペラ翼、大型翼、HR320系は翼種に応じて $x$ の形を切り替えます。</p>
+    <ul class="symbol-list">
+      <li>$P$：撹拌所要動力［W］</li>
+      <li>$N_p$：バッフルあり動力数［-］</li>
+      <li>$N_{p0}$：バッフル無し動力数［-］</li>
+      <li>$N_{Pmax}$：完全邪魔板条件の動力数［-］</li>
+      <li>$x$：バッフル補正変数［-］</li>
+      <li>$B$：バッフル幅［m］</li>
+      <li>$n_B$：バッフル枚数［-］</li>
+      <li>$h_B$：バッフル長さ［m］</li>
+      <li>$D$：槽径［m］</li>
+      <li>$H$：液深さ［m］</li>
+      <li>$d$：翼径［m］</li>
+      <li>$b$：翼幅［m］</li>
+      <li>$n_p$：羽根枚数［-］</li>
+      <li>$\theta$：羽根取り付け角度［deg］</li>
+      <li>$\rho$：密度［kg/m³］</li>
+      <li>$n$：回転数［1/s］</li>
+    </ul>
+    <p class="caution-text">大型翼は完全邪魔板条件の動力数を手入力してください。メーカー翼は翼形状と適用範囲の確認が必要です。</p>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/4ts1HHl" class="reference-card" data-asin="4883616568" target="_blank" rel="noopener nofollow sponsored" style="margin-bottom:12px;">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">最新ミキシング技術の基礎と応用（化学工学の進歩42）</p><p class="ref-meta">化学工学会 著 / 三恵社</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+    <ul class="paper-link-list">
+      <li><a href="https://www.jstage.jst.go.jp/article/kakoronbunshu1975/23/6/23_6_969/_article/-char/ja/" target="_blank" rel="noopener">傾斜パドル翼の撹拌所要動力の相関</a><br><span class="paper-meta">化学工学論文集, 23(6), 969-975, 1997</span></li>
+      <li><a href="https://doi.org/10.1155/2012/106496" target="_blank" rel="noopener">Correlation of Power Consumption for Several Kinds of Mixing Impellers</a><br><span class="paper-meta">International Journal of Chemical Engineering, 2012, Article ID 106496</span></li>
+      <li><a href="https://www.jstage.jst.go.jp/article/kakoronbunshu/42/6/42_16wh021/_article/-char/ja/" target="_blank" rel="noopener">大型翼の撹拌所要動力に対する液高さの影響</a><br><span class="paper-meta">化学工学論文集, 42(6), 187-191, 2016</span></li>
+      <li><a href="https://www.jstage.jst.go.jp/article/kakoronbunshu/49/3/49_22wh032/_article/-char/ja/" target="_blank" rel="noopener">新型軸流撹拌翼HR320とHR320Sの性能評価</a><br><span class="paper-meta">化学工学論文集, 49(3), 56-61, 2023</span></li>
+    </ul>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../reynolds/" class="related-card"><span class="small">撹拌混合</span>撹拌レイノルズ数</a>
+      <a href="../power/" class="related-card"><span class="small">撹拌混合</span>撹拌所要動力／動力数／トルク変換</a>
+      <a href="../kamei-hiraoka/" class="related-card"><span class="small">撹拌混合</span>亀井・平岡の式（バッフル無し撹拌所要動力）</a>
+      <a href="../flow/" class="related-card"><span class="small">撹拌混合</span>吐出流量・循環流量</a>
+      <a href="../time/" class="related-card"><span class="small">撹拌混合</span>混合時間</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+
+<script src="../../../assets/js/mix-baffled-power.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

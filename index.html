@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -41,7 +41,7 @@
       化学工学計算支援ツール
     </a>
     <nav class="site-nav">
-      <a href="#updates" onclick="event.preventDefault();document.getElementById('updates').scrollIntoView({behavior:'smooth',block:'start'});">更新情報</a>
+      <a href="updates/">更新情報</a>
       <a href="faq/">よくある質問</a>
       <a href="support/">支援する</a>
       <a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a>
@@ -326,6 +326,18 @@
       </div>
       <div class="name">流動</div>
     </a>
+    <a href="tools/mixing/" class="cat-card">
+      <div class="icon">
+        <img src="assets/img/mixing.png" alt="" loading="lazy">
+      </div>
+      <div class="name">撹拌混合</div>
+    </a>
+    <a href="tools/reaction/" class="cat-card">
+      <div class="icon">
+        <img src="assets/img/reaction.png" alt="" loading="lazy">
+      </div>
+      <div class="name">反応</div>
+    </a>
     <div class="cat-card cat-card-pending" aria-label="伝熱カテゴリは準備中です">
       <div class="icon">
         <img src="assets/img/heat_transfer.png" alt="" loading="lazy">
@@ -333,25 +345,66 @@
       <div class="name">伝熱</div>
       <div class="cat-card-status">準備中</div>
     </div>
-    <div class="cat-card cat-card-pending" aria-label="撹拌混合カテゴリは準備中です">
-      <div class="icon">
-        <img src="assets/img/mixing.png" alt="" loading="lazy">
-      </div>
-      <div class="name">撹拌混合</div>
-      <div class="cat-card-status">準備中</div>
-    </div>
-    <div class="cat-card cat-card-pending" aria-label="蒸留カテゴリは準備中です">
+    <a href="tools/distillation/" class="cat-card">
       <div class="icon">
         <img src="assets/img/distillation.png" alt="" loading="lazy">
       </div>
       <div class="name">蒸留</div>
-      <div class="cat-card-status">準備中</div>
-    </div>
+    </a>
     <div class="cat-card cat-card-pending" aria-label="抽出カテゴリは準備中です">
       <div class="icon">
         <img src="assets/img/extraction.png" alt="" loading="lazy">
       </div>
       <div class="name">抽出</div>
+      <div class="cat-card-status">準備中</div>
+    </div>
+    <div class="cat-card cat-card-pending" aria-label="固液分離カテゴリは準備中です">
+      <div class="icon">
+        <img src="assets/img/separation.png" alt="" loading="lazy">
+      </div>
+      <div class="name">固液分離</div>
+      <div class="cat-card-status">準備中</div>
+    </div>
+    <div class="cat-card cat-card-pending" aria-label="集塵カテゴリは準備中です">
+      <div class="icon">
+        <img src="assets/img/dust_collection.png" alt="" loading="lazy">
+      </div>
+      <div class="name">集塵</div>
+      <div class="cat-card-status">準備中</div>
+    </div>
+    <div class="cat-card cat-card-pending" aria-label="吸収カテゴリは準備中です">
+      <div class="icon">
+        <img src="assets/img/absorption.png" alt="" loading="lazy">
+      </div>
+      <div class="name">吸収</div>
+      <div class="cat-card-status">準備中</div>
+    </div>
+    <div class="cat-card cat-card-pending" aria-label="吸着カテゴリは準備中です">
+      <div class="icon">
+        <img src="assets/img/adsorption.png" alt="" loading="lazy">
+      </div>
+      <div class="name">吸着</div>
+      <div class="cat-card-status">準備中</div>
+    </div>
+    <div class="cat-card cat-card-pending" aria-label="晶析カテゴリは準備中です">
+      <div class="icon">
+        <img src="assets/img/crystallization.png" alt="" loading="lazy">
+      </div>
+      <div class="name">晶析</div>
+      <div class="cat-card-status">準備中</div>
+    </div>
+    <div class="cat-card cat-card-pending" aria-label="調湿・乾燥カテゴリは準備中です">
+      <div class="icon">
+        <img src="assets/img/moisture.png" alt="" loading="lazy">
+      </div>
+      <div class="name">調湿・乾燥</div>
+      <div class="cat-card-status">準備中</div>
+    </div>
+    <div class="cat-card cat-card-pending" aria-label="計装・制御カテゴリは準備中です">
+      <div class="icon">
+        <img src="assets/img/Instrumentation.png" alt="" loading="lazy">
+      </div>
+      <div class="name">計装・制御</div>
       <div class="cat-card-status">準備中</div>
     </div>
   </div>
@@ -412,6 +465,42 @@
 
     <div class="info-card">
       <ul class="info-list updates">
+        <li>
+          <span class="date">2026/5/9</span>
+          <span class="item-name"><a href="tools/distillation/antoine/">アントワン式（蒸気圧・沸点）ページを公開しました</a></span>
+        </li>
+        <li>
+          <span class="date">2026/5/9</span>
+          <span class="item-name"><a href="tools/reaction/arrhenius/">アレニウスの式（反応速度定数・活性化エネルギー）ページを公開しました</a></span>
+        </li>
+        <li>
+          <span class="date">2026/5/9</span>
+          <span class="item-name"><a href="tools/mixing/reynolds/">撹拌レイノルズ数ページを公開しました</a></span>
+        </li>
+        <li>
+          <span class="date">2026/5/9</span>
+          <span class="item-name"><a href="tools/mixing/power/">撹拌所要動力／動力数／トルク変換ページを公開しました</a></span>
+        </li>
+        <li>
+          <span class="date">2026/5/9</span>
+          <span class="item-name"><a href="tools/mixing/baffled-power/">バッフルあり撹拌所要動力ページを公開しました</a></span>
+        </li>
+        <li>
+          <span class="date">2026/5/9</span>
+          <span class="item-name"><a href="tools/mixing/flow/">吐出流量・循環流量ページを公開しました</a></span>
+        </li>
+        <li>
+          <span class="date">2026/5/9</span>
+          <span class="item-name"><a href="tools/mixing/time/">混合時間ページを公開しました</a></span>
+        </li>
+        <li>
+          <span class="date">2026/5/9</span>
+          <span class="item-name"><a href="tools/mixing/vortex/">撹拌液面変化（バッフルなし）ページを公開しました</a></span>
+        </li>
+        <li>
+          <span class="date">2026/5/9</span>
+          <span class="item-name"><a href="tools/mixing/kamei-hiraoka/">亀井・平岡の式（バッフル無し撹拌所要動力）ページを公開しました</a></span>
+        </li>
         <li>
           <span class="date">2026/5/8</span>
           <span class="item-name"><a href="tools/fluid/fanning/">ファニングの式・管摩擦係数（圧力損失）ページを公開しました</a></span>

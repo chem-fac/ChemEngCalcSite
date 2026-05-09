@@ -41,7 +41,7 @@
       化学工学計算支援ツール
     </a>
     <nav class="site-nav">
-      <a href="../../#updates">更新情報</a>
+      <a href="../../updates/">更新情報</a>
       <a href="../../faq/">よくある質問</a>
       <a href="../../support/">支援する</a>
       <a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a>
@@ -66,14 +66,54 @@
     </div>
   </section>
 
-  <!-- ===== Empty state ===== -->
+  <!-- ===== In-category search ===== -->
+  <section class="cat-search-section">
+    <div class="search-wrap">
+      <form class="search" id="catSearchForm" onsubmit="event.preventDefault();">
+        <input id="catSearchInput" type="text" autocomplete="off" placeholder="蒸留カテゴリ内で検索（例：アントワン、蒸気圧）">
+      </form>
+    </div>
+    <p class="cat-search-empty" id="catSearchEmpty" hidden>該当するツールが見つかりませんでした。</p>
+  </section>
+
+  <!-- ===== Tools list ===== -->
   <section class="tool-list-section">
-    <div class="cat-empty">
-      <div class="cat-empty-label">準備中</div>
-      <p class="cat-empty-text">このカテゴリのツールは現在準備中です。公開され次第こちらに掲載します。</p>
-      <a href="../../" class="cat-empty-back">‹ トップページに戻る</a>
+    <div class="tool-list" id="toolList">
+
+      <a href="antoine/" class="tool-list-card"
+         data-keywords="アントワン Antoine 蒸気圧 沸点 純物質 水 エタノール メタノール ベンゼン トルエン アセトン NIST">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">蒸留</span>
+          <h3 class="tool-list-title">アントワン式（蒸気圧・沸点）</h3>
+          <p class="tool-list-desc">log P = A − B/(T+C) で純物質の蒸気圧・沸点を計算。水・エタノール・ベンゼンほかのプリセット付き。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
     </div>
   </section>
+
+  <script>
+  (function () {
+    const input = document.getElementById('catSearchInput');
+    const list = document.getElementById('toolList');
+    const empty = document.getElementById('catSearchEmpty');
+    if (!input || !list) return;
+    const cards = Array.from(list.querySelectorAll('.tool-list-card'));
+    function filter() {
+      const q = input.value.trim().toLowerCase();
+      let visible = 0;
+      cards.forEach(c => {
+        const hay = (c.textContent + ' ' + (c.dataset.keywords || '')).toLowerCase();
+        const show = !q || hay.includes(q);
+        c.hidden = !show;
+        if (show) visible++;
+      });
+      empty.hidden = !(q && visible === 0);
+    }
+    input.addEventListener('input', filter);
+  })();
+  </script>
 
 </main>
 

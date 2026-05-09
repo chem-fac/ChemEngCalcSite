@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>撹拌レイノルズ数 | 化学工学計算支援ツール</title>
+<meta name="description" content="撹拌レイノルズ数 Re = ρnd²/μ を計算し、層流／遷移流／乱流の判定を行います。撹拌槽設計の基本指標。">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/mixing/reynolds/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="撹拌レイノルズ数 | 化学工学計算支援ツール">
+<meta property="og:description" content="撹拌レイノルズ数 Re = ρnd²/μ を計算し、層流／遷移流／乱流の判定を行います。撹拌槽設計の基本指標。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/mixing/reynolds/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7MQ7VEMWHY');
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo">
+      <img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">
+      化学工学計算支援ツール
+    </a>
+    <nav class="site-nav">
+      <a href="../../../updates/">更新情報</a>
+      <a href="../../../faq/">よくある質問</a>
+      <a href="../../../support/">支援する</a>
+      <a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+
+  <nav class="breadcrumb">
+    <a href="../../../">ホーム</a>
+    <span class="sep">›</span>
+    <a href="../">撹拌混合</a>
+    <span class="sep">›</span>
+    <span class="current">撹拌レイノルズ数</span>
+  </nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">撹拌混合</span>
+      <h1>撹拌レイノルズ数</h1>
+      <p class="tool-subcopy">$Re = \dfrac{\rho n d^{2}}{\mu}$ を計算し、層流／遷移流／乱流を判定します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card" id="calculator">
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+
+        <div class="input-row">
+          <label>密度 <span class="sym">ρ</span></label>
+          <div class="input-group">
+            <input type="number" id="rho" step="any" placeholder="例：998">
+            <select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
+          </div>
+          <p class="hint">運転温度・圧力での液密度を入力してください。</p>
+        </div>
+
+        <div class="input-row">
+          <label>回転数 <span class="sym">n</span></label>
+          <div class="input-group">
+            <input type="number" id="n" step="any" placeholder="例：100">
+            <select id="n_unit"><option value="rpm">rpm</option><option value="rps">1/s</option></select>
+          </div>
+          <p class="hint">撹拌翼の回転速度を入力してください。</p>
+        </div>
+
+        <div class="input-row">
+          <label>翼径 <span class="sym">d</span></label>
+          <div class="input-group">
+            <input type="number" id="d" step="any" placeholder="例：300">
+            <select id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+          </div>
+          <p class="hint">撹拌翼の外径を入力してください。</p>
+        </div>
+
+        <div class="input-row">
+          <label>粘度 <span class="sym">μ</span></label>
+          <div class="input-group">
+            <input type="number" id="mu" step="any" placeholder="例：1.0">
+            <select id="mu_unit"><option value="mPas">mPa·s</option><option value="cP">cP</option><option value="Pas">Pa·s</option></select>
+          </div>
+          <p class="hint">運転温度での粘度を入力してください。1 mPa·s = 1 cP。</p>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area">
+          <div class="placeholder">入力値を入れて「計算する」を押してください</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>撹拌槽における<strong>撹拌レイノルズ数</strong>は、撹拌翼まわりの慣性力と粘性力の比を表す無次元数で、次式で定義されます。</p>
+    <div class="math-block">$$ Re = \dfrac{\rho n d^{2}}{\mu} $$</div>
+    <ul class="symbol-list">
+      <li>$Re$：撹拌レイノルズ数［-］</li>
+      <li>$\rho$：流体密度［kg/m³］</li>
+      <li>$n$：回転数［1/s］</li>
+      <li>$d$：翼径［m］</li>
+      <li>$\mu$：粘度［Pa·s］</li>
+    </ul>
+  </section>
+
+  <section class="explain-block">
+    <h2>流れの状態の判定基準</h2>
+    <table class="regime-table">
+      <thead><tr><th>レイノルズ数</th><th>状態</th><th>挙動</th></tr></thead>
+      <tbody>
+        <tr><td><strong>$Re \leq 50$</strong></td><td><span class="regime-badge laminar">層流</span></td><td>粘性力が支配的。混合性能は低い</td></tr>
+        <tr><td><strong>$50 < Re < 1{,}000$</strong></td><td><span class="regime-badge transition">遷移流</span></td><td>D/d 比により挙動が変化</td></tr>
+        <tr><td><strong>$Re \geq 1{,}000$</strong></td><td><span class="regime-badge turbulent">乱流</span></td><td>慣性力が支配的。バッフル効果大</td></tr>
+      </tbody>
+    </table>
+    <p class="caution-text">配管内流れの基準（Re=2,300）とは異なる値ですのでご注意ください。多くの撹拌相関式は乱流域を前提としています。</p>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/4ts1HHl" class="reference-card" data-asin="4883616568" target="_blank" rel="noopener nofollow sponsored" style="margin-bottom:12px;">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body">
+        <span class="ref-tag">書籍</span>
+        <p class="ref-title">最新ミキシング技術の基礎と応用（化学工学の進歩42）</p>
+        <p class="ref-meta">化学工学会 著 / 三恵社</p>
+        <span class="ref-cta">Amazonで見る</span>
+      </div>
+    </a>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../power/" class="related-card"><span class="small">撹拌混合</span>撹拌所要動力／動力数／トルク変換</a>
+      <a href="../flow/" class="related-card"><span class="small">撹拌混合</span>吐出流量・循環流量</a>
+      <a href="../time/" class="related-card"><span class="small">撹拌混合</span>混合時間</a>
+      <a href="../vortex/" class="related-card"><span class="small">撹拌混合</span>撹拌液面変化（バッフルなし）</a>
+      <a href="../kamei-hiraoka/" class="related-card"><span class="small">撹拌混合</span>亀井・平岡の式（バッフル無し撹拌所要動力）</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+
+<script src="../../../assets/js/mix-reynolds.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

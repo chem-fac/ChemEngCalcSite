@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>撹拌所要動力／動力数／トルク変換 | 化学工学計算支援ツール</title>
+<meta name="description" content="撹拌所要動力 P、動力数 Np、トルク T を相互変換します。P = Np·ρ·n³·d⁵ と P = 2πnT に対応。">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/mixing/power/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="撹拌所要動力／動力数／トルク変換 | 化学工学計算支援ツール">
+<meta property="og:description" content="撹拌所要動力 P、動力数 Np、トルク T を相互変換します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/mixing/power/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav">
+      <a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb">
+    <a href="../../../">ホーム</a><span class="sep">›</span>
+    <a href="../">撹拌混合</a><span class="sep">›</span>
+    <span class="current">撹拌所要動力／動力数／トルク変換</span>
+  </nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">撹拌混合</span>
+      <h1>撹拌所要動力／動力数／トルク変換</h1>
+      <p class="tool-subcopy">撹拌所要動力 $P$、動力数 $N_p$、トルク $T$ を、$P = N_p \rho n^{3} d^{5}$ と $P = 2\pi nT$ で相互変換します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card" id="calculator">
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab active" data-mode="fromNp">Np → P・T</button>
+      <button type="button" class="mode-tab" data-mode="fromPower">P → Np・T</button>
+      <button type="button" class="mode-tab" data-mode="fromTorque">T → P・Np</button>
+    </div>
+
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <p class="hint" id="mode-hint">動力数 Np を入力して、所要動力 P とトルク T に換算します。</p>
+
+        <div class="input-row" data-show-when="fromNp">
+          <label>動力数 <span class="sym">N<sub>p</sub></span></label>
+          <div class="input-group">
+            <input type="number" id="Np" step="any" placeholder="例：5.0">
+          </div>
+          <p class="hint">翼形状、撹拌レイノルズ数、バッフル条件に応じた値を入力してください。</p>
+        </div>
+
+        <div class="input-row" data-show-when="fromPower">
+          <label>撹拌所要動力 <span class="sym">P</span></label>
+          <div class="input-group">
+            <input type="number" id="P" step="any" placeholder="例：1.5">
+            <select id="P_unit"><option value="kW">kW</option><option value="W">W</option><option value="HP">HP</option></select>
+          </div>
+        </div>
+
+        <div class="input-row" data-show-when="fromTorque">
+          <label>トルク <span class="sym">T</span></label>
+          <div class="input-group">
+            <input type="number" id="T" step="any" placeholder="例：25">
+            <select id="T_unit"><option value="Nm">N·m</option><option value="kgfm">kgf·m</option></select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label>密度 <span class="sym">ρ</span></label>
+          <div class="input-group">
+            <input type="number" id="rho" step="any" placeholder="例：998">
+            <select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label>回転数 <span class="sym">n</span></label>
+          <div class="input-group">
+            <input type="number" id="n" step="any" placeholder="例：300">
+            <select id="n_unit"><option value="rpm">rpm</option><option value="rps">1/s</option></select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label>翼径 <span class="sym">d</span></label>
+          <div class="input-group">
+            <input type="number" id="d" step="any" placeholder="例：300">
+            <select id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>撹拌所要動力 $P$、動力数 $N_p$、トルク $T$ は次の2つの式で相互に換算できます。</p>
+    <div class="math-block">$$ P = N_p \rho n^{3} d^{5} $$</div>
+    <div class="math-block">$$ P = 2 \pi n T $$</div>
+    <p>このページでは入力モードに応じて、次のように未知量を求めます。</p>
+    <div class="math-block">$$ N_p = \dfrac{P}{\rho n^{3} d^{5}}, \qquad T = \dfrac{P}{2 \pi n} $$</div>
+    <ul class="symbol-list">
+      <li>$P$：撹拌所要動力［W］</li>
+      <li>$N_p$：動力数［-］</li>
+      <li>$T$：トルク［N·m］</li>
+      <li>$\rho$：流体密度［kg/m³］</li>
+      <li>$n$：回転数［1/s］</li>
+      <li>$d$：翼径［m］</li>
+    </ul>
+    <p class="caution-text">動力数 $N_p$ は翼形状、撹拌レイノルズ数、バッフル条件で変化します。変換結果を設計に使う場合は、対象条件に合う $N_p$ を別途確認してください。</p>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/4ts1HHl" class="reference-card" data-asin="4883616568" target="_blank" rel="noopener nofollow sponsored" style="margin-bottom:12px;">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">最新ミキシング技術の基礎と応用（化学工学の進歩42）</p><p class="ref-meta">化学工学会 著 / 三恵社</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../reynolds/" class="related-card"><span class="small">撹拌混合</span>撹拌レイノルズ数</a>
+      <a href="../flow/" class="related-card"><span class="small">撹拌混合</span>吐出流量・循環流量</a>
+      <a href="../time/" class="related-card"><span class="small">撹拌混合</span>混合時間</a>
+      <a href="../vortex/" class="related-card"><span class="small">撹拌混合</span>撹拌液面変化（バッフルなし）</a>
+      <a href="../kamei-hiraoka/" class="related-card"><span class="small">撹拌混合</span>亀井・平岡の式（バッフル無し撹拌所要動力）</a>
+      <a href="../baffled-power/" class="related-card"><span class="small">撹拌混合</span>バッフルあり撹拌所要動力</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+
+<script src="../../../assets/js/mix-power.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>
