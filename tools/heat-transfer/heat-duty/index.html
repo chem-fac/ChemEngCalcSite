@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>熱量・熱収支 | 化学工学計算支援ツール</title>
+<meta name="description" content="顕熱・潜熱・顕熱＋潜熱から、連続操作の熱負荷やバッチ操作の必要熱量を計算します。">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/heat-transfer/heat-duty/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="熱量・熱収支 | 化学工学計算支援ツール">
+<meta property="og:description" content="顕熱・潜熱・顕熱＋潜熱から、連続操作の熱負荷やバッチ操作の必要熱量を計算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/heat-transfer/heat-duty/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">伝熱</a><span class="sep">›</span><span class="current">熱量・熱収支</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">伝熱</span>
+      <h1>熱量・熱収支</h1>
+      <p class="tool-subcopy">顕熱、潜熱、顕熱＋潜熱から、加熱・冷却に必要な熱量を計算します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid calc-card-heat-duty" id="calculator">
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab active" data-mode="continuous">連続操作</button>
+      <button type="button" class="mode-tab" data-mode="batch">バッチ操作</button>
+    </div>
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+
+        <div class="input-row heat-mode-row">
+          <label>計算対象</label>
+          <div class="input-group">
+            <select id="heat_mode" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;background:#fff;">
+              <option value="sensible">顕熱のみ</option>
+              <option value="latent">潜熱のみ</option>
+              <option value="both">顕熱＋潜熱</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-row heat-continuous-mass-row" data-show-when="continuous">
+          <label>質量流量 <span class="sym">ṁ</span></label>
+          <div class="input-group">
+            <input type="number" id="mass_flow" step="any" placeholder="例：1000">
+            <select id="mass_flow_unit"><option value="kgh">kg/h</option><option value="kgs">kg/s</option><option value="th">t/h</option></select>
+          </div>
+          <p class="hint">質量流量が分かる場合はこちらを優先して使います。</p>
+        </div>
+
+        <div class="input-row heat-continuous-volume-row" data-show-when="continuous">
+          <label>体積流量 <span class="sym">Qv</span>（任意）</label>
+          <div class="input-group">
+            <input type="number" id="vol_flow" step="any" placeholder="例：1.0">
+            <select id="vol_flow_unit"><option value="m3h">m³/h</option><option value="m3s">m³/s</option><option value="Lmin">L/min</option></select>
+          </div>
+          <p class="hint">質量流量が空欄の場合、体積流量×密度から質量流量を計算します。</p>
+        </div>
+
+        <div class="input-row heat-continuous-density-row" data-show-when="continuous">
+          <label>密度 <span class="sym">ρ</span></label>
+          <div class="input-group">
+            <input type="number" id="rho" step="any" placeholder="例：1000">
+            <select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
+          </div>
+        </div>
+
+        <div class="input-row heat-batch-mass-row" data-show-when="batch">
+          <label>処理量 <span class="sym">m</span></label>
+          <div class="input-group">
+            <input type="number" id="mass" step="any" placeholder="例：500">
+            <select id="mass_unit"><option value="kg">kg</option><option value="g">g</option><option value="t">t</option></select>
+          </div>
+        </div>
+
+        <div class="input-row heat-batch-time-row" data-show-when="batch">
+          <label>処理時間（任意）</label>
+          <div class="input-group">
+            <input type="number" id="batch_time" step="any" placeholder="例：2">
+            <select id="batch_time_unit"><option value="h">h</option><option value="min">min</option><option value="s">s</option></select>
+          </div>
+          <p class="hint">入力すると平均熱負荷 kW も表示します。</p>
+        </div>
+
+        <div class="input-row heat-tin-row">
+          <label>入口温度 <span class="sym">T<sub>in</sub></span></label>
+          <div class="input-group"><input type="number" id="Tin" step="any" placeholder="例：20"><span class="unit-label">°C</span></div>
+        </div>
+        <div class="input-row heat-tout-row">
+          <label>出口温度 <span class="sym">T<sub>out</sub></span></label>
+          <div class="input-group"><input type="number" id="Tout" step="any" placeholder="例：80"><span class="unit-label">°C</span></div>
+        </div>
+        <div class="input-row heat-cp-row">
+          <label>比熱 <span class="sym">C<sub>p</sub></span></label>
+          <div class="input-group">
+            <input type="number" id="cp" step="any" placeholder="例：4.18">
+            <select id="cp_unit"><option value="kJkgK">kJ/(kg K)</option><option value="JkgK">J/(kg K)</option><option value="kcalkgK">kcal/(kg °C)</option></select>
+          </div>
+        </div>
+        <div class="input-row heat-latent-row">
+          <label>潜熱 <span class="sym">λ</span></label>
+          <div class="input-group">
+            <input type="number" id="latent" step="any" placeholder="例：2257">
+            <select id="latent_unit"><option value="kJkg">kJ/kg</option><option value="Jkg">J/kg</option><option value="kcalkg">kcal/kg</option></select>
+          </div>
+        </div>
+
+        <div class="input-row heat-direction-row">
+          <label>熱負荷の向き</label>
+          <div class="input-group">
+            <select id="heat_direction" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;background:#fff;">
+              <option value="auto">温度差から自動判定</option>
+              <option value="heating">加熱・蒸発側</option>
+              <option value="cooling">除熱・凝縮側</option>
+            </select>
+          </div>
+          <p class="hint">潜熱のみでは温度差から判定できないため、加熱・除熱を選択してください。</p>
+        </div>
+
+        <div class="btn-row"><button class="btn btn-primary" id="calc-btn">計算する</button><button class="btn btn-ghost" id="reset-btn">リセット</button></div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>熱量は、温度変化に使われる<strong>顕熱</strong>と、蒸発・凝縮・融解などの状態変化に使われる<strong>潜熱</strong>に分けて整理します。</p>
+    <h3>顕熱の計算</h3>
+    <p>顕熱は温度変化に必要な熱量です。比熱 $C_p$ と温度差 $\Delta T$ から求めます。</p>
+    <div class="math-block">$$ Q_s = m C_p \Delta T $$</div>
+    <div class="math-block">$$ \dot{Q}_s = \dot{m} C_p \Delta T $$</div>
+    <h3>潜熱の計算</h3>
+    <p>潜熱は状態変化に必要な熱量です。蒸発熱・凝縮熱・融解熱など、状態変化に応じた潜熱 $\lambda$ を使います。</p>
+    <div class="math-block">$$ Q_l = m \lambda $$</div>
+    <div class="math-block">$$ \dot{Q}_l = \dot{m} \lambda $$</div>
+    <h3>顕熱＋潜熱</h3>
+    <p>沸点まで加熱してから蒸発させるような場合は、顕熱と潜熱を足し合わせます。</p>
+    <div class="math-block">$$ Q = Q_s + Q_l = m C_p \Delta T + m \lambda $$</div>
+    <div class="math-block">$$ \dot{Q} = \dot{Q}_s + \dot{Q}_l = \dot{m} C_p \Delta T + \dot{m} \lambda $$</div>
+    <ul class="symbol-list">
+      <li>$Q$：熱量［kJ］</li>
+      <li>$Q_s$：顕熱［kJ］</li>
+      <li>$Q_l$：潜熱［kJ］</li>
+      <li>$\dot{Q}$：熱負荷［kW］</li>
+      <li>$\dot{Q}_s$：顕熱の熱負荷［kW］</li>
+      <li>$\dot{Q}_l$：潜熱の熱負荷［kW］</li>
+      <li>$m$：質量［kg］</li>
+      <li>$\dot{m}$：質量流量［kg/s］</li>
+      <li>$C_p$：比熱［kJ/(kg K)］</li>
+      <li>$\Delta T$：温度差［K］</li>
+      <li>$\lambda$：潜熱［kJ/kg］</li>
+    </ul>
+    <p class="caution-text">水を液体から蒸気にするような操作では、顕熱より潜熱の寄与が大きくなることがあります。物性値は温度・圧力で変わるため、概算では平均温度付近の比熱や運転圧力に対応する潜熱を使い、詳細検討では温度依存性や熱損失を別途確認してください。</p>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/4dcboU3" class="reference-card" data-asin="4563041653" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">化学工学の基礎と計算</p><p class="ref-meta">D.M. Himmelblau 著 / 大竹 伝雄 翻訳 / 培風館</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../lmtd-area/" class="related-card"><span class="small">伝熱</span>LMTD・伝熱面積</a>
+      <a href="../utility/" class="related-card"><span class="small">伝熱</span>冷却水・蒸気・熱媒油の必要量</a>
+      <a href="../overall-u/" class="related-card"><span class="small">伝熱</span>総括伝熱係数</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/heat-duty.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

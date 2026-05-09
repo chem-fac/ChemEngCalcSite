@@ -91,6 +91,8 @@
   // ====== Mode switching ======
   function setMode(mode) {
     currentMode = mode;
+    const card = $('calculator');
+    if (card) card.dataset.currentMode = mode;
     document.querySelectorAll('.mode-tab').forEach(b => {
       const active = b.dataset.mode === mode;
       b.classList.toggle('active', active);

@@ -49,7 +49,7 @@
     </div>
   </section>
 
-  <section class="calc-card" id="calculator">
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
     <div class="mode-tabs" role="tablist">
       <button type="button" class="mode-tab active" data-mode="turb">乱流・基本式</button>
       <button type="button" class="mode-tab" data-mode="turbH">乱流域・液深さ加味</button>
@@ -112,7 +112,7 @@
         <div class="input-row" data-show-when="laminar">
           <label>密度 <span class="sym">ρ</span></label>
           <div class="input-group">
-            <input type="number" id="rho" step="any" placeholder="例：998">
+            <input type="number" id="rho" step="any" placeholder="例：1000">
             <select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
           </div>
         </div>

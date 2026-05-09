@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>冷却水・蒸気・熱媒油の必要量 | 化学工学計算支援ツール</title>
+<meta name="description" content="既知の熱量から、冷却水・加熱蒸気・熱媒油の必要流量を概算します。">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/heat-transfer/utility/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="冷却水・蒸気・熱媒油の必要量 | 化学工学計算支援ツール">
+<meta property="og:description" content="既知の熱量から、冷却水・加熱蒸気・熱媒油の必要流量を概算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/heat-transfer/utility/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">伝熱</a><span class="sep">›</span><span class="current">冷却水・蒸気・熱媒油の必要量</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">伝熱</span>
+      <h1>冷却水・蒸気・熱媒油の必要量</h1>
+      <p class="tool-subcopy">熱量 Q から、冷却水・加熱蒸気・熱媒油の必要流量を逆算します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab active" data-mode="cooling">冷却水</button>
+      <button type="button" class="mode-tab" data-mode="steam">蒸気</button>
+      <button type="button" class="mode-tab" data-mode="oil">熱媒油</button>
+    </div>
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <div class="input-row">
+          <label>熱量 <span class="sym">Q</span></label>
+          <div class="input-group">
+            <input type="number" id="Q" step="any" placeholder="例：500">
+            <select id="Q_unit"><option value="kW">kW</option><option value="W">W</option><option value="MJh">MJ/h</option><option value="kcalh">kcal/h</option></select>
+          </div>
+        </div>
+        <div class="input-row">
+          <label>余裕率（任意）</label>
+          <div class="input-group"><input type="number" id="allowance" step="any" min="0" placeholder="例：10"><span class="unit-label">%</span></div>
+        </div>
+        <div class="input-row" data-show-when="cooling oil">
+          <label>入口温度 <span class="sym">T<sub>in</sub></span></label>
+          <div class="input-group"><input type="number" id="Tin" step="any" placeholder="例：25"><span class="unit-label">°C</span></div>
+        </div>
+        <div class="input-row" data-show-when="cooling oil">
+          <label>出口温度 <span class="sym">T<sub>out</sub></span></label>
+          <div class="input-group"><input type="number" id="Tout" step="any" placeholder="例：35"><span class="unit-label">°C</span></div>
+        </div>
+        <div class="input-row" data-show-when="cooling oil">
+          <label>比熱 <span class="sym">C<sub>p</sub></span></label>
+          <div class="input-group">
+            <input type="number" id="cp" step="any" placeholder="例：4.18">
+            <select id="cp_unit"><option value="kJkgK">kJ/(kg K)</option><option value="JkgK">J/(kg K)</option><option value="kcalkgK">kcal/(kg °C)</option></select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="cooling oil">
+          <label>密度（任意） <span class="sym">ρ</span></label>
+          <div class="input-group">
+            <input type="number" id="rho" step="any" placeholder="例：1000">
+            <select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
+          </div>
+          <p class="hint">入力すると m³/h と L/min も表示します。</p>
+        </div>
+        <div class="input-row" data-show-when="steam">
+          <label>蒸気圧力プリセット</label>
+          <div class="input-group">
+            <select id="steam_pressure_preset" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;background:#fff;">
+              <option value="">カスタム（蒸気潜熱を直接入力）</option>
+              <option value="2257.9">0.1 MPa（2257.9 kJ/kg）</option>
+              <option value="2201.6">0.2 MPa（2201.6 kJ/kg）</option>
+              <option value="2163.2">0.3 MPa（2163.2 kJ/kg）</option>
+              <option value="2133.0">0.4 MPa（2133.0 kJ/kg）</option>
+              <option value="2107.4">0.5 MPa（2107.4 kJ/kg）</option>
+              <option value="2085.0">0.6 MPa（2085.0 kJ/kg）</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="steam">
+          <label>蒸気潜熱 <span class="sym">λ</span></label>
+          <div class="input-group">
+            <input type="number" id="latent" step="any" placeholder="例：2200">
+            <select id="latent_unit"><option value="kJkg">kJ/kg</option><option value="Jkg">J/kg</option><option value="kcalkg">kcal/kg</option></select>
+          </div>
+          <p class="hint">蒸気圧力に応じた凝縮潜熱を入力してください。</p>
+        </div>
+        <div class="btn-row"><button class="btn btn-primary" id="calc-btn">計算する</button><button class="btn btn-ghost" id="reset-btn">リセット</button></div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>顕熱で受け持つユーティリティは比熱と温度差から、凝縮蒸気は潜熱から必要量を逆算します。</p>
+    <div class="math-block">$$ \dot{m} = \frac{Q}{C_p \Delta T}, \qquad \dot{m}_{steam} = \frac{Q}{\lambda} $$</div>
+    <ul class="symbol-list">
+      <li>$Q$：熱量［kW］</li>
+      <li>$\dot{m}$：質量流量［kg/s］</li>
+      <li>$C_p$：比熱［kJ/(kg K)］</li>
+      <li>$\Delta T$：ユーティリティの温度差［K］</li>
+      <li>$\lambda$：蒸気潜熱［kJ/kg］</li>
+      <li>$\rho$：密度［kg/m³］</li>
+    </ul>
+    <p class="caution-text">実機では熱損失、汚れ、制御余裕、季節変動を見込みます。蒸気量は圧力・乾き度・ドレン条件で変わるため、蒸気表や設備条件で確認してください。蒸気潜熱は化学工学便覧にも掲載されています。</p>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/431YmDO" class="reference-card" data-asin="4621045350" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">便覧</span><p class="ref-title">化学工学便覧 改訂6版</p><p class="ref-meta">化学工学会 編集 / 丸善出版</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+    <p class="reference-note">蒸気潜熱は圧力によって変わります。化学工学便覧などの蒸気表・物性表を参考にしてください。</p>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../heat-duty/" class="related-card"><span class="small">伝熱</span>熱量・熱収支</a>
+      <a href="../lmtd-area/" class="related-card"><span class="small">伝熱</span>LMTD・伝熱面積</a>
+      <a href="../overall-u/" class="related-card"><span class="small">伝熱</span>総括伝熱係数</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/utility-requirement.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

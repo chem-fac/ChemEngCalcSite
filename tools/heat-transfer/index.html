@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>伝熱カテゴリ | 化学工学計算支援ツール</title>
-<meta name="description" content="伝熱カテゴリの計算ツール一覧。熱交換器・加熱・冷却・伝熱計算に役立つツールを集めます。">
+<meta name="description" content="伝熱カテゴリの計算ツール一覧。熱交換器・加熱・冷却・伝熱計算に役立つツールを集めています。">
 <link rel="canonical" href="https://tools.chem-fac.com/tools/heat-transfer/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="化学工学計算支援ツール">
 <meta property="og:title" content="伝熱カテゴリ | 化学工学計算支援ツール">
-<meta property="og:description" content="伝熱カテゴリの計算ツール一覧。熱交換器・加熱・冷却・伝熱計算に役立つツールを集めます。">
+<meta property="og:description" content="伝熱カテゴリの計算ツール一覧。熱交換器・加熱・冷却・伝熱計算に役立つツールを集めています。">
 <meta property="og:url" content="https://tools.chem-fac.com/tools/heat-transfer/">
 <meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
 <meta property="og:locale" content="ja_JP">
@@ -62,18 +62,98 @@
     <div class="tool-hero-content">
       <span class="cat-tag">カテゴリ</span>
       <h1>伝熱</h1>
-      <p class="tool-subcopy">熱交換器・加熱・冷却・伝熱計算に関するツールをまとめます。</p>
+      <p class="tool-subcopy">熱交換器・加熱・冷却・伝熱計算に関するツールをまとめています。</p>
     </div>
   </section>
 
-  <!-- ===== Empty state ===== -->
+  <!-- ===== In-category search ===== -->
+  <section class="cat-search-section">
+    <div class="search-wrap">
+      <form class="search" id="catSearchForm" onsubmit="event.preventDefault();">
+        <input id="catSearchInput" type="text" autocomplete="off" placeholder="伝熱カテゴリ内で検索（例：LMTD、U、冷却水）">
+      </form>
+    </div>
+    <p class="cat-search-empty" id="catSearchEmpty" hidden>該当するツールが見つかりませんでした。</p>
+  </section>
+
+  <!-- ===== Tools list ===== -->
   <section class="tool-list-section">
-    <div class="cat-empty">
-      <div class="cat-empty-label">準備中</div>
-      <p class="cat-empty-text">このカテゴリのツールは現在準備中です。公開され次第こちらに掲載します。</p>
-      <a href="../../" class="cat-empty-back">‹ トップページに戻る</a>
+    <div class="tool-list" id="toolList">
+
+      <a href="heat-duty/" class="tool-list-card"
+         data-keywords="熱量 熱収支 顕熱 潜熱 熱負荷 加熱 冷却 比熱 蒸発 凝縮 heat duty energy balance">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">伝熱</span>
+          <h3 class="tool-list-title">熱量・熱収支</h3>
+          <p class="tool-list-desc">顕熱・潜熱・顕熱＋潜熱から、連続操作の熱負荷やバッチ操作の必要熱量を計算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="lmtd-area/" class="tool-list-card"
+         data-keywords="LMTD 対数平均温度差 伝熱面積 熱交換器 U A F 補正係数 並流 向流 area heat exchanger">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">伝熱</span>
+          <h3 class="tool-list-title">LMTD・伝熱面積</h3>
+          <p class="tool-list-desc">端温度差からLMTDを求め、Q = U A ΔTlm F によって必要伝熱面積を概算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="overall-u/" class="tool-list-card"
+         data-keywords="総括伝熱係数 U 熱抵抗 境膜抵抗 汚れ係数 ファウリング 管壁 伝熱係数 overall heat transfer coefficient">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">伝熱</span>
+          <h3 class="tool-list-title">総括伝熱係数 U</h3>
+          <p class="tool-list-desc">内外面の熱伝達係数、管壁、汚れ係数から総括伝熱係数 U と抵抗内訳を求めます。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="tube-heat-transfer/" class="tool-list-card"
+         data-keywords="管内流 熱伝達係数 ディタス ベルター Dittus Boelter Re Pr Nu Nusselt turbulent tube heat transfer">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">伝熱</span>
+          <h3 class="tool-list-title">管内流の熱伝達係数（ディタス・ベルターの式）</h3>
+          <p class="tool-list-desc">Re数・Pr数を計算し、Dittus-Boelter式から管内流の熱伝達係数 h を概算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="utility/" class="tool-list-card"
+         data-keywords="冷却水 蒸気 熱媒油 必要量 ユーティリティ 流量 潜熱 比熱 utility cooling water steam hot oil">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">伝熱</span>
+          <h3 class="tool-list-title">冷却水・蒸気・熱媒油の必要量</h3>
+          <p class="tool-list-desc">既知の熱量から、冷却水・加熱蒸気・熱媒油の必要流量を逆算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
     </div>
   </section>
+
+  <script>
+  (function () {
+    const input = document.getElementById('catSearchInput');
+    const list = document.getElementById('toolList');
+    const empty = document.getElementById('catSearchEmpty');
+    if (!input || !list) return;
+    const cards = Array.from(list.querySelectorAll('.tool-list-card'));
+    function filter() {
+      const q = input.value.trim().toLowerCase();
+      let visible = 0;
+      cards.forEach(c => {
+        const hay = (c.textContent + ' ' + (c.dataset.keywords || '')).toLowerCase();
+        const show = !q || hay.includes(q);
+        c.hidden = !show;
+        if (show) visible++;
+      });
+      empty.hidden = !(q && visible === 0);
+    }
+    input.addEventListener('input', filter);
+  })();
+  </script>
 
 </main>
 

@@ -72,7 +72,7 @@
   </section>
 
   <!-- ===== Calculator ===== -->
-  <section class="calc-card" id="calculator">
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid calc-card-reynolds" id="calculator">
     <div class="mode-tabs" role="tablist">
       <button type="button" class="mode-tab active" data-mode="velocity">流速から計算</button>
       <button type="button" class="mode-tab" data-mode="flowrate">流量から計算</button>
@@ -84,10 +84,10 @@
       <div class="calc-pane calc-input-pane">
         <h2>入力</h2>
 
-        <div class="input-row" data-field="rho" data-show-when="velocity flowrate">
+        <div class="input-row reynolds-rho-row" data-field="rho" data-show-when="velocity flowrate">
           <label>密度 <span class="sym">ρ</span></label>
           <div class="input-group">
-            <input type="number" id="rho" step="any" placeholder="例：998">
+            <input type="number" id="rho" step="any" placeholder="例：1000">
             <select id="rho_unit" aria-label="密度の単位">
               <option value="kgm3">kg/m³</option>
               <option value="gcm3">g/cm³</option>
@@ -96,7 +96,7 @@
           <p class="hint">液体は温度変化が比較的小さい場合もありますが、気体では運転条件の影響が大きくなります。</p>
         </div>
 
-        <div class="input-row" data-field="u" data-show-when="velocity kinematic">
+        <div class="input-row reynolds-u-row" data-field="u" data-show-when="velocity kinematic">
           <label>平均流速 <span class="sym">u</span></label>
           <div class="input-group">
             <input type="number" id="u" step="any" placeholder="例：1.0">
@@ -108,7 +108,7 @@
           <p class="hint">配管断面全体で平均した流速を入力してください。局所最大流速ではありません。</p>
         </div>
 
-        <div class="input-row" data-field="Q" data-show-when="flowrate">
+        <div class="input-row reynolds-q-row" data-field="Q" data-show-when="flowrate">
           <label>体積流量 <span class="sym">Q</span></label>
           <div class="input-group">
             <input type="number" id="Q" step="any" placeholder="例：10">
@@ -122,7 +122,7 @@
           <p class="hint">流量計の値などから入力すると、管内径から平均流速を自動計算します。</p>
         </div>
 
-        <div class="input-row" data-field="D" data-show-when="velocity flowrate kinematic">
+        <div class="input-row reynolds-d-row" data-field="D" data-show-when="velocity flowrate kinematic">
           <label>管内径 <span class="sym">D</span></label>
           <div class="input-group">
             <input type="number" id="D" step="any" placeholder="例：50">
@@ -136,7 +136,7 @@
           <p class="hint">配管の<strong>呼び径ではなく実内径</strong>を入力してください。スケジュール番号や肉厚で内径は変わります。</p>
         </div>
 
-        <div class="input-row" data-field="mu" data-show-when="velocity flowrate">
+        <div class="input-row reynolds-mu-row" data-field="mu" data-show-when="velocity flowrate">
           <label>粘度 <span class="sym">μ</span></label>
           <div class="input-group">
             <input type="number" id="mu" step="any" placeholder="例：1.0">
@@ -149,7 +149,7 @@
           <p class="hint">粘度は温度依存性が大きい物性値です。運転温度での値を使ってください。1 mPa·s = 1 cP、1 Pa·s = 1000 mPa·s。</p>
         </div>
 
-        <div class="input-row" data-field="nu" data-show-when="kinematic">
+        <div class="input-row reynolds-nu-row" data-field="nu" data-show-when="kinematic">
           <label>動粘度 <span class="sym">ν</span></label>
           <div class="input-group">
             <input type="number" id="nu" step="any" placeholder="例：1.0">

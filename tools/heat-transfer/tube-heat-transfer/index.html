@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>管内流の熱伝達係数（ディタス・ベルターの式） | 化学工学計算支援ツール</title>
+<meta name="description" content="Re数・Pr数を計算し、Dittus-Boelter式から管内流の熱伝達係数 h を概算します。">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/heat-transfer/tube-heat-transfer/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="管内流の熱伝達係数（ディタス・ベルターの式） | 化学工学計算支援ツール">
+<meta property="og:description" content="Re数・Pr数を計算し、Dittus-Boelter式から管内流の熱伝達係数 h を概算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/heat-transfer/tube-heat-transfer/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">伝熱</a><span class="sep">›</span><span class="current">管内流の熱伝達係数</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">伝熱</span>
+      <h1>管内流の熱伝達係数（ディタス・ベルターの式）</h1>
+      <p class="tool-subcopy">単相乱流の管内流について、Re・Pr・Nu から熱伝達係数 h を計算します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <div class="input-row">
+          <label>操作</label>
+          <div class="input-group">
+            <select id="thermal_mode" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;background:#fff;">
+              <option value="heating">流体を加熱（n = 0.4）</option>
+              <option value="cooling">流体を冷却（n = 0.3）</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-row"><label>密度 <span class="sym">ρ</span></label><div class="input-group"><input type="number" id="rho" step="any" placeholder="例：1000"><select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select></div></div>
+        <div class="input-row"><label>平均流速 <span class="sym">u</span></label><div class="input-group"><input type="number" id="velocity" step="any" placeholder="例：1.5"><span class="unit-label">m/s</span></div></div>
+        <div class="input-row"><label>管内径 <span class="sym">D</span></label><div class="input-group"><input type="number" id="D" step="any" placeholder="例：25"><select id="D_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div></div>
+        <div class="input-row"><label>粘度 <span class="sym">μ</span></label><div class="input-group"><input type="number" id="mu" step="any" placeholder="例：1"><select id="mu_unit"><option value="mPas">mPa s</option><option value="cP">cP</option><option value="Pas">Pa s</option></select></div></div>
+        <div class="input-row"><label>比熱 <span class="sym">C<sub>p</sub></span></label><div class="input-group"><input type="number" id="cp" step="any" placeholder="例：4.18"><select id="cp_unit"><option value="kJkgK">kJ/(kg K)</option><option value="JkgK">J/(kg K)</option><option value="kcalkgK">kcal/(kg °C)</option></select></div></div>
+        <div class="input-row"><label>熱伝導率 <span class="sym">k</span></label><div class="input-group"><input type="number" id="k_fluid" step="any" placeholder="例：0.6"><span class="unit-label">W/(m K)</span></div></div>
+        <div class="btn-row"><button class="btn btn-primary" id="calc-btn">計算する</button><button class="btn btn-ghost" id="reset-btn">リセット</button></div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>ディタス・ベルターの式は、相変化を伴わない乱流の熱伝達係数を概算する相関式です。</p>
+    <div class="math-block">$$ Re=\frac{\rho u D}{\mu}, \qquad Pr=\frac{C_p \mu}{k}, \qquad Nu=\frac{hD}{k} $$</div>
+    <div class="math-block">$$ Nu = 0.023 Re^{0.8} Pr^n $$</div>
+    <div class="math-block">$$ h = \frac{Nu\,k}{D} $$</div>
+    <ul class="symbol-list">
+      <li>$Re$：レイノルズ数［-］</li>
+      <li>$Pr$：プラントル数［-］</li>
+      <li>$Nu$：ヌセルト数［-］</li>
+      <li>$h$：管内熱伝達係数［W/(m²K)］</li>
+      <li>$D$：管内径［m］</li>
+      <li>$u$：平均流速［m/s］</li>
+      <li>$\rho$：密度［kg/m³］</li>
+      <li>$\mu$：粘度［Pa s］</li>
+      <li>$C_p$：比熱［J/(kg K)］</li>
+      <li>$k$：熱伝導率［W/(m K)］</li>
+    </ul>
+    <p class="caution-text">代表的には Re &gt; 10000 程度の乱流域で用います。層流・遷移域、沸騰・凝縮、強い粘度温度依存がある場合は別の相関式を検討してください。</p>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/431YmDO" class="reference-card" data-asin="4621045350" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">便覧</span><p class="ref-title">化学工学便覧 改訂6版</p><p class="ref-meta">化学工学会 編集 / 丸善出版</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../overall-u/" class="related-card"><span class="small">伝熱</span>総括伝熱係数</a>
+      <a href="../../fluid/reynolds/" class="related-card"><span class="small">流動</span>レイノルズ数（配管）</a>
+      <a href="../lmtd-area/" class="related-card"><span class="small">伝熱</span>LMTD・伝熱面積</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/tube-heat-transfer.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PFR設計 | 化学工学計算支援ツール</title>
+<meta name="description" content="管型反応器（PFR）の容積と空間時間を、0次・1次・2次不可逆反応で概算します。">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/reaction/pfr/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="PFR設計 | 化学工学計算支援ツール">
+<meta property="og:description" content="管型反応器（PFR）の容積と空間時間を、0次・1次・2次不可逆反応で概算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/reaction/pfr/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png"><link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header"><div class="inner"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a></nav></div></header>
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">反応</a><span class="sep">›</span><span class="current">PFR設計</span></nav>
+  <section class="tool-hero tool-hero-simple"><div class="tool-hero-content"><span class="cat-tag">反応</span><h1>PFR設計</h1><p class="tool-subcopy">押し出し流れを仮定した管型反応器の容積と空間時間を計算します。</p></div></section>
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator"><div class="calc-grid"><div class="calc-pane calc-input-pane"><h2>入力</h2>
+    <div class="input-row"><label>反応次数</label><div class="input-group"><select id="order" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;background:#fff;"><option value="1">1次反応</option><option value="0">0次反応</option><option value="2">2次反応</option></select></div></div>
+    <div class="input-row"><label>入口濃度 <span class="sym">C<sub>A0</sub></span></label><div class="input-group"><input type="number" id="CA0" step="any" placeholder="例：1.0"><span class="unit-label">mol/L</span></div></div>
+    <div class="input-row"><label>目標転化率 <span class="sym">X</span></label><div class="input-group"><input type="number" id="X" step="any" placeholder="例：90"><span class="unit-label">%</span></div></div>
+    <div class="input-row"><label>体積流量 <span class="sym">q</span></label><div class="input-group"><input type="number" id="q" step="any" placeholder="例：10"><select id="q_unit"><option value="Lmin">L/min</option><option value="Ls">L/s</option><option value="m3h">m³/h</option><option value="m3s">m³/s</option></select></div></div>
+    <div class="input-row"><label>速度定数 <span class="sym">k</span></label><div class="input-group"><input type="number" id="k" step="any" placeholder="例：0.02"><select id="k_time_unit"><option value="s">s 基準</option><option value="min">min 基準</option><option value="h">h 基準</option></select></div><p class="hint" id="k_unit_hint">速度定数 k の単位は反応次数で変わります。</p></div>
+    <div class="btn-row"><button class="btn btn-primary" id="calc-btn">計算する</button><button class="btn btn-ghost" id="reset-btn">リセット</button></div><div id="error" class="error-msg" style="display:none;"></div>
+  </div><div class="calc-pane calc-result-pane"><h2>計算結果</h2><div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div></div></div></section>
+  <section class="explain-block"><h2>計算式</h2><p>PFRでは入口から出口に向かって濃度が変化するため、速度式を転化率で積分します。</p><div class="math-block">$$ V=F_{A0}\int_0^X \frac{dX}{-r_A} $$</div><div class="math-block">$$ 0次: \tau=\frac{C_{A0}X}{k}, \quad 1次: \tau=\frac{-\ln(1-X)}{k}, \quad 2次: \tau=\frac{X}{kC_{A0}(1-X)} $$</div><ul class="symbol-list"><li>$V$：反応器容積［L］</li><li>$\tau$：空間時間［s］</li><li>$F_{A0}$：入口Aモル流量［mol/s］</li><li>$X$：転化率［-］</li><li>$k$：速度定数（0次：mol/(L s)、1次：1/s、2次：L/(mol s)）</li></ul></section>
+  <section class="explain-block reference-block"><h2>参考資料</h2><a href="https://amzn.to/3QUZV3W" class="reference-card" data-asin="4563046345" target="_blank" rel="noopener nofollow sponsored"><div class="ref-image" aria-hidden="true"></div><div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">反応工学</p><p class="ref-meta">橋本 健治 著 / 培風館</p><span class="ref-cta">Amazonで見る</span></div></a></section>
+  <section class="related"><h3>関連ツール</h3><div class="related-grid"><a href="../arrhenius/" class="related-card"><span class="small">反応</span>アレニウスの式</a><a href="../cstr/" class="related-card"><span class="small">反応</span>CSTR設計</a><a href="../batch-time/" class="related-card"><span class="small">反応</span>回分反応器の反応時間</a></div></section>
+</main>
+<footer class="site-footer"><div class="footer-inner"><div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div><div class="footer-col"><h4>サポート</h4><ul><li><a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div><div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div><div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div></div></footer>
+<script src="../../../assets/js/reaction-pfr.js"></script><script src="../../../assets/js/share.js"></script><script src="../../../assets/js/references.js"></script>
+</body></html>

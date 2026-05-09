@@ -43,6 +43,36 @@
       keywords: ["伝熱", "熱交換器", "加熱", "冷却", "熱伝達", "熱通過", "heat", "transfer"]
     },
     {
+      title: "熱量・熱収支",
+      url: "tools/heat-transfer/heat-duty/",
+      category: "伝熱",
+      keywords: ["熱量", "熱収支", "顕熱", "潜熱", "熱負荷", "加熱", "冷却", "比熱", "蒸発", "凝縮", "heat duty", "energy balance"]
+    },
+    {
+      title: "LMTD・伝熱面積",
+      url: "tools/heat-transfer/lmtd-area/",
+      category: "伝熱",
+      keywords: ["LMTD", "対数平均温度差", "伝熱面積", "熱交換器", "総括伝熱係数", "補正係数", "並流", "向流", "heat exchanger", "area"]
+    },
+    {
+      title: "総括伝熱係数 U",
+      url: "tools/heat-transfer/overall-u/",
+      category: "伝熱",
+      keywords: ["総括伝熱係数", "U", "熱抵抗", "境膜抵抗", "汚れ係数", "ファウリング", "管壁", "overall heat transfer coefficient"]
+    },
+    {
+      title: "管内流の熱伝達係数（ディタス・ベルターの式）",
+      url: "tools/heat-transfer/tube-heat-transfer/",
+      category: "伝熱",
+      keywords: ["管内流", "熱伝達係数", "ディタス", "ベルター", "Dittus", "Boelter", "Re", "Pr", "Nu", "Nusselt", "乱流"]
+    },
+    {
+      title: "冷却水・蒸気・熱媒油の必要量",
+      url: "tools/heat-transfer/utility/",
+      category: "伝熱",
+      keywords: ["冷却水", "蒸気", "熱媒油", "必要量", "ユーティリティ", "流量", "潜熱", "比熱", "utility", "steam", "hot oil"]
+    },
+    {
       title: "撹拌レイノルズ数",
       url: "tools/mixing/reynolds/",
       category: "撹拌混合",
@@ -95,6 +125,24 @@
       url: "tools/reaction/arrhenius/",
       category: "反応",
       keywords: ["アレニウス", "Arrhenius", "活性化エネルギー", "Ea", "頻度因子", "前指数因子", "反応速度定数", "速度定数", "k", "アレニウスプロット", "kinetics"]
+    },
+    {
+      title: "回分反応器の反応時間",
+      url: "tools/reaction/batch-time/",
+      category: "反応",
+      keywords: ["回分反応器", "反応時間", "batch", "reactor", "転化率", "0次", "1次", "2次", "速度式"]
+    },
+    {
+      title: "CSTR設計",
+      url: "tools/reaction/cstr/",
+      category: "反応",
+      keywords: ["CSTR", "完全混合槽", "連続槽型反応器", "反応器設計", "容積", "空間時間", "滞留時間", "転化率"]
+    },
+    {
+      title: "PFR設計",
+      url: "tools/reaction/pfr/",
+      category: "反応",
+      keywords: ["PFR", "管型反応器", "押し出し流れ", "プラグフロー", "反応器設計", "容積", "空間時間", "転化率"]
     },
     {
       title: "蒸留(カテゴリ)",

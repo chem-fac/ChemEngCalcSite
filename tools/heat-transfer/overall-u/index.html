@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>総括伝熱係数 U | 化学工学計算支援ツール</title>
+<meta name="description" content="内外面の熱伝達係数、壁の熱伝導抵抗、汚れ係数から総括伝熱係数 U を平板近似で計算します。">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/heat-transfer/overall-u/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="総括伝熱係数 U | 化学工学計算支援ツール">
+<meta property="og:description" content="内外面の熱伝達係数、壁の熱伝導抵抗、汚れ係数から総括伝熱係数 U を平板近似で計算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/heat-transfer/overall-u/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">伝熱</a><span class="sep">›</span><span class="current">総括伝熱係数 U</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">伝熱</span>
+      <h1>総括伝熱係数 U</h1>
+      <p class="tool-subcopy">境膜、管壁、汚れ係数を足し合わせて、総括伝熱係数 U を求めます。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <div class="input-row"><label>内側熱伝達係数 <span class="sym">h<sub>i</sub></span></label><div class="input-group"><input type="number" id="hi" step="any" placeholder="例：1500"><span class="unit-label">W/(m²K)</span></div></div>
+        <div class="input-row"><label>外側熱伝達係数 <span class="sym">h<sub>o</sub></span></label><div class="input-group"><input type="number" id="ho" step="any" placeholder="例：3000"><span class="unit-label">W/(m²K)</span></div></div>
+        <div class="input-row">
+          <label>壁厚 <span class="sym">δ</span></label>
+          <div class="input-group">
+            <input type="number" id="delta" step="any" placeholder="例：2">
+            <select id="delta_unit"><option value="mm">mm</option><option value="m">m</option></select>
+          </div>
+          <p class="hint">壁抵抗を無視する場合は 0 と入力してください。</p>
+        </div>
+        <div class="input-row"><label>管壁の熱伝導率 <span class="sym">k</span></label><div class="input-group"><input type="number" id="k_wall" step="any" placeholder="例：16"><span class="unit-label">W/(m K)</span></div></div>
+        <div class="input-row"><label>内側汚れ係数 <span class="sym">R<sub>f,i</sub></span></label><div class="input-group"><input type="number" id="Rfi" step="any" placeholder="例：0.0002"><span class="unit-label">m²K/W</span></div></div>
+        <div class="input-row"><label>外側汚れ係数 <span class="sym">R<sub>f,o</sub></span></label><div class="input-group"><input type="number" id="Rfo" step="any" placeholder="例：0.0001"><span class="unit-label">m²K/W</span></div></div>
+        <div class="btn-row"><button class="btn btn-primary" id="calc-btn">計算する</button><button class="btn btn-ghost" id="reset-btn">リセット</button></div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>総括伝熱係数は、熱が通過する各抵抗の和の逆数として扱います。</p>
+    <div class="math-block">$$ \frac{1}{U}=\frac{1}{h_i}+R_{f,i}+\frac{\delta}{k}+R_{f,o}+\frac{1}{h_o} $$</div>
+    <ul class="symbol-list">
+      <li>$U$：総括伝熱係数［W/(m²K)］</li>
+      <li>$h_i$：内側熱伝達係数［W/(m²K)］</li>
+      <li>$h_o$：外側熱伝達係数［W/(m²K)］</li>
+      <li>$R_{f,i}$：内側汚れ係数［m²K/W］</li>
+      <li>$R_{f,o}$：外側汚れ係数［m²K/W］</li>
+      <li>$\delta$：壁厚［m］</li>
+      <li>$k$：管壁の熱伝導率［W/(m K)］</li>
+    </ul>
+    <p class="caution-text">このページは平板近似です。円管で内面基準・外面基準の U を厳密に比較する場合は、内外面積比を含めた円筒壁の熱抵抗で確認してください。</p>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/431YmDO" class="reference-card" data-asin="4621045350" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">便覧</span><p class="ref-title">化学工学便覧 改訂6版</p><p class="ref-meta">化学工学会 編集 / 丸善出版</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+    <p class="reference-note">各種の熱伝達係数や汚れ係数は、化学工学便覧などの物性・設計資料を参考にしてください。</p>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../tube-heat-transfer/" class="related-card"><span class="small">伝熱</span>管内流の熱伝達係数</a>
+      <a href="../lmtd-area/" class="related-card"><span class="small">伝熱</span>LMTD・伝熱面積</a>
+      <a href="../heat-duty/" class="related-card"><span class="small">伝熱</span>熱量・熱収支</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="https://chem-fac.com/contact-form/" target="_blank" rel="noopener">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/overall-u.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

@@ -1053,6 +1053,55 @@ details.formula .body {
   background: #fff;
 }
 .calc-result-pane { background: var(--brand-faint); }
+.calc-card-stacked .calc-grid {
+  grid-template-columns: 1fr;
+}
+.calc-card-stacked .calc-input-pane {
+  border-right: none;
+  border-bottom: 1px solid var(--border);
+}
+.calc-card-stacked-input-grid .calc-input-pane {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 24px;
+  align-items: start;
+}
+.calc-card-stacked-input-grid .calc-input-pane h2,
+.calc-card-stacked-input-grid .calc-input-pane .btn-row,
+.calc-card-stacked-input-grid .calc-input-pane .error-msg {
+  grid-column: 1 / -1;
+}
+.calc-card-stacked-input-grid .input-row-full {
+  grid-column: 1 / -1;
+}
+.calc-card-heat-duty .heat-mode-row { grid-column: 1; grid-row: 2; }
+.calc-card-heat-duty .heat-continuous-mass-row,
+.calc-card-heat-duty .heat-batch-mass-row { grid-column: 2; grid-row: 2; }
+.calc-card-heat-duty .heat-continuous-volume-row,
+.calc-card-heat-duty .heat-batch-time-row { grid-column: 1; grid-row: 3; }
+.calc-card-heat-duty .heat-continuous-density-row { grid-column: 2; grid-row: 3; }
+.calc-card-heat-duty .heat-tin-row { grid-column: 1; grid-row: 4; }
+.calc-card-heat-duty .heat-tout-row { grid-column: 2; grid-row: 4; }
+.calc-card-heat-duty .heat-cp-row { grid-column: 1; grid-row: 5; }
+.calc-card-heat-duty .heat-latent-row { grid-column: 2; grid-row: 5; }
+.calc-card-heat-duty .heat-direction-row { grid-column: 1; grid-row: 6; }
+.calc-card-heat-duty .btn-row { grid-row: 7; }
+.calc-card-heat-duty .error-msg { grid-row: 8; }
+.calc-card-reynolds .reynolds-rho-row { grid-column: 1; grid-row: 2; }
+.calc-card-reynolds .reynolds-u-row { grid-column: 2; grid-row: 2; }
+.calc-card-reynolds .reynolds-q-row { grid-column: 2; grid-row: 2; }
+.calc-card-reynolds .reynolds-d-row { grid-column: 1; grid-row: 3; }
+.calc-card-reynolds .reynolds-mu-row { grid-column: 2; grid-row: 3; }
+.calc-card-reynolds .reynolds-nu-row { grid-column: 2; grid-row: 3; }
+.calc-card-reynolds[data-current-mode="kinematic"] .reynolds-u-row { grid-column: 1; }
+.calc-card-reynolds .btn-row { grid-row: 4; }
+.calc-card-reynolds .error-msg { grid-row: 5; }
+.calc-card-mix-power .mix-power-primary-row { grid-column: 1; grid-row: 2; }
+.calc-card-mix-power .mix-power-rho-row { grid-column: 2; grid-row: 2; }
+.calc-card-mix-power .mix-power-n-row { grid-column: 1; grid-row: 3; }
+.calc-card-mix-power .mix-power-d-row { grid-column: 2; grid-row: 3; }
+.calc-card-mix-power .btn-row { grid-row: 4; }
+.calc-card-mix-power .error-msg { grid-row: 5; }
 .calc-pane h2 {
   font-size: 15px;
   font-weight: 700;
@@ -1146,6 +1195,25 @@ details.formula .body {
   color: #fff;
 }
 .d-mode-pane[hidden] { display: none; }
+.flow-diameter-row .d-mode-switch {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+  border-radius: 6px;
+}
+.flow-diameter-row .d-mode-tab {
+  white-space: normal;
+  line-height: 1.4;
+}
+.flow-diameter-row .d-mode-tab.active {
+  border-radius: 4px;
+}
+.flow-diameter-row .d-mode-pane {
+  margin-top: 12px;
+}
+.flow-diameter-row .input-pair {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
 .input-pair {
   display: grid;
   grid-template-columns: 1fr;
@@ -1882,6 +1950,41 @@ details.formula .body {
   .tool-list { grid-template-columns: 1fr; }
   .calc-pane { padding: 20px 14px; min-width: 0; }
   .calc-input-pane { border-right: none; border-bottom: 1px solid var(--border); }
+  .calc-card-stacked-input-grid .calc-input-pane { grid-template-columns: 1fr; }
+  .calc-card-heat-duty .heat-mode-row,
+  .calc-card-heat-duty .heat-continuous-mass-row,
+  .calc-card-heat-duty .heat-batch-mass-row,
+  .calc-card-heat-duty .heat-continuous-volume-row,
+  .calc-card-heat-duty .heat-batch-time-row,
+  .calc-card-heat-duty .heat-continuous-density-row,
+  .calc-card-heat-duty .heat-tin-row,
+  .calc-card-heat-duty .heat-tout-row,
+  .calc-card-heat-duty .heat-cp-row,
+  .calc-card-heat-duty .heat-latent-row,
+  .calc-card-heat-duty .heat-direction-row,
+  .calc-card-heat-duty .btn-row,
+  .calc-card-heat-duty .error-msg,
+  .calc-card-reynolds .reynolds-rho-row,
+  .calc-card-reynolds .reynolds-u-row,
+  .calc-card-reynolds .reynolds-q-row,
+  .calc-card-reynolds .reynolds-d-row,
+  .calc-card-reynolds .reynolds-mu-row,
+  .calc-card-reynolds .reynolds-nu-row,
+  .calc-card-reynolds .btn-row,
+  .calc-card-reynolds .error-msg,
+  .calc-card-mix-power .mix-power-primary-row,
+  .calc-card-mix-power .mix-power-rho-row,
+  .calc-card-mix-power .mix-power-n-row,
+  .calc-card-mix-power .mix-power-d-row,
+  .calc-card-mix-power .btn-row,
+  .calc-card-mix-power .error-msg {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+  .flow-diameter-row .d-mode-switch,
+  .flow-diameter-row .input-pair {
+    grid-template-columns: 1fr;
+  }
   .mode-tab { padding: 14px 6px; font-size: 13px; line-height: 1.4; }
   .input-group { flex-wrap: wrap; }
   .input-group input { flex: 1 1 100%; min-width: 0; }
@@ -2097,6 +2200,13 @@ details.formula .body {
   transition: border-color .15s, box-shadow .15s;
   max-width: 720px;
 }
+.reference-block .reference-card + .reference-card {
+  margin-top: 12px;
+}
+.reference-block h3 {
+  font-size: 15px;
+  margin: 18px 0 10px;
+}
 .reference-card:hover {
   border-color: var(--brand);
   box-shadow: 0 2px 8px rgba(0,0,0,.06);
@@ -2159,6 +2269,10 @@ details.formula .body {
   font-weight: 600;
 }
 .reference-card .ref-cta::after { content: " ›"; }
+.reference-card-static:hover {
+  border-color: var(--border);
+  box-shadow: none;
+}
 .reference-block .paper-link-list {
   list-style: none;
   padding-left: 0;

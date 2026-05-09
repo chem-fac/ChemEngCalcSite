@@ -77,7 +77,7 @@
     </section>
 
     <!-- ===== Calculator ===== -->
-    <section class="calc-card" id="calculator">
+    <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
       <div class="calc-grid">
 
         <div class="calc-pane calc-input-pane">
@@ -86,13 +86,13 @@
           <div class="input-row">
             <label>密度 <span class="sym">ρ</span></label>
             <div class="input-group">
-              <input type="number" id="rho" step="any" placeholder="例：998">
+              <input type="number" id="rho" step="any" placeholder="例：1000">
               <select id="rho_unit" aria-label="密度の単位">
                 <option value="kgm3">kg/m³</option>
                 <option value="gcm3">g/cm³</option>
               </select>
             </div>
-            <p class="hint">運転温度・圧力での流体密度を入力してください（水20℃なら約998 kg/m³）。</p>
+            <p class="hint">運転温度・圧力での流体密度を入力してください（水なら約1000 kg/m³）。</p>
           </div>
 
           <div class="input-row">

@@ -55,7 +55,7 @@
     </div>
   </section>
 
-  <section class="calc-card" id="calculator">
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid calc-card-mix-power" id="calculator">
     <div class="mode-tabs" role="tablist">
       <button type="button" class="mode-tab active" data-mode="fromNp">Np → P・T</button>
       <button type="button" class="mode-tab" data-mode="fromPower">P → Np・T</button>
@@ -65,17 +65,15 @@
     <div class="calc-grid">
       <div class="calc-pane calc-input-pane">
         <h2>入力</h2>
-        <p class="hint" id="mode-hint">動力数 Np を入力して、所要動力 P とトルク T に換算します。</p>
 
-        <div class="input-row" data-show-when="fromNp">
+        <div class="input-row mix-power-primary-row" data-show-when="fromNp">
           <label>動力数 <span class="sym">N<sub>p</sub></span></label>
           <div class="input-group">
             <input type="number" id="Np" step="any" placeholder="例：5.0">
           </div>
-          <p class="hint">翼形状、撹拌レイノルズ数、バッフル条件に応じた値を入力してください。</p>
         </div>
 
-        <div class="input-row" data-show-when="fromPower">
+        <div class="input-row mix-power-primary-row" data-show-when="fromPower">
           <label>撹拌所要動力 <span class="sym">P</span></label>
           <div class="input-group">
             <input type="number" id="P" step="any" placeholder="例：1.5">
@@ -83,7 +81,7 @@
           </div>
         </div>
 
-        <div class="input-row" data-show-when="fromTorque">
+        <div class="input-row mix-power-primary-row" data-show-when="fromTorque">
           <label>トルク <span class="sym">T</span></label>
           <div class="input-group">
             <input type="number" id="T" step="any" placeholder="例：25">
@@ -91,15 +89,15 @@
           </div>
         </div>
 
-        <div class="input-row">
+        <div class="input-row mix-power-rho-row">
           <label>密度 <span class="sym">ρ</span></label>
           <div class="input-group">
-            <input type="number" id="rho" step="any" placeholder="例：998">
+            <input type="number" id="rho" step="any" placeholder="例：1000">
             <select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
           </div>
         </div>
 
-        <div class="input-row">
+        <div class="input-row mix-power-n-row">
           <label>回転数 <span class="sym">n</span></label>
           <div class="input-group">
             <input type="number" id="n" step="any" placeholder="例：300">
@@ -107,7 +105,7 @@
           </div>
         </div>
 
-        <div class="input-row">
+        <div class="input-row mix-power-d-row">
           <label>翼径 <span class="sym">d</span></label>
           <div class="input-group">
             <input type="number" id="d" step="any" placeholder="例：300">

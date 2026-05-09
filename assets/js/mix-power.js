@@ -51,14 +51,6 @@
     document.querySelectorAll('[data-show-when]').forEach(row => {
       row.hidden = !row.dataset.showWhen.split(/\s+/).includes(mode);
     });
-    const hint = $('mode-hint');
-    if (hint) {
-      hint.textContent = mode === 'fromNp'
-        ? '動力数 Np を入力して、所要動力 P とトルク T に換算します。'
-        : mode === 'fromPower'
-          ? '所要動力 P を入力して、動力数 Np とトルク T に換算します。'
-          : 'トルク T を入力して、所要動力 P と動力数 Np に換算します。';
-    }
     clearError();
     clearResult();
   }

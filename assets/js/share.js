@@ -7,7 +7,21 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initShareButtons();
+  initDensityPlaceholders();
 });
+
+function initDensityPlaceholders() {
+  const rho = document.getElementById('rho');
+  const unit = document.getElementById('rho_unit');
+  if (!rho || !unit) return;
+
+  const update = () => {
+    rho.placeholder = unit.value === 'gcm3' ? '例：1.0' : '例：1000';
+  };
+
+  unit.addEventListener('change', update);
+  update();
+}
 
 function initShareButtons() {
   const pageUrl = encodeURIComponent(window.location.href);
