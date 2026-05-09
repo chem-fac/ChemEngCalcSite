@@ -212,13 +212,46 @@
     }[c]));
   }
 
+  function normalize(s) {
+    return String(s).trim().toLowerCase();
+  }
+
+  function scoreTool(t, q) {
+    const title = normalize(t.title);
+    const category = normalize(t.category);
+    const keywords = t.keywords.map(normalize);
+    if (title === q) return 100;
+    if (keywords.some(k => k === q)) return 90;
+    if (title.includes(q)) return 80;
+    if (keywords.some(k => k.includes(q))) return 70;
+    if (category.includes(q)) return 20;
+    return 0;
+  }
+
   function search(query) {
-    const q = query.trim().toLowerCase();
+    const q = normalize(query);
     if (!q) return [];
-    return TOOLS.filter(t => {
-      const hay = (t.title + " " + t.category + " " + t.keywords.join(" ")).toLowerCase();
-      return hay.includes(q);
-    });
+    return TOOLS
+      .map(t => ({ tool: t, score: scoreTool(t, q) }))
+      .filter(x => x.score > 0)
+      .sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        if (a.tool.category === "カテゴリ" && b.tool.category !== "カテゴリ") return 1;
+        if (a.tool.category !== "カテゴリ" && b.tool.category === "カテゴリ") return -1;
+        return 0;
+      })
+      .map(x => x.tool);
+  }
+
+  function findDirectHit(query, hits) {
+    const q = normalize(query);
+    const exactToolHits = hits.filter(t =>
+      t.category !== "カテゴリ" &&
+      (normalize(t.title) === q || t.keywords.some(k => normalize(k) === q))
+    );
+    if (exactToolHits.length === 1) return exactToolHits[0];
+    if (hits.length === 1) return hits[0];
+    return null;
   }
 
   function render(box, hits, hasQuery) {
@@ -262,8 +295,9 @@
     window.__siteSearch = {
       submit() {
         const hits = search(input.value);
-        if (hits.length === 1) {
-          location.href = hits[0].url;
+        const direct = findDirectHit(input.value, hits);
+        if (direct) {
+          location.href = direct.url;
         } else {
           render(box, hits, input.value.trim().length > 0);
         }
