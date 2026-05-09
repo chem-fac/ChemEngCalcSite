@@ -45,7 +45,7 @@
     const Xpct = val('X');
     const qIn = val('q');
     const kIn = val('k');
-    if (!positive(CA0) || !positive(qIn) || !positive(kIn)) return setError('入口濃度・体積流量・速度定数を正の数値で入力してください。');
+    if (!positive(CA0) || !positive(qIn) || !positive(kIn)) return setError('入口濃度・入口体積流量・速度定数を正の数値で入力してください。');
     if (!isFinite(Xpct) || Xpct <= 0 || Xpct >= 100) return setError('転化率 X は 0 より大きく 100 未満で入力してください。');
     const X = Xpct / 100;
     const q = qIn * FLOW[$('q_unit').value];
