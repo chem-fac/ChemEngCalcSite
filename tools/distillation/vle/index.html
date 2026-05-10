@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>気液平衡・相対揮発度計算 | 化学工学計算支援ツール</title>
+  <meta name="description" content="飽和蒸気圧と系圧力から、二成分理想系のK値、相対揮発度、気相組成を計算します。">
+  <meta name="keywords" content="気液平衡, 相対揮発度, K値, Raoult, ラウール, 蒸留, 飽和蒸気圧, 気相組成">
+  <link rel="canonical" href="https://tools.chem-fac.com/tools/distillation/vle/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="化学工学計算支援ツール">
+  <meta property="og:title" content="気液平衡・相対揮発度計算 | 化学工学計算支援ツール">
+  <meta property="og:description" content="飽和蒸気圧と系圧力から、二成分理想系のK値、相対揮発度、気相組成を計算します。">
+  <meta property="og:url" content="https://tools.chem-fac.com/tools/distillation/vle/">
+  <meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@chem_fac">
+  <script
+    type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"気液平衡・相対揮発度計算","url":"https://tools.chem-fac.com/tools/distillation/vle/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"飽和蒸気圧と系圧力から、二成分理想系のK値、相対揮発度、気相組成を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"気液平衡, 相対揮発度, K値, Raoult, ラウール, 蒸留, 飽和蒸気圧, 気相組成","about":"蒸留"}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/main.css">
+  <link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+  <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-7MQ7VEMWHY');</script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="inner">
+      <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+      <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a
+          href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+    </div>
+  </header>
+
+  <main class="tool-page tool-page-wide">
+    <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">蒸留</a><span
+        class="sep">›</span><span class="current">気液平衡・相対揮発度計算</span></nav>
+
+    <section class="tool-hero tool-hero-simple">
+      <div class="tool-hero-content">
+        <span class="cat-tag">蒸留</span>
+        <h1>気液平衡・相対揮発度計算</h1>
+        <p class="tool-subcopy">飽和蒸気圧から二成分理想系の気液平衡比、相対揮発度、気相組成を計算します。</p>
+      </div>
+    </section>
+
+    <section class="calc-card calc-card-stacked calc-card-stacked-input-grid calc-card-distillation" id="calculator">
+      <div class="calc-grid">
+        <div class="calc-pane calc-input-pane">
+          <h2>入力</h2>
+
+          <div class="input-row">
+            <label>成分Aの飽和蒸気圧 <span class="sym">P<sub>A</sub><sup>sat</sup></span></label>
+            <div class="input-group"><input type="number" id="psatA" step="any" placeholder="例：100"><span
+                class="unit-label">kPa</span></div>
+            <p class="hint">軽沸点側にしたい成分をAにしてください。</p>
+          </div>
+
+          <div class="input-row">
+            <label>成分Bの飽和蒸気圧 <span class="sym">P<sub>B</sub><sup>sat</sup></span></label>
+            <div class="input-group"><input type="number" id="psatB" step="any" placeholder="例：44"><span
+                class="unit-label">kPa</span></div>
+          </div>
+
+          <div class="input-row">
+            <label>系圧力 <span class="sym">P</span></label>
+            <div class="input-group"><input type="number" id="P" step="any" placeholder="例：101.325"><span
+                class="unit-label">kPa abs</span></div>
+          </div>
+
+          <div class="input-row">
+            <label>液相中の成分A組成 <span class="sym">x<sub>A</sub></span></label>
+            <div class="input-group"><input type="number" id="xA" step="any" min="0" max="1" placeholder="例：0.5"><span
+                class="unit-label">mol frac</span></div>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn btn-primary" id="calc-btn">計算する</button>
+            <button class="btn btn-ghost" id="reset-btn">リセット</button>
+          </div>
+          <div id="error" class="error-msg" style="display:none;"></div>
+        </div>
+
+        <div class="calc-pane calc-result-pane">
+          <h2>計算結果</h2>
+          <div id="result-area">
+            <div class="placeholder">入力値を入れて「計算する」を押してください</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="explain-block">
+      <h2>計算式</h2>
+      <p>理想溶液・理想気体を仮定し、Raoult則で気液平衡比を計算します。</p>
+      <div class="math-block">$$ K_i = \frac{y_i}{x_i} = \frac{P_i^{sat}}{P} $$</div>
+      <p>二成分系の相対揮発度は、成分Aと成分BのK値の比です。</p>
+      <div class="math-block">$$ \alpha_{AB} = \frac{K_A}{K_B} = \frac{P_A^{sat}}{P_B^{sat}} $$</div>
+      <p>相対揮発度を一定とみなすと、液相組成から気相組成を次式で計算できます。</p>
+      <div class="math-block">$$ y_A = \frac{\alpha_{AB}x_A}{1+(\alpha_{AB}-1)x_A} $$</div>
+      <ul class="symbol-list">
+        <li>$P_i^{sat}$：成分 $i$ の飽和蒸気圧［kPa］</li>
+        <li>$P$：系圧力［kPa abs］</li>
+        <li>$K_i$：気液平衡比［-］</li>
+        <li>$x_i$：液相中の成分 $i$ のモル分率［-］</li>
+        <li>$y_i$：気相中の成分 $i$ のモル分率［-］</li>
+        <li>$\alpha_{AB}$：成分A/Bの相対揮発度［-］</li>
+      </ul>
+    </section>
+
+    <section class="explain-block notes-block">
+      <h2>適用範囲と注意事項</h2>
+      <ul>
+        <li>二成分系の簡易計算です。</li>
+        <li>気相は理想気体、液相は理想溶液として扱います。</li>
+        <li>飽和蒸気圧は同じ温度、同じ圧力単位で入力してください。</li>
+        <li>活量係数、共沸、圧力損失、熱収支は考慮していません。</li>
+        <li>強い非理想性を持つ系では、実測の気液平衡データや活量係数モデルを確認してください。</li>
+      </ul>
+    </section>
+
+    <section class="explain-block reference-block">
+      <h2>参考資料</h2>
+      <a href="https://amzn.to/4deYvbX" class="reference-card" data-asin="4526059676" target="_blank"
+        rel="noopener nofollow sponsored">
+        <div class="ref-image" aria-hidden="true"></div>
+        <div class="ref-body"><span class="ref-tag">書籍</span>
+          <p class="ref-title">絵とき「蒸留技術」基礎のきそ</p>
+          <p class="ref-meta">大江 修造 著 / 日刊工業新聞社</p><span class="ref-cta">Amazonで見る</span>
+        </div>
+      </a>
+    </section>
+
+    <section class="related">
+      <h3>関連ツール</h3>
+      <div class="related-grid">
+        <a href="../antoine/" class="related-card"><span class="small">蒸留</span>アントワン式（蒸気圧・沸点）</a>
+        <a href="../flash/" class="related-card"><span class="small">蒸留</span>フラッシュ蒸留の設計計算</a>
+        <a href="../simple/" class="related-card"><span class="small">蒸留</span>単蒸留の設計計算</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>サイトについて</h4>
+        <ul>
+          <li><a href="../../../about/">当サイトについて</a></li>
+          <li><a href="../../../privacy/">プライバシーポリシー</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>サポート</h4>
+        <ul>
+          <li><a href="../../../contact/">お問い合わせ</a></li>
+          <li><a href="../../../faq/">よくある質問</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>その他</h4>
+        <ul>
+          <li><a href="../../../terms/">利用規約</a></li>
+          <li><a href="../../../disclaimer/">免責事項</a></li>
+        </ul>
+      </div>
+      <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png"
+            alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+        <div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../../assets/js/distillation-vle.js"></script>
+  <script src="../../../assets/js/share.js"></script>
+  <script src="../../../assets/js/references.js"></script>
+</body>
+
+</html>

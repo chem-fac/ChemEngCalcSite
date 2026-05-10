@@ -61,10 +61,10 @@
       keywords: ["総括伝熱係数", "U", "熱抵抗", "境膜抵抗", "汚れ係数", "ファウリング", "管壁", "overall heat transfer coefficient"]
     },
     {
-      title: "管内流の熱伝達係数（ディタス・ベルターの式）",
+      title: "熱伝達係数（代表相関式）",
       url: "tools/heat-transfer/tube-heat-transfer/",
       category: "伝熱",
-      keywords: ["管内流", "熱伝達係数", "ディタス", "ベルター", "Dittus", "Boelter", "Re", "Pr", "Nu", "Nusselt", "乱流"]
+      keywords: ["熱伝達係数", "管内流", "平板", "自然対流", "強制対流", "ディタス", "ベルター", "Dittus", "Boelter", "Sieder", "Tate", "Re", "Pr", "Gr", "Nu", "Nusselt", "乱流"]
     },
     {
       title: "冷却水・蒸気・熱媒油の必要量",
@@ -118,7 +118,31 @@
       title: "アントワン式（蒸気圧・沸点）",
       url: "tools/distillation/antoine/",
       category: "蒸留",
-      keywords: ["アントワン", "Antoine", "蒸気圧", "沸点", "純物質", "VLE", "log P", "水", "エタノール", "メタノール", "ベンゼン", "トルエン", "アセトン", "vapor pressure"]
+      keywords: ["アントワン", "Antoine", "蒸気圧", "沸点", "純物質", "気液平衡", "log P", "水", "エタノール", "メタノール", "ベンゼン", "トルエン", "アセトン", "vapor pressure"]
+    },
+    {
+      title: "気液平衡・相対揮発度計算",
+      url: "tools/distillation/vle/",
+      category: "蒸留",
+      keywords: ["気液平衡", "相対揮発度", "K値", "Raoult", "ラウール", "飽和蒸気圧", "気相組成", "蒸留"]
+    },
+    {
+      title: "単蒸留の設計計算（レイリーの式）",
+      url: "tools/distillation/simple/",
+      category: "蒸留",
+      keywords: ["単蒸留", "レイリーの式", "Rayleigh", "レイリー", "回分蒸留", "留出量", "釜液量", "平均留出組成", "相対揮発度", "蒸留"]
+    },
+    {
+      title: "フラッシュ蒸留の設計計算",
+      url: "tools/distillation/flash/",
+      category: "蒸留",
+      keywords: ["フラッシュ蒸留", "蒸気率", "Rachford", "Rice", "気液平衡", "K値", "液相組成", "気相組成", "蒸留"]
+    },
+    {
+      title: "マッケーブ・シール法（二成分連続蒸留）",
+      url: "tools/distillation/mccabe-thiele/",
+      category: "蒸留",
+      keywords: ["McCabe", "Thiele", "マッケーブ・シール", "マッケーブシール", "二成分連続蒸留", "二成分蒸留", "理論段数", "供給段", "還流比", "q線", "操作線", "相対揮発度", "蒸留"]
     },
     {
       title: "アレニウスの式（反応速度定数・活性化エネルギー）",
@@ -148,7 +172,7 @@
       title: "蒸留(カテゴリ)",
       url: "tools/distillation/",
       category: "カテゴリ",
-      keywords: ["蒸留", "気液平衡", "還流比", "段数", "リボイラ", "コンデンサ", "distillation", "VLE", "McCabe", "Thiele", "ラウール", "アントワン"]
+      keywords: ["蒸留", "気液平衡", "単蒸留", "フラッシュ", "相対揮発度", "還流比", "段数", "リボイラ", "コンデンサ", "distillation", "McCabe", "Thiele", "ラウール", "アントワン"]
     },
     {
       title: "抽出（カテゴリ）",

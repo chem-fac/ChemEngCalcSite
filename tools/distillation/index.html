@@ -70,7 +70,7 @@
   <section class="cat-search-section">
     <div class="search-wrap">
       <form class="search" id="catSearchForm" onsubmit="event.preventDefault();">
-        <input id="catSearchInput" type="text" autocomplete="off" placeholder="蒸留カテゴリ内で検索（例：アントワン、蒸気圧）">
+        <input id="catSearchInput" type="text" autocomplete="off" placeholder="蒸留カテゴリ内で検索（例：気液平衡、単蒸留）">
       </form>
     </div>
     <p class="cat-search-empty" id="catSearchEmpty" hidden>該当するツールが見つかりませんでした。</p>
@@ -86,6 +86,46 @@
           <span class="tool-list-cat">蒸留</span>
           <h3 class="tool-list-title">アントワン式（蒸気圧・沸点）</h3>
           <p class="tool-list-desc">log P = A − B/(T+C) で純物質の蒸気圧・沸点を計算。水・エタノール・ベンゼンほかのプリセット付き。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="vle/" class="tool-list-card"
+         data-keywords="気液平衡 相対揮発度 K値 Raoult ラウール 飽和蒸気圧 気相組成">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">蒸留</span>
+          <h3 class="tool-list-title">気液平衡・相対揮発度計算</h3>
+          <p class="tool-list-desc">飽和蒸気圧と系圧力から、二成分理想系のK値、相対揮発度、気相組成を計算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="simple/" class="tool-list-card"
+         data-keywords="単蒸留 Rayleigh レイリー 回分蒸留 留出量 釜液量 平均留出組成 相対揮発度">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">蒸留</span>
+          <h3 class="tool-list-title">単蒸留の設計計算（レイリーの式）</h3>
+          <p class="tool-list-desc">初期釜液組成と目標釜液組成から、留出量、最終釜液量、平均留出組成を概算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="flash/" class="tool-list-card"
+         data-keywords="フラッシュ蒸留 蒸気率 Rachford Rice 気液平衡 K値 液相組成 気相組成">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">蒸留</span>
+          <h3 class="tool-list-title">フラッシュ蒸留の設計計算</h3>
+          <p class="tool-list-desc">飽和蒸気圧と供給組成から、蒸気率、気相・液相流量、気液組成を計算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="mccabe-thiele/" class="tool-list-card"
+         data-keywords="McCabe Thiele マッケーブ・シール マッケーブシール 二成分連続蒸留 二成分蒸留 理論段数 供給段 還流比 q線 操作線 相対揮発度">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">蒸留</span>
+          <h3 class="tool-list-title">マッケーブ・シール法（二成分連続蒸留）</h3>
+          <p class="tool-list-desc">平衡曲線、濃縮部・回収部操作線、q線を描き、理論段数、供給段位置、最小還流比を図上で概算します。</p>
         </div>
         <span class="tool-list-arrow">›</span>
       </a>

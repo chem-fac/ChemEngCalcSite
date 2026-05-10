@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>マッケーブ・シール法（二成分連続蒸留） | 化学工学計算支援ツール</title>
+  <meta name="description" content="二成分連続蒸留のマッケーブ・シール図を描き、理論段数、供給段位置、最小還流比を概算します。一定相対揮発度と等モル流れを仮定した教育・概算設計向けツールです。">
+  <meta name="keywords" content="McCabe-Thiele, マッケーブ・シール, マッケーブシール, 蒸留, 二成分蒸留, 理論段数, 供給段, 還流比, q線, 操作線, 相対揮発度">
+  <link rel="canonical" href="https://tools.chem-fac.com/tools/distillation/mccabe-thiele/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="化学工学計算支援ツール">
+  <meta property="og:title" content="マッケーブ・シール法（二成分連続蒸留） | 化学工学計算支援ツール">
+  <meta property="og:description" content="二成分連続蒸留のマッケーブ・シール図を描き、理論段数、供給段位置、最小還流比を概算します。">
+  <meta property="og:url" content="https://tools.chem-fac.com/tools/distillation/mccabe-thiele/">
+  <meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@chem_fac">
+  <script
+    type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"マッケーブ・シール法（二成分連続蒸留）","url":"https://tools.chem-fac.com/tools/distillation/mccabe-thiele/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"二成分連続蒸留のマッケーブ・シール図を描き、理論段数、供給段位置、最小還流比を概算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"McCabe-Thiele, マッケーブ・シール, マッケーブシール, 蒸留, 二成分連続蒸留, 二成分蒸留, 理論段数, 供給段, 還流比, q線, 操作線, 相対揮発度","about":"蒸留"}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/main.css">
+  <link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+  <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-7MQ7VEMWHY');</script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="inner">
+      <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+      <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a
+          href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+    </div>
+  </header>
+
+  <main class="tool-page tool-page-wide">
+    <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">蒸留</a><span
+        class="sep">›</span><span class="current">マッケーブ・シール法</span></nav>
+
+    <section class="tool-hero tool-hero-simple">
+      <div class="tool-hero-content">
+        <span class="cat-tag">蒸留</span>
+        <h1>マッケーブ・シール法（二成分連続蒸留）</h1>
+        <p class="tool-subcopy">一定相対揮発度の平衡曲線、濃縮部操作線、回収部操作線、q線を描き、理論段数と供給段位置を図上カウントします。</p>
+      </div>
+    </section>
+
+    <section class="calc-card calc-card-stacked calc-card-stacked-input-grid calc-card-distillation" id="calculator">
+      <div class="calc-grid">
+        <div class="calc-pane calc-input-pane">
+          <h2>入力</h2>
+
+          <div class="input-row">
+            <label>相対揮発度 <span class="sym">α</span></label>
+            <div class="input-group"><input type="number" id="alpha" step="any"><span class="unit-label">-</span></div>
+            <p class="hint">軽沸点成分/重沸点成分の平均相対揮発度を入力します。</p>
+          </div>
+
+          <div class="input-row">
+            <label>供給組成 <span class="sym">z<sub>F</sub></span></label>
+            <div class="input-group"><input type="number" id="zF" step="any" min="0" max="1"><span
+                class="unit-label">mol frac</span></div>
+          </div>
+
+          <div class="input-row">
+            <label>留出組成 <span class="sym">x<sub>D</sub></span></label>
+            <div class="input-group"><input type="number" id="xD" step="any" min="0" max="1"><span
+                class="unit-label">mol frac</span></div>
+          </div>
+
+          <div class="input-row">
+            <label>缶出組成 <span class="sym">x<sub>B</sub></span></label>
+            <div class="input-group"><input type="number" id="xB" step="any" min="0" max="1"><span
+                class="unit-label">mol frac</span></div>
+          </div>
+
+          <div class="input-row">
+            <label>還流比 <span class="sym">R</span></label>
+            <div class="input-group"><input type="number" id="R" step="any"><span class="unit-label">-</span></div>
+            <p class="hint">Rminより十分大きい値を入力してください。概算では1.2〜1.5倍以上を目安にします。</p>
+          </div>
+
+          <div class="input-row">
+            <label>供給状態 <span class="sym">q</span></label>
+            <div class="input-group"><input type="number" id="q" step="any"><span class="unit-label">-</span></div>
+            <p class="hint">飽和液 q=1、飽和蒸気 q=0、気液混合 0&lt;q&lt;1、過冷却液 q&gt;1。</p>
+          </div>
+
+          <div class="input-row">
+            <label>総合段効率（任意） <span class="sym">E<sub>o</sub></span></label>
+            <div class="input-group"><input type="number" id="eff" step="any"><span class="unit-label">%</span></div>
+            <p class="hint">入力すると理論段数から実段数を概算します。</p>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn btn-primary" id="calc-btn">計算する</button>
+            <button class="btn btn-ghost" id="reset-btn">リセット</button>
+          </div>
+          <div id="error" class="error-msg" style="display:none;"></div>
+        </div>
+
+        <div class="calc-pane calc-result-pane">
+          <h2>計算結果</h2>
+          <div id="result-area">
+            <div class="placeholder">入力値を入れて「計算する」を押してください</div>
+          </div>
+          <div class="distillation-chart-wrap">
+            <canvas id="mt-canvas" width="900" height="640" aria-label="マッケーブ・シール図"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="explain-block">
+      <h2>計算式</h2>
+      <p>相対揮発度を一定とみなす二成分系では、ラウールの法則に基づき平衡曲線を次式で表します。</p>
+      <div class="math-block">$$ y = \frac{\alpha x}{1+(\alpha-1)x} $$</div>
+      <p>還流比 $R$ の濃縮部操作線、供給状態を表す q線は次式です。</p>
+      <div class="math-block">$$ y = \frac{R}{R+1}x + \frac{x_D}{R+1}, \qquad y = \frac{q}{q-1}x - \frac{z_F}{q-1} $$
+      </div>
+      <p>回収部操作線は、濃縮部操作線とq線の交点、および $(x_B,x_B)$ を通る直線として計算します。階段作図では、45°線上の $(x_D,x_D)$ から平衡線と操作線を交互にたどり、$x_B$
+        に到達するまでの段数を数えます。</p>
+      <p>このツールでは、全凝縮コンデンサーを段数に含めず、リボイラーを1段として扱います。理論段数は「総ステップ数 - 1」とし、最後に部分段が出る場合は、実際の段数として切り上げます。</p>
+    </section>
+
+    <section class="explain-block notes-block">
+      <h2>適用範囲と注意事項</h2>
+      <ul>
+        <li>二成分系の概算・教育用途の計算です。</li>
+        <li>相対揮発度は塔内で一定、等モル流れ（constant molar overflow）を仮定します。</li>
+        <li>圧力損失、熱損失、非理想性、Murphree効率分布は考慮していません。</li>
+        <li>共沸系、強非理想系、多成分系には直接適用しないでください。</li>
+        <li>段数カウントは図上概算です。理論段数 = 総ステップ数 - 1（リボイラーを1段とカウント）とし、全凝縮コンデンサーは段数に含めません。</li>
+      </ul>
+    </section>
+
+    <section class="explain-block reference-block">
+      <h2>参考資料</h2>
+      <a href="https://amzn.to/4deYvbX" class="reference-card" data-asin="4526059676" target="_blank"
+        rel="noopener nofollow sponsored">
+        <div class="ref-image" aria-hidden="true"></div>
+        <div class="ref-body"><span class="ref-tag">書籍</span>
+          <p class="ref-title">絵とき「蒸留技術」基礎のきそ</p>
+          <p class="ref-meta">大江 修造 著 / 日刊工業新聞社</p><span class="ref-cta">Amazonで見る</span>
+        </div>
+      </a>
+    </section>
+
+    <section class="related">
+      <h3>関連ツール</h3>
+      <div class="related-grid">
+        <a href="../vle/" class="related-card"><span class="small">蒸留</span>気液平衡・相対揮発度計算</a>
+        <a href="../antoine/" class="related-card"><span class="small">蒸留</span>アントワン式（蒸気圧・沸点）</a>
+        <a href="../" class="related-card"><span class="small">蒸留</span>蒸留カテゴリへ戻る</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>サイトについて</h4>
+        <ul>
+          <li><a href="../../../about/">当サイトについて</a></li>
+          <li><a href="../../../privacy/">プライバシーポリシー</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>サポート</h4>
+        <ul>
+          <li><a href="../../../contact/">お問い合わせ</a></li>
+          <li><a href="../../../faq/">よくある質問</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>その他</h4>
+        <ul>
+          <li><a href="../../../terms/">利用規約</a></li>
+          <li><a href="../../../disclaimer/">免責事項</a></li>
+        </ul>
+      </div>
+      <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png"
+            alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+        <div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../../assets/js/mccabe-thiele.js"></script>
+  <script src="../../../assets/js/share.js"></script>
+  <script src="../../../assets/js/references.js"></script>
+</body>
+
+</html>

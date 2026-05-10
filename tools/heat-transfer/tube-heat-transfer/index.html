@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>管内流の熱伝達係数（ディタス・ベルターの式） | 化学工学計算支援ツール</title>
-<meta name="description" content="Re数・Pr数を計算し、Dittus-Boelter式から管内流の熱伝達係数 h を概算します。">
-<meta name="keywords" content="管内流, 熱伝達係数, ディタス, ベルター, Dittus, Boelter, Re, Pr, Nu, Nusselt, 乱流">
+<title>熱伝達係数（代表相関式） | 化学工学計算支援ツール</title>
+<meta name="description" content="円管内層流・円管内乱流・平板上乱流・垂直平板自然対流の代表相関式から、Nu数と熱伝達係数 h を概算します。">
+<meta name="keywords" content="熱伝達係数, 管内流, 平板, 自然対流, 強制対流, Dittus, Boelter, Sieder, Tate, Re, Pr, Gr, Nu, Nusselt">
 <link rel="canonical" href="https://tools.chem-fac.com/tools/heat-transfer/tube-heat-transfer/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="化学工学計算支援ツール">
-<meta property="og:title" content="管内流の熱伝達係数（ディタス・ベルターの式） | 化学工学計算支援ツール">
-<meta property="og:description" content="Re数・Pr数を計算し、Dittus-Boelter式から管内流の熱伝達係数 h を概算します。">
+<meta property="og:title" content="熱伝達係数（代表相関式） | 化学工学計算支援ツール">
+<meta property="og:description" content="円管内層流・円管内乱流・平板上乱流・垂直平板自然対流の代表相関式から、Nu数と熱伝達係数 h を概算します。">
 <meta property="og:url" content="https://tools.chem-fac.com/tools/heat-transfer/tube-heat-transfer/">
 <meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"管内流の熱伝達係数（ディタス・ベルターの式）","url":"https://tools.chem-fac.com/tools/heat-transfer/tube-heat-transfer/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"Re数・Pr数を計算し、Dittus-Boelter式から管内流の熱伝達係数 h を概算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"管内流, 熱伝達係数, ディタス, ベルター, Dittus, Boelter, Re, Pr, Nu, Nusselt, 乱流","about":"伝熱"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"熱伝達係数（代表相関式）","url":"https://tools.chem-fac.com/tools/heat-transfer/tube-heat-transfer/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"円管内層流・円管内乱流・平板上乱流・垂直平板自然対流の代表相関式から、Nu数と熱伝達係数 h を概算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"熱伝達係数, 管内流, 平板, 自然対流, 強制対流, Dittus, Boelter, Sieder, Tate, Re, Pr, Gr, Nu, Nusselt","about":"伝熱"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -41,21 +41,31 @@
 </header>
 
 <main class="tool-page tool-page-wide">
-  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">伝熱</a><span class="sep">›</span><span class="current">管内流の熱伝達係数</span></nav>
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">伝熱</a><span class="sep">›</span><span class="current">熱伝達係数（代表相関式）</span></nav>
 
   <section class="tool-hero tool-hero-simple">
     <div class="tool-hero-content">
       <span class="cat-tag">伝熱</span>
-      <h1>管内流の熱伝達係数（ディタス・ベルターの式）</h1>
-      <p class="tool-subcopy">単相乱流の管内流について、Re・Pr・Nu から熱伝達係数 h を計算します。</p>
+      <h1>熱伝達係数（代表相関式）</h1>
+      <p class="tool-subcopy">円管内層流・円管内乱流・平板上乱流・垂直平板自然対流の代表相関式から、Nu数と熱伝達係数 h を概算します。</p>
     </div>
   </section>
 
   <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab" data-mode="tube-laminar">円管内・層流</button>
+      <button type="button" class="mode-tab active" data-mode="tube-turbulent">円管内・乱流</button>
+      <button type="button" class="mode-tab" data-mode="flat-turbulent">平板・乱流</button>
+      <button type="button" class="mode-tab" data-mode="vertical-natural">垂直平板・自然対流</button>
+    </div>
     <div class="calc-grid">
       <div class="calc-pane calc-input-pane">
         <h2>入力</h2>
-        <div class="input-row">
+        <div class="input-row input-row-full">
+          <label>選択中の相関式</label>
+          <div class="result-note" id="selected-correlation">円管内・乱流</div>
+        </div>
+        <div class="input-row" data-show-when="tube-turbulent">
           <label>操作</label>
           <div class="input-group">
             <select id="thermal_mode" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;background:#fff;">
@@ -65,11 +75,15 @@
           </div>
         </div>
         <div class="input-row"><label>密度 <span class="sym">ρ</span></label><div class="input-group"><input type="number" id="rho" step="any" placeholder="例：1000"><select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select></div></div>
-        <div class="input-row"><label>平均流速 <span class="sym">u</span></label><div class="input-group"><input type="number" id="velocity" step="any" placeholder="例：1.5"><span class="unit-label">m/s</span></div></div>
-        <div class="input-row"><label>管内径 <span class="sym">D</span></label><div class="input-group"><input type="number" id="D" step="any" placeholder="例：25"><select id="D_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div></div>
-        <div class="input-row"><label>粘度 <span class="sym">μ</span></label><div class="input-group"><input type="number" id="mu" step="any" placeholder="例：1"><select id="mu_unit"><option value="mPas">mPa s</option><option value="cP">cP</option><option value="Pas">Pa s</option></select></div></div>
+        <div class="input-row" data-show-when="tube-laminar tube-turbulent flat-turbulent"><label>平均流速 <span class="sym">u</span></label><div class="input-group"><input type="number" id="velocity" step="any" placeholder="例：1.5"><span class="unit-label">m/s</span></div></div>
+        <div class="input-row" data-show-when="tube-laminar tube-turbulent"><label>管内径 <span class="sym">D</span></label><div class="input-group"><input type="number" id="D" step="any" placeholder="例：25"><select id="D_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div></div>
+        <div class="input-row" data-show-when="tube-laminar flat-turbulent vertical-natural"><label>代表長さ・管長 <span class="sym">L</span></label><div class="input-group"><input type="number" id="L" step="any" placeholder="例：1.0"><select id="L_unit"><option value="m">m</option><option value="cm">cm</option><option value="mm">mm</option></select></div><p class="hint">円管内層流では入口からの管長、平板・自然対流では平板高さまたは流れ方向長さを入力します。</p></div>
+        <div class="input-row"><label>粘度 <span class="sym">μ</span></label><div class="input-group"><input type="number" id="mu" step="any" placeholder="例：1"><select id="mu_unit"><option value="mPas">mPa s</option><option value="cP">cP</option><option value="Pas">Pa s</option></select></div><p class="hint">バルク平均温度での粘度を入力します。</p></div>
+        <div class="input-row" data-show-when="tube-laminar"><label>壁温での粘度（任意） <span class="sym">μ<sub>w</sub></span></label><div class="input-group"><input type="number" id="mu_wall" step="any" placeholder="未入力なら μ と同じ"><select id="mu_wall_unit"><option value="mPas">mPa s</option><option value="cP">cP</option><option value="Pas">Pa s</option></select></div></div>
         <div class="input-row"><label>比熱 <span class="sym">C<sub>p</sub></span></label><div class="input-group"><input type="number" id="cp" step="any" placeholder="例：4.18"><select id="cp_unit"><option value="kJkgK">kJ/(kg K)</option><option value="JkgK">J/(kg K)</option><option value="kcalkgK">kcal/(kg °C)</option></select></div></div>
         <div class="input-row"><label>熱伝導率 <span class="sym">k</span></label><div class="input-group"><input type="number" id="k_fluid" step="any" placeholder="例：0.6"><span class="unit-label">W/(m K)</span></div></div>
+        <div class="input-row" data-show-when="vertical-natural"><label>体膨張係数 <span class="sym">β</span></label><div class="input-group"><input type="number" id="beta" step="any" placeholder="例：0.0033"><span class="unit-label">1/K</span></div><p class="hint">気体では概算として β ≈ 1/T［K］を使うことがあります。</p></div>
+        <div class="input-row" data-show-when="vertical-natural"><label>壁面と流体の温度差 <span class="sym">ΔT</span></label><div class="input-group"><input type="number" id="deltaT" step="any" placeholder="例：20"><span class="unit-label">K</span></div></div>
         <div class="btn-row"><button class="btn btn-primary" id="calc-btn">計算する</button><button class="btn btn-ghost" id="reset-btn">リセット</button></div>
         <div id="error" class="error-msg" style="display:none;"></div>
       </div>
@@ -82,30 +96,39 @@
 
   <section class="explain-block">
     <h2>計算式</h2>
-    <p>ディタス・ベルターの式は、相変化を伴わない乱流の熱伝達係数を概算する相関式です。</p>
+    <p>熱伝達係数は、代表長さに基づくヌセルト数 $Nu$ から求めます。</p>
     <div class="math-block">$$ Re=\frac{\rho u D}{\mu}, \qquad Pr=\frac{C_p \mu}{k}, \qquad Nu=\frac{hD}{k} $$</div>
+    <p>円管内の発達した層流入口域では、壁温での粘度補正を含む次式を使います。</p>
+    <div class="math-block">$$ Nu = 1.86\left(Re\,Pr\,\frac{D}{L}\right)^{1/3}\left(\frac{\mu}{\mu_w}\right)^{0.14} $$</div>
+    <p>円管内の乱流では、Dittus-Boelter型の相関式を使います。</p>
     <div class="math-block">$$ Nu = 0.023 Re^{0.8} Pr^n $$</div>
-    <div class="math-block">$$ h = \frac{Nu\,k}{D} $$</div>
+    <p>平板上の発達した乱流強制対流と、垂直平板上の層流自然対流は次式で概算します。</p>
+    <div class="math-block">$$ Nu = 0.036 Re^{0.8} Pr^{1/3}, \qquad Nu = 0.555(Gr\,Pr)^{1/4} $$</div>
+    <div class="math-block">$$ h = \frac{Nu\,k}{L_c} $$</div>
     <ul class="symbol-list">
       <li>$Re$：レイノルズ数［-］</li>
       <li>$Pr$：プラントル数［-］</li>
+      <li>$Gr$：グラスホフ数［-］</li>
       <li>$Nu$：ヌセルト数［-］</li>
-      <li>$h$：管内熱伝達係数［W/(m²K)］</li>
+      <li>$h$：熱伝達係数［W/(m²K)］</li>
       <li>$D$：管内径［m］</li>
+      <li>$L, L_c$：代表長さ［m］</li>
       <li>$u$：平均流速［m/s］</li>
       <li>$\rho$：密度［kg/m³］</li>
       <li>$\mu$：粘度［Pa s］</li>
+      <li>$\mu_w$：壁温での粘度［Pa s］</li>
       <li>$C_p$：比熱［J/(kg K)］</li>
       <li>$k$：熱伝導率［W/(m K)］</li>
+      <li>$\beta$：体膨張係数［1/K］</li>
     </ul>
-    <p class="caution-text">代表的には Re &gt; 10000 程度の乱流域で用います。層流・遷移域、沸騰・凝縮、強い粘度温度依存がある場合は別の相関式を検討してください。</p>
+    <p class="caution-text">ここで扱う式は、単相流・代表的な形状に対する概算相関式です。沸騰・凝縮、複雑形状、非ニュートン流体、放射伝熱が無視できない場合は、対象装置に合った相関式を確認してください。</p>
   </section>
 
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
-    <a href="https://amzn.to/431YmDO" class="reference-card" data-asin="4621045350" target="_blank" rel="noopener nofollow sponsored">
+    <a href="https://amzn.to/4d0Fmvx" class="reference-card" data-asin="4785335297" target="_blank" rel="noopener nofollow sponsored">
       <div class="ref-image" aria-hidden="true"></div>
-      <div class="ref-body"><span class="ref-tag">便覧</span><p class="ref-title">化学工学便覧 改訂6版</p><p class="ref-meta">化学工学会 編集 / 丸善出版</p><span class="ref-cta">Amazonで見る</span></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">スッキリわかる 化学工学</p><p class="ref-meta">二井 晋・小林 敬幸・向井 康人・橋爪 進・衣笠 巧 著 / 裳華房</p><span class="ref-cta">Amazonで見る</span></div>
     </a>
   </section>
 
