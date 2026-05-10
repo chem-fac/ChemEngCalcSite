@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T02:25:06.870315+00:00",
+  "generated_at": "2026-05-10T13:04:10.038799+00:00",
   "marketplace": "www.amazon.co.jp",
   "items": {
     "4254250339": {
@@ -44,8 +44,17 @@
       "image_url": "https://m.media-amazon.com/images/I/41DntCI8+EL._SL500_.jpg",
       "image_width": 300,
       "image_height": 435,
-      "affiliate_url": "https://amzn.to/4eCau5E",
+      "affiliate_url": "https://amzn.to/4deYvbX",
       "fallback_meta": "大江 修造 著 / 日刊工業新聞社"
+    },
+    "4785335297": {
+      "asin": "4785335297",
+      "title": "スッキリわかる 化学工学",
+      "image_url": "https://m.media-amazon.com/images/I/41JcIso01SL._SL500_.jpg",
+      "image_width": 354,
+      "image_height": 500,
+      "affiliate_url": "https://amzn.to/4d0Fmvx",
+      "fallback_meta": "二井 晋・小林 敬幸・向井 康人・橋爪 進・衣笠 巧 著 / 裳華房"
     },
     "B0D8S14QGF": {
       "asin": "B0D8S14QGF",
