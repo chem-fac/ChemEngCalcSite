@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-09T13:02:04.120168+00:00",
+  "generated_at": "2026-05-10T02:25:06.870315+00:00",
   "marketplace": "www.amazon.co.jp",
   "items": {
     "4254250339": {
@@ -37,6 +37,24 @@
       "image_height": 500,
       "affiliate_url": "https://amzn.to/4dwd2Bf",
       "fallback_meta": "日本プロセス化学会 編 / 化学同人"
+    },
+    "4526059676": {
+      "asin": "4526059676",
+      "title": "絵とき「蒸留技術」基礎のきそ (Chemical Engineering Series)",
+      "image_url": "https://m.media-amazon.com/images/I/41DntCI8+EL._SL500_.jpg",
+      "image_width": 300,
+      "image_height": 435,
+      "affiliate_url": "https://amzn.to/4eCau5E",
+      "fallback_meta": "大江 修造 著 / 日刊工業新聞社"
+    },
+    "B0D8S14QGF": {
+      "asin": "B0D8S14QGF",
+      "title": "復刊 物性定数推算法",
+      "image_url": "https://m.media-amazon.com/images/I/21Led3LP+9L._SL500_.jpg",
+      "image_width": 352,
+      "image_height": 500,
+      "affiliate_url": "https://amzn.to/3P9QLA0",
+      "fallback_meta": "佐藤 一雄 著 / 丸善出版"
     }
   }
 }
