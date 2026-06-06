@@ -2410,3 +2410,14 @@ details.formula .body {
 @media (max-width: 600px) {
   .reference-card { padding: 14px; }
 }
+
+/* 数値入力欄のスピンボタン（増減ボタン）を全ページで非表示 */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
