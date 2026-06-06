@@ -8,7 +8,19 @@
 document.addEventListener('DOMContentLoaded', () => {
   initShareButtons();
   initDensityPlaceholders();
+  disableNumberInputWheel();
 });
+
+// マウスホイールで数値入力欄(type="number")の値が変わるのを防ぐ（全ページ共通）
+function disableNumberInputWheel() {
+  document.addEventListener('wheel', (e) => {
+    const el = e.target;
+    if (el instanceof HTMLInputElement && el.type === 'number' && el === document.activeElement) {
+      e.preventDefault(); // ホイールによる値変更を阻止
+      el.blur();          // フォーカスを外し、以降はページスクロールを通常どおりにする
+    }
+  }, { passive: false });
+}
 
 function initDensityPlaceholders() {
   const rho = document.getElementById('rho');
