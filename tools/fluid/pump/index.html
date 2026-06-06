@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ポンプ計算（全揚程・NPSH・軸動力） | 化学工学計算支援ツール</title>
+<meta name="description" content="ポンプ系統の全揚程、利用可能NPSH（NPSHa）、水動力・軸動力・モーター入力動力を、共通の入力から1画面でまとめて計算します。">
+<meta name="keywords" content="ポンプ計算, 全揚程, 実揚程, 摩擦損失, NPSH, NPSHa, NPSHr, キャビテーション, 大気圧, 軸動力, 水動力, モーター動力, 効率, 蒸気圧, ベルヌーイ">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/fluid/pump/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="ポンプ計算（全揚程・NPSH・軸動力） | 化学工学計算支援ツール">
+<meta property="og:description" content="ポンプ系統の全揚程、利用可能NPSH（NPSHa）、水動力・軸動力・モーター入力動力を1画面でまとめて計算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/fluid/pump/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ポンプ計算（全揚程・NPSH・軸動力）","url":"https://tools.chem-fac.com/tools/fluid/pump/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"ポンプ系統の全揚程・利用可能NPSH・水動力・軸動力・モーター入力動力をまとめて計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"ポンプ計算, 全揚程, NPSH, NPSHa, NPSHr, キャビテーション, 軸動力, 水動力, モーター動力","about":"流動"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">流動</a><span class="sep">›</span><span class="current">ポンプ計算</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">流動</span>
+      <h1>ポンプ計算（全揚程・NPSH・軸動力）</h1>
+      <p class="tool-subcopy">ポンプ系統の全揚程、利用可能NPSH、軸動力、モーター入力動力をまとめて計算します。同じポンプ条件に対して、揚程は足りるか・キャビテーションしないか・必要動力はどれくらいかを1画面で確認できます。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+
+        <p class="input-row-full" style="margin:4px 0 10px;padding-bottom:6px;border-bottom:1px solid #e4e4e7;font-weight:600;font-size:.95rem;color:#374151">基本条件</p>
+
+        <div class="input-row">
+          <label>液体密度 <span class="sym">ρ</span></label>
+          <div class="input-group">
+            <input type="number" id="rho" step="any" placeholder="例：1000">
+            <select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
+          </div>
+        </div>
+        <div class="input-row">
+          <label>体積流量 <span class="sym">Q</span></label>
+          <div class="input-group">
+            <input type="number" id="Q" step="any" placeholder="例：10">
+            <select id="Q_unit"><option value="m3h">m³/h</option><option value="m3min">m³/min</option><option value="Lmin">L/min</option></select>
+          </div>
+          <p class="hint">水動力・軸動力・モーター入力の計算に使用。</p>
+        </div>
+        <div class="input-row">
+          <label>吸込側 液面高さ <span class="sym">z₁</span></label>
+          <div class="input-group">
+            <input type="number" id="z1" step="any" placeholder="例：-2">
+            <span class="unit-label">m</span>
+          </div>
+          <p class="hint">ポンプ中心線基準。低い液面（吸い上げ）は負。全揚程・NPSH<sub>a</sub> で使用。</p>
+        </div>
+        <div class="input-row">
+          <label>吐出側 液面高さ <span class="sym">z₂</span></label>
+          <div class="input-group">
+            <input type="number" id="z2" step="any" placeholder="例：15">
+            <span class="unit-label">m</span>
+          </div>
+          <p class="hint">ポンプ中心線基準（上向きが正）。全揚程で使用。</p>
+        </div>
+        <div class="input-row">
+          <label>吸込側 タンク圧 <span class="sym">P₁</span></label>
+          <div class="input-group">
+            <input type="number" id="P1" step="any" placeholder="例：0">
+            <select id="P1_unit"><option value="kPaG">kPaG</option><option value="MPaG">MPaG</option><option value="barG">barG</option></select>
+          </div>
+          <p class="hint">ゲージ圧。大気圧解放なら 0 kPaG。全揚程・NPSH<sub>a</sub> で使用。</p>
+        </div>
+        <div class="input-row">
+          <label>吐出側 タンク圧 <span class="sym">P₂</span></label>
+          <div class="input-group">
+            <input type="number" id="P2" step="any" placeholder="例：0">
+            <select id="P2_unit"><option value="kPaG">kPaG</option><option value="MPaG">MPaG</option><option value="barG">barG</option></select>
+          </div>
+          <p class="hint">ゲージ圧。大気圧解放なら 0 kPaG。全揚程で使用。</p>
+        </div>
+
+        <p class="input-row-full" style="margin:22px 0 10px;padding-bottom:6px;border-bottom:1px solid #e4e4e7;font-weight:600;font-size:.95rem;color:#374151">配管損失</p>
+
+        <div class="input-row">
+          <label>吸込配管 摩擦損失 <span class="sym">ΔP<sub>s</sub></span></label>
+          <div class="input-group">
+            <input type="number" id="dPs" step="any" placeholder="例：8">
+            <select id="dPs_unit"><option value="kPa">kPa</option><option value="MPa">MPa</option><option value="bar">bar</option><option value="m">m（揚程換算）</option></select>
+          </div>
+          <p class="hint">全揚程・NPSH<sub>a</sub> で使用。</p>
+        </div>
+        <div class="input-row">
+          <label>吐出配管 摩擦損失 <span class="sym">ΔP<sub>d</sub></span></label>
+          <div class="input-group">
+            <input type="number" id="dPd" step="any" placeholder="例：80">
+            <select id="dPd_unit"><option value="kPa">kPa</option><option value="MPa">MPa</option><option value="bar">bar</option><option value="m">m（揚程換算）</option></select>
+          </div>
+          <p class="hint">エルボ・バルブの相当長を含めた合計。全揚程で使用。</p>
+        </div>
+
+        <p class="input-row-full" style="margin:22px 0 10px;padding-bottom:6px;border-bottom:1px solid #e4e4e7;font-weight:600;font-size:.95rem;color:#374151">NPSH条件</p>
+
+        <div class="input-row">
+          <label>飽和蒸気圧 <span class="sym">P<sub>v</sub></span></label>
+          <div class="input-group">
+            <input type="number" id="Pv" step="any" placeholder="例：2.34">
+            <select id="Pv_unit"><option value="kPaA">kPa abs</option><option value="MPaA">MPa abs</option><option value="barA">bar abs</option><option value="mmHgA">mmHg abs</option></select>
+          </div>
+          <p class="hint">運転温度での飽和蒸気圧（絶対圧）。水20℃で約2.34 kPa abs。</p>
+        </div>
+        <div class="input-row">
+          <label>大気圧 <span class="sym">P<sub>a</sub></span></label>
+          <div class="input-group">
+            <input type="number" id="Pa" step="any" value="101.325" placeholder="101.325">
+            <span class="unit-label">kPa abs</span>
+          </div>
+          <p class="hint">ゲージ圧→絶対圧の換算に使用。通常は 101.325 kPa。</p>
+        </div>
+        <div class="input-row">
+          <label>必要NPSH（任意） <span class="sym">NPSH<sub>r</sub></span></label>
+          <div class="input-group">
+            <input type="number" id="NPSHr" step="any" placeholder="例：3">
+            <span class="unit-label">m</span>
+          </div>
+          <p class="hint">ポンプメーカーの値。入力すると余裕（NPSH<sub>a</sub> − NPSH<sub>r</sub>）を表示。</p>
+        </div>
+
+        <p class="input-row-full" style="margin:22px 0 10px;padding-bottom:6px;border-bottom:1px solid #e4e4e7;font-weight:600;font-size:.95rem;color:#374151">動力条件</p>
+
+        <div class="input-row">
+          <label>ポンプ効率 <span class="sym">η<sub>p</sub></span></label>
+          <div class="input-group">
+            <input type="number" id="eta_p" step="any" value="0.70" placeholder="例：0.70">
+            <span class="unit-label">［-］</span>
+          </div>
+          <p class="hint">遠心ポンプは概ね 0.5〜0.8。軸動力の計算に使用。</p>
+        </div>
+        <div class="input-row">
+          <label>モーター効率 <span class="sym">η<sub>m</sub></span></label>
+          <div class="input-group">
+            <input type="number" id="eta_m" step="any" value="0.90" placeholder="例：0.90">
+            <span class="unit-label">［-］</span>
+          </div>
+          <p class="hint">モーター入力の計算に使用。</p>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <div>
+      <h2>全揚程の計算</h2>
+      <p>ポンプ系統に必要な全揚程 $H$ は、ベルヌーイ式から次の3項の和になります（速度ヘッド差は通常は無視します）。</p>
+      <div class="math-block">$$ H = (z_{2} - z_{1}) + \dfrac{P_{2} - P_{1}}{\rho g} + \dfrac{\Delta P_{s} + \Delta P_{d}}{\rho g} $$</div>
+      <ul class="symbol-list">
+        <li>$z_{2} - z_{1}$：実揚程（吐出液面と吸込液面の高さ差）</li>
+        <li>$(P_{2} - P_{1})/\rho g$：静圧差（タンク圧差を揚程に換算）</li>
+        <li>$(\Delta P_{s} + \Delta P_{d})/\rho g$：摩擦損失（吸込・吐出配管の圧力損失合計）</li>
+      </ul>
+      <p>$P_{1}, P_{2}$ はゲージ圧どうしの差なので、全揚程ではゲージ圧のまま計算できます。</p>
+    </div>
+
+    <div>
+      <h2>利用可能NPSH（NPSH<sub>a</sub>）</h2>
+      <p>NPSH<sub>a</sub> は、ポンプ入口でキャビテーションを起こさないために、入口圧力が飽和蒸気圧をどれだけ上回っているかを揚程で表したものです。</p>
+      <div class="math-block">$$ NPSH_{a} = \dfrac{(P_{1} + P_{a}) - P_{v}}{\rho g} + z_{1} - \dfrac{\Delta P_{s}}{\rho g} $$</div>
+      <ul class="symbol-list">
+        <li>$P_{1} + P_{a}$：吸込タンクの絶対圧（ゲージ圧 $P_{1}$ ＋ 大気圧 $P_{a}$）</li>
+        <li>$P_{v}$：運転温度での飽和蒸気圧（絶対圧）</li>
+        <li>$z_{1}$：液面とポンプ中心の高さ差（液面が上にあれば正）</li>
+        <li>$\Delta P_{s}$：吸込配管の摩擦損失</li>
+      </ul>
+      <p>NPSH<sub>a</sub> は<strong>絶対圧基準</strong>で評価します。全揚程は差圧でよいのに対し、NPSH<sub>a</sub> では吸込側のゲージ圧 $P_{1}$ に大気圧 $P_{a}$ を足して絶対圧へ換算しています。</p>
+    </div>
+
+    <div>
+      <h2>軸動力とモーター動力</h2>
+      <div class="math-block">$$ P_{w} = \rho g Q H \qquad P_{s} = \dfrac{P_{w}}{\eta_{p}} \qquad P_{m} = \dfrac{P_{s}}{\eta_{m}} $$</div>
+      <ul class="symbol-list">
+        <li>$P_{w}$：水動力（液体に与えられる動力）</li>
+        <li>$P_{s}$：軸動力（ポンプ軸に必要な動力）</li>
+        <li>$P_{m}$：モーター入力動力（電気入力）</li>
+        <li>$\eta_{p}$：ポンプ効率、$\eta_{m}$：モーター効率</li>
+        <li>$H$：全揚程（①の計算値を使用）</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>実務上の注意点</h2>
+      <ul class="symbol-list">
+        <li>圧力の基準：全揚程は $P_{2} - P_{1}$ の差圧なのでゲージ圧のままで構いませんが、NPSH<sub>a</sub> は絶対圧基準のため、ゲージ圧 $P_{1}$ に大気圧 $P_{a}$ を足して評価します。</li>
+        <li>ポンプ効率 $\eta_{p}$ は型式・容量・運転点で変わります。正確にはメーカーの性能曲線の値を用います。</li>
+        <li>NPSH<sub>a</sub> ≧ NPSH<sub>r</sub> ＋ 余裕（目安1 m）を確保します。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/48Hi37k" class="reference-card" data-asin="4254250339" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">化学工学：解説と演習</p><p class="ref-meta">多田 豊 編 / 朝倉書店</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../reynolds/" class="related-card"><span class="small">流動</span>レイノルズ数（配管）</a>
+      <a href="../fanning/" class="related-card"><span class="small">流動</span>ファニングの式・管摩擦係数</a>
+      <a href="../flow-conversion/" class="related-card"><span class="small">流動</span>流量・流速・配管径換算</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/pump.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>
