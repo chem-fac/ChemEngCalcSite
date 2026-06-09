@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>抽出後の相分離時間（静置・液滴沈降） | 化学工学計算支援ツール</title>
+<meta name="description" content="抽出後に2相が静置で分離するまでの時間を、液滴の沈降・浮上速度（Stokes則）から概算します。液滴径による分離時間の変化（早見表）と液滴レイノルズ数の判定つき。">
+<meta name="keywords" content="相分離, 分離時間, 静置, 液液分離, 抽出, 沈降速度, 浮上速度, Stokes, ストークス, 分散帯, 合一, 液滴径, 分液ロート, decanter, settling time, phase separation">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/extraction/phase-separation-time/">
+<meta property="og:type" content="website"><meta property="og:title" content="抽出後の相分離時間（静置・液滴沈降） | 化学工学計算支援ツール">
+<meta property="og:description" content="抽出後に2相が静置で分離するまでの時間を、液滴の沈降・浮上速度（Stokes則）から概算します。"><meta property="og:url" content="https://tools.chem-fac.com/tools/extraction/phase-separation-time/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png"><meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary"><meta name="twitter:site" content="@chem_fac">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head><body>
+<header class="site-header"><div class="inner">
+  <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+  <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+</div></header>
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">抽出</a><span class="sep">›</span><span class="current">抽出後の相分離時間</span></nav>
+  <section class="tool-hero tool-hero-simple"><div class="tool-hero-content"><span class="cat-tag">抽出</span><h1>抽出後の相分離時間（静置）</h1><p class="tool-subcopy">抽出して撹拌を止めたあと、分散している液滴が浮上・沈降して2相に分かれるまでの時間を、Stokesの式による液滴速度から概算します。液滴径でどれだけ変わるかを早見表で確認できます。</p></div></section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <div class="input-row">
+          <label>分散相（液滴になっている相）</label>
+          <div class="input-group"><select id="disp" aria-label="分散相" style="flex:1">
+            <option value="light" selected>軽液（上へ浮上）</option>
+            <option value="heavy">重液（下へ沈降）</option>
+          </select></div>
+          <p class="hint">撹拌を止めたあと、どちらの相が液滴として分散しているかを選びます。</p>
+        </div>
+        <div class="input-row">
+          <label>重液密度 <span class="sym">ρ<sub>h</sub></span></label>
+          <div class="input-group"><input type="number" step="any" id="rhoH" placeholder="例：1000"><span class="unit-static">kg/m³</span></div>
+        </div>
+        <div class="input-row">
+          <label>軽液密度 <span class="sym">ρ<sub>l</sub></span></label>
+          <div class="input-group"><input type="number" step="any" id="rhoL" placeholder="例：850"><span class="unit-static">kg/m³</span></div>
+        </div>
+        <div class="input-row">
+          <label>連続相粘度 <span class="sym">μ<sub>c</sub></span></label>
+          <div class="input-group"><input type="number" step="any" id="mu" placeholder="例：1.0"><span class="unit-static">mPa·s</span></div>
+          <p class="hint">液滴が通り抜ける相（連続相）の運転温度での粘度。水20℃なら約1.0 mPa·s。</p>
+        </div>
+        <div class="input-row">
+          <label>液滴径 <span class="sym">d</span></label>
+          <div class="input-group"><input type="number" step="any" id="d" placeholder="例：100"><span class="unit-static">µm</span></div>
+          <p class="hint">撹拌の強さで決まります。小さいほど分離は急に難しくなります（速度は $d^2$ に比例）。</p>
+        </div>
+        <div class="input-row">
+          <label>移動距離（分散帯の厚み） <span class="sym">H</span></label>
+          <div class="input-group"><input type="number" step="any" id="H" placeholder="例：0.1"><span class="unit-static">m</span></div>
+          <p class="hint">液滴が界面まで移動する距離。静置容器の液深や分散帯の厚みを目安にします。</p>
+        </div>
+        <div class="btn-row"><button class="btn btn-primary" id="calc-btn">計算する</button><button class="btn btn-ghost" id="reset-btn">リセット</button></div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+      <div class="calc-pane calc-result-pane"><h2>計算結果</h2><div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div></div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算の考え方</h2>
+    <p>抽出後の相分離は、①液滴が密度差で浮上・沈降する <strong>沈降（sedimentation）</strong> と、②界面で液滴どうしが合体する <strong>合一（coalescence）</strong> の2段階で進みます。このツールは理論式で扱える①の沈降時間を概算します（②は系によって大きく変わり、実測が前提です）。</p>
+    <p>分散相液滴の終末沈降（浮上）速度は Stokesの式で評価します。</p>
+    <div class="math-block">$$ u_t = \dfrac{(\rho_h-\rho_l)\,g\,d^2}{18\,\mu_c} = \dfrac{\Delta\rho\,g\,d^2}{18\,\mu_c} $$</div>
+    <p>液滴が分散帯の厚み $H$ を移動しきる時間と、液滴レイノルズ数：</p>
+    <div class="math-block">$$ t = \dfrac{H}{u_t},\qquad Re_p = \dfrac{\rho_c\,u_t\,d}{\mu_c} $$</div>
+    <ul class="symbol-list">
+      <li>$u_t$：液滴の沈降（浮上）速度［m/s］</li>
+      <li>$\Delta\rho=\rho_h-\rho_l$：重液・軽液の密度差［kg/m³］</li>
+      <li>$d$：分散相の液滴径［m］</li>
+      <li>$\mu_c$：連続相の粘度［Pa·s］</li>
+      <li>$\rho_c$：連続相の密度［kg/m³］（$Re_p$ 評価用）</li>
+      <li>$H$：液滴が移動する距離（分散帯の厚み）［m］</li>
+      <li>$t$：相分離に要する時間［s］</li>
+    </ul>
+    <h2>注意点</h2>
+    <ul>
+      <li>Stokesの式は $Re_p \lesssim 1$ の層流域で成立します。大きい液滴・大きい密度差・低粘度では $Re_p$ が 1 を超え、速度は過大評価になります（中間域・Newton 域の抵抗則で補正が必要）。</li>
+      <li>速度は液滴径の2乗に比例（$u_t \propto d^2$）するため、液滴径が 1/10 になると分離時間は 100 倍になります。撹拌が強すぎて微細分散になると、分離は急に難しくなります。</li>
+      <li>この計算は液滴が界面まで移動する「沈降律速」の概算です。実際に澄むまでの時間は合一にも依存し、界面活性物質・微粒子・反応副生成物などでエマルジョン化すると大幅に延びます。</li>
+      <li>設計・トラブル検討では、まず分液ロートやメスシリンダーでの静置試験で、分散層の消失時間・界面の明瞭さ・乳化層の有無を確認してください。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/4vA7FHw" class="reference-card" data-asin="4782825099" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">化学機械の理論と計算（第2版）</p><p class="ref-meta">亀井 三郎 編 / 産業図書</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related"><h3>関連ツール</h3><div class="related-grid">
+    <a href="../../separation/decanter/" class="related-card"><span class="small">分離</span>液液デカンターのサイジング</a>
+    <a href="../../separation/settling-velocity/" class="related-card"><span class="small">分離</span>球形粒子の終末沈降速度</a>
+    <a href="../single-stage/" class="related-card"><span class="small">抽出</span>単段液液抽出</a>
+  </div></section>
+</main>
+<footer class="site-footer"><div class="footer-inner">
+  <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+  <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+  <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+  <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+</div></footer>
+<script src="../../../assets/js/phase-separation-time.js"></script>
+<script src="../../../assets/js/references.js"></script>
+<script src="../../../assets/js/share.js"></script>
+</body></html>
