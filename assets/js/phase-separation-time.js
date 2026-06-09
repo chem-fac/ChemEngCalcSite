@@ -18,8 +18,23 @@
     return fmtNum(h / 24, 3) + ' 日';
   }
 
-  // Stokesの式による液滴の終末沈降（浮上）速度
-  function stokesVelocity(dRho, d, mu) { return dRho * g * d * d / (18 * mu); }
+  // 液滴の終末沈降（浮上）速度。粒子レイノルズ数の領域に応じて式を使い分ける
+  //   ストークス域 (Re_p < 2) / アレン域 (2 <= Re_p < 500) / ニュートン域 (500 <= Re_p)
+  //   dRho = |ρ_p - ρ_c|（密度差の大きさ）[kg/m³], d[m], muC[Pa·s], rhoC[kg/m³]
+  function terminalVelocity(dRho, d, muC, rhoC) {
+    // ストークス域
+    const uS = g * d * d * dRho / (18 * muC);
+    const ReS = rhoC * uS * d / muC;
+    if (ReS < 2) return { u: uS, Re: ReS, regime: 'ストークス域' };
+    // アレン域
+    const uA = Math.cbrt((4 / 225) * (g * g * dRho * dRho) / (rhoC * muC)) * d;
+    const ReA = rhoC * uA * d / muC;
+    if (ReA < 500) return { u: uA, Re: ReA, regime: 'アレン域' };
+    // ニュートン域
+    const uN = Math.sqrt(3 * g * dRho * d / rhoC);
+    const ReN = rhoC * uN * d / muC;
+    return { u: uN, Re: ReN, regime: 'ニュートン域' };
+  }
 
   function calc() {
     clearError();
@@ -30,15 +45,15 @@
     const H = val('H');                            // m
 
     if (!(rhoH > 0) || !(rhoL > 0)) return setError('密度を正の値で入力してください。');
-    if (rhoH <= rhoL) return setError('重液密度 ρ_heavy は軽液密度 ρ_light より大きくしてください。密度差がないと相分離は進みません。');
+    if (rhoH <= rhoL) return setError('重液密度 ρ_h は軽液密度 ρ_l より大きくしてください。密度差がないと相分離は進みません。');
     if (!(mu > 0)) return setError('連続相粘度 μ_c を正の値で入力してください。');
     if (!(d > 0)) return setError('液滴径 d を正の値で入力してください。');
     if (!(H > 0)) return setError('移動距離 H を正の値で入力してください。');
 
     const dRho = rhoH - rhoL;
-    const rhoC = (disp === 'light') ? rhoH : rhoL; // 液滴が通り抜ける連続相の密度（Re 評価用）
-    const ut = stokesVelocity(dRho, d, mu);
-    const Re = rhoC * ut * d / mu;
+    const rhoC = (disp === 'light') ? rhoH : rhoL; // 液滴が通り抜ける連続相の密度
+    const res = terminalVelocity(dRho, d, mu, rhoC);
+    const ut = res.u, Re = res.Re, regime = res.regime;
     const t = H / ut;
     const moveWord = (disp === 'light') ? '浮上' : '沈降';
 
@@ -51,19 +66,15 @@
     dList.sort((a, b) => b - a);
     const rows = dList.map(dum => {
       const isInput = Math.abs(dum - dInputUm) < 1e-6;
-      const dm = dum * 1e-6;
-      const u = stokesVelocity(dRho, dm, mu);
-      const ReI = rhoC * u * dm / mu;
-      const tI = H / u;
-      const flag = ReI > 1 ? ' <span class="small">※Stokes域外</span>' : '';
+      const r = terminalVelocity(dRho, dum * 1e-6, mu, rhoC);
+      const tI = H / r.u;
       const mark = isInput ? ' style="background:var(--brand-faint)"' : '';
       const label = isInput ? `<strong>${fmtNum(dum)} µm</strong>` : `${fmtNum(dum)} µm`;
-      return `<tr${mark}><td>${label}</td><td class="num">${fmtNum(u * 1000)} mm/s</td><td class="num">${fmtTime(tI)}${flag}</td></tr>`;
+      return `<tr${mark}><td>${label}</td><td class="num">${fmtNum(r.u * 1000)} mm/s</td><td class="num">${fmtTime(tI)}</td><td class="num"><span class="small">${r.regime}</span></td></tr>`;
     }).join('');
 
     const warns = [];
-    if (Re > 1) warns.push(`液滴 Re = ${fmtNum(Re)} > 1：Stokesの式の適用範囲（Re ≲ 1）を超えています。実際の速度はこれより遅く、分離時間は長めになります（中間域・Newton 域の抵抗則で補正が必要）。`);
-    warns.push('この値は液滴が界面まで移動する「沈降律速」の概算です。実際に澄むまでの時間は液滴どうしの合一にも依存し、界面活性物質・微粒子・エマルジョン化があると大幅に延びます。');
+    warns.push('この値は液滴が界面まで移動する「沈降律速」の概算です。実際に澄むまでの時間は液滴どうしの合体（合一）にも依存し、界面活性物質・微粒子・エマルジョン化があると大幅に延びます。');
     warns.push('設計・トラブル検討では、分液ロートやメスシリンダーでの静置試験で分散層の消失時間・乳化層の有無を確認してください。');
 
     $('result-area').innerHTML = `
@@ -72,11 +83,11 @@
       <table class="unit-table"><tbody>
         <tr><td>液滴の${moveWord}速度 u_t</td><td class="num">${fmtNum(ut * 1000)} mm/s ／ ${fmtNum(ut * 3600)} m/h</td></tr>
         <tr><td>相分離時間 t = H/u_t</td><td class="num">${fmtTime(t)}（${fmtNum(t)} s）</td></tr>
-        <tr><td>液滴 Reynolds 数 Re_p</td><td class="num">${fmtNum(Re)}${Re > 1 ? ' <span class="small">Stokes域外</span>' : ' <span class="small">Stokes域</span>'}</td></tr>
+        <tr><td>粒子レイノルズ数 Re_p</td><td class="num">${fmtNum(Re)} <span class="small">${regime}</span></td></tr>
         <tr><td>密度差 Δρ</td><td class="num">${fmtNum(dRho)} kg/m³</td></tr>
       </tbody></table>
       <div class="result-detail-label">液滴径による分離時間の変化（同じ Δρ・μ_c・H）</div>
-      <table class="unit-table"><thead><tr><th ${thL}>液滴径 d</th><th ${thR}>${moveWord}速度 u_t</th><th ${thR}>相分離時間 t</th></tr></thead><tbody>
+      <table class="unit-table"><thead><tr><th ${thL}>液滴径 d</th><th ${thR}>${moveWord}速度 u_t</th><th ${thR}>相分離時間 t</th><th ${thR}>領域</th></tr></thead><tbody>
         ${rows}
       </tbody></table>
       <div class="result-meta">${warns.map(w => `<div class="result-note">※ ${w}</div>`).join('')}</div>`;

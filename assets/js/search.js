@@ -175,6 +175,12 @@
       keywords: ["PFR", "管型反応器", "押し出し流れ", "プラグフロー", "反応器設計", "容積", "空間時間", "転化率"]
     },
     {
+      title: "抽出後の相分離時間（静置）",
+      url: "tools/extraction/phase-separation-time/",
+      category: "抽出",
+      keywords: ["相分離", "分離時間", "静置", "液液分離", "抽出", "終末速度", "沈降速度", "浮上速度", "ストークス", "アレン", "ニュートン", "粒子レイノルズ数", "Stokes", "Allen", "Newton", "分散帯", "液滴径", "分液ロート", "デカンター", "settling", "phase separation"]
+    },
+    {
       title: "蒸留(カテゴリ)",
       url: "tools/distillation/",
       category: "カテゴリ",

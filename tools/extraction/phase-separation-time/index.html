@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>抽出後の相分離時間（静置・液滴沈降） | 化学工学計算支援ツール</title>
-<meta name="description" content="抽出後に2相が静置で分離するまでの時間を、液滴の沈降・浮上速度（Stokes則）から概算します。液滴径による分離時間の変化（早見表）と液滴レイノルズ数の判定つき。">
-<meta name="keywords" content="相分離, 分離時間, 静置, 液液分離, 抽出, 沈降速度, 浮上速度, Stokes, ストークス, 分散帯, 合一, 液滴径, 分液ロート, decanter, settling time, phase separation">
+<meta name="description" content="抽出後に2相が静置で分離するまでの時間を、液滴の終末速度（ストークス・アレン・ニュートンの式）から概算します。粒子レイノルズ数で領域を自動判定し、液滴径による分離時間の変化を早見表で示します。">
+<meta name="keywords" content="相分離, 分離時間, 静置, 液液分離, 抽出, 終末速度, 沈降速度, 浮上速度, ストークスの式, アレンの式, ニュートンの式, 粒子レイノルズ数, ストークス域, アレン域, ニュートン域, Stokes, Allen, Newton, 分散帯, 液滴径, 分液ロート, decanter, settling time, phase separation">
 <link rel="canonical" href="https://tools.chem-fac.com/tools/extraction/phase-separation-time/">
 <meta property="og:type" content="website"><meta property="og:title" content="抽出後の相分離時間（静置・液滴沈降） | 化学工学計算支援ツール">
-<meta property="og:description" content="抽出後に2相が静置で分離するまでの時間を、液滴の沈降・浮上速度（Stokes則）から概算します。"><meta property="og:url" content="https://tools.chem-fac.com/tools/extraction/phase-separation-time/">
+<meta property="og:description" content="抽出後に2相が静置で分離するまでの時間を、液滴の終末速度（ストークス・アレン・ニュートンの式）から概算します。"><meta property="og:url" content="https://tools.chem-fac.com/tools/extraction/phase-separation-time/">
 <meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png"><meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary"><meta name="twitter:site" content="@chem_fac">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +25,7 @@
 </div></header>
 <main class="tool-page tool-page-wide">
   <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">抽出</a><span class="sep">›</span><span class="current">抽出後の相分離時間</span></nav>
-  <section class="tool-hero tool-hero-simple"><div class="tool-hero-content"><span class="cat-tag">抽出</span><h1>抽出後の相分離時間（静置）</h1><p class="tool-subcopy">抽出して撹拌を止めたあと、分散している液滴が浮上・沈降して2相に分かれるまでの時間を、Stokesの式による液滴速度から概算します。液滴径でどれだけ変わるかを早見表で確認できます。</p></div></section>
+  <section class="tool-hero tool-hero-simple"><div class="tool-hero-content"><span class="cat-tag">抽出</span><h1>抽出後の相分離時間（静置）</h1><p class="tool-subcopy">抽出して撹拌を止めたあと、分散している液滴が浮上・沈降して2相に分かれるまでの時間を、液滴の終末速度（ストークス・アレン・ニュートンの式）から概算します。液滴径でどれだけ変わるかを早見表で確認できます。</p></div></section>
 
   <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
     <div class="calc-grid">
@@ -55,7 +55,7 @@
         <div class="input-row">
           <label>液滴径 <span class="sym">d</span></label>
           <div class="input-group"><input type="number" step="any" id="d" placeholder="例：100"><span class="unit-static">µm</span></div>
-          <p class="hint">撹拌の強さで決まります。小さいほど分離は急に難しくなります（速度は $d^2$ に比例）。</p>
+          <p class="hint">撹拌の強さで決まります。小さいほど分離は急に難しくなります（ストークス域では速度は $d^2$ に比例）。</p>
         </div>
         <div class="input-row">
           <label>移動距離（分散帯の厚み） <span class="sym">H</span></label>
@@ -71,25 +71,31 @@
 
   <section class="explain-block">
     <h2>計算の考え方</h2>
-    <p>抽出後の相分離は、①液滴が密度差で浮上・沈降する <strong>沈降（sedimentation）</strong> と、②界面で液滴どうしが合体する <strong>合一（coalescence）</strong> の2段階で進みます。このツールは理論式で扱える①の沈降時間を概算します（②は系によって大きく変わり、実測が前提です）。</p>
-    <p>分散相液滴の終末沈降（浮上）速度は Stokesの式で評価します。</p>
-    <div class="math-block">$$ u_t = \dfrac{(\rho_h-\rho_l)\,g\,d^2}{18\,\mu_c} = \dfrac{\Delta\rho\,g\,d^2}{18\,\mu_c} $$</div>
-    <p>液滴が分散帯の厚み $H$ を移動しきる時間と、液滴レイノルズ数：</p>
-    <div class="math-block">$$ t = \dfrac{H}{u_t},\qquad Re_p = \dfrac{\rho_c\,u_t\,d}{\mu_c} $$</div>
+    <p>分散相の液滴が連続相中を移動する終末速度 $u_t$ を、粒子レイノルズ数 $Re_p$ の領域に応じて次の式で求めます。液滴が分散帯の厚み $H$ を移動しきる時間は $t = H/u_t$ で概算します。</p>
+    <h3>ストークス域（$Re_p < 2$）</h3>
+    <div class="math-block">$$ u_t = \dfrac{g\,d^2\,(\rho_p-\rho_c)}{18\,\mu_c} $$</div>
+    <h3>アレン域（$2 \le Re_p < 500$）</h3>
+    <div class="math-block">$$ u_t = \left[\dfrac{4}{225}\cdot\dfrac{g^2\,(\rho_p-\rho_c)^2}{\rho_c\,\mu_c}\right]^{1/3} d $$</div>
+    <h3>ニュートン域（$500 \le Re_p$）</h3>
+    <div class="math-block">$$ u_t = \sqrt{\dfrac{3\,g\,(\rho_p-\rho_c)\,d}{\rho_c}} $$</div>
+    <p>粒子レイノルズ数と相分離時間：</p>
+    <div class="math-block">$$ Re_p = \dfrac{\rho_c\,u_t\,d}{\mu_c},\qquad t = \dfrac{H}{u_t} $$</div>
     <ul class="symbol-list">
-      <li>$u_t$：液滴の沈降（浮上）速度［m/s］</li>
-      <li>$\Delta\rho=\rho_h-\rho_l$：重液・軽液の密度差［kg/m³］</li>
+      <li>$u_t$：液滴の終末沈降（浮上）速度［m/s］</li>
+      <li>$\rho_p$：分散相（液滴）の密度［kg/m³］</li>
+      <li>$\rho_c$：連続相の密度［kg/m³］</li>
+      <li>$\rho_p-\rho_c$：分散相と連続相の密度差（大きさは $\Delta\rho=\rho_h-\rho_l$）［kg/m³］</li>
       <li>$d$：分散相の液滴径［m］</li>
       <li>$\mu_c$：連続相の粘度［Pa·s］</li>
-      <li>$\rho_c$：連続相の密度［kg/m³］（$Re_p$ 評価用）</li>
       <li>$H$：液滴が移動する距離（分散帯の厚み）［m］</li>
+      <li>$Re_p$：粒子レイノルズ数［-］</li>
       <li>$t$：相分離に要する時間［s］</li>
     </ul>
     <h2>注意点</h2>
     <ul>
-      <li>Stokesの式は $Re_p \lesssim 1$ の層流域で成立します。大きい液滴・大きい密度差・低粘度では $Re_p$ が 1 を超え、速度は過大評価になります（中間域・Newton 域の抵抗則で補正が必要）。</li>
-      <li>速度は液滴径の2乗に比例（$u_t \propto d^2$）するため、液滴径が 1/10 になると分離時間は 100 倍になります。撹拌が強すぎて微細分散になると、分離は急に難しくなります。</li>
-      <li>この計算は液滴が界面まで移動する「沈降律速」の概算です。実際に澄むまでの時間は合一にも依存し、界面活性物質・微粒子・反応副生成物などでエマルジョン化すると大幅に延びます。</li>
+      <li>本ツールは $Re_p$ の値からストークス域・アレン域・ニュートン域を自動判定し、対応する式で $u_t$ を求めます。</li>
+      <li>ストークス域では速度は液滴径の2乗に比例（$u_t \propto d^2$）するため、液滴径が 1/10 になると分離時間は 100 倍になります。撹拌が強すぎて微細分散になると、分離は急に難しくなります。</li>
+      <li>この計算は液滴が界面まで移動する「沈降律速」の概算です。実際に澄むまでの時間は液滴どうしの合体（合一）にも依存し、界面活性物質・微粒子・反応副生成物などでエマルジョン化すると大幅に延びます。</li>
       <li>設計・トラブル検討では、まず分液ロートやメスシリンダーでの静置試験で、分散層の消失時間・界面の明瞭さ・乳化層の有無を確認してください。</li>
     </ul>
   </section>
