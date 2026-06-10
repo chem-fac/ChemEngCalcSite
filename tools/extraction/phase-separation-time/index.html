@@ -21,7 +21,8 @@
 </head><body>
 <header class="site-header"><div class="inner">
   <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
-  <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
 </div></header>
 <main class="tool-page tool-page-wide">
   <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">抽出</a><span class="sep">›</span><span class="current">抽出後の相分離時間</span></nav>
@@ -41,25 +42,25 @@
         </div>
         <div class="input-row">
           <label>重液密度 <span class="sym">ρ<sub>h</sub></span></label>
-          <div class="input-group"><input type="number" step="any" id="rhoH" placeholder="例：1000"><span class="unit-static">kg/m³</span></div>
+          <div class="input-group"><input type="number" inputmode="decimal" step="any" id="rhoH" placeholder="例：1000"><span class="unit-static">kg/m³</span></div>
         </div>
         <div class="input-row">
           <label>軽液密度 <span class="sym">ρ<sub>l</sub></span></label>
-          <div class="input-group"><input type="number" step="any" id="rhoL" placeholder="例：850"><span class="unit-static">kg/m³</span></div>
+          <div class="input-group"><input type="number" inputmode="decimal" step="any" id="rhoL" placeholder="例：850"><span class="unit-static">kg/m³</span></div>
         </div>
         <div class="input-row">
           <label>連続相粘度 <span class="sym">μ<sub>c</sub></span></label>
-          <div class="input-group"><input type="number" step="any" id="mu" placeholder="例：1.0"><span class="unit-static">mPa·s</span></div>
+          <div class="input-group"><input type="number" inputmode="decimal" step="any" id="mu" placeholder="例：1.0"><span class="unit-static">mPa·s</span></div>
           <p class="hint">液滴が通り抜ける相（連続相）の運転温度での粘度。水20℃なら約1.0 mPa·s。</p>
         </div>
         <div class="input-row">
           <label>液滴径 <span class="sym">d</span></label>
-          <div class="input-group"><input type="number" step="any" id="d" placeholder="例：100"><span class="unit-static">µm</span></div>
+          <div class="input-group"><input type="number" inputmode="decimal" step="any" id="d" placeholder="例：100"><span class="unit-static">µm</span></div>
           <p class="hint">撹拌の強さで決まります。小さいほど分離は急に難しくなります（ストークス域では速度は $d^2$ に比例）。</p>
         </div>
         <div class="input-row">
           <label>移動距離（分散帯の厚み） <span class="sym">H</span></label>
-          <div class="input-group"><input type="number" step="any" id="H" placeholder="例：0.1"><span class="unit-static">m</span></div>
+          <div class="input-group"><input type="number" inputmode="decimal" step="any" id="H" placeholder="例：0.1"><span class="unit-static">m</span></div>
           <p class="hint">液滴が界面まで移動する距離。静置容器の液深や分散帯の厚みを目安にします。</p>
         </div>
         <div class="btn-row"><button class="btn btn-primary" id="calc-btn">計算する</button><button class="btn btn-ghost" id="reset-btn">リセット</button></div>
@@ -123,4 +124,5 @@
 <script src="../../../assets/js/phase-separation-time.js"></script>
 <script src="../../../assets/js/references.js"></script>
 <script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
 </body></html>

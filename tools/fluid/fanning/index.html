@@ -51,6 +51,7 @@
         化学工学計算支援ツール
       </a>
       <nav class="site-nav">
+        <a href="../../../tools/">ツール一覧</a>
         <a href="../../../updates/">更新情報</a>
         <a href="../../../faq/">よくある質問</a>
         <a href="../../../support/">支援する</a>
@@ -88,7 +89,7 @@
           <div class="input-row">
             <label>密度 <span class="sym">ρ</span></label>
             <div class="input-group">
-              <input type="number" id="rho" step="any" placeholder="例：1000">
+              <input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000">
               <select id="rho_unit" aria-label="密度の単位">
                 <option value="kgm3">kg/m³</option>
                 <option value="gcm3">g/cm³</option>
@@ -100,7 +101,7 @@
           <div class="input-row">
             <label>平均流速 <span class="sym">u</span></label>
             <div class="input-group">
-              <input type="number" id="u" step="any" placeholder="例：1.5">
+              <input type="number" inputmode="decimal" id="u" step="any" placeholder="例：1.5">
               <select id="u_unit" aria-label="流速の単位">
                 <option value="ms">m/s</option>
                 <option value="cms">cm/s</option>
@@ -112,7 +113,7 @@
           <div class="input-row">
             <label>管内径 <span class="sym">D</span></label>
             <div class="input-group">
-              <input type="number" id="D" step="any" placeholder="例：50">
+              <input type="number" inputmode="decimal" id="D" step="any" placeholder="例：50">
               <select id="D_unit" aria-label="管内径の単位">
                 <option value="mm">mm</option>
                 <option value="cm">cm</option>
@@ -126,7 +127,7 @@
           <div class="input-row">
             <label>配管長さ <span class="sym">L</span></label>
             <div class="input-group">
-              <input type="number" id="L" step="any" placeholder="例：50">
+              <input type="number" inputmode="decimal" id="L" step="any" placeholder="例：50">
               <select id="L_unit" aria-label="配管長さの単位">
                 <option value="m">m</option>
                 <option value="km">km</option>
@@ -138,7 +139,7 @@
           <div class="input-row">
             <label>粘度 <span class="sym">μ</span></label>
             <div class="input-group">
-              <input type="number" id="mu" step="any" placeholder="例：1.0">
+              <input type="number" inputmode="decimal" id="mu" step="any" placeholder="例：1.0">
               <select id="mu_unit" aria-label="粘度の単位">
                 <option value="mPas">mPa·s</option>
                 <option value="cP">cP</option>
@@ -378,6 +379,7 @@
 
   <script src="../../../assets/js/fanning.js"></script>
   <script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
   <script src="../../../assets/js/references.js"></script>
 </body>
 

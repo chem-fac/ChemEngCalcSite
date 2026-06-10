@@ -36,7 +36,8 @@
 <header class="site-header">
   <div class="inner">
     <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
-    <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
   </div>
 </header>
 
@@ -55,19 +56,19 @@
     <div class="calc-grid">
       <div class="calc-pane calc-input-pane">
         <h2>入力</h2>
-        <div class="input-row"><label>内側熱伝達係数 <span class="sym">h<sub>i</sub></span></label><div class="input-group"><input type="number" id="hi" step="any" placeholder="例：1500"><span class="unit-label">W/(m²K)</span></div></div>
-        <div class="input-row"><label>外側熱伝達係数 <span class="sym">h<sub>o</sub></span></label><div class="input-group"><input type="number" id="ho" step="any" placeholder="例：3000"><span class="unit-label">W/(m²K)</span></div></div>
+        <div class="input-row"><label>内側熱伝達係数 <span class="sym">h<sub>i</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" id="hi" step="any" placeholder="例：1500"><span class="unit-label">W/(m²K)</span></div></div>
+        <div class="input-row"><label>外側熱伝達係数 <span class="sym">h<sub>o</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" id="ho" step="any" placeholder="例：3000"><span class="unit-label">W/(m²K)</span></div></div>
         <div class="input-row">
           <label>壁厚 <span class="sym">δ</span></label>
           <div class="input-group">
-            <input type="number" id="delta" step="any" placeholder="例：2">
+            <input type="number" inputmode="decimal" id="delta" step="any" placeholder="例：2">
             <select id="delta_unit"><option value="mm">mm</option><option value="m">m</option></select>
           </div>
           <p class="hint">壁抵抗を無視する場合は 0 と入力してください。</p>
         </div>
-        <div class="input-row"><label>管壁の熱伝導率 <span class="sym">k</span></label><div class="input-group"><input type="number" id="k_wall" step="any" placeholder="例：16"><span class="unit-label">W/(m K)</span></div></div>
-        <div class="input-row"><label>内側汚れ係数 <span class="sym">R<sub>f,i</sub></span></label><div class="input-group"><input type="number" id="Rfi" step="any" placeholder="例：0.0002"><span class="unit-label">m²K/W</span></div></div>
-        <div class="input-row"><label>外側汚れ係数 <span class="sym">R<sub>f,o</sub></span></label><div class="input-group"><input type="number" id="Rfo" step="any" placeholder="例：0.0001"><span class="unit-label">m²K/W</span></div></div>
+        <div class="input-row"><label>管壁の熱伝導率 <span class="sym">k</span></label><div class="input-group"><input type="number" inputmode="decimal" id="k_wall" step="any" placeholder="例：16"><span class="unit-label">W/(m K)</span></div></div>
+        <div class="input-row"><label>内側汚れ係数 <span class="sym">R<sub>f,i</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" id="Rfi" step="any" placeholder="例：0.0002"><span class="unit-label">m²K/W</span></div></div>
+        <div class="input-row"><label>外側汚れ係数 <span class="sym">R<sub>f,o</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" id="Rfo" step="any" placeholder="例：0.0001"><span class="unit-label">m²K/W</span></div></div>
         <div class="btn-row"><button class="btn btn-primary" id="calc-btn">計算する</button><button class="btn btn-ghost" id="reset-btn">リセット</button></div>
         <div id="error" class="error-msg" style="display:none;"></div>
       </div>
@@ -123,6 +124,7 @@
 </footer>
 <script src="../../../assets/js/overall-u.js"></script>
 <script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
 <script src="../../../assets/js/references.js"></script>
 </body>
 </html>

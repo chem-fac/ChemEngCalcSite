@@ -36,7 +36,8 @@
 <header class="site-header">
   <div class="inner">
     <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
-    <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
   </div>
 </header>
 
@@ -79,40 +80,40 @@
 
         <div class="input-row">
           <label>翼径 <span class="sym">d</span></label>
-          <div class="input-group"><input type="number" id="d" step="any" placeholder="例：300"><select id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="d" step="any" placeholder="例：300"><select id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div>
         </div>
         <div class="input-row">
           <label>槽径 <span class="sym">D</span></label>
-          <div class="input-group"><input type="number" id="D" step="any" placeholder="例：900"><select id="D_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="D" step="any" placeholder="例：900"><select id="D_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div>
         </div>
         <div class="input-row">
           <label>液深さ <span class="sym">H</span></label>
-          <div class="input-group"><input type="number" id="H" step="any" placeholder="例：900"><select id="H_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="H" step="any" placeholder="例：900"><select id="H_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div>
         </div>
         <div class="input-row">
           <label>翼幅 <span class="sym">b</span></label>
-          <div class="input-group"><input type="number" id="b" step="any" placeholder="例：60"><select id="b_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="b" step="any" placeholder="例：60"><select id="b_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div>
           <p class="hint">ヘリカルリボン翼ではこの入力は計算に使用しません。</p>
         </div>
         <div class="input-row">
           <label>羽根枚数 <span class="sym">n<sub>p</sub></span></label>
-          <div class="input-group"><input type="number" id="np" step="1" placeholder="例：4"></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="np" step="1" placeholder="例：4"></div>
         </div>
         <div class="input-row">
           <label>羽根取り付け角度 <span class="sym">θ</span></label>
-          <div class="input-group"><input type="number" id="theta" step="any" placeholder="例：45"><span class="unit-static">deg</span></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="theta" step="any" placeholder="例：45"><span class="unit-static">deg</span></div>
         </div>
         <div class="input-row">
           <label>密度 <span class="sym">ρ</span></label>
-          <div class="input-group"><input type="number" id="rho" step="any" placeholder="例：1000"><select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000"><select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select></div>
         </div>
         <div class="input-row">
           <label>回転数 <span class="sym">n</span></label>
-          <div class="input-group"><input type="number" id="n" step="any" placeholder="例：300"><select id="n_unit"><option value="rpm">rpm</option><option value="rps">1/s</option></select></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="n" step="any" placeholder="例：300"><select id="n_unit"><option value="rpm">rpm</option><option value="rps">1/s</option></select></div>
         </div>
         <div class="input-row">
           <label>粘度 <span class="sym">μ</span></label>
-          <div class="input-group"><input type="number" id="mu" step="any" placeholder="例：1"><select id="mu_unit"><option value="mPas">mPa·s</option><option value="cP">cP</option><option value="Pas">Pa·s</option></select></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="mu" step="any" placeholder="例：1"><select id="mu_unit"><option value="mPas">mPa·s</option><option value="cP">cP</option><option value="Pas">Pa·s</option></select></div>
         </div>
 
         <div class="btn-row">
@@ -195,6 +196,7 @@
 
 <script src="../../../assets/js/mix-kamei.js"></script>
 <script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
 <script src="../../../assets/js/references.js"></script>
 </body>
 </html>

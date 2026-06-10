@@ -36,7 +36,8 @@
 <header class="site-header">
   <div class="inner">
     <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
-    <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
   </div>
 </header>
 
@@ -57,24 +58,24 @@
         <h2>入力</h2>
         <div class="input-row">
           <label>成分Aの飽和蒸気圧 <span class="sym">P<sub>A</sub><sup>sat</sup></span></label>
-          <div class="input-group"><input type="number" id="psatA" step="any" placeholder="例：180"><span class="unit-label">kPa</span></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="psatA" step="any" placeholder="例：180"><span class="unit-label">kPa</span></div>
           <p class="hint">軽沸点側にしたい成分をAにしてください。</p>
         </div>
         <div class="input-row">
           <label>成分Bの飽和蒸気圧 <span class="sym">P<sub>B</sub><sup>sat</sup></span></label>
-          <div class="input-group"><input type="number" id="psatB" step="any" placeholder="例：55"><span class="unit-label">kPa</span></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="psatB" step="any" placeholder="例：55"><span class="unit-label">kPa</span></div>
         </div>
         <div class="input-row">
           <label>系圧力 <span class="sym">P</span></label>
-          <div class="input-group"><input type="number" id="P" step="any" placeholder="例：101.325"><span class="unit-label">kPa abs</span></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="P" step="any" placeholder="例：101.325"><span class="unit-label">kPa abs</span></div>
         </div>
         <div class="input-row">
           <label>供給中の成分A組成 <span class="sym">z<sub>A</sub></span></label>
-          <div class="input-group"><input type="number" id="zA" step="any" min="0" max="1" placeholder="例：0.5"><span class="unit-label">mol frac</span></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="zA" step="any" min="0" max="1" placeholder="例：0.5"><span class="unit-label">mol frac</span></div>
         </div>
         <div class="input-row">
           <label>供給流量 <span class="sym">F</span></label>
-          <div class="input-group"><input type="number" id="F" step="any" placeholder="例：100"><span class="unit-label">kmol/h</span></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="F" step="any" placeholder="例：100"><span class="unit-label">kmol/h</span></div>
         </div>
         <div class="btn-row"><button class="btn btn-primary" id="calc-btn">計算する</button><button class="btn btn-ghost" id="reset-btn">リセット</button></div>
         <div id="error" class="error-msg" style="display:none;"></div>
@@ -147,6 +148,7 @@
 
 <script src="../../../assets/js/flash-distillation.js"></script>
 <script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
 <script src="../../../assets/js/references.js"></script>
 </body>
 </html>

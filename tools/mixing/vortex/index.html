@@ -36,7 +36,8 @@
 <header class="site-header">
   <div class="inner">
     <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
-    <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
   </div>
 </header>
 
@@ -59,7 +60,7 @@
         <div class="input-row">
           <label>回転数 <span class="sym">n</span></label>
           <div class="input-group">
-            <input type="number" id="n" step="any" placeholder="例：100">
+            <input type="number" inputmode="decimal" id="n" step="any" placeholder="例：100">
             <select id="n_unit"><option value="rpm">rpm</option><option value="rps">1/s</option></select>
           </div>
         </div>
@@ -67,7 +68,7 @@
         <div class="input-row">
           <label>翼径 <span class="sym">d</span></label>
           <div class="input-group">
-            <input type="number" id="d" step="any" placeholder="例：300">
+            <input type="number" inputmode="decimal" id="d" step="any" placeholder="例：300">
             <select id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
           </div>
         </div>
@@ -75,7 +76,7 @@
         <div class="input-row">
           <label>槽径 <span class="sym">D</span></label>
           <div class="input-group">
-            <input type="number" id="D" step="any" placeholder="例：900">
+            <input type="number" inputmode="decimal" id="D" step="any" placeholder="例：900">
             <select id="D_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
           </div>
         </div>
@@ -83,7 +84,7 @@
         <div class="input-row">
           <label>固体的回転半径 <span class="sym">r<sub>c</sub></span>（任意）</label>
           <div class="input-group">
-            <input type="number" id="rc" step="any" placeholder="例：150">
+            <input type="number" inputmode="decimal" id="rc" step="any" placeholder="例：150">
             <select id="rc_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
           </div>
           <p class="hint">直接入力した場合はこの値を使います。未入力なら下の羽根幅・羽根枚数・撹拌レイノルズ数から推算します。</p>
@@ -92,7 +93,7 @@
         <div class="input-row">
           <label>羽根幅 <span class="sym">b</span>（r<sub>c</sub>推算用）</label>
           <div class="input-group">
-            <input type="number" id="b" step="any" placeholder="例：60">
+            <input type="number" inputmode="decimal" id="b" step="any" placeholder="例：60">
             <select id="b_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
           </div>
         </div>
@@ -100,14 +101,14 @@
         <div class="input-row">
           <label>羽根枚数 <span class="sym">n<sub>p</sub></span>（r<sub>c</sub>推算用）</label>
           <div class="input-group">
-            <input type="number" id="np" step="1" placeholder="例：4">
+            <input type="number" inputmode="decimal" id="np" step="1" placeholder="例：4">
           </div>
         </div>
 
         <div class="input-row">
           <label>撹拌レイノルズ数 <span class="sym">Re</span>（r<sub>c</sub>推算用）</label>
           <div class="input-group">
-            <input type="number" id="Re" step="any" placeholder="例：10000">
+            <input type="number" inputmode="decimal" id="Re" step="any" placeholder="例：10000">
           </div>
           <p class="hint"><a href="../reynolds/">撹拌レイノルズ数</a>ツールで計算した値を入力してください。</p>
         </div>
@@ -182,6 +183,7 @@
 
 <script src="../../../assets/js/mix-vortex.js"></script>
 <script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
 <script src="../../../assets/js/references.js"></script>
 </body>
 </html>

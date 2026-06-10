@@ -36,7 +36,8 @@
 <header class="site-header">
   <div class="inner">
     <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
-    <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
   </div>
 </header>
 
@@ -74,16 +75,16 @@
             </select>
           </div>
         </div>
-        <div class="input-row"><label>密度 <span class="sym">ρ</span></label><div class="input-group"><input type="number" id="rho" step="any" placeholder="例：1000"><select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select></div></div>
-        <div class="input-row" data-show-when="tube-laminar tube-turbulent flat-turbulent"><label>平均流速 <span class="sym">u</span></label><div class="input-group"><input type="number" id="velocity" step="any" placeholder="例：1.5"><span class="unit-label">m/s</span></div></div>
-        <div class="input-row" data-show-when="tube-laminar tube-turbulent"><label>管内径 <span class="sym">D</span></label><div class="input-group"><input type="number" id="D" step="any" placeholder="例：25"><select id="D_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div></div>
-        <div class="input-row" data-show-when="tube-laminar flat-turbulent vertical-natural"><label>代表長さ・管長 <span class="sym">L</span></label><div class="input-group"><input type="number" id="L" step="any" placeholder="例：1.0"><select id="L_unit"><option value="m">m</option><option value="cm">cm</option><option value="mm">mm</option></select></div><p class="hint">円管内層流では入口からの管長、平板・自然対流では平板高さまたは流れ方向長さを入力します。</p></div>
-        <div class="input-row"><label>粘度 <span class="sym">μ</span></label><div class="input-group"><input type="number" id="mu" step="any" placeholder="例：1"><select id="mu_unit"><option value="mPas">mPa s</option><option value="cP">cP</option><option value="Pas">Pa s</option></select></div><p class="hint">バルク平均温度での粘度を入力します。</p></div>
-        <div class="input-row" data-show-when="tube-laminar"><label>壁温での粘度（任意） <span class="sym">μ<sub>w</sub></span></label><div class="input-group"><input type="number" id="mu_wall" step="any" placeholder="未入力なら μ と同じ"><select id="mu_wall_unit"><option value="mPas">mPa s</option><option value="cP">cP</option><option value="Pas">Pa s</option></select></div></div>
-        <div class="input-row"><label>比熱 <span class="sym">C<sub>p</sub></span></label><div class="input-group"><input type="number" id="cp" step="any" placeholder="例：4.18"><select id="cp_unit"><option value="kJkgK">kJ/(kg K)</option><option value="JkgK">J/(kg K)</option><option value="kcalkgK">kcal/(kg °C)</option></select></div></div>
-        <div class="input-row"><label>熱伝導率 <span class="sym">k</span></label><div class="input-group"><input type="number" id="k_fluid" step="any" placeholder="例：0.6"><span class="unit-label">W/(m K)</span></div></div>
-        <div class="input-row" data-show-when="vertical-natural"><label>体膨張係数 <span class="sym">β</span></label><div class="input-group"><input type="number" id="beta" step="any" placeholder="例：0.0033"><span class="unit-label">1/K</span></div><p class="hint">気体では概算として β ≈ 1/T［K］を使うことがあります。</p></div>
-        <div class="input-row" data-show-when="vertical-natural"><label>壁面と流体の温度差 <span class="sym">ΔT</span></label><div class="input-group"><input type="number" id="deltaT" step="any" placeholder="例：20"><span class="unit-label">K</span></div></div>
+        <div class="input-row"><label>密度 <span class="sym">ρ</span></label><div class="input-group"><input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000"><select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select></div></div>
+        <div class="input-row" data-show-when="tube-laminar tube-turbulent flat-turbulent"><label>平均流速 <span class="sym">u</span></label><div class="input-group"><input type="number" inputmode="decimal" id="velocity" step="any" placeholder="例：1.5"><span class="unit-label">m/s</span></div></div>
+        <div class="input-row" data-show-when="tube-laminar tube-turbulent"><label>管内径 <span class="sym">D</span></label><div class="input-group"><input type="number" inputmode="decimal" id="D" step="any" placeholder="例：25"><select id="D_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div></div>
+        <div class="input-row" data-show-when="tube-laminar flat-turbulent vertical-natural"><label>代表長さ・管長 <span class="sym">L</span></label><div class="input-group"><input type="number" inputmode="decimal" id="L" step="any" placeholder="例：1.0"><select id="L_unit"><option value="m">m</option><option value="cm">cm</option><option value="mm">mm</option></select></div><p class="hint">円管内層流では入口からの管長、平板・自然対流では平板高さまたは流れ方向長さを入力します。</p></div>
+        <div class="input-row"><label>粘度 <span class="sym">μ</span></label><div class="input-group"><input type="number" inputmode="decimal" id="mu" step="any" placeholder="例：1"><select id="mu_unit"><option value="mPas">mPa s</option><option value="cP">cP</option><option value="Pas">Pa s</option></select></div><p class="hint">バルク平均温度での粘度を入力します。</p></div>
+        <div class="input-row" data-show-when="tube-laminar"><label>壁温での粘度（任意） <span class="sym">μ<sub>w</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" id="mu_wall" step="any" placeholder="未入力なら μ と同じ"><select id="mu_wall_unit"><option value="mPas">mPa s</option><option value="cP">cP</option><option value="Pas">Pa s</option></select></div></div>
+        <div class="input-row"><label>比熱 <span class="sym">C<sub>p</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" id="cp" step="any" placeholder="例：4.18"><select id="cp_unit"><option value="kJkgK">kJ/(kg K)</option><option value="JkgK">J/(kg K)</option><option value="kcalkgK">kcal/(kg °C)</option></select></div></div>
+        <div class="input-row"><label>熱伝導率 <span class="sym">k</span></label><div class="input-group"><input type="number" inputmode="decimal" id="k_fluid" step="any" placeholder="例：0.6"><span class="unit-label">W/(m K)</span></div></div>
+        <div class="input-row" data-show-when="vertical-natural"><label>体膨張係数 <span class="sym">β</span></label><div class="input-group"><input type="number" inputmode="decimal" id="beta" step="any" placeholder="例：0.0033"><span class="unit-label">1/K</span></div><p class="hint">気体では概算として β ≈ 1/T［K］を使うことがあります。</p></div>
+        <div class="input-row" data-show-when="vertical-natural"><label>壁面と流体の温度差 <span class="sym">ΔT</span></label><div class="input-group"><input type="number" inputmode="decimal" id="deltaT" step="any" placeholder="例：20"><span class="unit-label">K</span></div></div>
         <div class="btn-row"><button class="btn btn-primary" id="calc-btn">計算する</button><button class="btn btn-ghost" id="reset-btn">リセット</button></div>
         <div id="error" class="error-msg" style="display:none;"></div>
       </div>
@@ -152,6 +153,7 @@
 </footer>
 <script src="../../../assets/js/tube-heat-transfer.js"></script>
 <script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
 <script src="../../../assets/js/references.js"></script>
 </body>
 </html>

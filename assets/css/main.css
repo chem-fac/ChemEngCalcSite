@@ -249,7 +249,7 @@ button { font-family: inherit; cursor: pointer; }
   gap: 16px;
 }
 .cat-grid-launch {
-  grid-template-columns: repeat(5, minmax(0, 220px));
+  grid-template-columns: repeat(6, minmax(0, 190px));
   justify-content: center;
 }
 .cat-coming {
@@ -1402,6 +1402,26 @@ details.formula .body {
   line-height: 1.7;
   color: var(--text);
 }
+.result-note-warn {
+  margin-top: 8px;
+  padding: 8px 10px;
+  background: #fff5e6;
+  border-left: 3px solid var(--transition);
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text);
+}
+.unit-table .row-pseudo td {
+  color: var(--text-sub);
+  background: #fafafa;
+}
+.unit-table .row-pseudo td:first-child::after {
+  content: '（参考）';
+  font-size: 11px;
+  color: var(--transition);
+  margin-left: 4px;
+}
 .regime-badge {
   display: inline-block;
   padding: 6px 18px;
@@ -2422,4 +2442,58 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
+}
+
+/* ===== Result actions (calc-utils.js: 結果コピー・リンクコピー) ===== */
+.result-actions {
+  display: none;
+  margin-top: 14px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.btn-small {
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ===== Top page: tools-all link & pending category chips ===== */
+.cat-more {
+  margin-top: 28px;
+  text-align: center;
+}
+.btn-tools-all {
+  display: inline-block;
+  padding: 12px 36px;
+  border: 1px solid var(--brand);
+  border-radius: 999px;
+  color: var(--brand);
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.15s;
+}
+.btn-tools-all:hover {
+  background: var(--brand);
+  color: #fff;
+}
+.cat-pending-row {
+  margin-top: 26px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.cat-pending-label {
+  font-size: 12px;
+  color: var(--text-sub);
+  margin-right: 4px;
+}
+.pending-chip {
+  font-size: 12px;
+  color: var(--text-sub);
+  border: 1px dashed var(--border);
+  border-radius: 999px;
+  padding: 4px 12px;
+  background: #fbfcfb;
 }

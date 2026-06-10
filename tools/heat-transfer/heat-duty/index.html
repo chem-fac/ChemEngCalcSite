@@ -36,7 +36,8 @@
 <header class="site-header">
   <div class="inner">
     <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
-    <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
   </div>
 </header>
 
@@ -74,7 +75,7 @@
         <div class="input-row heat-continuous-mass-row" data-show-when="continuous">
           <label>質量流量 <span class="sym">ṁ</span></label>
           <div class="input-group">
-            <input type="number" id="mass_flow" step="any" placeholder="例：1000">
+            <input type="number" inputmode="decimal" id="mass_flow" step="any" placeholder="例：1000">
             <select id="mass_flow_unit"><option value="kgh">kg/h</option><option value="kgs">kg/s</option><option value="th">t/h</option></select>
           </div>
           <p class="hint">質量流量が分かる場合はこちらを優先して使います。</p>
@@ -83,7 +84,7 @@
         <div class="input-row heat-continuous-volume-row" data-show-when="continuous">
           <label>体積流量 <span class="sym">Qv</span>（任意）</label>
           <div class="input-group">
-            <input type="number" id="vol_flow" step="any" placeholder="例：1.0">
+            <input type="number" inputmode="decimal" id="vol_flow" step="any" placeholder="例：1.0">
             <select id="vol_flow_unit"><option value="m3h">m³/h</option><option value="m3s">m³/s</option><option value="Lmin">L/min</option></select>
           </div>
           <p class="hint">質量流量が空欄の場合、体積流量×密度から質量流量を計算します。</p>
@@ -92,7 +93,7 @@
         <div class="input-row heat-continuous-density-row" data-show-when="continuous">
           <label>密度 <span class="sym">ρ</span></label>
           <div class="input-group">
-            <input type="number" id="rho" step="any" placeholder="例：1000">
+            <input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000">
             <select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
           </div>
         </div>
@@ -100,7 +101,7 @@
         <div class="input-row heat-batch-mass-row" data-show-when="batch">
           <label>処理量 <span class="sym">m</span></label>
           <div class="input-group">
-            <input type="number" id="mass" step="any" placeholder="例：500">
+            <input type="number" inputmode="decimal" id="mass" step="any" placeholder="例：500">
             <select id="mass_unit"><option value="kg">kg</option><option value="g">g</option><option value="t">t</option></select>
           </div>
         </div>
@@ -108,7 +109,7 @@
         <div class="input-row heat-batch-time-row" data-show-when="batch">
           <label>処理時間（任意）</label>
           <div class="input-group">
-            <input type="number" id="batch_time" step="any" placeholder="例：2">
+            <input type="number" inputmode="decimal" id="batch_time" step="any" placeholder="例：2">
             <select id="batch_time_unit"><option value="h">h</option><option value="min">min</option><option value="s">s</option></select>
           </div>
           <p class="hint">入力すると平均熱負荷 kW も表示します。</p>
@@ -116,23 +117,23 @@
 
         <div class="input-row heat-tin-row">
           <label>入口温度 <span class="sym">T<sub>in</sub></span></label>
-          <div class="input-group"><input type="number" id="Tin" step="any" placeholder="例：20"><span class="unit-label">°C</span></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="Tin" step="any" placeholder="例：20"><span class="unit-label">°C</span></div>
         </div>
         <div class="input-row heat-tout-row">
           <label>出口温度 <span class="sym">T<sub>out</sub></span></label>
-          <div class="input-group"><input type="number" id="Tout" step="any" placeholder="例：80"><span class="unit-label">°C</span></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="Tout" step="any" placeholder="例：80"><span class="unit-label">°C</span></div>
         </div>
         <div class="input-row heat-cp-row">
           <label>比熱 <span class="sym">C<sub>p</sub></span></label>
           <div class="input-group">
-            <input type="number" id="cp" step="any" placeholder="例：4.18">
+            <input type="number" inputmode="decimal" id="cp" step="any" placeholder="例：4.18">
             <select id="cp_unit"><option value="kJkgK">kJ/(kg K)</option><option value="JkgK">J/(kg K)</option><option value="kcalkgK">kcal/(kg °C)</option></select>
           </div>
         </div>
         <div class="input-row heat-latent-row">
           <label>潜熱 <span class="sym">λ</span></label>
           <div class="input-group">
-            <input type="number" id="latent" step="any" placeholder="例：2257">
+            <input type="number" inputmode="decimal" id="latent" step="any" placeholder="例：2257">
             <select id="latent_unit"><option value="kJkg">kJ/kg</option><option value="Jkg">J/kg</option><option value="kcalkg">kcal/kg</option></select>
           </div>
         </div>
@@ -219,6 +220,7 @@
 </footer>
 <script src="../../../assets/js/heat-duty.js"></script>
 <script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
 <script src="../../../assets/js/references.js"></script>
 </body>
 </html>

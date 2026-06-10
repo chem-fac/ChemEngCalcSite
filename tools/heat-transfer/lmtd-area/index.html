@@ -36,7 +36,8 @@
 <header class="site-header">
   <div class="inner">
     <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
-    <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
   </div>
 </header>
 
@@ -64,14 +65,14 @@
             </select>
           </div>
         </div>
-        <div class="input-row"><label>高温側入口温度 <span class="sym">T<sub>h,in</sub></span></label><div class="input-group"><input type="number" id="Th_in" step="any" placeholder="例：120"><span class="unit-label">°C</span></div></div>
-        <div class="input-row"><label>高温側出口温度 <span class="sym">T<sub>h,out</sub></span></label><div class="input-group"><input type="number" id="Th_out" step="any" placeholder="例：70"><span class="unit-label">°C</span></div></div>
-        <div class="input-row"><label>低温側入口温度 <span class="sym">T<sub>c,in</sub></span></label><div class="input-group"><input type="number" id="Tc_in" step="any" placeholder="例：25"><span class="unit-label">°C</span></div></div>
-        <div class="input-row"><label>低温側出口温度 <span class="sym">T<sub>c,out</sub></span></label><div class="input-group"><input type="number" id="Tc_out" step="any" placeholder="例：60"><span class="unit-label">°C</span></div></div>
+        <div class="input-row"><label>高温側入口温度 <span class="sym">T<sub>h,in</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" id="Th_in" step="any" placeholder="例：120"><span class="unit-label">°C</span></div></div>
+        <div class="input-row"><label>高温側出口温度 <span class="sym">T<sub>h,out</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" id="Th_out" step="any" placeholder="例：70"><span class="unit-label">°C</span></div></div>
+        <div class="input-row"><label>低温側入口温度 <span class="sym">T<sub>c,in</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" id="Tc_in" step="any" placeholder="例：25"><span class="unit-label">°C</span></div></div>
+        <div class="input-row"><label>低温側出口温度 <span class="sym">T<sub>c,out</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" id="Tc_out" step="any" placeholder="例：60"><span class="unit-label">°C</span></div></div>
         <div class="input-row">
           <label>熱交換量 <span class="sym">Q</span></label>
           <div class="input-group">
-            <input type="number" id="Q" step="any" placeholder="例：500">
+            <input type="number" inputmode="decimal" id="Q" step="any" placeholder="例：500">
             <select id="Q_unit"><option value="kW">kW</option><option value="W">W</option><option value="MJh">MJ/h</option><option value="kcalh">kcal/h</option></select>
           </div>
           <p class="hint">未定の場合は「熱量・熱収支」ページで先に概算してください。</p>
@@ -79,11 +80,11 @@
         <div class="input-row">
           <label>総括伝熱係数 <span class="sym">U</span></label>
           <div class="input-group">
-            <input type="number" id="U" step="any" placeholder="例：800">
+            <input type="number" inputmode="decimal" id="U" step="any" placeholder="例：800">
             <select id="U_unit"><option value="Wm2K">W/(m²K)</option><option value="kWm2K">kW/(m²K)</option><option value="kcalhm2K">kcal/(h m² °C)</option></select>
           </div>
         </div>
-        <div class="input-row"><label>LMTD補正係数 <span class="sym">F</span></label><div class="input-group"><input type="number" id="F" step="any" value="1" placeholder="例：0.85"></div></div>
+        <div class="input-row"><label>LMTD補正係数 <span class="sym">F</span></label><div class="input-group"><input type="number" inputmode="decimal" id="F" step="any" value="1" placeholder="例：0.85"></div></div>
         <div class="btn-row"><button class="btn btn-primary" id="calc-btn">計算する</button><button class="btn btn-ghost" id="reset-btn">リセット</button></div>
         <div id="error" class="error-msg" style="display:none;"></div>
       </div>
@@ -153,6 +154,7 @@
 </footer>
 <script src="../../../assets/js/lmtd-area.js"></script>
 <script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
 <script src="../../../assets/js/references.js"></script>
 </body>
 </html>

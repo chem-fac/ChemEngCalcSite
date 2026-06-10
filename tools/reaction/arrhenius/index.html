@@ -36,7 +36,8 @@
 <header class="site-header">
   <div class="inner">
     <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
-    <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
   </div>
 </header>
 
@@ -73,41 +74,41 @@
 
         <div class="input-row" data-show-when="kCalc">
           <label>頻度因子（前指数因子） <span class="sym">A</span></label>
-          <div class="input-group"><input type="number" id="A" step="any" placeholder="例：1.0e10"></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="A" step="any" placeholder="例：1.0e10"></div>
           <p class="hint">k と同じ単位系の値を入力してください（1次反応なら 1/s）。</p>
         </div>
 
         <div class="input-row" data-show-when="kCalc">
           <label>活性化エネルギー <span class="sym">E<sub>a</sub></span></label>
           <div class="input-group">
-            <input type="number" id="Ea" step="any" placeholder="例：80">
+            <input type="number" inputmode="decimal" id="Ea" step="any" placeholder="例：80">
             <select id="Ea_unit"><option value="kJmol">kJ/mol</option><option value="Jmol">J/mol</option><option value="kcalmol">kcal/mol</option><option value="calmol">cal/mol</option></select>
           </div>
         </div>
 
         <div class="input-row" data-show-when="kCalc">
           <label>温度 <span class="sym">T</span></label>
-          <div class="input-group"><input type="number" id="T" step="any" placeholder="例：298"></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="T" step="any" placeholder="例：298"></div>
         </div>
 
         <div class="input-row" data-show-when="EaCalc">
           <label>温度 <span class="sym">T<sub>1</sub></span></label>
-          <div class="input-group"><input type="number" id="T1" step="any" placeholder="例：298"></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="T1" step="any" placeholder="例：298"></div>
         </div>
 
         <div class="input-row" data-show-when="EaCalc">
           <label>速度定数 <span class="sym">k<sub>1</sub></span>（T<sub>1</sub> での値）</label>
-          <div class="input-group"><input type="number" id="k1" step="any" placeholder="例：1.0e-3"></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="k1" step="any" placeholder="例：1.0e-3"></div>
         </div>
 
         <div class="input-row" data-show-when="EaCalc">
           <label>温度 <span class="sym">T<sub>2</sub></span></label>
-          <div class="input-group"><input type="number" id="T2" step="any" placeholder="例：348"></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="T2" step="any" placeholder="例：348"></div>
         </div>
 
         <div class="input-row" data-show-when="EaCalc">
           <label>速度定数 <span class="sym">k<sub>2</sub></span>（T<sub>2</sub> での値）</label>
-          <div class="input-group"><input type="number" id="k2" step="any" placeholder="例：5.0e-2"></div>
+          <div class="input-group"><input type="number" inputmode="decimal" id="k2" step="any" placeholder="例：5.0e-2"></div>
         </div>
 
         <div class="btn-row">
@@ -170,6 +171,7 @@
 
 <script src="../../../assets/js/arrhenius.js"></script>
 <script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
 <script src="../../../assets/js/references.js"></script>
 </body>
 </html>

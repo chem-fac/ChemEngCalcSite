@@ -47,6 +47,7 @@
       化学工学計算支援ツール
     </a>
     <nav class="site-nav">
+      <a href="../../../tools/">ツール一覧</a>
       <a href="../../../updates/">更新情報</a>
       <a href="../../../faq/">よくある質問</a>
       <a href="../../../support/">支援する</a>
@@ -90,7 +91,7 @@
         <div class="input-row" data-field="Q" data-show-when="velocity diameter">
           <label>体積流量 <span class="sym">Q</span></label>
           <div class="input-group">
-            <input type="number" id="Q" step="any" placeholder="例：10">
+            <input type="number" inputmode="decimal" id="Q" step="any" placeholder="例：10">
             <select id="Q_unit" aria-label="体積流量の単位">
               <option value="m3h">m³/h</option>
               <option value="Lmin">L/min</option>
@@ -104,7 +105,7 @@
         <div class="input-row" data-field="u" data-show-when="flowrate diameter">
           <label>平均流速 <span class="sym">u</span></label>
           <div class="input-group">
-            <input type="number" id="u" step="any" placeholder="例：1.0">
+            <input type="number" inputmode="decimal" id="u" step="any" placeholder="例：1.0">
             <select id="u_unit" aria-label="平均流速の単位">
               <option value="ms">m/s</option>
               <option value="cms">cm/s</option>
@@ -122,7 +123,7 @@
 
           <div class="d-mode-pane" data-d-pane="inner">
             <div class="input-group">
-              <input type="number" id="D" step="any" placeholder="例：50">
+              <input type="number" inputmode="decimal" id="D" step="any" placeholder="例：50">
               <select id="D_unit" aria-label="管内径の単位">
                 <option value="mm">mm</option>
                 <option value="cm">cm</option>
@@ -138,7 +139,7 @@
               <div>
                 <div class="sub-label">外径 <span class="sym">D<sub>o</sub></span></div>
                 <div class="input-group">
-                  <input type="number" id="Do" step="any" placeholder="例：60.5">
+                  <input type="number" inputmode="decimal" id="Do" step="any" placeholder="例：60.5">
                   <select id="Do_unit" aria-label="外径の単位">
                     <option value="mm">mm</option>
                     <option value="cm">cm</option>
@@ -150,7 +151,7 @@
               <div>
                 <div class="sub-label">肉厚 <span class="sym">t</span></div>
                 <div class="input-group">
-                  <input type="number" id="t" step="any" placeholder="例：3.9">
+                  <input type="number" inputmode="decimal" id="t" step="any" placeholder="例：3.9">
                   <select id="t_unit" aria-label="肉厚の単位">
                     <option value="mm">mm</option>
                     <option value="cm">cm</option>
@@ -260,6 +261,7 @@
 
 <script src="../../../assets/js/flow-conversion.js"></script>
 <script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
 <script src="../../../assets/js/references.js"></script>
 </body>
 </html>

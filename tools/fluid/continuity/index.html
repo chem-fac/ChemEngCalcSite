@@ -47,6 +47,7 @@
       化学工学計算支援ツール
     </a>
     <nav class="site-nav">
+      <a href="../../../tools/">ツール一覧</a>
       <a href="../../../updates/">更新情報</a>
       <a href="../../../faq/">よくある質問</a>
       <a href="../../../support/">支援する</a>
@@ -84,7 +85,7 @@
         <div class="input-row">
           <label>入口の管内径 <span class="sym">D<sub>1</sub></span></label>
           <div class="input-group">
-            <input type="number" id="D1" step="any" placeholder="例：50">
+            <input type="number" inputmode="decimal" id="D1" step="any" placeholder="例：50">
             <select id="D1_unit" aria-label="入口管内径の単位">
               <option value="mm">mm</option>
               <option value="cm">cm</option>
@@ -98,7 +99,7 @@
         <div class="input-row">
           <label>入口の平均流速 <span class="sym">u<sub>1</sub></span></label>
           <div class="input-group">
-            <input type="number" id="u1" step="any" placeholder="例：1.0">
+            <input type="number" inputmode="decimal" id="u1" step="any" placeholder="例：1.0">
             <select id="u1_unit" aria-label="入口流速の単位">
               <option value="ms">m/s</option>
               <option value="cms">cm/s</option>
@@ -110,7 +111,7 @@
         <div class="input-row">
           <label>出口の管内径 <span class="sym">D<sub>2</sub></span></label>
           <div class="input-group">
-            <input type="number" id="D2" step="any" placeholder="例：25">
+            <input type="number" inputmode="decimal" id="D2" step="any" placeholder="例：25">
             <select id="D2_unit" aria-label="出口管内径の単位">
               <option value="mm">mm</option>
               <option value="cm">cm</option>
@@ -224,6 +225,7 @@
 
 <script src="../../../assets/js/continuity.js"></script>
 <script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
 <script src="../../../assets/js/references.js"></script>
 </body>
 </html>

@@ -47,6 +47,7 @@
       化学工学計算支援ツール
     </a>
     <nav class="site-nav">
+      <a href="../../../tools/">ツール一覧</a>
       <a href="../../../updates/">更新情報</a>
       <a href="../../../faq/">よくある質問</a>
       <a href="../../../support/">支援する</a>
@@ -89,7 +90,7 @@
         <div class="input-row reynolds-rho-row" data-field="rho" data-show-when="velocity flowrate">
           <label>密度 <span class="sym">ρ</span></label>
           <div class="input-group">
-            <input type="number" id="rho" step="any" placeholder="例：1000">
+            <input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000">
             <select id="rho_unit" aria-label="密度の単位">
               <option value="kgm3">kg/m³</option>
               <option value="gcm3">g/cm³</option>
@@ -101,7 +102,7 @@
         <div class="input-row reynolds-u-row" data-field="u" data-show-when="velocity kinematic">
           <label>平均流速 <span class="sym">u</span></label>
           <div class="input-group">
-            <input type="number" id="u" step="any" placeholder="例：1.0">
+            <input type="number" inputmode="decimal" id="u" step="any" placeholder="例：1.0">
             <select id="u_unit" aria-label="流速の単位">
               <option value="ms">m/s</option>
               <option value="cms">cm/s</option>
@@ -113,7 +114,7 @@
         <div class="input-row reynolds-q-row" data-field="Q" data-show-when="flowrate">
           <label>体積流量 <span class="sym">Q</span></label>
           <div class="input-group">
-            <input type="number" id="Q" step="any" placeholder="例：10">
+            <input type="number" inputmode="decimal" id="Q" step="any" placeholder="例：10">
             <select id="Q_unit" aria-label="流量の単位">
               <option value="m3h">m³/h</option>
               <option value="Lmin">L/min</option>
@@ -127,7 +128,7 @@
         <div class="input-row reynolds-d-row" data-field="D" data-show-when="velocity flowrate kinematic">
           <label>管内径 <span class="sym">D</span></label>
           <div class="input-group">
-            <input type="number" id="D" step="any" placeholder="例：50">
+            <input type="number" inputmode="decimal" id="D" step="any" placeholder="例：50">
             <select id="D_unit" aria-label="管内径の単位">
               <option value="mm">mm</option>
               <option value="cm">cm</option>
@@ -141,7 +142,7 @@
         <div class="input-row reynolds-mu-row" data-field="mu" data-show-when="velocity flowrate">
           <label>粘度 <span class="sym">μ</span></label>
           <div class="input-group">
-            <input type="number" id="mu" step="any" placeholder="例：1.0">
+            <input type="number" inputmode="decimal" id="mu" step="any" placeholder="例：1.0">
             <select id="mu_unit" aria-label="粘度の単位">
               <option value="mPas">mPa·s</option>
               <option value="cP">cP</option>
@@ -154,7 +155,7 @@
         <div class="input-row reynolds-nu-row" data-field="nu" data-show-when="kinematic">
           <label>動粘度 <span class="sym">ν</span></label>
           <div class="input-group">
-            <input type="number" id="nu" step="any" placeholder="例：1.0">
+            <input type="number" inputmode="decimal" id="nu" step="any" placeholder="例：1.0">
             <select id="nu_unit" aria-label="動粘度の単位">
               <option value="mm2s">mm²/s</option>
               <option value="cSt">cSt</option>
@@ -256,25 +257,17 @@
         <span class="small">流動</span>
         流量・流速・配管径換算
       </a>
-      <a href="#" class="related-card disabled">
-        <span class="small">流動（公開予定）</span>
-        配管圧力損失（Darcy-Weisbach式）
+      <a href="../fanning/" class="related-card">
+        <span class="small">流動</span>
+        ファニングの式・管摩擦係数（圧力損失）
       </a>
-      <a href="#" class="related-card disabled">
-        <span class="small">流動（公開予定）</span>
-        ポンプ全揚程・必要動力
+      <a href="../pump/" class="related-card">
+        <span class="small">流動</span>
+        ポンプ計算（全揚程・NPSH・軸動力）
       </a>
-      <a href="#" class="related-card disabled">
-        <span class="small">物性（公開予定）</span>
-        動粘度・粘度の単位換算
-      </a>
-      <a href="#" class="related-card disabled">
-        <span class="small">流動（公開予定）</span>
-        管摩擦係数の計算
-      </a>
-      <a href="#" class="related-card disabled">
-        <span class="small">伝熱（公開予定）</span>
-        熱交換器のレイノルズ数
+      <a href="../continuity/" class="related-card">
+        <span class="small">流動</span>
+        連続の式（配管断面変化）
       </a>
     </div>
   </section>
@@ -316,6 +309,7 @@
 
 <script src="../../../assets/js/reynolds.js"></script>
 <script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
 <script src="../../../assets/js/references.js"></script>
 </body>
 </html>

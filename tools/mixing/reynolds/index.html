@@ -47,6 +47,7 @@
       化学工学計算支援ツール
     </a>
     <nav class="site-nav">
+      <a href="../../../tools/">ツール一覧</a>
       <a href="../../../updates/">更新情報</a>
       <a href="../../../faq/">よくある質問</a>
       <a href="../../../support/">支援する</a>
@@ -81,7 +82,7 @@
         <div class="input-row">
           <label>密度 <span class="sym">ρ</span></label>
           <div class="input-group">
-            <input type="number" id="rho" step="any" placeholder="例：1000">
+            <input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000">
             <select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
           </div>
           <p class="hint">運転温度・圧力での液密度を入力してください。</p>
@@ -90,7 +91,7 @@
         <div class="input-row">
           <label>回転数 <span class="sym">n</span></label>
           <div class="input-group">
-            <input type="number" id="n" step="any" placeholder="例：100">
+            <input type="number" inputmode="decimal" id="n" step="any" placeholder="例：100">
             <select id="n_unit"><option value="rpm">rpm</option><option value="rps">1/s</option></select>
           </div>
           <p class="hint">撹拌翼の回転速度を入力してください。</p>
@@ -99,7 +100,7 @@
         <div class="input-row">
           <label>翼径 <span class="sym">d</span></label>
           <div class="input-group">
-            <input type="number" id="d" step="any" placeholder="例：300">
+            <input type="number" inputmode="decimal" id="d" step="any" placeholder="例：300">
             <select id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
           </div>
           <p class="hint">撹拌翼の外径を入力してください。</p>
@@ -108,7 +109,7 @@
         <div class="input-row">
           <label>粘度 <span class="sym">μ</span></label>
           <div class="input-group">
-            <input type="number" id="mu" step="any" placeholder="例：1.0">
+            <input type="number" inputmode="decimal" id="mu" step="any" placeholder="例：1.0">
             <select id="mu_unit"><option value="mPas">mPa·s</option><option value="cP">cP</option><option value="Pas">Pa·s</option></select>
           </div>
           <p class="hint">運転温度での粘度を入力してください。1 mPa·s = 1 cP。</p>
@@ -193,6 +194,7 @@
 
 <script src="../../../assets/js/mix-reynolds.js"></script>
 <script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
 <script src="../../../assets/js/references.js"></script>
 </body>
 </html>

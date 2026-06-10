@@ -37,6 +37,7 @@
   <div class="inner">
     <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
     <nav class="site-nav">
+      <a href="../../../tools/">ツール一覧</a>
       <a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a>
     </nav>
   </div>
@@ -71,14 +72,14 @@
         <div class="input-row mix-power-primary-row" data-show-when="fromNp">
           <label>動力数 <span class="sym">N<sub>p</sub></span></label>
           <div class="input-group">
-            <input type="number" id="Np" step="any" placeholder="例：5.0">
+            <input type="number" inputmode="decimal" id="Np" step="any" placeholder="例：5.0">
           </div>
         </div>
 
         <div class="input-row mix-power-primary-row" data-show-when="fromPower">
           <label>撹拌所要動力 <span class="sym">P</span></label>
           <div class="input-group">
-            <input type="number" id="P" step="any" placeholder="例：1.5">
+            <input type="number" inputmode="decimal" id="P" step="any" placeholder="例：1.5">
             <select id="P_unit"><option value="kW">kW</option><option value="W">W</option><option value="HP">HP</option></select>
           </div>
         </div>
@@ -86,7 +87,7 @@
         <div class="input-row mix-power-primary-row" data-show-when="fromTorque">
           <label>トルク <span class="sym">T</span></label>
           <div class="input-group">
-            <input type="number" id="T" step="any" placeholder="例：25">
+            <input type="number" inputmode="decimal" id="T" step="any" placeholder="例：25">
             <select id="T_unit"><option value="Nm">N·m</option><option value="kgfm">kgf·m</option></select>
           </div>
         </div>
@@ -94,7 +95,7 @@
         <div class="input-row mix-power-rho-row">
           <label>密度 <span class="sym">ρ</span></label>
           <div class="input-group">
-            <input type="number" id="rho" step="any" placeholder="例：1000">
+            <input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000">
             <select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
           </div>
         </div>
@@ -102,7 +103,7 @@
         <div class="input-row mix-power-n-row">
           <label>回転数 <span class="sym">n</span></label>
           <div class="input-group">
-            <input type="number" id="n" step="any" placeholder="例：300">
+            <input type="number" inputmode="decimal" id="n" step="any" placeholder="例：300">
             <select id="n_unit"><option value="rpm">rpm</option><option value="rps">1/s</option></select>
           </div>
         </div>
@@ -110,7 +111,7 @@
         <div class="input-row mix-power-d-row">
           <label>翼径 <span class="sym">d</span></label>
           <div class="input-group">
-            <input type="number" id="d" step="any" placeholder="例：300">
+            <input type="number" inputmode="decimal" id="d" step="any" placeholder="例：300">
             <select id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
           </div>
         </div>
@@ -179,6 +180,7 @@
 
 <script src="../../../assets/js/mix-power.js"></script>
 <script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
 <script src="../../../assets/js/references.js"></script>
 </body>
 </html>

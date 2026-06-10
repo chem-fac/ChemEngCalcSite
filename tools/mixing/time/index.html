@@ -36,7 +36,8 @@
 <header class="site-header">
   <div class="inner">
     <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
-    <nav class="site-nav"><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
   </div>
 </header>
 
@@ -65,7 +66,7 @@
         <div class="input-row">
           <label>回転数 <span class="sym">n</span></label>
           <div class="input-group">
-            <input type="number" id="n" step="any" placeholder="例：100">
+            <input type="number" inputmode="decimal" id="n" step="any" placeholder="例：100">
             <select id="n_unit"><option value="rpm">rpm</option><option value="rps">1/s</option></select>
           </div>
         </div>
@@ -73,7 +74,7 @@
         <div class="input-row">
           <label>翼径 <span class="sym">d</span></label>
           <div class="input-group">
-            <input type="number" id="d" step="any" placeholder="例：300">
+            <input type="number" inputmode="decimal" id="d" step="any" placeholder="例：300">
             <select id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
           </div>
         </div>
@@ -81,7 +82,7 @@
         <div class="input-row">
           <label>槽径 <span class="sym">D</span></label>
           <div class="input-group">
-            <input type="number" id="D" step="any" placeholder="例：900">
+            <input type="number" inputmode="decimal" id="D" step="any" placeholder="例：900">
             <select id="D_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
           </div>
         </div>
@@ -89,7 +90,7 @@
         <div class="input-row" data-show-when="turbH laminar">
           <label>液深さ <span class="sym">H</span></label>
           <div class="input-group">
-            <input type="number" id="H" step="any" placeholder="例：900">
+            <input type="number" inputmode="decimal" id="H" step="any" placeholder="例：900">
             <select id="H_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
           </div>
           <p class="hint">液面までの深さ。標準的な槽では H ≈ D。</p>
@@ -98,7 +99,7 @@
         <div class="input-row">
           <label>動力数 <span class="sym">N<sub>p</sub></span></label>
           <div class="input-group">
-            <input type="number" id="Np" step="any" placeholder="例：5.0">
+            <input type="number" inputmode="decimal" id="Np" step="any" placeholder="例：5.0">
           </div>
           <p class="hint">翼形状ごとの動力数。代表値：6枚タービン翼 ≈ 5、4枚45°傾斜パドル翼 ≈ 1.5、プロペラ翼 ≈ 0.4。</p>
         </div>
@@ -106,7 +107,7 @@
         <div class="input-row" data-show-when="turb turbH">
           <label>吐出流量数 <span class="sym">N<sub>qd</sub></span></label>
           <div class="input-group">
-            <input type="number" id="Nqd" step="any" placeholder="例：0.8">
+            <input type="number" inputmode="decimal" id="Nqd" step="any" placeholder="例：0.8">
           </div>
           <p class="hint">翼形状ごとの吐出流量数。代表値：プロペラ翼 ≈ 0.5、平板タービン翼 ≈ 0.7、傾斜パドル翼 ≈ 0.8。</p>
         </div>
@@ -114,7 +115,7 @@
         <div class="input-row" data-show-when="laminar">
           <label>密度 <span class="sym">ρ</span></label>
           <div class="input-group">
-            <input type="number" id="rho" step="any" placeholder="例：1000">
+            <input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000">
             <select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
           </div>
         </div>
@@ -122,7 +123,7 @@
         <div class="input-row" data-show-when="laminar">
           <label>粘度 <span class="sym">μ</span></label>
           <div class="input-group">
-            <input type="number" id="mu" step="any" placeholder="例：100">
+            <input type="number" inputmode="decimal" id="mu" step="any" placeholder="例：100">
             <select id="mu_unit"><option value="mPas">mPa·s</option><option value="cP">cP</option><option value="Pas">Pa·s</option></select>
           </div>
         </div>
@@ -198,6 +199,7 @@
 
 <script src="../../../assets/js/mix-time.js"></script>
 <script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
 <script src="../../../assets/js/references.js"></script>
 </body>
 </html>
