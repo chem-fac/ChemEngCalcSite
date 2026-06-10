@@ -4,7 +4,9 @@
  * 1. パーマリンク : 計算時に入力値をURLクエリへ反映。URLを開くと条件を復元して自動計算
  * 2. 結果コピー   : 入力条件＋計算結果を計算書テキストとしてクリップボードへコピー
  * 3. 計算例       : placeholder の例値（「例：〜」）を一括入力して計算
- * 4. 入力記憶     : 前回の入力値・単位選択・計算モードを localStorage に保存して次回復元
+ * 4. 設定記憶     : 前回の単位選択・計算モードを localStorage に保存して次回復元
+ *                  （入力値そのものはセキュリティ配慮のため保存しない。URLクエリは
+ *                    ユーザーが明示的に共有・ブックマークした場合のみ使われる）
  *
  * ツールページの標準構造（.calc-card / #calc-btn / #reset-btn / #result-area /
  * .mode-tab[data-mode] / .input-row）を前提とし、構造が無いページでは何もしない。
@@ -76,8 +78,32 @@
       });
     }
 
-    function saveSnapshot() {
-      try { localStorage.setItem(storeKey, JSON.stringify(snapshot())); } catch (e) { /* private mode等 */ }
+    // 単位選択（select）と計算モードのみを保存対象にする。
+    // 入力値（数値・テキスト）はセキュリティ配慮のため localStorage に残さない。
+    function prefSnapshot() {
+      var data = {};
+      fields().forEach(function (el) {
+        if (el.tagName === 'SELECT' && el.id !== MODE_PARAM && el.value !== '') {
+          data[el.id] = el.value;
+        }
+      });
+      var m = activeMode();
+      if (m) data[MODE_PARAM] = m;
+      return data;
+    }
+
+    function savePrefs() {
+      try { localStorage.setItem(storeKey, JSON.stringify(prefSnapshot())); } catch (e) { /* private mode等 */ }
+    }
+
+    // 保存データのうち単位・モードだけを復元する（旧形式で入力値が残っていても無視）
+    function applyPrefs(data) {
+      var filtered = {};
+      Object.keys(data).forEach(function (k) {
+        var el = document.getElementById(k);
+        if (k === MODE_PARAM || (el && el.tagName === 'SELECT')) filtered[k] = data[k];
+      });
+      apply(filtered);
     }
 
     // ============ 1. パーマリンク ============
@@ -232,25 +258,24 @@
     // ============ 4. 入力記憶 ＋ 初期化 ============
     setupExampleButton();
 
-    // 計算時：保存＋URL更新＋コピー導線の表示
+    // 計算時：単位・モードの保存＋URL更新＋コピー導線の表示
     calcBtn.addEventListener('click', function () {
-      saveSnapshot();
+      savePrefs();
       updateUrl();
       updateResultActions();
     });
 
     // 単位・モードの変更時も記憶（計算前に離脱しても単位設定が残るように）
     root.addEventListener('change', function (e) {
-      if (e.target && e.target.tagName === 'SELECT') saveSnapshot();
+      if (e.target && e.target.tagName === 'SELECT') savePrefs();
     });
     root.querySelectorAll('.mode-tab').forEach(function (t) {
-      t.addEventListener('click', saveSnapshot);
+      t.addEventListener('click', savePrefs);
     });
 
-    // リセット時：記憶とURLをクリア
+    // リセット時：URLと結果導線をクリア（単位・モードの記憶は保持）
     if (resetBtn) {
       resetBtn.addEventListener('click', function () {
-        try { localStorage.removeItem(storeKey); } catch (e) { /* noop */ }
         history.replaceState(null, '', location.pathname);
         if (actions) actions.style.display = 'none';
       });
@@ -268,7 +293,7 @@
     } else {
       try {
         var saved = JSON.parse(localStorage.getItem(storeKey));
-        if (saved && typeof saved === 'object') apply(saved);
+        if (saved && typeof saved === 'object') applyPrefs(saved);
       } catch (e) { /* noop */ }
     }
   });
