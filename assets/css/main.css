@@ -399,6 +399,10 @@ button { font-family: inherit; cursor: pointer; }
   border-left: 4px solid var(--brand);
   line-height: 1.4;
 }
+/* border-left と二重にならないよう、共通 .section-title の縦バーは消す */
+.tool-list-section .section-title::before {
+  content: none;
+}
 .tool-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
