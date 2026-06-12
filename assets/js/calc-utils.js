@@ -263,6 +263,8 @@
       savePrefs();
       updateUrl();
       updateResultActions();
+      // GA4利用計測: どのツールで計算が実行されたか（ツールはページパスで識別）
+      if (typeof window.gtag === 'function') window.gtag('event', 'calculate');
     });
 
     // 単位・モードの変更時も記憶（計算前に離脱しても単位設定が残るように）
