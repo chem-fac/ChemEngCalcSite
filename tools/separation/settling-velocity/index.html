@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>球形粒子の終末沈降速度（ストークス・アレン・ニュートンの式） | 化学工学計算支援ツール</title>
+<meta name="description" content="固液分離で、固体粒子が液中を沈むときの終末沈降速度を、ストークス・アレン・ニュートンの式から計算します。粒子レイノルズ数で領域を自動判定し、粒子径による沈降速度の変化を早見表で示します。">
+<meta name="keywords" content="沈降速度, 終末速度, terminal velocity, ストークスの式, Stokes則, アレンの式, Allen, ニュートンの式, Newton則, 抗力係数, Cd, 粒子レイノルズ数, 固液分離, 重力沈降, 沈降分離, スラリー, 粒子径">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/separation/settling-velocity/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="球形粒子の終末沈降速度（ストークス・アレン・ニュートン） | 化学工学計算支援ツール">
+<meta property="og:description" content="固液分離で固体粒子が液中を沈む終末沈降速度を、ストークス・アレン・ニュートンの式から計算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/separation/settling-velocity/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">固液分離</a><span class="sep">›</span><span class="current">球形粒子の終末沈降速度</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">固液分離</span>
+      <h1>球形粒子の終末沈降速度</h1>
+      <p class="tool-subcopy">固体粒子が静止した液の中を重力で沈むときの終末沈降速度 v<sub>t</sub> を求めます。ストークス・アレン・ニュートンの式を粒子レイノルズ数 Re<sub>p</sub> で自動判定し、粒子径でどれだけ変わるかを早見表で確認できます。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <div class="input-row">
+          <label>粒子径 <span class="sym">d</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="d" step="any" placeholder="例：100">
+            <select id="d_unit"><option value="um">μm</option><option value="mm">mm</option><option value="m">m</option></select>
+          </div>
+          <p class="hint">球相当径。撹拌・凝集の状態で変わります。ストークス域では速度は径の2乗に比例します。</p>
+        </div>
+        <div class="input-row">
+          <label>粒子密度 <span class="sym">ρ<sub>p</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="rho_p" step="any" placeholder="例：2500">
+            <select id="rho_p_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
+          </div>
+          <p class="hint">無機粒子（砂・シリカ等）で約 2500、金属酸化物でより大きくなります。</p>
+        </div>
+        <div class="input-row">
+          <label>流体密度 <span class="sym">ρ<sub>f</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="rho_f" step="any" placeholder="例：1000">
+            <select id="rho_f_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
+          </div>
+          <p class="hint">分散させている液（連続相）の運転温度での密度。水なら約 1000。</p>
+        </div>
+        <div class="input-row">
+          <label>流体粘度 <span class="sym">μ</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="mu" step="any" placeholder="例：1.0">
+            <select id="mu_unit"><option value="mPas">mPa·s</option><option value="cP">cP</option><option value="Pas">Pa·s</option></select>
+          </div>
+          <p class="hint">液の運転温度での粘度。水20℃なら約 1.0 mPa·s（= 1.0 cP）。</p>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算の考え方</h2>
+    <p>静止した液の中を固体粒子が沈むとき、粒子に働く重力・浮力・抗力がつり合った定常状態の速度が終末沈降速度 v<sub>t</sub> です。抗力係数 C<sub>D</sub> が粒子レイノルズ数 Re<sub>p</sub> の領域で変わるため、本ツールは Re<sub>p</sub> からストークス域・アレン域・ニュートン域を自動判定し、対応する式で計算します。</p>
+    <h3>ストークス域（Re<sub>p</sub> &lt; 2）</h3>
+    <div class="math-block">$$ v_t = \dfrac{g\,d^2\,(\rho_p-\rho_f)}{18\,\mu} $$</div>
+    <h3>アレン域（2 ≤ Re<sub>p</sub> &lt; 500）</h3>
+    <div class="math-block">$$ v_t = \left[\dfrac{4}{225}\cdot\dfrac{g^2\,(\rho_p-\rho_f)^2}{\rho_f\,\mu}\right]^{1/3} d $$</div>
+    <h3>ニュートン域（500 ≤ Re<sub>p</sub>）</h3>
+    <div class="math-block">$$ v_t = \sqrt{\dfrac{3\,g\,(\rho_p-\rho_f)\,d}{\rho_f}} $$</div>
+    <p>粒子レイノルズ数：</p>
+    <div class="math-block">$$ Re_p = \dfrac{\rho_f\,v_t\,d}{\mu} $$</div>
+    <ul class="symbol-list">
+      <li>$v_t$：終末沈降速度［m/s］</li>
+      <li>$\rho_p$：粒子密度［kg/m³］</li>
+      <li>$\rho_f$：流体（液）密度［kg/m³］</li>
+      <li>$\rho_p-\rho_f$：粒子と流体の密度差［kg/m³］</li>
+      <li>$d$：粒子径（球相当径）［m］</li>
+      <li>$\mu$：流体の粘度［Pa·s］</li>
+      <li>$g$：重力加速度（9.80665 m/s²）</li>
+      <li>$C_D$：抗力係数［-］</li>
+      <li>$Re_p$：粒子レイノルズ数［-］</li>
+    </ul>
+    <h2>注意点</h2>
+    <ul>
+      <li>Re<sub>p</sub> の値からストークス域・アレン域・ニュートン域を自動判定し、対応する式で v<sub>t</sub> を求めます（領域の境界は Re<sub>p</sub> ≒ 2 と 500）。</li>
+      <li>ストークス域では速度は粒子径の2乗に比例（v<sub>t</sub> ∝ d²）します。粒子径が 1/10 になると沈降速度は 1/100 になり、微粒子の重力沈降は急に遅くなります。</li>
+      <li>球形・単一粒子・希薄分散を前提とした値です。濃厚スラリーでは粒子どうしが干渉して遅くなる干渉沈降（Richardson-Zaki など）の補正が必要です。</li>
+      <li>形状が球から外れる（球形度が小さい）と抗力が増え、実際の沈降速度はこれより小さくなります。重要な設計はメスシリンダーなどでの沈降試験で確認してください。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/4vA7FHw" class="reference-card" data-asin="4782825099" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">化学機械の理論と計算（第2版）</p><p class="ref-meta">亀井 三郎 編 / 産業図書</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../../extraction/phase-separation-time/" class="related-card"><span class="small">抽出</span>抽出後の相分離時間（静置）</a>
+      <a href="../../fluid/reynolds/" class="related-card"><span class="small">流動</span>レイノルズ数（配管）</a>
+      <a href="../../fluid/flow-conversion/" class="related-card"><span class="small">流動</span>流量・流速・配管径換算</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/settling-velocity.js"></script>
+<script src="../../../assets/js/references.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+</body>
+</html>
