@@ -181,6 +181,12 @@
       keywords: ["相分離", "分離時間", "静置", "液液分離", "抽出", "終末速度", "沈降速度", "浮上速度", "ストークス", "アレン", "ニュートン", "粒子レイノルズ数", "Stokes", "Allen", "Newton", "分散帯", "液滴径", "分液ロート", "デカンター", "settling", "phase separation"]
     },
     {
+      title: "球形粒子の終末沈降速度",
+      url: "tools/separation/settling-velocity/",
+      category: "固液分離",
+      keywords: ["沈降速度", "終末速度", "terminal velocity", "ストークス", "Stokes", "アレン", "Allen", "ニュートン", "Newton", "抗力係数", "Cd", "粒子レイノルズ数", "固液分離", "重力沈降", "沈降分離", "スラリー", "粒子径"]
+    },
+    {
       title: "蒸留(カテゴリ)",
       url: "tools/distillation/",
       category: "カテゴリ",

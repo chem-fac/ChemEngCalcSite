@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>固液分離カテゴリ | 化学工学計算支援ツール</title>
-<meta name="description" content="固液分離カテゴリの計算ツール一覧。ろ過・沈降・遠心分離など、固液分離操作の検討に役立つツールを集めます。">
+<meta name="description" content="固液分離カテゴリの計算ツール一覧。沈降・ろ過・遠心分離など、固液分離操作の検討に役立つツールを集めました。">
 <link rel="canonical" href="https://tools.chem-fac.com/tools/separation/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="化学工学計算支援ツール">
 <meta property="og:title" content="固液分離カテゴリ | 化学工学計算支援ツール">
-<meta property="og:description" content="固液分離カテゴリの計算ツール一覧。ろ過・沈降・遠心分離など、固液分離操作の検討に役立つツールを集めます。">
+<meta property="og:description" content="固液分離カテゴリの計算ツール一覧。沈降・ろ過・遠心分離など、固液分離操作の検討に役立つツールを集めました。">
 <meta property="og:url" content="https://tools.chem-fac.com/tools/separation/">
 <meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
 <meta property="og:locale" content="ja_JP">
@@ -58,21 +58,42 @@
     <span class="current">固液分離</span>
   </nav>
 
+  <!-- ===== Hero ===== -->
   <section class="tool-hero tool-hero-simple">
     <div class="tool-hero-content">
       <span class="cat-tag">カテゴリ</span>
       <h1>固液分離</h1>
-      <p class="tool-subcopy">ろ過・沈降・遠心分離など、固液分離操作に関するツールをまとめます。</p>
+      <p class="tool-subcopy">沈降・ろ過・遠心分離など、固液分離操作に関するツールをまとめています。</p>
     </div>
   </section>
 
+  <!-- ===== In-category search ===== -->
+  <section class="cat-search-section">
+    <div class="search-wrap">
+      <form class="search" id="catSearchForm" onsubmit="event.preventDefault();">
+        <input id="catSearchInput" type="text" autocomplete="off" placeholder="固液分離カテゴリ内で検索（例：沈降、ストークス）">
+      </form>
+    </div>
+    <p class="cat-search-empty" id="catSearchEmpty" hidden>該当するツールが見つかりませんでした。</p>
+  </section>
+
+  <!-- ===== Tools list ===== -->
   <section class="tool-list-section">
-    <div class="cat-empty">
-      <div class="cat-empty-label">準備中</div>
-      <p class="cat-empty-text">このカテゴリのツールは現在準備中です。公開され次第こちらに掲載します。</p>
-      <a href="../../" class="cat-empty-back">‹ トップページに戻る</a>
+    <div class="tool-list" id="toolList">
+
+      <a href="settling-velocity/" class="tool-list-card"
+         data-keywords="沈降速度 終末速度 terminal velocity ストークス Stokes アレン Allen ニュートン Newton 抗力係数 粒子レイノルズ数 固液分離 重力沈降 沈降分離 スラリー 粒子径">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">固液分離</span>
+          <h3 class="tool-list-title">球形粒子の終末沈降速度</h3>
+          <p class="tool-list-desc">固体粒子が液中を沈むときの終末沈降速度を、ストークス・アレン・ニュートンの式から計算します。粒子レイノルズ数で領域を自動判定します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
     </div>
   </section>
+
 
 </main>
 
@@ -109,6 +130,27 @@
   </div>
 </footer>
 
+<script>
+(function () {
+  const input = document.getElementById('catSearchInput');
+  const list = document.getElementById('toolList');
+  const empty = document.getElementById('catSearchEmpty');
+  if (!input || !list) return;
+  const cards = Array.from(list.querySelectorAll('.tool-list-card'));
+  function filter() {
+    const q = input.value.trim().toLowerCase();
+    let visible = 0;
+    cards.forEach(c => {
+      const hay = (c.textContent + ' ' + (c.dataset.keywords || '')).toLowerCase();
+      const show = !q || hay.includes(q);
+      c.hidden = !show;
+      if (show) visible++;
+    });
+    empty.hidden = !(q && visible === 0);
+  }
+  input.addEventListener('input', filter);
+})();
+</script>
 <script src="../../assets/js/share.js"></script>
 </body>
 </html>
