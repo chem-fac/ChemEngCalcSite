@@ -735,6 +735,18 @@ button { font-family: inherit; cursor: pointer; }
   margin-left: 4px;
   font-style: italic;
 }
+.input-row label .opt {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 7px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-sub);
+  background: var(--brand-faint);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  vertical-align: middle;
+}
 .input-group {
   display: flex;
   gap: 8px;
@@ -1170,6 +1182,18 @@ details.formula .body {
   width: 100%;
   height: auto;
   max-height: 620px;
+}
+.tool-chart-wrap {
+  margin: 0 0 18px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+}
+.tool-chart-wrap canvas {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 .calc-pane h2 {
   font-size: 15px;
