@@ -23,7 +23,7 @@
     clearError();
   }
 
-  const setError = m => { const e=$('error'); e.textContent=m; e.style.display='block'; };
+  const setError = m => { const e = $('error'); e.textContent = m; e.style.display = 'block'; const _ra = $('result-area'); if (_ra) _ra.innerHTML = '<div class="placeholder">入力値を見直して再度計算してください</div>'; };
   const clearError = () => { const e=$('error'); e.textContent=''; e.style.display='none'; };
   const clearResult = () => { $('result-area').innerHTML='<div class="placeholder">入力値を入れて「計算する」を押してください</div>'; };
   function updateTemperaturePlaceholder() {
@@ -46,6 +46,7 @@
     if(currentMode === 'PfromT'){
       const T = parseFloat($('T').value);
       if(!isFinite(T)) return setError('温度 T を数値で入力してください。');
+      if(T_to_K(T, Tunit) <= 0) return setError('温度が絶対零度（-273.15°C / 0 K）以下です。入力を見直してください。');
       // x = A - B/(T+C)（T は係数定義側の単位そのまま）
       const denom = T + C;
       if(denom === 0) return setError('T + C = 0 になり計算できません。係数または温度を見直してください。');

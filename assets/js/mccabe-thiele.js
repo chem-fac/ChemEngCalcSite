@@ -54,6 +54,7 @@
     const e = $('error');
     e.textContent = m;
     e.style.display = 'block';
+    const _ra = $('result-area'); if (_ra) _ra.innerHTML = '<div class="placeholder">入力値を見直して再度計算してください</div>'; 
   }
 
   function clearError() {
@@ -433,11 +434,11 @@
     if (!stages.ok) warn.push(stages.reason);
 
     $('result-area').innerHTML = `
-      <div class="result-target">理論段数 <span class="sym">N</span></div>
-      <div class="result-value-big">${fmtNum(stages.theoreticalStages, 3)} <span class="unit">段</span></div>
+      <div class="result-target">理論段数 <span class="sym">N</span>（リボイラー込み）</div>
+      <div class="result-value-big">${stages.ok ? `${fmtNum(stages.theoreticalStages, 3)} <span class="unit">段</span>` : '収束せず（R≤Rmin の可能性）'}</div>
       <table class="unit-table"><tbody>
         ${renderRows([
-          ['総ステップ数（部分段込み）', fmtNum(stages.totalSteps, 3)],
+          ['階段ステップ数（平衡線往復回数）', stages.ok ? fmtNum(stages.fullSteps) : '-'],
           ['実際の段数（部分段切り上げ）', actualStages ? `${actualStages} 段` : '-'],
           ['フィード段', stages.feedStage ? `第${stages.feedStage}段付近` : '-'],
           ['最小還流比 R<sub>min</sub>', fmtNum(rminData.Rmin)],
@@ -448,7 +449,7 @@
           ['総合段効率換算', efficiencyStages ? `${efficiencyStages} 段` : '未入力'],
         ])}
       </tbody></table>
-      <div class="result-note">段数計算: 理論段数 = 総ステップ数 - 1（リボイラーを1段とカウント）。全凝縮コンデンサーは段数に含めません。部分段がある場合は切り上げて実際の段数とします。</div>
+      <div class="result-note">段数の定義：<br>・<b>理論段数 N</b> = リボイラーを 1 段としてカウントした合計段数。表示値は部分段（端数）を含む小数値。<br>・<b>階段ステップ数</b> = McCabe-Thiele 図で平衡線と操作線の間を往復した回数（=塔頂から缶出まで描いた階段の段数）。リボイラーを 1 段とすると、塔内段数 = 階段ステップ数 − 1 になります。<br>・全凝縮コンデンサーは平衡段に含めません。部分段がある場合は切り上げて「実際の段数」としています。</div>
       ${warn.length ? `<div class="result-note">${warn.join('<br>')}</div>` : ''}
       <div class="result-detail-label">各段の組成</div>
       <div class="stage-composition-wrap">

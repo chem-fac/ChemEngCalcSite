@@ -103,7 +103,9 @@
     // ===== ② 利用可能NPSH（NPSHa）=====
     let c2;
     const Pv = presToPaAbs(val('Pv'), unitOf('Pv'));
-    if (finite(P1g) && finite(z1) && dPsOK && finite(Pv) && Pv >= 0) {
+    if (finite(P1g) && finite(z1) && dPsOK && finite(Pv) && Pv >= 0 && (P1g + Pa) <= 0) {
+      c2 = cardPending('② 利用可能NPSH（NPSH<sub>a</sub>）', '吸込側の絶対圧 (P₁ + P<sub>a</sub>) が 0 以下です。ゲージ圧 P₁ が大気圧を打ち消すほど低い設定になっていないか確認してください。');
+    } else if (finite(P1g) && finite(z1) && dPsOK && finite(Pv) && Pv >= 0) {
       const P1abs = P1g + Pa;
       const NPSHa = (P1abs - Pv) / (rho * G) + z1 - dPs / (rho * G);
       const rows = [
