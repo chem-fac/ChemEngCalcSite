@@ -31,7 +31,7 @@
     return isFinite(v) ? v * (TO_SI[f] && u ? TO_SI[f][u] : 1) : NaN;
   }
   function positive(v) { return isFinite(v) && v > 0; }
-  const setError = m => { const e = $('error'); e.textContent = m; e.style.display = 'block'; };
+  const setError = m => { const e = $('error'); e.textContent = m; e.style.display = 'block'; const _ra = $('result-area'); if (_ra) _ra.innerHTML = '<div class="placeholder">入力値を見直して再度計算してください</div>'; };
   const clearError = () => { const e = $('error'); e.textContent = ''; e.style.display = 'none'; };
   const clearResult = () => { $('result-area').innerHTML = '<div class="placeholder">入力値を入れて「計算する」を押してください</div>'; };
 
@@ -52,7 +52,7 @@
     const Dd = D / d;
     const bd = b / d;
     const dD = d / D;
-    const bladeTerm = Math.pow(np, 0.7) * bd;
+    const bladeTerm = np * bd;
     const Nqd = 0.32 * Math.pow(bladeTerm, 0.25) * Math.pow(Dd, 0.34) * Math.pow(Np, 0.5);
     const Nqc = Nqd * (1 + 0.16 * (Math.pow(Dd, 2) - 1));
     const qd = Nqd * n * Math.pow(d, 3);
@@ -97,7 +97,7 @@
       </tbody></table>
       ${circulationTime}
       <div class="result-meta">
-        <div>吐出流量数：<span class="sym">N<sub>qd</sub></span> = 0.32(n<sub>p</sub><sup>0.7</sup>b/d)<sup>0.25</sup>(D/d)<sup>0.34</sup><span class="sym">N<sub>p</sub></span><sup>0.5</sup></div>
+        <div>吐出流量数：<span class="sym">N<sub>qd</sub></span> = 0.32(n<sub>p</sub>b/d)<sup>0.25</sup>(D/d)<sup>0.34</sup><span class="sym">N<sub>p</sub></span><sup>0.5</sup></div>
         <div>循環流量数：<span class="sym">N<sub>qc</sub></span> = <span class="sym">N<sub>qd</sub></span>[1 + 0.16{(D/d)<sup>2</sup> - 1}]</div>
         <div>流量：<span class="sym">q<sub>d</sub></span> = <span class="sym">N<sub>qd</sub></span>nd³, <span class="sym">q<sub>c</sub></span> = <span class="sym">N<sub>qc</sub></span>nd³</div>
         <div>入力 <span class="sym">N<sub>p</sub></span> = ${fmtNum(Np)}, <span class="sym">n<sub>p</sub></span> = ${fmtNum(np)}, <span class="sym">b/d</span> = ${fmtNum(bd)}, <span class="sym">D/d</span> = ${fmtNum(Dd)}, <span class="sym">n</span> = ${fmtNum(n)} 1/s</div>

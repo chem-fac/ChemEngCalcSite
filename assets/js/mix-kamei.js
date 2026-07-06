@@ -43,7 +43,7 @@
     const el = $(id);
     if (el && value !== undefined && value !== null) el.value = value;
   }
-  const setError = (m) => { const e = $('error'); e.textContent = m; e.style.display = 'block'; };
+  const setError = (m) => { const e = $('error'); e.textContent = m; e.style.display = 'block'; const ra = $('result-area'); if (ra) ra.innerHTML = '<div class="placeholder">入力値を見直して再度計算してください</div>'; };
   const clearError = () => { const e = $('error'); e.textContent = ''; e.style.display = 'none'; };
   const clearResult = () => { $('result-area').innerHTML = '<div class="placeholder">入力値を入れて「計算する」を押してください</div>'; };
 
@@ -83,7 +83,7 @@
   function commonGeometry(d, D, H, np) {
     const lnDd = Math.log(D / d);
     const beta = 2 * lnDd / ((D / d) - (d / D));
-    const eta = 0.711 * (0.157 + np * Math.pow(lnDd, 0.611)) /
+    const eta = 0.711 * (0.157 + Math.pow(np * lnDd, 0.611)) /
       (Math.pow(np, 0.52) * (1 - Math.pow(d / D, 2)));
     const gamma = Math.pow((eta * lnDd) / Math.pow(beta * D / d, 5), 1 / 3);
     return { lnDd, beta, eta, gamma };
@@ -182,6 +182,9 @@
     }
     if (D <= d) return setError('槽径 D は翼径 d より大きい必要があります。');
     if (preset.model !== 'helical' && (!isFinite(b) || b <= 0)) return setError('翼幅 b を正の数値で入力してください。');
+    if (preset.model !== 'helical' && thetaDeg > 90) {
+      return setError('羽根取り付け角度 θ は 90° 以下で入力してください（亀井・平岡式の適用範囲は 0 < θ ≤ 90°）。');
+    }
 
     const Red = rho * n * d * d / mu;
     const thetaRad = thetaDeg * Math.PI / 180;
