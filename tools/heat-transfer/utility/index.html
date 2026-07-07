@@ -100,12 +100,12 @@
           <div class="input-group">
             <select id="steam_pressure_preset" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;background:#fff;">
               <option value="">カスタム（蒸気潜熱を直接入力）</option>
-              <option value="2257.9">0.1 MPa（2257.9 kJ/kg）</option>
-              <option value="2201.6">0.2 MPa（2201.6 kJ/kg）</option>
-              <option value="2163.2">0.3 MPa（2163.2 kJ/kg）</option>
-              <option value="2133.0">0.4 MPa（2133.0 kJ/kg）</option>
-              <option value="2107.4">0.5 MPa（2107.4 kJ/kg）</option>
-              <option value="2085.0">0.6 MPa（2085.0 kJ/kg）</option>
+              <option value="2257.9">0.1 MPaA（絶対圧・2257.9 kJ/kg）</option>
+              <option value="2201.6">0.2 MPaA（絶対圧・2201.6 kJ/kg）</option>
+              <option value="2163.2">0.3 MPaA（絶対圧・2163.2 kJ/kg）</option>
+              <option value="2133.0">0.4 MPaA（絶対圧・2133.0 kJ/kg）</option>
+              <option value="2107.4">0.5 MPaA（絶対圧・2107.4 kJ/kg）</option>
+              <option value="2085.0">0.6 MPaA（絶対圧・2085.0 kJ/kg）</option>
             </select>
           </div>
         </div>
@@ -115,7 +115,7 @@
             <input type="number" inputmode="decimal" id="latent" step="any" placeholder="例：2200">
             <select id="latent_unit"><option value="kJkg">kJ/kg</option><option value="Jkg">J/kg</option><option value="kcalkg">kcal/kg</option></select>
           </div>
-          <p class="hint">蒸気圧力に応じた凝縮潜熱を入力してください。</p>
+          <p class="hint">蒸気圧力に応じた凝縮潜熱を入力してください。プリセットの圧力は絶対圧（MPaA）です。ゲージ圧（MPaG）で運転値を扱う場合は +0.1 MPa して選んでください。</p>
         </div>
         <div class="btn-row"><button class="btn btn-primary" id="calc-btn">計算する</button><button class="btn btn-ghost" id="reset-btn">リセット</button></div>
         <div id="error" class="error-msg" style="display:none;"></div>
