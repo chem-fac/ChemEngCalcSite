@@ -14,6 +14,12 @@
         var info = data.items[asin];
         if (!info) return;
 
+        // API成功時はCreators API応答のリンクを使い、API経由の成果として識別可能にする。
+        // API停止時のfallback JSONでは、YAML由来の既存アソシエイトリンクが入る。
+        if (info.affiliate_url) {
+          card.href = info.affiliate_url;
+        }
+
         var slot = card.querySelector('.ref-image');
         if (slot && info.image_url && !slot.querySelector('img')) {
           var img = document.createElement('img');
