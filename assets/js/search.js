@@ -94,13 +94,19 @@
       title: "物性・熱力学（カテゴリ）",
       url: "tools/properties/",
       category: "カテゴリ",
-      keywords: ["物性", "熱力学", "状態方程式", "化学平衡", "蒸気圧", "properties", "thermodynamics"]
+      keywords: ["物性", "熱力学", "状態方程式", "気体粘度", "混合粘度", "Wilke", "化学平衡", "蒸気圧", "properties", "thermodynamics"]
     },
     {
       title: "理想気体の状態方程式・標準状態換算",
       url: "tools/properties/ideal-gas-law/",
       category: "物性・熱力学",
       keywords: ["理想気体", "状態方程式", "PV=nRT", "ガス密度", "モル体積", "標準状態", "Nm3", "ノルマル立米", "実流量", "actual", "流量換算", "kg/h", "kmol/h"]
+    },
+    {
+      title: "混合気体の粘度（Wilke式）",
+      url: "tools/properties/gas-mixture-viscosity/",
+      category: "物性・熱力学",
+      keywords: ["混合気体", "粘度", "Wilke", "ウィルク", "混合粘度", "気体粘度", "純気体粘度", "モル分率", "分子量", "mixture viscosity", "gas viscosity"]
     },
     {
       title: "ファントホッフの式",

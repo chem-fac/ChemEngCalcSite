@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>混合気体の粘度（Wilke式） | 化学工学計算支援ツール</title>
+<meta name="description" content="各成分のモル分率・純気体粘度・分子量から、Wilke式で混合気体の粘度を計算します。最大6成分まで対応。">
+<meta name="keywords" content="混合気体, 粘度, Wilke式, 混合粘度, 気体粘度, モル分率, mixture viscosity, gas viscosity">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/properties/gas-mixture-viscosity/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="混合気体の粘度（Wilke式） | 化学工学計算支援ツール">
+<meta property="og:description" content="各成分のモル分率・純気体粘度・分子量から、Wilke式で混合気体の粘度を計算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/properties/gas-mixture-viscosity/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"混合気体の粘度（Wilke式）","url":"https://tools.chem-fac.com/tools/properties/gas-mixture-viscosity/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"Wilke式による混合気体の粘度計算。","inLanguage":"ja","isAccessibleForFree":true,"about":"物性・熱力学"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+<style>
+.viscosity-table-wrap{overflow-x:auto;margin-top:8px;}
+.viscosity-table{width:100%;min-width:620px;border-collapse:collapse;font-size:13px;}
+.viscosity-table th,.viscosity-table td{padding:6px;border-bottom:1px solid var(--border);text-align:left;}
+.viscosity-table th{background:#f6f7f9;white-space:nowrap;}
+.viscosity-table input{width:100%;min-width:90px;padding:7px 8px;border:1px solid var(--border);border-radius:4px;box-sizing:border-box;}
+.viscosity-table .row-no{width:32px;text-align:center;}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">物性・熱力学</a><span class="sep">›</span><span class="current">混合気体の粘度</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">物性・熱力学</span>
+      <h1>混合気体の粘度（Wilke式）</h1>
+      <p class="tool-subcopy">各成分のモル分率・純気体粘度・分子量から、混合気体全体の粘度を計算します。最大6成分まで対応しています。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked" id="calculator">
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <div class="input-row">
+          <label for="composition-unit">組成の入力単位</label>
+          <select id="composition-unit">
+            <option value="fraction">モル分率（合計1）</option>
+            <option value="percent">mol%（合計100）</option>
+          </select>
+        </div>
+        <div class="viscosity-table-wrap">
+          <table class="viscosity-table">
+            <thead>
+              <tr><th class="row-no">#</th><th>成分名</th><th>組成</th><th>純気体粘度 μ<sub>i</sub>［μPa·s］</th><th>分子量 M<sub>i</sub>［g/mol］</th></tr>
+            </thead>
+            <tbody id="component-rows"></tbody>
+          </table>
+        </div>
+        <p class="hint">μ<sub>i</sub> は混合前の各純気体の粘度です。すべて同じ温度・圧力における値を入力してください。組成は合計値で正規化して計算します。</p>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">成分を入力して「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>Wilke式</h2>
+
+    <div class="math-block">$$ \mu_\mathrm{mix}=\sum_i\frac{x_i\mu_i}{\sum_j x_j\phi_{ij}} $$</div>
+    <div class="math-block">$$ \phi_{ij}=\frac{\left[1+\left(\mu_i/\mu_j\right)^{1/2}\left(M_j/M_i\right)^{1/4}\right]^2}{\sqrt{8\left(1+M_i/M_j\right)}} $$</div>
+    <ul class="symbol-list">
+      <li>$\mu_\mathrm{mix}$：混合気体全体の粘度［μPa·s］</li>
+      <li>$x_i, x_j$：成分 $i, j$ のモル分率［—］</li>
+      <li>$\mu_i, \mu_j$：成分 $i, j$ の純気体粘度［μPa·s］</li>
+      <li>$M_i, M_j$：成分 $i, j$ の分子量［g/mol］</li>
+      <li>$\phi_{ij}$：成分 $i$ と $j$ の組合せから求める係数［—］</li>
+      <li>$i, j$：成分を表す添字</li>
+    </ul>
+
+    <h2>単純な加重平均ではない理由</h2>
+    <p>気体の粘度は、分子が移動・衝突しながら運動量を運ぶ性質です。混合すると、分子量や粘度が異なる分子同士の衝突が加わるため、$\sum_i x_i\mu_i$ という単純なモル分率平均だけでは表しきれません。</p>
+    <p>Wilke式では、各成分 $i$ に対して周囲の全成分 $j$ の影響を $\phi_{ij}$ で補正します。$\phi_{ij}$ は粘度比 $\mu_i/\mu_j$ と分子量比 $M_i/M_j$ から決まり、次の順序で計算します。</p>
+    <ol>
+      <li>成分の組合せごとに $\phi_{ij}$ を求める</li>
+      <li>$\sum_j x_j\phi_{ij}$ で、成分 $i$ が混合物中で受ける影響を求める</li>
+      <li>補正後の各成分の寄与を合計し、$\mu_\mathrm{mix}$ を求める</li>
+    </ol>
+
+    <h2>2成分の場合</h2>
+    <p>$\phi_{11}=\phi_{22}=1$ なので、2成分の式は次の形になります。</p>
+    <div class="math-block">$$ \mu_\mathrm{mix}=\frac{x_1\mu_1}{x_1+x_2\phi_{12}}+\frac{x_2\mu_2}{x_1\phi_{21}+x_2} $$</div>
+    <p>例えば、窒素79 mol%（17.81 μPa·s、28.0134 g/mol）と酸素21 mol%（20.18 μPa·s、31.9988 g/mol）では、混合気体の粘度は18.315 μPa·sになります。窒素と酸素は物性が近いため単純平均との差は小さいですが、粘度や分子量の差が大きい組合せほど補正の意味が大きくなります。</p>
+
+    <p>低密度の気体混合物を対象とする推算式です。各成分の粘度を別の温度から補正する機能は含みません。</p>
+  </section>
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/431YmDO" class="reference-card" data-asin="4621045350" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">便覧</span><p class="ref-title">化学工学便覧 改訂6版</p><p class="ref-meta">化学工学会 編集 / 丸善出版</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../ideal-gas-law/" class="related-card"><span class="small">物性・熱力学</span>理想気体の状態方程式・標準状態換算</a>
+      <a href="../../fluid/reynolds/" class="related-card"><span class="small">流動</span>レイノルズ数</a>
+      <a href="../../fluid/flow-conversion/" class="related-card"><span class="small">流動</span>流量・流速・配管径換算</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/gas-mixture-viscosity.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>
