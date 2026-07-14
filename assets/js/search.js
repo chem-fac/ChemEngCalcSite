@@ -109,6 +109,12 @@
       keywords: ["混合気体", "粘度", "Wilke", "ウィルク", "混合粘度", "気体粘度", "純気体粘度", "モル分率", "分子量", "mixture viscosity", "gas viscosity"]
     },
     {
+      title: "液体の粘度・動粘度換算",
+      url: "tools/properties/liquid-viscosity/",
+      category: "物性・熱力学",
+      keywords: ["液体", "粘度", "動粘度", "粘性係数", "密度", "cP", "cSt", "センチポアズ", "センチストークス", "viscosity", "kinematic viscosity"]
+    },
+    {
       title: "ファントホッフの式",
       url: "tools/properties/vant-hoff/",
       category: "物性・熱力学",

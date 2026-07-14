@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>液体の粘度・動粘度換算（cP ⇄ cSt） | 化学工学計算支援ツール</title>
+<meta name="description" content="液体の粘度と密度から動粘度を、動粘度と密度から粘度を計算します。Pa·s、mPa·s、cP、m²/s、mm²/s、cStに対応。">
+<meta name="keywords" content="液体粘度, 動粘度, 粘度換算, cP, cSt, Pa s, mPa s, 密度, kinematic viscosity, dynamic viscosity">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/properties/liquid-viscosity/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="液体の粘度・動粘度換算 | 化学工学計算支援ツール">
+<meta property="og:description" content="液体の粘度・動粘度を密度から相互換算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/properties/liquid-viscosity/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"液体の粘度・動粘度換算","url":"https://tools.chem-fac.com/tools/properties/liquid-viscosity/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"密度を用いた液体の粘度と動粘度の相互換算。","inLanguage":"ja","isAccessibleForFree":true,"about":"物性・熱力学"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">物性・熱力学</a><span class="sep">›</span><span class="current">液体の粘度・動粘度換算</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">物性・熱力学</span>
+      <h1>液体の粘度・動粘度換算</h1>
+      <p class="tool-subcopy">密度を使って、粘度（Pa·s・mPa·s・cP）と動粘度（m²/s・mm²/s・cSt）を相互換算します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab active" data-mode="mu-to-nu">粘度 μ → 動粘度 ν</button>
+      <button type="button" class="mode-tab" data-mode="nu-to-mu">動粘度 ν → 粘度 μ</button>
+    </div>
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+
+        <div class="input-row" data-show-when="mu-to-nu">
+          <label>粘度 <span class="sym">μ</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="mu" step="any" min="0" placeholder="例：1">
+            <select id="mu-unit"><option value="mPa-s">mPa·s</option><option value="Pa-s">Pa·s</option><option value="cP">cP</option><option value="P">P</option></select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="mu-to-nu">
+          <label>密度 <span class="sym">ρ</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="rho-mu" step="any" min="0" placeholder="例：1000">
+            <select id="rho-mu-unit"><option value="kg-m3">kg/m³</option><option value="g-cm3">g/cm³</option><option value="kg-L">kg/L</option></select>
+          </div>
+        </div>
+
+        <div class="input-row" data-show-when="nu-to-mu">
+          <label>動粘度 <span class="sym">ν</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="nu" step="any" min="0" placeholder="例：1">
+            <select id="nu-unit"><option value="cSt">cSt</option><option value="mm2-s">mm²/s</option><option value="m2-s">m²/s</option><option value="St">St</option></select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="nu-to-mu">
+          <label>密度 <span class="sym">ρ</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="rho-nu" step="any" min="0" placeholder="例：1000">
+            <select id="rho-nu-unit"><option value="kg-m3">kg/m³</option><option value="g-cm3">g/cm³</option><option value="kg-L">kg/L</option></select>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>粘度と動粘度の関係</h2>
+    <div class="math-block">$$ \nu=\frac{\mu}{\rho} \qquad \mu=\rho\nu $$</div>
+    <ul class="symbol-list">
+      <li>$\mu$：粘度（粘性係数）［Pa·s］</li>
+      <li>$\nu$：動粘度［m²/s］</li>
+      <li>$\rho$：同じ温度・圧力における液体密度［kg/m³］</li>
+    </ul>
+    <p>粘度 $\mu$ はせん断変形に対する流体の抵抗を表します。動粘度 $\nu$ は粘度を密度で割った値で、運動量の拡散しやすさを表します。</p>
+
+    <h2>単位の関係</h2>
+    <div class="math-block">$$ 1\ \mathrm{mPa\cdot s}=1\ \mathrm{cP} \qquad 1\ \mathrm{mm^2/s}=1\ \mathrm{cSt} $$</div>
+    <p>cPは粘度、cStは動粘度の単位です。数値が同じになるのは密度が1000 kg/m³の場合に限られます。</p>
+    <p>粘度と密度は温度によって変化するため、同じ温度・圧力における値を組み合わせてください。非ニュートン流体では粘度がせん断速度に依存するため、測定条件も揃える必要があります。</p>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/431YmDO" class="reference-card" data-asin="4621045350" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">便覧</span><p class="ref-title">化学工学便覧 改訂6版</p><p class="ref-meta">化学工学会 編集 / 丸善出版</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../gas-mixture-viscosity/" class="related-card"><span class="small">物性・熱力学</span>混合気体の粘度（Wilke式）</a>
+      <a href="../../fluid/reynolds/" class="related-card"><span class="small">流動</span>レイノルズ数</a>
+      <a href="../../fluid/flow-conversion/" class="related-card"><span class="small">流動</span>流量・流速・配管径換算</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/liquid-viscosity.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>
