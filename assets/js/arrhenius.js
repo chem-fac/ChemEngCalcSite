@@ -22,7 +22,7 @@
     clearError();
   }
 
-  const setError = m => { const e=$('error'); e.textContent=m; e.style.display='block'; };
+  const setError = m => { const e = $('error'); e.textContent = m; e.style.display = 'block'; const _ra = $('result-area'); if (_ra) _ra.innerHTML = '<div class="placeholder">入力値を見直して再度計算してください</div>'; };
   const clearError = () => { const e=$('error'); e.textContent=''; e.style.display='none'; };
   const clearResult = () => { $('result-area').innerHTML='<div class="placeholder">入力値を入れて「計算する」を押してください</div>'; };
   function updateTemperaturePlaceholders() {

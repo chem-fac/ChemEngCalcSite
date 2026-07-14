@@ -13,7 +13,7 @@
   const toSup = s => String(s).split('').map(c => SUP_MAP[c] !== undefined ? SUP_MAP[c] : c).join('');
   function fmtNum(v, sig=4){if(!isFinite(v))return '—';const a=Math.abs(v);if(a===0)return '0';if(a>=1e5||a<1e-3){const e=v.toExponential(sig-1);const m=e.match(/^(-?\d+(?:\.\d+)?)e([+-]?\d+)$/);if(m)return `${m[1]}×10${toSup(m[2])}`;return e;}return Number(v.toPrecision(sig)).toString();}
   function getSI(f){const el=$(f);if(!el||el.value==='')return NaN;const v=parseFloat(el.value);const sel=$(f+'_unit');const u=sel?sel.value:'dim';return isFinite(v)?v*(TO_SI[f]?TO_SI[f][u]:1):NaN;}
-  const setError = m => { const e=$('error'); e.textContent=m; e.style.display='block'; };
+  const setError = m => { const e = $('error'); e.textContent = m; e.style.display = 'block'; const _ra = $('result-area'); if (_ra) _ra.innerHTML = '<div class="placeholder">入力値を見直して再度計算してください</div>'; };
   const clearError = () => { const e=$('error'); e.textContent=''; e.style.display='none'; };
   const clearResult = () => { $('result-area').innerHTML='<div class="placeholder">入力値を入れて「計算する」を押してください</div>'; };
 

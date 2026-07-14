@@ -36,6 +36,7 @@
     const e = $('error');
     e.textContent = m;
     e.style.display = 'block';
+    const _ra = $('result-area'); if (_ra) _ra.innerHTML = '<div class="placeholder">入力値を見直して再度計算してください</div>'; 
   }
 
   function clearError() {
@@ -121,16 +122,29 @@
     const yB = 1 - yA;
     if (alpha < 1) notes.push('成分Aの方が成分Bより揮発しにくい条件です。軽沸点成分をAにしたい場合は成分A/Bを入れ替えてください。');
 
+    const warns = [];
+    const isAllLiquid = phase === '全液相';
+    const isAllGas = phase === '全気相';
+    const liquidRowCls = isAllGas ? 'row-pseudo' : '';
+    const vaporRowCls = isAllLiquid ? 'row-pseudo' : '';
+    if (isAllLiquid) {
+      warns.push('この圧力では供給は<strong>全量液相</strong>です。下表の気相組成 y<sub>A</sub>, y<sub>B</sub> は「もし微量に蒸気が発生した場合の K値ベース仮想組成」であり、実在しません。');
+    }
+    if (isAllGas) {
+      warns.push('この圧力では供給は<strong>全量気相</strong>です。下表の液相組成 x<sub>A</sub>, x<sub>B</sub> は「もし微量に凝縮液が発生した場合の K値ベース仮想組成」であり、実在しません。');
+    }
+
     $('result-area').innerHTML = `
       <div class="result-target">蒸気率 β（${phase}）</div>
       <div class="result-value-big">${fmtNum(beta)} <span class="unit">-</span></div>
+      ${warns.map(n => `<div class="result-note-warn">⚠ ${n}</div>`).join('')}
       <table class="unit-table"><tbody>
         <tr><td>気相流量 V</td><td class="num">${fmtNum(V)} kmol/h</td></tr>
         <tr><td>液相流量 L</td><td class="num">${fmtNum(L)} kmol/h</td></tr>
-        <tr><td>液相組成 x<sub>A</sub></td><td class="num">${fmtNum(xA)}</td></tr>
-        <tr><td>液相組成 x<sub>B</sub></td><td class="num">${fmtNum(xB)}</td></tr>
-        <tr><td>気相組成 y<sub>A</sub></td><td class="num">${fmtNum(yA)}</td></tr>
-        <tr><td>気相組成 y<sub>B</sub></td><td class="num">${fmtNum(yB)}</td></tr>
+        <tr class="${liquidRowCls}"><td>液相組成 x<sub>A</sub></td><td class="num">${fmtNum(xA)}</td></tr>
+        <tr class="${liquidRowCls}"><td>液相組成 x<sub>B</sub></td><td class="num">${fmtNum(xB)}</td></tr>
+        <tr class="${vaporRowCls}"><td>気相組成 y<sub>A</sub></td><td class="num">${fmtNum(yA)}</td></tr>
+        <tr class="${vaporRowCls}"><td>気相組成 y<sub>B</sub></td><td class="num">${fmtNum(yB)}</td></tr>
         <tr><td>K<sub>A</sub></td><td class="num">${fmtNum(KA)}</td></tr>
         <tr><td>K<sub>B</sub></td><td class="num">${fmtNum(KB)}</td></tr>
         <tr><td>相対揮発度 α<sub>AB</sub></td><td class="num">${fmtNum(alpha)}</td></tr>

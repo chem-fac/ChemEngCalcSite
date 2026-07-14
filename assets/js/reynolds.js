@@ -111,6 +111,7 @@
     const el = $('error');
     el.textContent = msg;
     el.style.display = 'block';
+    const _ra = $('result-area'); if (_ra) _ra.innerHTML = '<div class="placeholder">入力値を見直して再度計算してください</div>'; 
   }
   function hideError() { $('error').style.display = 'none'; }
 

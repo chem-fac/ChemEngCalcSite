@@ -34,7 +34,7 @@
     return isFinite(v) ? v * (TO_SI[field] && unit ? TO_SI[field][unit] : 1) : NaN;
   }
   function positive(v) { return isFinite(v) && v > 0; }
-  const setError = (m) => { const e = $('error'); e.textContent = m; e.style.display = 'block'; };
+  const setError = (m) => { const e = $('error'); e.textContent = m; e.style.display = 'block'; const ra = $('result-area'); if (ra) ra.innerHTML = '<div class="placeholder">入力値を見直して再度計算してください</div>'; };
   const clearError = () => { const e = $('error'); e.textContent = ''; e.style.display = 'none'; };
   const clearResult = () => { $('result-area').innerHTML = '<div class="placeholder">入力値を入れて「計算する」を押してください</div>'; };
 

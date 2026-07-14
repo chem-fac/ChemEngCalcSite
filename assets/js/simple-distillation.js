@@ -36,6 +36,7 @@
     const e = $('error');
     e.textContent = m;
     e.style.display = 'block';
+    const _ra = $('result-area'); if (_ra) _ra.innerHTML = '<div class="placeholder">入力値を見直して再度計算してください</div>'; 
   }
 
   function clearError() {

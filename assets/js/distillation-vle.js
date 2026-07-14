@@ -45,6 +45,7 @@
     const e = $('error');
     e.textContent = m;
     e.style.display = 'block';
+    const _ra = $('result-area'); if (_ra) _ra.innerHTML = '<div class="placeholder">入力値を見直して再度計算してください</div>'; 
   }
 
   function clearError() {
@@ -73,24 +74,35 @@
     const yA = alpha * xA / (1 + (alpha - 1) * xA);
     const yB = 1 - yA;
     const yRawSum = KA * xA + KB * xB;
+    const sumOffset = Math.abs(yRawSum - 1);
+    const equilibriumOK = sumOffset <= 0.05;
     const notes = [];
+    const warns = [];
     if (alpha < 1) notes.push('成分Aの方が成分Bより揮発しにくい条件です。軽沸点成分をAにしたい場合は成分A/Bを入れ替えてください。');
     if (Math.abs(alpha - 1) < 0.05) notes.push('相対揮発度が1に近く、通常の蒸留では分離が難しい系です。');
-    if (Math.abs(yRawSum - 1) > 0.05) notes.push('ΣxK が1から離れています。入力した飽和蒸気圧・系圧力では、液相がそのまま沸騰平衡にある条件ではない可能性があります。');
+    if (!equilibriumOK) {
+      const severe = sumOffset > 0.2;
+      warns.push(`ΣxK = ${fmtNum(yRawSum)} で 1 から${severe ? '大きく' : ''}外れています。入力した飽和蒸気圧・系圧力の組み合わせは沸騰平衡条件を満たしておらず、実際にはこの圧力では液相のままか全量気化しています。下表の y<sub>A</sub> は「相対揮発度 α から算出した気相比」であり、この圧力での実際の平衡組成ではありません。`);
+    }
+
+    const yLabel = equilibriumOK
+      ? '気相中の成分A組成 <span class="sym">y<sub>A</sub></span>'
+      : '相対揮発度から算出した気相比 <span class="sym">y<sub>A</sub></span><sup>*</sup>';
 
     $('result-area').innerHTML = `
-      <div class="result-target">気相中の成分A組成 <span class="sym">y<sub>A</sub></span></div>
+      <div class="result-target">${yLabel}</div>
       <div class="result-value-big">${fmtNum(yA)} <span class="unit">mol fraction</span></div>
       <table class="unit-table"><tbody>
-        <tr><td>気相中の成分B組成 y<sub>B</sub></td><td class="num">${fmtNum(yB)}</td></tr>
+        <tr><td>${equilibriumOK ? '気相中の成分B組成' : '気相比'} y<sub>B</sub></td><td class="num">${fmtNum(yB)}</td></tr>
         <tr><td>K<sub>A</sub> = P<sub>A</sub><sup>sat</sup>/P</td><td class="num">${fmtNum(KA)}</td></tr>
         <tr><td>K<sub>B</sub> = P<sub>B</sub><sup>sat</sup>/P</td><td class="num">${fmtNum(KB)}</td></tr>
         <tr><td>相対揮発度 α<sub>AB</sub></td><td class="num">${fmtNum(alpha)}</td></tr>
         <tr><td>分離しやすさ</td><td class="num">${separationLabel(alpha)}</td></tr>
-        <tr><td>ΣxK</td><td class="num">${fmtNum(yRawSum)}</td></tr>
+        <tr><td>ΣxK（沸騰平衡判定）</td><td class="num">${fmtNum(yRawSum)}${equilibriumOK ? '' : ' ⚠'}</td></tr>
       </tbody></table>
       <div class="result-meta">
-        <div>理想溶液・理想気体を仮定し、Raoult則から K値と相対揮発度を計算しています。</div>
+        <div>理想溶液・理想気体を仮定し、Raoult則から K値と相対揮発度を計算しています。沸騰平衡条件では ΣxK ≈ 1 になります。</div>
+        ${warns.map(n => `<div class="result-note-warn">⚠ ${n}</div>`).join('')}
         ${notes.map(n => `<div class="result-note">※ ${n}</div>`).join('')}
       </div>
     `;

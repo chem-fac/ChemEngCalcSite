@@ -22,20 +22,21 @@
     return parseFloat(el.value);
   }
   function positive(v) { return isFinite(v) && v > 0; }
-  const setError = m => { const e = $('error'); e.textContent = m; e.style.display = 'block'; };
+  const setError = m => { const e = $('error'); e.textContent = m; e.style.display = 'block'; const _ra = $('result-area'); if (_ra) _ra.innerHTML = '<div class="placeholder">入力値を見直して再度計算してください</div>'; };
   const clearError = () => { const e = $('error'); e.textContent = ''; e.style.display = 'none'; };
   const clearResult = () => { $('result-area').innerHTML = '<div class="placeholder">入力値を入れて「計算する」を押してください</div>'; };
   function kUnit(order, t) {
-    if (order === 0) return `mol/(L ${t})`;
+    if (order === 0) return `mol/(L·${t})`;
     if (order === 1) return `1/${t}`;
-    return `L/(mol ${t})`;
+    if (order === 2) return `L/(mol·${t})`;
+    return `(L/mol)^${order - 1}/${t}`;
   }
   function updateKUnitHint() {
     const hint = $('k_unit_hint');
     if (!hint) return;
     const order = parseInt($('order').value, 10);
     const tUnit = $('k_time_unit').value;
-    hint.textContent = `この条件で入力する k の単位：${kUnit(order, tUnit)}`;
+    hint.textContent = `この条件で入力する k の単位：${kUnit(order, tUnit)}（濃度は mol/L 基準）`;
   }
   function calculate() {
     clearError();
@@ -63,9 +64,11 @@
         <tr><td>出口濃度相当 C_A</td><td class="num">${fmtNum(CA)} mol/L</td></tr>
         <tr><td>目標転化率</td><td class="num">${fmtNum(Xpct)} %</td></tr>
         <tr><td>入力した k の単位</td><td class="num">${kUnit(order, tUnit)}</td></tr>
-        <tr><td>終点反応速度</td><td class="num">${fmtNum(rateEnd)} mol/(L s)</td></tr>
+        <tr><td>SI換算 k (1/s 基準)</td><td class="num">${fmtNum(k)} ${kUnit(order, 's')}</td></tr>
+        <tr><td>終点反応速度</td><td class="num">${fmtNum(rateEnd)} mol/(L·s)</td></tr>
       </tbody></table>
       <div class="result-note">※ 定容・等温・不可逆反応を仮定した反応時間です。実バッチでは昇温、投入、冷却、サンプリングなどの時間を別途見込みます。</div>
+      <div class="result-note">※ 濃度は mol/L、時間は選択した単位で k を入力してください。SI換算欄で内部の k 値を確認できます。</div>
     `;
   }
   function reset() {

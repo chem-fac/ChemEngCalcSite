@@ -36,7 +36,7 @@
   }
   function positive(v) { return isFinite(v) && v > 0; }
   function nonNegative(v) { return isFinite(v) && v >= 0; }
-  const setError = (m) => { const e = $('error'); e.textContent = m; e.style.display = 'block'; };
+  const setError = (m) => { const e = $('error'); e.textContent = m; e.style.display = 'block'; const ra = $('result-area'); if (ra) ra.innerHTML = '<div class="placeholder">入力値を見直して再度計算してください</div>'; };
   const clearError = () => { const e = $('error'); e.textContent = ''; e.style.display = 'none'; };
   const clearResult = () => { $('result-area').innerHTML = '<div class="placeholder">入力値を入れて「計算する」を押してください</div>'; };
 
@@ -65,14 +65,17 @@
     const direction = $('heat_direction') ? $('heat_direction').value : 'auto';
     if (direction === 'heating') {
       if (useSensible && dT < 0) return { error: '加熱・蒸発側を選択した場合は、出口温度が入口温度以上になるように入力してください。' };
-      return { sign: 1, label: '加熱側の熱量', batchLabel: '加熱側のバッチ熱量', note: '熱負荷の向きは入力欄の選択に基づいています。' };
+      return { sign: 1, label: '加熱側の熱量', batchLabel: '加熱側のバッチ熱量', note: '熱負荷の向きは入力欄の選択に基づいています。潜熱は蒸発（+）として加算しました。' };
     }
     if (direction === 'cooling') {
       if (useSensible && dT > 0) return { error: '除熱・凝縮側を選択した場合は、出口温度が入口温度以下になるように入力してください。' };
-      return { sign: -1, label: '冷却側の除去熱量', batchLabel: '冷却側のバッチ除去熱量', note: '熱負荷の向きは入力欄の選択に基づいています。' };
+      return { sign: -1, label: '冷却側の除去熱量', batchLabel: '冷却側のバッチ除去熱量', note: '熱負荷の向きは入力欄の選択に基づいています。潜熱は凝縮（−）として除去側に加算しました。' };
     }
     if (useLatent && !useSensible) {
       return { error: '潜熱のみの場合は、熱負荷の向きで「加熱・蒸発側」または「除熱・凝縮側」を選択してください。' };
+    }
+    if (useLatent && useSensible) {
+      return { error: '顕熱＋潜熱では潜熱が蒸発（+）か凝縮（−）か自動判定できません。「熱負荷の向き」で加熱・蒸発側または除熱・凝縮側を選択してください。' };
     }
     const sign = dT >= 0 ? 1 : -1;
     return {
