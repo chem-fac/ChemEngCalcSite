@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ファントホッフの式（平衡定数の温度依存・反応熱） | 化学工学計算支援ツール</title>
+<meta name="description" content="ファントホッフの式で、2点の平衡定数から反応エンタルピー ΔH° を求めたり、ΔH° から別温度の平衡定数を外挿します。ΔG°・ΔS° も同時に表示。">
+<meta name="keywords" content="ファントホッフ, van't Hoff, 平衡定数, 温度依存, 反応エンタルピー, 反応熱, ギブズエネルギー, エントロピー, 化学平衡, 平衡定数 温度">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/properties/vant-hoff/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="ファントホッフの式 | 化学工学計算支援ツール">
+<meta property="og:description" content="2点の平衡定数から反応エンタルピーを求め、別温度の平衡定数を外挿します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/properties/vant-hoff/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ファントホッフの式","url":"https://tools.chem-fac.com/tools/properties/vant-hoff/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"平衡定数の温度依存と反応エンタルピーの算出。","inLanguage":"ja","isAccessibleForFree":true,"about":"物性・熱力学"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">物性・熱力学</a><span class="sep">›</span><span class="current">ファントホッフの式</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">物性・熱力学</span>
+      <h1>ファントホッフの式</h1>
+      <p class="tool-subcopy">2点の平衡定数から反応エンタルピー ΔH° を求めたり、ΔH° と基準点から別温度の平衡定数を外挿します。ΔG°・ΔS° も同時に表示します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab active" data-mode="two">2点から反応熱</button>
+      <button type="button" class="mode-tab" data-mode="predict">反応熱から平衡定数</button>
+    </div>
+
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+
+        <!-- two-point -->
+        <div class="input-row" data-show-when="two">
+          <label>温度 <span class="sym">T₁</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="T1" step="any" placeholder="例：298"><select id="T1_unit"><option value="K">K</option><option value="C">℃</option></select></div>
+        </div>
+        <div class="input-row" data-show-when="two">
+          <label>平衡定数 <span class="sym">K₁</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="K1" step="any" placeholder="例：50"><span class="unit-label">［-］</span></div>
+        </div>
+        <div class="input-row" data-show-when="two">
+          <label>温度 <span class="sym">T₂</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="T2" step="any" placeholder="例：350"><select id="T2_unit"><option value="K">K</option><option value="C">℃</option></select></div>
+        </div>
+        <div class="input-row" data-show-when="two">
+          <label>平衡定数 <span class="sym">K₂</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="K2" step="any" placeholder="例：10"><span class="unit-label">［-］</span></div>
+        </div>
+
+        <!-- predict -->
+        <div class="input-row" data-show-when="predict">
+          <label>基準温度 <span class="sym">T₁</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="pT1" step="any" placeholder="例：298"><select id="pT1_unit"><option value="K">K</option><option value="C">℃</option></select></div>
+        </div>
+        <div class="input-row" data-show-when="predict">
+          <label>基準平衡定数 <span class="sym">K₁</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="pK1" step="any" placeholder="例：50"><span class="unit-label">［-］</span></div>
+        </div>
+        <div class="input-row" data-show-when="predict">
+          <label>反応エンタルピー <span class="sym">ΔH°</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="pdH" step="any" placeholder="例：-26.8"><span class="unit-label">kJ/mol</span></div>
+          <p class="hint">発熱反応は負、吸熱反応は正。一定とみなせる温度範囲で使用します。</p>
+        </div>
+        <div class="input-row" data-show-when="predict">
+          <label>知りたい温度 <span class="sym">T₂</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="pT2" step="any" placeholder="例：350"><select id="pT2_unit"><option value="K">K</option><option value="C">℃</option></select></div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>ファントホッフの式</h2>
+    <p>反応エンタルピー $\Delta H^\circ$ を温度範囲で一定とすると、平衡定数の温度依存は積分形で次のように表されます。</p>
+    <div class="math-block">$$ \ln\dfrac{K_2}{K_1} = -\dfrac{\Delta H^\circ}{R}\left(\dfrac{1}{T_2}-\dfrac{1}{T_1}\right) $$</div>
+    <p>あわせて、標準反応ギブズエネルギー $\Delta G^\circ = -RT\ln K$、標準反応エントロピー $\Delta S^\circ = (\Delta H^\circ - \Delta G^\circ)/T$ を表示します。</p>
+    <ul class="symbol-list">
+      <li>$K$：平衡定数［-］</li>
+      <li>$T$：絶対温度［K］</li>
+      <li>$\Delta H^\circ$：標準反応エンタルピー［J/mol］（発熱で負）</li>
+      <li>$\Delta G^\circ$：標準反応ギブズエネルギー［J/mol］</li>
+      <li>$\Delta S^\circ$：標準反応エントロピー［J/(mol·K)］</li>
+    </ul>
+    <h2>使い方のメモ</h2>
+    <ul>
+      <li>発熱反応（ΔH°&lt;0）は温度を上げると平衡定数が下がり、吸熱反応（ΔH°&gt;0）は上がります（ルシャトリエの原理）。</li>
+      <li>ΔH° を一定とみなす近似のため、広い温度範囲ではずれます。精密には $\Delta C_p$ の温度依存を考慮します。</li>
+      <li>平衡定数は無次元（活量基準）として扱っています。圧平衡定数 $K_p$ を使う場合は基準圧の取り方に注意してください。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/431YmDO" class="reference-card" data-asin="4621045350" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">便覧</span><p class="ref-title">化学工学便覧 改訂6版</p><p class="ref-meta">化学工学会 編集 / 丸善出版</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+
+  </section>
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+
+
+      <a href="../../reaction/arrhenius/" class="related-card"><span class="small">反応工学</span>アレニウスの式</a>
+      <a href="../../reaction/batch-time/" class="related-card"><span class="small">反応工学</span>回分反応器</a>
+      <a href="../../reaction/cstr/" class="related-card"><span class="small">反応工学</span>CSTR設計</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/vant-hoff.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

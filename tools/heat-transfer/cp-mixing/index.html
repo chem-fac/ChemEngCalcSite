@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>混合物の比熱（質量・モル混合則） | 化学工学計算支援ツール</title>
+<meta name="description" content="液体・気体混合物の比熱を、成分の質量分率またはモル分率と各成分の比熱から加算則で計算します。最大 8 成分まで対応。">
+<meta name="keywords" content="比熱, 混合比熱, 比熱混合則, mass mixing rule, mole mixing rule, c_p, Cp, 混合物物性, 熱容量">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/heat-transfer/cp-mixing/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="混合物の比熱（質量・モル混合則） | 化学工学計算支援ツール">
+<meta property="og:description" content="混合物の比熱を成分の質量分率／モル分率と各成分比熱から加算則で計算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/heat-transfer/cp-mixing/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+<style>
+.cp-table { width:100%; border-collapse:collapse; margin-top:8px; font-size:13px; }
+.cp-table th, .cp-table td { padding:5px 6px; border-bottom:1px solid var(--border); text-align:left; }
+.cp-table th { background:#f6f7f9; }
+.cp-table input { width:90%; padding:4px 6px; border:1px solid var(--border); border-radius:4px; }
+.cp-table td.num { text-align:right; font-variant-numeric:tabular-nums; }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">伝熱</a><span class="sep">›</span><span class="current">混合物の比熱</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">伝熱</span>
+      <h1>混合物の比熱（質量・モル混合則）</h1>
+      <p class="tool-subcopy">液体・気体混合物の比熱を、成分の質量分率（または分量）から加算則で計算します。最大 8 成分まで対応しています。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab active" data-mode="mass">質量基準</button>
+      <button type="button" class="mode-tab" data-mode="mole">モル基準</button>
+    </div>
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <p class="hint">成分名は表示用、計算には使いません。値は質量基準モードでは「質量分率（または質量流量）と質量比熱」、モル基準モードでは「モル分率（またはモル流量）とモル比熱」を入力。空欄行は無視されます。</p>
+        <table class="cp-table">
+          <thead><tr><th>#</th><th>成分名（任意）</th><th>分率／量</th><th>比熱</th></tr></thead>
+          <tbody id="cp-rows"></tbody>
+        </table>
+        <p class="hint" id="unit-hint">比熱の単位：質量基準なら kJ/(kg·K) または J/(kg·K) で入力。</p>
+        <div class="input-row" style="margin-top:10px;">
+          <label>比熱の入力単位</label>
+          <div class="input-group">
+            <select id="cp_unit" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;background:#fff;">
+              <option value="kJkgK">kJ/(kg·K)（質量基準）</option>
+              <option value="JkgK">J/(kg·K)（質量基準）</option>
+              <option value="JmolK">J/(mol·K)（モル基準）</option>
+              <option value="kJmolK">kJ/(mol·K)（モル基準）</option>
+            </select>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>混合物の比熱は、理想混合では成分の比熱を分率で重み付け平均したものになります。</p>
+
+    <h3>質量基準（specific heat capacity）</h3>
+    <div class="math-block">$$ c_{p,\mathrm{mix}} = \sum_i w_i\, c_{p,i}\quad [\mathrm{J/(kg\cdot K)}] $$</div>
+    <p>$w_i$ は成分 $i$ の質量分率（$\sum w_i = 1$）。</p>
+
+    <h3>モル基準（molar heat capacity）</h3>
+    <div class="math-block">$$ C_{p,\mathrm{mix}} = \sum_i x_i\, C_{p,i}\quad [\mathrm{J/(mol\cdot K)}] $$</div>
+    <p>$x_i$ はモル分率。</p>
+
+    <p>本ツールでは「分率／量」欄に分率を入れる代わりに <strong>絶対値（kg, mol, kmol, kg/h, kmol/h など）</strong>を入れることもできます。総和で正規化して内部的に分率に変換します。</p>
+
+    <h2>注意点</h2>
+    <ul>
+      <li>線形和（理想混合）が成立するのは、成分間相互作用が小さい系です。</li>
+      <li>気体混合物では理想混合がよく成り立つ（特に低圧）。</li>
+      <li>比熱は温度の関数。混合物の評価温度を統一して入力すること。</li>
+    </ul>
+    <p class="caution-text">本ツールは理想混合（線形和）前提です。非理想性が強い系では、実験データや過剰熱容量（過剰モル熱容量）を考慮した精密モデルで再評価してください。</p>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/431YmDO" class="reference-card" data-asin="4621045350" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">便覧</span><p class="ref-title">化学工学便覧 改訂6版</p><p class="ref-meta">化学工学会 編集 / 丸善出版</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+
+  </section>
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../heat-duty/" class="related-card"><span class="small">伝熱</span>熱量・熱収支</a>
+      <a href="../utility/" class="related-card"><span class="small">伝熱</span>冷却水・蒸気・熱媒油の必要量</a>
+      <a href="../lmtd-area/" class="related-card"><span class="small">伝熱</span>LMTD・伝熱面積</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/cp-mixing.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

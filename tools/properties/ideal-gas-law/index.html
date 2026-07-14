@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>理想気体の状態方程式・標準状態換算（PV=nRT / Nm³ ⇄ 実m³） | 化学工学計算支援ツール</title>
+<meta name="description" content="理想気体の状態方程式 PV=nRT からガス密度・モル体積を計算し、Nm³/h（標準状態）と運転条件の実 m³/h・kg/h・kmol/h を相互換算します。">
+<meta name="keywords" content="理想気体, 状態方程式, PV=nRT, ガス密度, モル体積, 標準状態, Nm3, ノルマル立米, 実流量, actual, アクチュアル, 流量換算, kg/h, kmol/h">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/properties/ideal-gas-law/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="理想気体の状態方程式・標準状態換算 | 化学工学計算支援ツール">
+<meta property="og:description" content="PV=nRT からガス密度・モル体積を計算し、Nm³/h と実 m³/h・kg/h を相互換算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/properties/ideal-gas-law/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"理想気体の状態方程式・標準状態換算","url":"https://tools.chem-fac.com/tools/properties/ideal-gas-law/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"PV=nRT によるガス密度・モル体積計算と Nm³/h ⇄ 実 m³/h ⇄ kg/h の換算。","inLanguage":"ja","isAccessibleForFree":true,"about":"物性・熱力学"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">物性・熱力学</a><span class="sep">›</span><span class="current">理想気体の状態方程式・標準状態換算</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">物性・熱力学</span>
+      <h1>理想気体の状態方程式・標準状態換算</h1>
+      <p class="tool-subcopy">PV=nRT からガス密度・モル体積を求め、Nm³/h（標準状態）と運転条件の実 m³/h・質量流量・モル流量を相互換算します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab active" data-mode="density">密度・モル体積</button>
+      <button type="button" class="mode-tab" data-mode="flow">流量換算（Nm³ ⇄ 実m³）</button>
+    </div>
+
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+
+        <!-- ===== density ===== -->
+        <div class="input-row" data-show-when="density">
+          <label>温度 <span class="sym">T</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Td" step="any" placeholder="例：25">
+            <select id="Td_unit"><option value="C">℃</option><option value="K">K</option></select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="density">
+          <label>圧力 <span class="sym">P</span>（絶対圧）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Pd" step="any" placeholder="例：101.325">
+            <select id="Pd_unit"><option value="kPaA">kPaA</option><option value="MPaA">MPaA</option><option value="barA">barA</option><option value="atm">atm</option></select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="density">
+          <label>モル質量 <span class="sym">M</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Md" step="any" placeholder="例：29">
+            <span class="unit-label">g/mol</span>
+          </div>
+          <p class="hint">空気=28.96、窒素=28.01、酸素=32.00、メタン=16.04、CO₂=44.01、水素=2.016、水蒸気=18.02。</p>
+        </div>
+
+        <!-- ===== flow ===== -->
+        <div class="input-row" data-show-when="flow">
+          <label>流量 <span class="sym">Q</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Qf" step="any" placeholder="例：1000">
+            <select id="Qf_type">
+              <option value="Nm3h">Nm³/h（0℃, 101.325 kPaA）</option>
+              <option value="Sm3h">Sm³/h（15℃, 101.325 kPaA）</option>
+              <option value="Am3h">実 m³/h（運転条件）</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="flow">
+          <label>運転温度 <span class="sym">T</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Tf" step="any" placeholder="例：80">
+            <select id="Tf_unit"><option value="C">℃</option><option value="K">K</option></select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="flow">
+          <label>運転圧力 <span class="sym">P</span>（絶対圧）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Pf" step="any" placeholder="例：300">
+            <select id="Pf_unit"><option value="kPaA">kPaA</option><option value="MPaA">MPaA</option><option value="barA">barA</option><option value="atm">atm</option></select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="flow">
+          <label>モル質量 <span class="sym">M</span>（任意）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Mf" step="any" placeholder="例：29">
+            <span class="unit-label">g/mol</span>
+          </div>
+          <p class="hint">入力すると質量流量 kg/h と運転条件の密度も出します。</p>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>理想気体の状態方程式</h2>
+    <div class="math-block">$$ PV = nRT \qquad \rho = \dfrac{PM}{RT} \qquad V_m = \dfrac{RT}{P} $$</div>
+    <p>密度はモル質量 $M$ を kg/mol に直して計算します。標準状態（Normal: 0℃, 101.325 kPa）のモル体積は 22.414 L/mol、25℃では 24.465 L/mol です。</p>
+    <ul class="symbol-list">
+      <li>$P$：絶対圧［Pa］</li>
+      <li>$V$：体積［m³］、$V_m$：モル体積［m³/mol］</li>
+      <li>$n$：物質量［mol］</li>
+      <li>$R$：気体定数 8.314 J/(mol·K)</li>
+      <li>$T$：絶対温度［K］</li>
+      <li>$M$：モル質量［kg/mol］、$\rho$：密度［kg/m³］</li>
+    </ul>
+
+    <h2>標準状態と実流量の換算</h2>
+    <p>圧縮性ガスの体積は温度・圧力で変わります。標準体積流量 $Q_N$（Nm³/h）と運転条件の実体積流量 $Q_A$（実 m³/h）は、理想気体の関係から次式で結びます。</p>
+    <div class="math-block">$$ Q_A = Q_N \cdot \dfrac{P_N}{P} \cdot \dfrac{T}{T_N} \qquad \dot{m} = \dfrac{Q_N}{22.414}\,M $$</div>
+    <p>$P_N, T_N$ は標準状態（0℃, 101.325 kPaA）の圧力・温度です。Sm³（15℃基準）は同圧で温度比 $273.15/288.15$ を掛けて Nm³ に直します。</p>
+
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/431YmDO" class="reference-card" data-asin="4621045350" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">便覧</span><p class="ref-title">化学工学便覧 改訂6版</p><p class="ref-meta">化学工学会 編集 / 丸善出版</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+
+  </section>
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+
+
+      <a href="../../fluid/flow-conversion/" class="related-card"><span class="small">流動</span>流量・流速・配管径換算</a>
+      <a href="../../fluid/continuity/" class="related-card"><span class="small">流動</span>連続の式</a>
+      <a href="../../distillation/antoine/" class="related-card"><span class="small">蒸留</span>アントワン式</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/ideal-gas-law.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

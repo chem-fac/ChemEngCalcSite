@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   const TOOLS = [
     {
       title: "レイノルズ数（配管）",
@@ -83,6 +83,36 @@
       url: "tools/heat-transfer/utility/",
       category: "伝熱",
       keywords: ["冷却水", "蒸気", "熱媒油", "必要量", "ユーティリティ", "流量", "潜熱", "比熱", "utility", "steam", "hot oil"]
+    },
+    {
+      title: "混合物の比熱（質量・モル混合則）",
+      url: "tools/heat-transfer/cp-mixing/",
+      category: "伝熱",
+      keywords: ["比熱", "混合比熱", "比熱混合則", "mass mixing rule", "mole mixing rule", "cp", "Cp", "混合物物性", "熱容量", "質量分率", "モル分率"]
+    },
+    {
+      title: "物性・熱力学（カテゴリ）",
+      url: "tools/properties/",
+      category: "カテゴリ",
+      keywords: ["物性", "熱力学", "状態方程式", "化学平衡", "蒸気圧", "properties", "thermodynamics"]
+    },
+    {
+      title: "理想気体の状態方程式・標準状態換算",
+      url: "tools/properties/ideal-gas-law/",
+      category: "物性・熱力学",
+      keywords: ["理想気体", "状態方程式", "PV=nRT", "ガス密度", "モル体積", "標準状態", "Nm3", "ノルマル立米", "実流量", "actual", "流量換算", "kg/h", "kmol/h"]
+    },
+    {
+      title: "ファントホッフの式",
+      url: "tools/properties/vant-hoff/",
+      category: "物性・熱力学",
+      keywords: ["ファントホッフ", "van't Hoff", "平衡定数", "温度依存", "反応エンタルピー", "反応熱", "ギブズエネルギー", "エントロピー", "化学平衡"]
+    },
+    {
+      title: "クラウジウス・クラペイロンの式",
+      url: "tools/properties/clausius-clapeyron/",
+      category: "物性・熱力学",
+      keywords: ["クラウジウス", "クラペイロン", "Clausius", "Clapeyron", "蒸気圧", "飽和蒸気圧", "蒸発熱", "蒸発潜熱", "温度推算", "外挿", "沸点"]
     },
     {
       title: "撹拌レイノルズ数",

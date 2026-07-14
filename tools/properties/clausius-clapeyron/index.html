@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>クラウジウス・クラペイロンの式（蒸気圧の温度推算・蒸発熱） | 化学工学計算支援ツール</title>
+<meta name="description" content="クラウジウス・クラペイロンの式で、2点の蒸気圧データから蒸発潜熱を求めたり、蒸発熱から別温度の蒸気圧を外挿します。アントワン式が無い物質の概算に。">
+<meta name="keywords" content="クラウジウス・クラペイロン, Clausius-Clapeyron, 蒸気圧, 飽和蒸気圧, 蒸発熱, 蒸発潜熱, 温度推算, 外挿, 沸点">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/properties/clausius-clapeyron/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="クラウジウス・クラペイロンの式 | 化学工学計算支援ツール">
+<meta property="og:description" content="2点の蒸気圧データから蒸発熱を求め、別温度の蒸気圧を外挿します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/properties/clausius-clapeyron/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"クラウジウス・クラペイロンの式","url":"https://tools.chem-fac.com/tools/properties/clausius-clapeyron/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"蒸気圧の温度推算と蒸発熱の算出。","inLanguage":"ja","isAccessibleForFree":true,"about":"物性・熱力学"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">物性・熱力学</a><span class="sep">›</span><span class="current">クラウジウス・クラペイロンの式</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">物性・熱力学</span>
+      <h1>クラウジウス・クラペイロンの式</h1>
+      <p class="tool-subcopy">2点の蒸気圧データから蒸発潜熱を求めたり、蒸発熱と基準点から別温度の蒸気圧を外挿します。アントワン定数が手元に無い物質の概算に。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab active" data-mode="two">2点から蒸発熱</button>
+      <button type="button" class="mode-tab" data-mode="predict">蒸発熱から蒸気圧</button>
+    </div>
+
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+
+        <!-- two-point -->
+        <div class="input-row" data-show-when="two">
+          <label>温度 <span class="sym">T₁</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="T1" step="any" placeholder="例：100"><select id="T1_unit"><option value="C">℃</option><option value="K">K</option></select></div>
+        </div>
+        <div class="input-row" data-show-when="two">
+          <label>蒸気圧 <span class="sym">P₁</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="P1" step="any" placeholder="例：101.325"><select id="P1_unit"><option value="kPa">kPa</option><option value="MPa">MPa</option><option value="bar">bar</option><option value="atm">atm</option><option value="mmHg">mmHg</option><option value="Pa">Pa</option></select></div>
+        </div>
+        <div class="input-row" data-show-when="two">
+          <label>温度 <span class="sym">T₂</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="T2" step="any" placeholder="例：80"><select id="T2_unit"><option value="C">℃</option><option value="K">K</option></select></div>
+        </div>
+        <div class="input-row" data-show-when="two">
+          <label>蒸気圧 <span class="sym">P₂</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="P2" step="any" placeholder="例：47.4"><select id="P2_unit"><option value="kPa">kPa</option><option value="MPa">MPa</option><option value="bar">bar</option><option value="atm">atm</option><option value="mmHg">mmHg</option><option value="Pa">Pa</option></select></div>
+        </div>
+        <div class="input-row" data-show-when="two">
+          <label>知りたい温度 <span class="sym">T₃</span>（任意）</label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="T3" step="any" placeholder="例：120"><select id="T3_unit"><option value="C">℃</option><option value="K">K</option></select></div>
+          <p class="hint">入力すると、求めた蒸発熱を使って T₃ での蒸気圧を外挿します。</p>
+        </div>
+
+        <!-- predict -->
+        <div class="input-row" data-show-when="predict">
+          <label>基準温度 <span class="sym">T₁</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="pT1" step="any" placeholder="例：100"><select id="pT1_unit"><option value="C">℃</option><option value="K">K</option></select></div>
+        </div>
+        <div class="input-row" data-show-when="predict">
+          <label>基準蒸気圧 <span class="sym">P₁</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="pP1" step="any" placeholder="例：101.325"><select id="pP1_unit"><option value="kPa">kPa</option><option value="MPa">MPa</option><option value="bar">bar</option><option value="atm">atm</option><option value="mmHg">mmHg</option><option value="Pa">Pa</option></select></div>
+        </div>
+        <div class="input-row" data-show-when="predict">
+          <label>蒸発潜熱 <span class="sym">ΔH<sub>vap</sub></span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="pdH" step="any" placeholder="例：40.7"><span class="unit-label">kJ/mol</span></div>
+          <p class="hint">水=40.7、エタノール=38.6、ベンゼン=30.7、アンモニア=23.4（標準沸点付近の値）。</p>
+        </div>
+        <div class="input-row" data-show-when="predict">
+          <label>知りたい温度 <span class="sym">T₂</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="pT2" step="any" placeholder="例：120"><select id="pT2_unit"><option value="C">℃</option><option value="K">K</option></select></div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>クラウジウス・クラペイロンの式</h2>
+    <p>蒸発潜熱 $\Delta H_\mathrm{vap}$ が温度範囲で一定、蒸気を理想気体、液体のモル体積を無視できる、と仮定すると次の積分形になります。</p>
+    <div class="math-block">$$ \ln\dfrac{P_2}{P_1} = -\dfrac{\Delta H_\mathrm{vap}}{R}\left(\dfrac{1}{T_2}-\dfrac{1}{T_1}\right) $$</div>
+    <p>2点 $(T_1,P_1),(T_2,P_2)$ が分かれば $\Delta H_\mathrm{vap}$ が求まり、逆に $\Delta H_\mathrm{vap}$ と1点が分かれば任意温度の蒸気圧 $P$ が外挿できます。</p>
+    <ul class="symbol-list">
+      <li>$P$：飽和蒸気圧［Pa］</li>
+      <li>$T$：絶対温度［K］</li>
+      <li>$\Delta H_\mathrm{vap}$：モル蒸発潜熱［J/mol］</li>
+      <li>$R$：気体定数 8.314 J/(mol·K)</li>
+    </ul>
+    <h2>使い方のメモ</h2>
+    <ul>
+      <li>蒸発熱を一定とする近似のため、外挿幅が大きいほど誤差が増えます。臨界点近傍では成立しません。</li>
+
+      <li>精度よく蒸気圧が必要な場合は、アントワン式や物性データベースの値を使ってください。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/431YmDO" class="reference-card" data-asin="4621045350" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">便覧</span><p class="ref-title">化学工学便覧 改訂6版</p><p class="ref-meta">化学工学会 編集 / 丸善出版</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+
+  </section>
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../../distillation/antoine/" class="related-card"><span class="small">蒸留</span>アントワン式（蒸気圧）</a>
+      <a href="../../distillation/vle/" class="related-card"><span class="small">蒸留</span>気液平衡</a>
+      <a href="../../distillation/flash/" class="related-card"><span class="small">蒸留</span>フラッシュ蒸留</a>
+
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/clausius-clapeyron.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

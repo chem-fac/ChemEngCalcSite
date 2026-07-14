@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>物性・熱力学カテゴリ | 化学工学計算支援ツール</title>
+<meta name="description" content="物性・熱力学カテゴリの計算ツール一覧。理想気体、化学平衡、蒸気圧などの計算ツールをまとめています。">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/properties/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="物性・熱力学カテゴリ | 化学工学計算支援ツール">
+<meta property="og:description" content="物性・熱力学カテゴリの計算ツール一覧。理想気体、化学平衡、蒸気圧などの計算ツールをまとめています。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/properties/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7MQ7VEMWHY');
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="inner">
+    <a href="../../" class="logo">
+      <img src="../../assets/img/logo.png" alt="化学工学計算支援ツール">
+      化学工学計算支援ツール
+    </a>
+    <nav class="site-nav">
+      <a href="../../tools/">ツール一覧</a>
+      <a href="../../updates/">更新情報</a>
+      <a href="../../faq/">よくある質問</a>
+      <a href="../../support/">支援する</a>
+      <a href="../../contact/">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+
+  <nav class="breadcrumb">
+    <a href="../../">ホーム</a>
+    <span class="sep">›</span>
+    <span class="current">物性・熱力学</span>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">カテゴリ</span>
+      <h1>物性・熱力学</h1>
+      <p class="tool-subcopy">気体の状態方程式、化学平衡、蒸気圧など、物性・熱力学に関するツールをまとめています。</p>
+    </div>
+  </section>
+
+  <!-- ===== In-category search ===== -->
+  <section class="cat-search-section">
+    <div class="search-wrap">
+      <form class="search" id="catSearchForm" onsubmit="event.preventDefault();">
+        <input id="catSearchInput" type="text" autocomplete="off" placeholder="物性・熱力学カテゴリ内で検索（例：理想気体、平衡定数、蒸気圧）">
+      </form>
+    </div>
+    <p class="cat-search-empty" id="catSearchEmpty" hidden>該当するツールが見つかりませんでした。</p>
+  </section>
+
+  <!-- ===== Tools list ===== -->
+  <section class="tool-list-section">
+    <div class="tool-list" id="toolList">
+
+      <a href="ideal-gas-law/" class="tool-list-card"
+         data-keywords="理想気体 状態方程式 PV=nRT ガス密度 モル体積 標準状態 Nm3 ノルマル立米 実流量 actual 流量換算 kg/h kmol/h">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">物性・熱力学</span>
+          <h3 class="tool-list-title">理想気体の状態方程式・標準状態換算</h3>
+          <p class="tool-list-desc">理想気体の状態方程式からガス密度・モル体積を計算し、標準状態と運転条件の体積流量・質量流量・モル流量を相互換算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="vant-hoff/" class="tool-list-card"
+         data-keywords="ファントホッフ van't Hoff 平衡定数 温度依存 反応エンタルピー 反応熱 ギブズエネルギー エントロピー 化学平衡">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">物性・熱力学</span>
+          <h3 class="tool-list-title">ファントホッフの式</h3>
+          <p class="tool-list-desc">2点の平衡定数から反応エンタルピーを求め、反応エンタルピーと基準点から別温度の平衡定数を計算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="clausius-clapeyron/" class="tool-list-card"
+         data-keywords="クラウジウス クラペイロン Clausius Clapeyron 蒸気圧 飽和蒸気圧 蒸発熱 蒸発潜熱 温度推算 外挿 沸点">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">物性・熱力学</span>
+          <h3 class="tool-list-title">クラウジウス・クラペイロンの式</h3>
+          <p class="tool-list-desc">2点の蒸気圧データから蒸発潜熱を求め、蒸発熱と基準点から別温度の蒸気圧を計算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+    </div>
+  </section>
+
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>サイトについて</h4>
+      <ul>
+        <li><a href="../../about/">当サイトについて</a></li>
+        <li><a href="../../privacy/">プライバシーポリシー</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>サポート</h4>
+      <ul>
+        <li><a href="../../contact/">お問い合わせ</a></li>
+        <li><a href="../../faq/">よくある質問</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>その他</h4>
+      <ul>
+        <li><a href="../../terms/">利用規約</a></li>
+        <li><a href="../../disclaimer/">免責事項</a></li>
+      </ul>
+    </div>
+    <div class="footer-brand">
+      <a href="../../" class="logo">
+        <img src="../../assets/img/logo.png" alt="化学工学計算支援ツール">
+        化学工学計算支援ツール
+      </a>
+      <div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const input = document.getElementById('catSearchInput');
+  const list = document.getElementById('toolList');
+  const empty = document.getElementById('catSearchEmpty');
+  if (!input || !list) return;
+  const cards = Array.from(list.querySelectorAll('.tool-list-card'));
+  function filter() {
+    const q = input.value.trim().toLowerCase();
+    let visible = 0;
+    cards.forEach(c => {
+      const hay = (c.textContent + ' ' + (c.dataset.keywords || '')).toLowerCase();
+      const show = !q || hay.includes(q);
+      c.hidden = !show;
+      if (show) visible++;
+    });
+    empty.hidden = !(q && visible === 0);
+  }
+  input.addEventListener('input', filter);
+})();
+</script>
+<script src="../../assets/js/share.js"></script>
+</body>
+</html>
