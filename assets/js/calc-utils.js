@@ -124,12 +124,19 @@
       copyBtn.type = 'button';
       copyBtn.className = 'btn btn-ghost btn-small';
       copyBtn.textContent = '結果をコピー';
-      copyBtn.addEventListener('click', function () { copyText(buildReport(), copyBtn); });
+      copyBtn.addEventListener('click', function () {
+        copyText(buildReport(), copyBtn);
+        // GA4利用計測: 結果が実務に持ち出された（利用の深さの指標）
+        if (typeof window.gtag === 'function') window.gtag('event', 'result_copy');
+      });
       var linkBtn = document.createElement('button');
       linkBtn.type = 'button';
       linkBtn.className = 'btn btn-ghost btn-small';
       linkBtn.textContent = '計算条件のリンクをコピー';
-      linkBtn.addEventListener('click', function () { copyText(location.href, linkBtn); });
+      linkBtn.addEventListener('click', function () {
+        copyText(location.href, linkBtn);
+        if (typeof window.gtag === 'function') window.gtag('event', 'link_copy');
+      });
       actions.appendChild(copyBtn);
       actions.appendChild(linkBtn);
       resultArea.insertAdjacentElement('afterend', actions);
@@ -242,6 +249,8 @@
       ex.textContent = '計算例を入力';
       btnRow.appendChild(ex);
       ex.addEventListener('click', function () {
+        // GA4利用計測: 計算例で試した（初見ユーザーの入口の指標）
+        if (typeof window.gtag === 'function') window.gtag('event', 'example_fill');
         fields().forEach(function (el) {
           if (el.tagName !== 'INPUT' || el.offsetParent === null) return;
           var m = (el.placeholder || '').match(EX_RE);
