@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ガス吸収の最小溶媒流量・液ガス比 | 化学工学計算支援ツール</title>
+<meta name="description" content="向流ガス吸収について、入口・出口組成と気液平衡組成から最小液ガス比、最小溶媒流量、運転溶媒流量、出口液組成を計算します。">
+<meta name="keywords" content="ガス吸収, 最小溶媒流量, 最小液量, 最小液ガス比, 吸収塔, 操作線, 平衡線, ピンチ, solvent flow, absorption">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/absorption/minimum-solvent-flow/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="ガス吸収の最小溶媒流量・液ガス比 | 化学工学計算支援ツール">
+<meta property="og:description" content="向流ガス吸収の最小液ガス比と運転溶媒流量を計算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/absorption/minimum-solvent-flow/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ガス吸収の最小溶媒流量・液ガス比","url":"https://tools.chem-fac.com/tools/absorption/minimum-solvent-flow/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"向流ガス吸収の最小液ガス比と溶媒流量を計算。","inLanguage":"ja","isAccessibleForFree":true,"about":"吸収"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">吸収</a><span class="sep">›</span><span class="current">ガス吸収の最小溶媒流量・液ガス比</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">吸収</span>
+      <h1>ガス吸収の最小溶媒流量・液ガス比</h1>
+      <p class="tool-subcopy">向流ガス吸収の入口・出口組成と気液平衡組成から、最小液ガス比と運転に必要な溶媒流量を計算します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+
+        <div class="input-row">
+          <label>組成の入力単位</label>
+          <select id="composition-unit">
+            <option value="percent">mol%</option>
+            <option value="fraction">モル分率</option>
+          </select>
+        </div>
+
+        <div class="input-row">
+          <label>入口ガス流量の基準</label>
+          <select id="gas-flow-basis">
+            <option value="total">溶質を含む全ガス流量</option>
+            <option value="solute-free">溶質を除いたガス流量 G′M</option>
+          </select>
+        </div>
+
+        <div class="input-row">
+          <label>入口ガスモル流量</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="gas-flow" step="any" min="0" placeholder="例：100">
+            <select id="gas-flow-unit"><option value="kmol-h">kmol/h</option><option value="mol-h">mol/h</option><option value="mol-s">mol/s</option></select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label>入口ガス中の溶質組成 <span class="sym">y<sub>A1</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="y-in" step="any" min="0" placeholder="例：10">
+            <span class="unit-label" data-composition-unit-label>mol%</span>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label>出口ガス中の溶質組成 <span class="sym">y<sub>AT</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="y-out" step="any" min="0" placeholder="例：1">
+            <span class="unit-label" data-composition-unit-label>mol%</span>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label>入口吸収液中の溶質組成 <span class="sym">x<sub>AT</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="x-in" step="any" min="0" placeholder="例：0">
+            <span class="unit-label" data-composition-unit-label>mol%</span>
+          </div>
+          <p class="hint">溶質を含まない新しい吸収液では0。</p>
+        </div>
+
+        <div class="input-row">
+          <label>入口ガス組成 <span class="sym">y<sub>A1</sub></span> に対する平衡液組成 <span class="sym">x<sup>*</sup><sub>A1</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="x-equilibrium" step="any" min="0" placeholder="例：2">
+            <span class="unit-label" data-composition-unit-label>mol%</span>
+          </div>
+          <p class="hint">同じ温度・圧力で、入口ガスと平衡になる液相の溶質モル分率。</p>
+        </div>
+
+        <div class="input-row">
+          <label>最小液量に対する運転倍率 <span class="sym">f=L′<sub>M</sub>/L′<sub>M,min</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="operating-factor" step="any" min="1" placeholder="例：1.5">
+            <span class="unit-label">倍</span>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary" id="calc-btn">計算する</button>
+          <button type="button" class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+        <div id="absorption-chart-section" hidden>
+          <div class="result-detail-label">操作線・平衡線（X-Y線図）</div>
+          <div class="tool-chart-wrap">
+            <canvas id="absorption-chart" width="760" height="500" role="img" aria-label="吸収操作線と平衡線のX-Y線図"></canvas>
+          </div>
+          <div class="result-note">平衡線は、原点と入力した平衡点を結ぶ直線近似で表示しています。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>気相・液相の溶質モル分率を、溶質を除いた成分基準のモル比に変換します。</p>
+    <div class="math-block">$$Y_A=\frac{y_A}{1-y_A}\qquad X_A=\frac{x_A}{1-x_A}$$</div>
+    <p>溶媒流量を減らすと、出口液の溶質濃度が高くなり、操作線は平衡線に近づきます。塔底で出口液が入口ガスと平衡になる限界を最小溶媒流量とし、このときの物質収支から最小液ガス比を求めます。</p>
+    <div class="math-block">$$\left(\frac{L'_M}{G'_M}\right)_{\min}=\frac{Y_{A1}-Y_{AT}}{X^*_{A1}-X_{AT}}$$</div>
+    <div class="math-block">$$L'_{M,\min}=G'_M\left(\frac{L'_M}{G'_M}\right)_{\min}\qquad L'_M=fL'_{M,\min}$$</div>
+    <p>作図では、操作線を次式で表し、平衡線は原点と入力した平衡点を結ぶ直線で近似します。</p>
+    <div class="math-block">$$Y_A=Y_{AT}+\frac{L'_M}{G'_M}(X_A-X_{AT})\qquad Y_A^*\simeq\frac{Y_{A1}}{X^*_{A1}}X_A$$</div>
+    <p>実際の出口液組成は、塔全体の溶質収支から計算します。</p>
+    <div class="math-block">$$X_{A1}=X_{AT}+\frac{G'_M}{L'_M}\left(Y_{A1}-Y_{AT}\right)\qquad x_{A1}=\frac{X_{A1}}{1+X_{A1}}$$</div>
+
+    <ul class="symbol-list">
+      <li>$A$：吸収対象の溶質成分を表す添字</li>
+      <li>$1$：塔底、$T$：塔頂を表す添字</li>
+      <li>$y_A$：気相中の溶質モル分率［-］</li>
+      <li>$x_A$：液相中の溶質モル分率［-］</li>
+      <li>$Y_A$：溶質を除いたガス基準の溶質モル比 $y_A/(1-y_A)$［-］</li>
+      <li>$X_A$：溶質を除いた液基準の溶質モル比 $x_A/(1-x_A)$［-］</li>
+      <li>$y_{A1}$、$Y_{A1}$：塔底入口ガス中の溶質モル分率とモル比［-］</li>
+      <li>$y_{AT}$、$Y_{AT}$：塔頂出口ガス中の溶質モル分率とモル比［-］</li>
+      <li>$x_{AT}$、$X_{AT}$：塔頂入口吸収液中の溶質モル分率とモル比［-］</li>
+      <li>$x^*_{A1}$、$X^*_{A1}$：塔底入口ガスと平衡になる液相のモル分率とモル比。上付き $*$ は平衡値を表します［-］</li>
+      <li>$x_{A1}$、$X_{A1}$：塔底出口吸収液中の実際の溶質モル分率とモル比［-］</li>
+      <li>$Y_A^*$：液相モル比 $X_A$ と平衡になる気相の溶質モル比［-］</li>
+      <li>$G'_M$：溶質を除いたガスのモル流量。記号 $'$ は溶質除外基準、添字 $M$ はモル流量を表します</li>
+      <li>$L'_M$：溶質を除いた吸収液のモル流量</li>
+      <li>$L'_{M,\min}$：最小溶媒モル流量</li>
+      <li>$\left(L'_M/G'_M\right)_{\min}$：最小液ガス比［-］</li>
+      <li>$f$：実際の溶媒流量を最小溶媒流量で割った運転倍率［-］</li>
+    </ul>
+
+    <h2>前提条件</h2>
+    <ul>
+      <li>定常状態の向流ガス吸収で、溶質を除いたガス・液のモル流量は塔内で一定とします。</li>
+      <li>入口ガスと平衡になる液組成 $x^*_{A1}$ は、対象温度・圧力の気液平衡データから設定します。</li>
+      <li>運転倍率が1では塔底で出口液が入口ガスと平衡になり、物質移動推進力がゼロとなるため、1より大きい値を使用します。</li>
+      <li>化学反応、吸収熱による温度変化、溶媒蒸発が大きい系は対象外です。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/431YmDO" class="reference-card" data-asin="4621045350" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">便覧</span><p class="ref-title">化学工学便覧 改訂6版</p><p class="ref-meta">化学工学会 編集 / 丸善出版</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../../properties/ideal-gas-law/" class="related-card"><span class="small">物性・熱力学</span>理想気体の状態方程式・標準状態換算</a>
+      <a href="../../properties/gas-mixture-viscosity/" class="related-card"><span class="small">物性・熱力学</span>混合気体の粘度（Wilke式）</a>
+      <a href="../../fluid/flow-conversion/" class="related-card"><span class="small">流動</span>流量・流速・配管径換算</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/minimum-solvent-flow.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

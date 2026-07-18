@@ -249,7 +249,7 @@ button { font-family: inherit; cursor: pointer; }
   gap: 16px;
 }
 .cat-grid-launch {
-  grid-template-columns: repeat(4, minmax(0, 190px));
+  grid-template-columns: repeat(5, minmax(0, 190px));
   justify-content: center;
 }
 .cat-coming {

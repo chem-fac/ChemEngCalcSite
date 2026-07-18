@@ -66,11 +66,26 @@
     </div>
   </section>
 
+  <section class="cat-search-section">
+    <div class="search-wrap">
+      <form class="search" id="catSearchForm" onsubmit="event.preventDefault();">
+        <input id="catSearchInput" type="text" autocomplete="off" placeholder="吸収カテゴリ内で検索（例：最小溶媒流量、液ガス比）">
+      </form>
+    </div>
+    <p class="cat-search-empty" id="catSearchEmpty" hidden>該当するツールが見つかりませんでした。</p>
+  </section>
+
   <section class="tool-list-section">
-    <div class="cat-empty">
-      <div class="cat-empty-label">準備中</div>
-      <p class="cat-empty-text">このカテゴリのツールは現在準備中です。公開され次第こちらに掲載します。</p>
-      <a href="../../" class="cat-empty-back">‹ トップページに戻る</a>
+    <div class="tool-list" id="toolList">
+      <a href="minimum-solvent-flow/" class="tool-list-card"
+         data-keywords="ガス吸収 最小溶媒流量 最小液量 最小液ガス比 液ガス比 吸収塔 操作線 平衡線 ピンチ solvent flow absorption L/G">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">吸収</span>
+          <h3 class="tool-list-title">ガス吸収の最小溶媒流量・液ガス比</h3>
+          <p class="tool-list-desc">向流ガス吸収の入口・出口組成と気液平衡組成から、最小液ガス比、最小溶媒流量、運転溶媒流量、出口液組成を計算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
     </div>
   </section>
 
@@ -109,6 +124,27 @@
   </div>
 </footer>
 
+<script>
+(function () {
+  const input = document.getElementById('catSearchInput');
+  const list = document.getElementById('toolList');
+  const empty = document.getElementById('catSearchEmpty');
+  if (!input || !list) return;
+  const cards = Array.from(list.querySelectorAll('.tool-list-card'));
+  function filter() {
+    const q = input.value.trim().toLowerCase();
+    let visible = 0;
+    cards.forEach(card => {
+      const haystack = (card.textContent + ' ' + (card.dataset.keywords || '')).toLowerCase();
+      const show = !q || haystack.includes(q);
+      card.hidden = !show;
+      if (show) visible++;
+    });
+    empty.hidden = !(q && visible === 0);
+  }
+  input.addEventListener('input', filter);
+})();
+</script>
 <script src="../../assets/js/share.js"></script>
 </body>
 </html>

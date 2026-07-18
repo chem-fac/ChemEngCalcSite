@@ -265,6 +265,12 @@
       keywords: ["集塵", "粉塵", "ダスト", "サイクロン", "バグフィルタ", "電気集塵", "粒子", "dust", "cyclone", "bag filter", "particle"]
     },
     {
+      title: "ガス吸収の最小溶媒流量・液ガス比",
+      url: "tools/absorption/minimum-solvent-flow/",
+      category: "吸収",
+      keywords: ["ガス吸収", "最小溶媒流量", "最小液量", "最小液ガス比", "液ガス比", "吸収塔", "操作線", "平衡線", "ピンチ", "solvent flow", "absorption", "L/G"]
+    },
+    {
       title: "吸収（カテゴリ）",
       url: "tools/absorption/",
       category: "カテゴリ",
