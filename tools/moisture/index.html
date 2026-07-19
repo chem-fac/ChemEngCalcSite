@@ -66,26 +66,11 @@
     </div>
   </section>
 
-  <section class="cat-search-section">
-    <div class="search-wrap">
-      <form class="search" id="catSearchForm" onsubmit="event.preventDefault();">
-        <input id="catSearchInput" type="text" autocomplete="off" placeholder="調湿・乾燥カテゴリ内で検索（例：露点、湿球温度）">
-      </form>
-    </div>
-    <p class="cat-search-empty" id="catSearchEmpty" hidden>該当するツールが見つかりませんでした。</p>
-  </section>
-
   <section class="tool-list-section">
-    <div class="tool-list" id="toolList">
-      <a href="humid-air/" class="tool-list-card"
-         data-keywords="湿り空気 絶対湿度 相対湿度 露点 湿球温度 乾球温度 比エンタルピー 湿度図表 調湿 乾燥 psychrometric humid air dew point">
-        <div class="tool-list-card-body">
-          <span class="tool-list-cat">調湿・乾燥</span>
-          <h3 class="tool-list-title">湿り空気状態量（絶対湿度・相対湿度・露点・湿球温度・比エンタルピー）</h3>
-          <p class="tool-list-desc">湿り空気の各状態量（乾球温度・相対湿度・絶対湿度・露点・湿球温度・比エンタルピー・比容積）を相互換算します。空調・乾燥・冷却塔の検討に。</p>
-        </div>
-        <span class="tool-list-arrow">›</span>
-      </a>
+    <div class="cat-empty">
+      <div class="cat-empty-label">準備中</div>
+      <p class="cat-empty-text">このカテゴリのツールは現在準備中です。公開され次第こちらに掲載します。</p>
+      <a href="../../" class="cat-empty-back">‹ トップページに戻る</a>
     </div>
   </section>
 
@@ -124,27 +109,6 @@
   </div>
 </footer>
 
-<script>
-(function () {
-  const input = document.getElementById('catSearchInput');
-  const list = document.getElementById('toolList');
-  const empty = document.getElementById('catSearchEmpty');
-  if (!input || !list) return;
-  const cards = Array.from(list.querySelectorAll('.tool-list-card'));
-  function filter() {
-    const q = input.value.trim().toLowerCase();
-    let visible = 0;
-    cards.forEach(card => {
-      const haystack = (card.textContent + ' ' + (card.dataset.keywords || '')).toLowerCase();
-      const show = !q || haystack.includes(q);
-      card.hidden = !show;
-      if (show) visible++;
-    });
-    empty.hidden = !(q && visible === 0);
-  }
-  input.addEventListener('input', filter);
-})();
-</script>
 <script src="../../assets/js/share.js"></script>
 </body>
 </html>

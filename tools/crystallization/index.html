@@ -66,26 +66,11 @@
     </div>
   </section>
 
-  <section class="cat-search-section">
-    <div class="search-wrap">
-      <form class="search" id="catSearchForm" onsubmit="event.preventDefault();">
-        <input id="catSearchInput" type="text" autocomplete="off" placeholder="晶析カテゴリ内で検索（例：収率、溶解度）">
-      </form>
-    </div>
-    <p class="cat-search-empty" id="catSearchEmpty" hidden>該当するツールが見つかりませんでした。</p>
-  </section>
-
   <section class="tool-list-section">
-    <div class="tool-list" id="toolList">
-      <a href="yield/" class="tool-list-card"
-         data-keywords="晶析 結晶収率 冷却晶析 蒸発晶析 溶解度 水和物 物質収支 crystallization yield solubility hydrate">
-        <div class="tool-list-card-body">
-          <span class="tool-list-cat">晶析</span>
-          <h3 class="tool-list-title">結晶収率（冷却晶析・蒸発晶析・水和物対応）</h3>
-          <p class="tool-list-desc">冷却晶析・蒸発晶析の結晶収率を、高温・低温の溶解度と仕込み量・蒸発量から物質収支で計算します。水和物結晶（n水和物）にも対応。</p>
-        </div>
-        <span class="tool-list-arrow">›</span>
-      </a>
+    <div class="cat-empty">
+      <div class="cat-empty-label">準備中</div>
+      <p class="cat-empty-text">このカテゴリのツールは現在準備中です。公開され次第こちらに掲載します。</p>
+      <a href="../../" class="cat-empty-back">‹ トップページに戻る</a>
     </div>
   </section>
 
@@ -124,27 +109,6 @@
   </div>
 </footer>
 
-<script>
-(function () {
-  const input = document.getElementById('catSearchInput');
-  const list = document.getElementById('toolList');
-  const empty = document.getElementById('catSearchEmpty');
-  if (!input || !list) return;
-  const cards = Array.from(list.querySelectorAll('.tool-list-card'));
-  function filter() {
-    const q = input.value.trim().toLowerCase();
-    let visible = 0;
-    cards.forEach(card => {
-      const haystack = (card.textContent + ' ' + (card.dataset.keywords || '')).toLowerCase();
-      const show = !q || haystack.includes(q);
-      card.hidden = !show;
-      if (show) visible++;
-    });
-    empty.hidden = !(q && visible === 0);
-  }
-  input.addEventListener('input', filter);
-})();
-</script>
 <script src="../../assets/js/share.js"></script>
 </body>
 </html>
