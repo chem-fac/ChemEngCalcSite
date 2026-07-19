@@ -259,6 +259,12 @@
       keywords: ["固液分離", "ろ過", "濾過", "沈降", "遠心分離", "分離", "ケーク", "filtration", "settling", "centrifuge", "separation"]
     },
     {
+      title: "サイクロン分離効率（Lapple カット径・分級曲線）",
+      url: "tools/dust-collection/cyclone/",
+      category: "集塵",
+      keywords: ["サイクロン", "カット径", "分離効率", "分級曲線", "集塵", "粉塵", "圧損", "Lapple", "cyclone", "cut size", "dust collection"]
+    },
+    {
       title: "集塵（カテゴリ）",
       url: "tools/dust-collection/",
       category: "カテゴリ",
@@ -289,16 +295,34 @@
       keywords: ["吸着", "活性炭", "吸着塔", "破過", "等温線", "ラングミュア", "フロイントリッヒ", "adsorption", "breakthrough", "Langmuir", "Freundlich"]
     },
     {
+      title: "結晶収率（冷却晶析・蒸発晶析・水和物対応）",
+      url: "tools/crystallization/yield/",
+      category: "晶析",
+      keywords: ["晶析", "結晶収率", "冷却晶析", "蒸発晶析", "溶解度", "水和物", "物質収支", "crystallization", "yield", "solubility", "hydrate"]
+    },
+    {
       title: "晶析（カテゴリ）",
       url: "tools/crystallization/",
       category: "カテゴリ",
       keywords: ["晶析", "結晶化", "溶解度", "過飽和", "核発生", "粒径", "結晶", "crystallization", "crystal", "supersaturation"]
     },
     {
+      title: "湿り空気状態量（絶対湿度・相対湿度・露点・湿球温度・比エンタルピー）",
+      url: "tools/moisture/humid-air/",
+      category: "調湿・乾燥",
+      keywords: ["湿り空気", "絶対湿度", "相対湿度", "露点", "湿球温度", "乾球温度", "比エンタルピー", "湿度図表", "調湿", "乾燥", "psychrometric", "humid air", "dew point"]
+    },
+    {
       title: "調湿・乾燥（カテゴリ）",
       url: "tools/moisture/",
       category: "カテゴリ",
       keywords: ["調湿", "乾燥", "湿度", "乾燥速度", "絶対湿度", "相対湿度", "湿り空気", "psychrometric", "drying", "humidity", "moisture"]
+    },
+    {
+      title: "コントロールバルブ Cv 選定",
+      url: "tools/instrumentation-control/control-valve-cv/",
+      category: "計装・制御",
+      keywords: ["コントロールバルブ", "調節弁", "制御弁", "Cv", "Kv", "流量係数", "バルブサイジング", "チョークフロー", "IEC 60534", "ISA 75", "valve sizing", "control valve"]
     },
     {
       title: "計装・制御（カテゴリ）",

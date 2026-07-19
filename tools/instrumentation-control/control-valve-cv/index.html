@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>コントロールバルブ Cv 選定 | 化学工学計算支援ツール</title>
+<meta name="description" content="液体・ガス・蒸気に対するコントロールバルブの必要 Cv（流量係数）を IEC 60534-2-1 / ISA 75 の式で計算します。チョークフロー判定にも対応。">
+<meta name="keywords" content="コントロールバルブ, 調節弁, Cv, Kv, 流量係数, IEC 60534, ISA 75, チョークフロー, 臨界流, 液体, ガス, 蒸気, バルブサイジング, valve sizing">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/instrumentation-control/control-valve-cv/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="コントロールバルブ Cv 選定 | 化学工学計算支援ツール">
+<meta property="og:description" content="液体・ガス・蒸気に対するコントロールバルブの必要 Cv を IEC 60534-2-1 / ISA 75 の式で計算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/instrumentation-control/control-valve-cv/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"コントロールバルブ Cv 選定","url":"https://tools.chem-fac.com/tools/instrumentation-control/control-valve-cv/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"液体・ガス・蒸気に対する Cv 計算。IEC 60534-2-1 / ISA 75 ベース。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"Cv, Kv, 流量係数, IEC 60534, チョークフロー","about":"計装・制御"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">計装・制御</a><span class="sep">›</span><span class="current">コントロールバルブ Cv 選定</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">計装・制御</span>
+      <h1>コントロールバルブ Cv 選定</h1>
+      <p class="tool-subcopy">液体・ガス・蒸気それぞれについて、IEC 60534-2-1 / ISA 75 に基づく必要 Cv（流量係数）を計算します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab active" data-mode="liquid">液体</button>
+      <button type="button" class="mode-tab" data-mode="gas">ガス</button>
+      <button type="button" class="mode-tab" data-mode="steam">蒸気</button>
+    </div>
+
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+
+        <!-- ===== Liquid ===== -->
+        <div class="input-row" data-show-when="liquid">
+          <label>体積流量 <span class="sym">Q</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Ql" step="any" placeholder="例：50">
+            <select id="Ql_unit"><option value="m3h">m³/h</option><option value="m3min">m³/min</option><option value="Lmin">L/min</option><option value="m3s">m³/s</option></select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="liquid">
+          <label>比重 <span class="sym">G</span>（水基準）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Gl" step="any" placeholder="例：1.0">
+            <span class="unit-label">［-］</span>
+          </div>
+          <p class="hint">液密度 ρ ÷ 水15.6℃の密度（999 kg/m³）。水なら 1.0、苛性ソーダ48%なら約1.51。</p>
+        </div>
+        <div class="input-row" data-show-when="liquid">
+          <label>入口圧力 <span class="sym">P₁</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="P1l" step="any" placeholder="例：500">
+            <select id="P1l_unit"><option value="kPaG">kPaG</option><option value="MPaG">MPaG</option><option value="kPaA">kPaA</option><option value="MPaA">MPaA</option><option value="barG">barG</option></select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="liquid">
+          <label>出口圧力 <span class="sym">P₂</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="P2l" step="any" placeholder="例：300">
+            <select id="P2l_unit"><option value="kPaG">kPaG</option><option value="MPaG">MPaG</option><option value="kPaA">kPaA</option><option value="MPaA">MPaA</option><option value="barG">barG</option></select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="liquid">
+          <label>飽和蒸気圧 <span class="sym">P_v</span>（任意）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Pvl" step="any" placeholder="例：2.34">
+            <select id="Pvl_unit"><option value="kPaA">kPaA</option><option value="MPaA">MPaA</option><option value="barA">barA</option></select>
+          </div>
+          <p class="hint">入力するとチョークフロー（フラッシング・キャビ）の判定を行います。</p>
+        </div>
+        <div class="input-row" data-show-when="liquid">
+          <label>FL（液圧回復係数、任意）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="FL" step="any" placeholder="例：0.9">
+            <span class="unit-label">［-］</span>
+          </div>
+          <p class="hint">バルブ形式で決まる係数（グローブ弁≒0.9、バタフライ60°≒0.68、ボール弁≒0.55）。チョーク判定に使用。</p>
+        </div>
+
+        <!-- ===== Gas ===== -->
+        <div class="input-row" data-show-when="gas">
+          <label>体積流量 <span class="sym">Q</span>（Normal状態）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Qg" step="any" placeholder="例：1000">
+            <select id="Qg_unit"><option value="Nm3h">Nm³/h（0℃, 101.325 kPaA）</option><option value="Nm3min">Nm³/min</option><option value="Sm3h">Sm³/h（15.6℃, 101.325 kPaA）</option></select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="gas">
+          <label>分子量 <span class="sym">M</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Mg" step="any" placeholder="例：29">
+            <span class="unit-label">g/mol</span>
+          </div>
+          <p class="hint">空気=29、窒素=28、メタン=16、水素=2.016、CO₂=44。</p>
+        </div>
+        <div class="input-row" data-show-when="gas">
+          <label>入口温度 <span class="sym">T₁</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="T1g" step="any" placeholder="例：25">
+            <select id="T1g_unit"><option value="C">℃</option><option value="K">K</option></select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="gas">
+          <label>入口圧力 <span class="sym">P₁</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="P1g" step="any" placeholder="例：500">
+            <select id="P1g_unit"><option value="kPaG">kPaG</option><option value="MPaG">MPaG</option><option value="kPaA">kPaA</option><option value="MPaA">MPaA</option><option value="barG">barG</option></select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="gas">
+          <label>出口圧力 <span class="sym">P₂</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="P2g" step="any" placeholder="例：200">
+            <select id="P2g_unit"><option value="kPaG">kPaG</option><option value="MPaG">MPaG</option><option value="kPaA">kPaA</option><option value="MPaA">MPaA</option><option value="barG">barG</option></select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="gas">
+          <label>比熱比 <span class="sym">k</span>（γ）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="kg" step="any" placeholder="例：1.4">
+            <span class="unit-label">［-］</span>
+          </div>
+          <p class="hint">空気・二原子分子=1.4、メタン=1.31、CO₂=1.30。</p>
+        </div>
+        <div class="input-row" data-show-when="gas">
+          <label>圧縮係数 <span class="sym">Z</span>（任意）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Zg" step="any" placeholder="例：1.0">
+            <span class="unit-label">［-］</span>
+          </div>
+          <p class="hint">通常は 1.0 でOK。高圧（10 MPaG以上）では精密計算で確認してください。</p>
+        </div>
+
+        <!-- ===== Steam ===== -->
+        <div class="input-row" data-show-when="steam">
+          <label>質量流量 <span class="sym">W</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Ws" step="any" placeholder="例：1000">
+            <select id="Ws_unit"><option value="kgh">kg/h</option><option value="kgmin">kg/min</option><option value="ts">t/h</option></select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="steam">
+          <label>入口圧力 <span class="sym">P₁</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="P1s" step="any" placeholder="例：1000">
+            <select id="P1s_unit"><option value="kPaG">kPaG</option><option value="MPaG">MPaG</option><option value="kPaA">kPaA</option><option value="MPaA">MPaA</option><option value="barG">barG</option></select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="steam">
+          <label>出口圧力 <span class="sym">P₂</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="P2s" step="any" placeholder="例：500">
+            <select id="P2s_unit"><option value="kPaG">kPaG</option><option value="MPaG">MPaG</option><option value="kPaA">kPaA</option><option value="MPaA">MPaA</option><option value="barG">barG</option></select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="steam">
+          <label>蒸気の比体積 <span class="sym">v₁</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="v1s" step="any" placeholder="例：0.1775">
+            <span class="unit-label">m³/kg</span>
+          </div>
+          <p class="hint">入口条件における比体積。例：飽和蒸気1.1 MPaA（1000 kPaG）→ v ≒ 0.1775、過熱蒸気1.0 MPaA 300℃ → v ≒ 0.2580。蒸気表から読み取ってください。</p>
+        </div>
+        <div class="input-row" data-show-when="steam">
+          <label>比熱比 <span class="sym">k</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="ks" step="any" placeholder="例：1.32">
+            <span class="unit-label">［-］</span>
+          </div>
+          <p class="hint">飽和蒸気=1.30、過熱蒸気=1.32〜1.33。</p>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>Cv と Kv の定義</h2>
+    <p>$C_v$ は、ΔP = 1 psi（≒6.895 kPa）のとき比重1.0の水が60°F（≒15.6℃）でバルブを通過するときの体積流量を米ガロン/分（GPM）で表したものです。SI系の Kv は、ΔP = 1 bar、水での体積流量を m³/h で表したものです。</p>
+    <div class="math-block">$$ C_v \approx 1.156\, K_v \qquad K_v \approx 0.865\, C_v $$</div>
+
+    <h2>液体のサイジング式</h2>
+    <p>サブクリティカル（非フラッシング・非キャビ）では、IEC 60534-2-1 から次式を使います。</p>
+    <div class="math-block">$$ C_v = \dfrac{Q}{N_1}\sqrt{\dfrac{G}{P_1 - P_2}} $$</div>
+    <p>$Q$ : 体積流量（m³/h）、$P_1, P_2$ : 入口・出口の絶対圧（kPaA）、$G$ : 比重、$N_1 \approx 0.0865$（kPa基準。bar基準では $N_1 = 0.865$）。</p>
+    <p>$P_v$ を入力すると、IEC 60534-2-1 のチョーク判定 $\Delta P_\mathrm{choked} = F_L^{2}(P_1 - F_F\,P_v)$ を行います。$\Delta P \geq \Delta P_\mathrm{choked}$ ならチョークフロー領域となり、Cv はチョーク値を使って計算します。フラッシング・キャビテーションの予兆にも注意してください。</p>
+    <p>本ツールでは液体臨界圧比係数 $F_F = 0.96$ を固定値として扱っています（IEC 60534-2-1 では $F_F = 0.96 - 0.28\sqrt{P_v/P_c}$、$P_c$ は液体の臨界圧）。$F_F = 0.96$ は $F_F$ の上限値にあたるため、本ツールはチョークをやや早めに判定し、必要 Cv を大きめに見積もる安全側の近似になります。$P_1 - 0.96\,P_v \leq 0$ となる条件は入力エラーとして弾きます。</p>
+
+    <h2>ガス・蒸気のサイジング式（IEC 60534-2-1）</h2>
+    <p>圧縮性流体では、圧力比 $x = (P_1 - P_2)/P_1$ と、比熱比補正項 $F_\gamma = k/1.40$、チョーク係数 $x_T$ を用いて、$Y = 1 - x / (3 F_\gamma x_T)$ で膨張係数を補正し、質量流量基準の式で必要 $C_v$ を求めます（$N_6 = 27.3$：$W$ [kg/h]、$P_1$ [bar]、$\rho_1$ [kg/m³]）。</p>
+    <div class="math-block">$$ C_v = \dfrac{W}{N_6\, Y\sqrt{x\, P_1\, \rho_1}} $$</div>
+    <p>ガスは入力の標準体積流量 $Q_N$ [Nm³/h] を、$W = Q_N M / 22.414$ で質量流量に、入口密度を $\rho_1 = P_1 M /(Z R T_1)$ に換算してから上式に代入します（0℃・101.325 kPa のモル体積 22.414 L/mol、$R = 8.314\ \mathrm{J/(mol\,K)}$）。蒸気は入力した比体積から $\rho_1 = 1/v_1$ とします。</p>
+    <p>$x_T$ はバルブ形式の係数（標準的なグローブ弁=0.72、バタフライ60°=0.38、ボール弁=0.25）。本ツールでは保守的に $x_T = 0.70$ を内部固定で使用しています。$x \geq F_\gamma x_T$ ならチョークフローと判定します。</p>
+    <p><strong>バタフライ弁・ボール弁では注意：</strong>これらのロータリ弁は $x_T$ が小さい（バタフライ60°で約0.38、ボール弁で約0.25）ため、本ツールの $x_T = 0.70$ 仮定だと臨界圧力比を高く見積もり、結果として必要 Cv を過小評価する可能性があります。グローブ弁以外を選定する場合は、メーカー仕様書の $x_T$ で再計算してください。同様に液体の $F_L$ も弁形式で大きく変わります（グローブ弁≒0.9、バタフライ60°≒0.68、ボール弁≒0.55）。</p>
+
+    <h2>選定時の目安</h2>
+    <ul>
+      <li>最大流量時に開度 80% 程度、最小流量時に開度 20% 以上に収まる Cv を選ぶ（特性曲線の使用範囲）。</li>
+      <li>イコールパーセント特性は ΔP 変動が大きい用途、リニア特性は ΔP がほぼ一定の用途に適する。</li>
+      <li>蒸気・ガスで圧力比が大きい（チョーク領域）場合、流量はバルブ開度を上げても増えないので注意。</li>
+      <li>液体でフラッシング・キャビが想定される場合、Anti-cavitation トリムや多段絞り構造を検討する。</li>
+      <li>$x_T$・$F_L$・$F_D$ などのバルブ固有係数は型式・呼び径・トリムで変わります。重要案件ではメーカー仕様書の係数を使ってください。本ツールは初期検討・概略選定が目的です。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/4d0Fmvx" class="reference-card" data-asin="4785335297" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">スッキリわかる 化学工学</p><p class="ref-meta">二井 晋・小林 敬幸・向井 康人・橋爪 進・衣笠 巧 著 / 裳華房</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../../fluid/fanning/" class="related-card"><span class="small">流動</span>ファニングの式・管摩擦係数（圧力損失）</a>
+      <a href="../../fluid/pump/" class="related-card"><span class="small">流動</span>ポンプ計算（全揚程・NPSH・軸動力）</a>
+      <a href="../../fluid/flow-conversion/" class="related-card"><span class="small">流動</span>流量・流速・配管径換算</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/control-valve-cv.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

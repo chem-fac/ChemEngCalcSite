@@ -66,11 +66,26 @@
     </div>
   </section>
 
+  <section class="cat-search-section">
+    <div class="search-wrap">
+      <form class="search" id="catSearchForm" onsubmit="event.preventDefault();">
+        <input id="catSearchInput" type="text" autocomplete="off" placeholder="集塵カテゴリ内で検索（例：サイクロン、カット径）">
+      </form>
+    </div>
+    <p class="cat-search-empty" id="catSearchEmpty" hidden>該当するツールが見つかりませんでした。</p>
+  </section>
+
   <section class="tool-list-section">
-    <div class="cat-empty">
-      <div class="cat-empty-label">準備中</div>
-      <p class="cat-empty-text">このカテゴリのツールは現在準備中です。公開され次第こちらに掲載します。</p>
-      <a href="../../" class="cat-empty-back">‹ トップページに戻る</a>
+    <div class="tool-list" id="toolList">
+      <a href="cyclone/" class="tool-list-card"
+         data-keywords="サイクロン カット径 分離効率 分級曲線 集塵 粉塵 圧損 Lapple cyclone cut size dust collection">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">集塵</span>
+          <h3 class="tool-list-title">サイクロン分離効率（Lapple カット径・分級曲線）</h3>
+          <p class="tool-list-desc">サイクロンの 50% 分離径（カット径 d_pc）、粒径ごとの分離効率、概略圧損を Lapple モデルで計算します。集塵装置の概略選定に。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
     </div>
   </section>
 
@@ -109,6 +124,27 @@
   </div>
 </footer>
 
+<script>
+(function () {
+  const input = document.getElementById('catSearchInput');
+  const list = document.getElementById('toolList');
+  const empty = document.getElementById('catSearchEmpty');
+  if (!input || !list) return;
+  const cards = Array.from(list.querySelectorAll('.tool-list-card'));
+  function filter() {
+    const q = input.value.trim().toLowerCase();
+    let visible = 0;
+    cards.forEach(card => {
+      const haystack = (card.textContent + ' ' + (card.dataset.keywords || '')).toLowerCase();
+      const show = !q || haystack.includes(q);
+      card.hidden = !show;
+      if (show) visible++;
+    });
+    empty.hidden = !(q && visible === 0);
+  }
+  input.addEventListener('input', filter);
+})();
+</script>
 <script src="../../assets/js/share.js"></script>
 </body>
 </html>

@@ -66,11 +66,30 @@
     </div>
   </section>
 
+  <!-- ===== In-category search ===== -->
+  <section class="cat-search-section">
+    <div class="search-wrap">
+      <form class="search" id="catSearchForm" onsubmit="event.preventDefault();">
+        <input id="catSearchInput" type="text" autocomplete="off" placeholder="計装・制御カテゴリ内で検索（例：Cv、調節弁）">
+      </form>
+    </div>
+    <p class="cat-search-empty" id="catSearchEmpty" hidden>該当するツールが見つかりませんでした。</p>
+  </section>
+
+  <!-- ===== Tools list ===== -->
   <section class="tool-list-section">
-    <div class="cat-empty">
-      <div class="cat-empty-label">準備中</div>
-      <p class="cat-empty-text">このカテゴリのツールは現在準備中です。公開され次第こちらに掲載します。</p>
-      <a href="../../" class="cat-empty-back">‹ トップページに戻る</a>
+    <div class="tool-list" id="toolList">
+
+      <a href="control-valve-cv/" class="tool-list-card"
+         data-keywords="コントロールバルブ 調節弁 制御弁 Cv Kv 流量係数 IEC 60534 ISA 75 チョークフロー 臨界流 液体 ガス 蒸気 バルブサイジング 弁サイズ valve sizing control valve">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">計装・制御</span>
+          <h3 class="tool-list-title">コントロールバルブ Cv 選定</h3>
+          <p class="tool-list-desc">液体・ガス・蒸気それぞれの必要 Cv（流量係数）を IEC 60534-2-1 / ISA 75 の式で計算。チョークフロー判定にも対応します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
     </div>
   </section>
 
@@ -109,6 +128,27 @@
   </div>
 </footer>
 
+<script>
+  (function () {
+    const input = document.getElementById('catSearchInput');
+    const list = document.getElementById('toolList');
+    const empty = document.getElementById('catSearchEmpty');
+    if (!input || !list) return;
+    const cards = Array.from(list.querySelectorAll('.tool-list-card'));
+    function filter() {
+      const q = input.value.trim().toLowerCase();
+      let visible = 0;
+      cards.forEach(c => {
+        const hay = (c.textContent + ' ' + (c.dataset.keywords || '')).toLowerCase();
+        const show = !q || hay.includes(q);
+        c.hidden = !show;
+        if (show) visible++;
+      });
+      empty.hidden = !(q && visible === 0);
+    }
+    input.addEventListener('input', filter);
+  })();
+</script>
 <script src="../../assets/js/share.js"></script>
 </body>
 </html>
