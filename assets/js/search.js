@@ -277,6 +277,12 @@
       keywords: ["吸収", "ガス吸収", "吸収塔", "物質移動", "ヘンリー", "Henry", "充填塔", "packed tower", "KGa", "HTU", "NTU", "absorption"]
     },
     {
+      title: "吸着等温線フィット（ラングミュア・フロイントリッヒ）",
+      url: "tools/adsorption/isotherm/",
+      category: "吸着",
+      keywords: ["吸着等温線", "ラングミュア", "フロイントリッヒ", "吸着平衡", "吸着量", "飽和吸着量", "フィッティング", "線形回帰", "q_max", "K_F", "1/n", "Langmuir", "Freundlich", "isotherm", "adsorption", "fitting"]
+    },
+    {
       title: "吸着（カテゴリ）",
       url: "tools/adsorption/",
       category: "カテゴリ",

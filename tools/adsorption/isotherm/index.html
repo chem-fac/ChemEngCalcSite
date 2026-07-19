@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>吸着等温線フィット（ラングミュア・フロイントリッヒ） | 化学工学計算支援ツール</title>
+<meta name="description" content="平衡濃度 c と吸着量 q のデータから、Langmuir 等温線・Freundlich 等温線のパラメータを線形回帰でフィットし、R² 比較で最適モデルを選定します。">
+<meta name="keywords" content="吸着等温線, Langmuir, Freundlich, ラングミュア, フロイントリッヒ, 吸着平衡, q_max, b, K_F, 1/n, 線形回帰">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/adsorption/isotherm/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="吸着等温線フィット（ラングミュア・フロイントリッヒ） | 化学工学計算支援ツール">
+<meta property="og:description" content="平衡濃度と吸着量のデータから Langmuir/Freundlich パラメータをフィットします。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/adsorption/isotherm/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+<style>
+.iso-table { width:100%; border-collapse:collapse; margin-top:8px; font-size:13px; }
+.iso-table th, .iso-table td { padding:4px 6px; border-bottom:1px solid var(--border); text-align:left; }
+.iso-table th { background:#f6f7f9; }
+.iso-table input { width:90%; padding:4px 6px; border:1px solid var(--border); border-radius:4px; }
+.iso-table td.num { text-align:right; font-variant-numeric:tabular-nums; }
+.best { background:#e8f3ee; font-weight:600; }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">吸着</a><span class="sep">›</span><span class="current">吸着等温線フィット</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">吸着</span>
+      <h1>吸着等温線フィット（ラングミュア・フロイントリッヒ）</h1>
+      <p class="tool-subcopy">平衡濃度 c と吸着量 q のデータから、Langmuir 等温線・Freundlich 等温線のパラメータを線形化法でフィットし、R² 比較で最適モデルを判定します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <p class="hint">平衡濃度 c と吸着量 q の組を入力（最大 10 点、空欄行は無視）。最低 3 点必要。単位は任意（例：c は mg/L、q は mg/g）。</p>
+        <table class="iso-table">
+          <thead><tr><th>#</th><th>平衡濃度 c</th><th>吸着量 q</th></tr></thead>
+          <tbody id="iso-rows"></tbody>
+        </table>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">フィットする</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+          <button class="btn btn-ghost" id="example-btn">サンプル</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">データを入力して「フィットする」を押してください</div></div>
+        <div class="tool-chart-wrap" id="iso-chart-wrap" style="display:none;">
+          <canvas id="iso-canvas" width="900" height="560" aria-label="吸着等温線フィット図（データ点と Langmuir・Freundlich フィット曲線）"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>Langmuir 等温線</h2>
+    <p>単分子層・均一吸着サイト・吸着脱着平衡を仮定したモデル。</p>
+    <div class="math-block">$$ q = \dfrac{q_\mathrm{max}\, b\, c}{1 + b\, c} $$</div>
+    <p>線形化（c/q プロット）：</p>
+    <div class="math-block">$$ \dfrac{c}{q} = \dfrac{1}{q_\mathrm{max}\, b} + \dfrac{c}{q_\mathrm{max}} $$</div>
+    <p>$q_\mathrm{max}$ は飽和吸着量、$b$ は吸着親和度（Langmuir 定数）。</p>
+
+    <h2>Freundlich 等温線</h2>
+    <p>不均一表面の経験式。低〜中濃度域でよく適合。</p>
+    <div class="math-block">$$ q = K_F\, c^{1/n} $$</div>
+    <p>線形化（log プロット）：</p>
+    <div class="math-block">$$ \log q = \log K_F + \dfrac{1}{n}\, \log c $$</div>
+    <p>$1/n < 1$ で典型的（好ましい吸着）、$1/n = 1$ で線形（Henry 則）、$1/n > 1$ で不利な吸着。</p>
+
+    <h2>どちらを選ぶか</h2>
+    <ul>
+      <li>飽和に向かう傾向が明らかな場合（高濃度で q が頭打ち）：<strong>Langmuir</strong> が適合しやすい。</li>
+      <li>広い濃度範囲で q が単調増加する場合：<strong>Freundlich</strong> が適合しやすい。</li>
+      <li>本ツールは R² が大きい方を「より良いフィット」として表示しますが、物理的妥当性（高濃度極限、感度範囲）も併せて判断してください。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/431YmDO" class="reference-card" data-asin="4621045350" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">便覧</span><p class="ref-title">化学工学便覧 改訂6版</p><p class="ref-meta">化学工学会 編集 / 丸善出版</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../../absorption/minimum-solvent-flow/" class="related-card"><span class="small">吸収</span>ガス吸収の最小溶媒流量・液ガス比</a>
+      <a href="../../reaction/arrhenius/" class="related-card"><span class="small">反応</span>アレニウスの式（反応速度定数・活性化エネルギー）</a>
+      <a href="../../properties/vant-hoff/" class="related-card"><span class="small">物性・熱力学</span>ファントホッフの式</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/adsorption-isotherm.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>
