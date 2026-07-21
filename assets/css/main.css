@@ -2404,26 +2404,74 @@ details.formula .body {
   justify-content: center;
   min-width: 0;
 }
-/* API障害中に書影の代わりに出す自前のプレースホルダ表紙（references.js が生成） */
+/* API障害中に書影の代わりに出す自前のプレースホルダ表紙（references.js が生成）。
+   実書影は使えないため、タイトル・著者・出版社を配した学術書風のタイルにする。 */
 .reference-card .ref-cover-ph {
+  --h: 210;
+  position: relative;
   width: 100%;
   height: 140px;
-  border-radius: 3px;
-  box-shadow: inset 4px 0 0 rgba(255,255,255,.22);
+  border-radius: 2px 3px 3px 2px;
+  padding: 13px 9px 9px 14px;
+  display: flex;
+  flex-direction: column;
   color: #fff;
-  font-size: 10.5px;
-  font-weight: 600;
-  line-height: 1.5;
-  padding: 12px 8px 12px 12px;
+  overflow: hidden;
+  background: linear-gradient(158deg, hsl(var(--h) 33% 45%), hsl(var(--h) 41% 26%));
+  box-shadow:
+    inset 7px 0 7px -5px rgba(0,0,0,.5),      /* 背表紙側の影 */
+    inset 11px 0 0 -10px rgba(255,255,255,.3), /* 背表紙側のハイライト */
+    0 1px 3px rgba(0,0,0,.28);
+}
+/* 上部の装飾罫 */
+.reference-card .ref-cover-ph::before {
+  content: "";
+  position: absolute;
+  left: 14px; right: 9px; top: 8px;
+  height: 2px;
+  background: rgba(255,255,255,.5);
+}
+.reference-card .ref-cover-title {
+  margin-top: 9px;
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: .01em;
+  text-shadow: 0 1px 1px rgba(0,0,0,.28);
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 6;
+  -webkit-line-clamp: 4;
   overflow: hidden;
+}
+.reference-card .ref-cover-author {
+  margin-top: auto;
+  font-size: 8.5px;
+  font-weight: 500;
+  line-height: 1.35;
+  opacity: .93;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.reference-card .ref-cover-pub {
+  margin-top: 5px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255,255,255,.32);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  opacity: .95;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 @media (max-width: 600px) {
   .reference-card.has-image .ref-image { width: 80px; }
   .reference-card .ref-image img { max-height: 110px; }
-  .reference-card .ref-cover-ph { height: 110px; -webkit-line-clamp: 4; }
+  .reference-card .ref-cover-ph { height: 110px; padding: 10px 7px 7px 12px; }
+  .reference-card .ref-cover-title { font-size: 10.5px; -webkit-line-clamp: 3; margin-top: 7px; }
+  .reference-card .ref-cover-author { -webkit-line-clamp: 1; }
 }
 .reference-card .ref-tag {
   display: inline-block;
