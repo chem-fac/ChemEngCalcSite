@@ -66,11 +66,30 @@
     </div>
   </section>
 
+  <!-- ===== In-category search ===== -->
+  <section class="cat-search-section">
+    <div class="search-wrap">
+      <form class="search" id="catSearchForm" onsubmit="event.preventDefault();">
+        <input id="catSearchInput" type="text" autocomplete="off" placeholder="計装・制御カテゴリ内で検索（例：4-20mA、開平）">
+      </form>
+    </div>
+    <p class="cat-search-empty" id="catSearchEmpty" hidden>該当するツールが見つかりませんでした。</p>
+  </section>
+
+  <!-- ===== Tools list ===== -->
   <section class="tool-list-section">
-    <div class="cat-empty">
-      <div class="cat-empty-label">準備中</div>
-      <p class="cat-empty-text">このカテゴリのツールは現在準備中です。公開され次第こちらに掲載します。</p>
-      <a href="../../" class="cat-empty-back">‹ トップページに戻る</a>
+    <div class="tool-list" id="toolList">
+
+      <a href="ma-signal/" class="tool-list-card"
+         data-keywords="4-20mA 4～20mA 420mA 電流信号 スケーリング レンジ換算 工業量 開平 開平演算 差圧式流量計 伝送器 発信器 1-5V NAMUR NE43 ライブゼロ 調節計 current loop signal scaling">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">計装・制御</span>
+          <h3 class="tool-list-title">4-20mA信号換算（スケーリング・開平）</h3>
+          <p class="tool-list-desc">4-20mA電流信号を％・工業量に相互換算。差圧式流量計の開平換算、1-5V電圧換算、NAMUR NE43に基づくレンジ外判定に対応します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
     </div>
   </section>
 
@@ -109,6 +128,27 @@
   </div>
 </footer>
 
+<script>
+  (function () {
+    const input = document.getElementById('catSearchInput');
+    const list = document.getElementById('toolList');
+    const empty = document.getElementById('catSearchEmpty');
+    if (!input || !list) return;
+    const cards = Array.from(list.querySelectorAll('.tool-list-card'));
+    function filter() {
+      const q = input.value.trim().toLowerCase();
+      let visible = 0;
+      cards.forEach(c => {
+        const hay = (c.textContent + ' ' + (c.dataset.keywords || '')).toLowerCase();
+        const show = !q || hay.includes(q);
+        c.hidden = !show;
+        if (show) visible++;
+      });
+      empty.hidden = !(q && visible === 0);
+    }
+    input.addEventListener('input', filter);
+  })();
+</script>
 <script src="../../assets/js/share.js"></script>
 </body>
 </html>

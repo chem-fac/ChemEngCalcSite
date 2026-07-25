@@ -283,6 +283,12 @@
       keywords: ["吸着等温線", "ラングミュア", "フロイントリッヒ", "吸着平衡", "吸着量", "飽和吸着量", "フィッティング", "線形回帰", "q_max", "K_F", "1/n", "Langmuir", "Freundlich", "isotherm", "adsorption", "fitting"]
     },
     {
+      title: "4-20mA信号換算（スケーリング・開平）",
+      url: "tools/instrumentation-control/ma-signal/",
+      category: "計装・制御",
+      keywords: ["4-20mA", "4～20mA", "420mA", "電流信号", "スケーリング", "レンジ換算", "工業量", "開平", "開平演算", "差圧式流量計", "伝送器", "発信器", "1-5V", "ライブゼロ", "NAMUR", "NE43", "調節計", "LRV", "URV", "current loop", "signal", "scaling"]
+    },
+    {
       title: "吸着（カテゴリ）",
       url: "tools/adsorption/",
       category: "カテゴリ",
