@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-25T02:02:17.285114+00:00",
+  "generated_at": "2026-07-25T04:54:42.618877+00:00",
   "marketplace": "www.amazon.co.jp",
   "product_data_status": "fallback",
   "items": {
@@ -128,6 +128,15 @@
       "image_height": null,
       "affiliate_url": "https://amzn.to/4vA7FHw",
       "fallback_meta": "亀井 三郎 編 / 産業図書"
+    },
+    "4905957206": {
+      "asin": "4905957206",
+      "title": "工業計測と制御の基礎",
+      "image_url": null,
+      "image_width": null,
+      "image_height": null,
+      "affiliate_url": "https://link.amazon/B0iqWQ5e7",
+      "fallback_meta": "川村 貞夫・石川 洋次郎 著 / 工業技術社"
     }
   },
   "fallback_since": "2026-07-13T14:15:00+00:00"
