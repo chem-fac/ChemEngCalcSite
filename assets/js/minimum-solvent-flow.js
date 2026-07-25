@@ -290,7 +290,7 @@
         <tr><td>溶質除去率</td><td class="num">${formatNumber(removal)} %</td></tr>
         <tr><td>平衡組成への到達率</td><td class="num">${formatNumber(equilibriumApproach)} %</td></tr>
       </table>
-      ${warnings.map((w) => `<div class="result-note caution-text">${w}</div>`).join('')}
+      ${warnings.map((w) => `<div class="result-note">${w}</div>`).join('')}
       <div class="result-note">流量は入力したガス流量と同じモル流量単位で表示しています。</div>`;
 
     lastChartData = { yRatioIn, yRatioOut, xRatioIn, xRatioEq, xRatioOut };

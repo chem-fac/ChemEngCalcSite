@@ -98,11 +98,11 @@
         <tr><td>K<sub>B</sub> = P<sub>B</sub><sup>sat</sup>/P</td><td class="num">${fmtNum(KB)}</td></tr>
         <tr><td>相対揮発度 α<sub>AB</sub></td><td class="num">${fmtNum(alpha)}</td></tr>
         <tr><td>分離しやすさ</td><td class="num">${separationLabel(alpha)}</td></tr>
-        <tr><td>ΣxK（沸騰平衡判定）</td><td class="num">${fmtNum(yRawSum)}${equilibriumOK ? '' : ' ⚠'}</td></tr>
+        <tr><td>ΣxK（沸騰平衡判定）</td><td class="num">${fmtNum(yRawSum)}${equilibriumOK ? '' : '（注意）'}</td></tr>
       </tbody></table>
       <div class="result-meta">
         <div>理想溶液・理想気体を仮定し、Raoult則から K値と相対揮発度を計算しています。沸騰平衡条件では ΣxK ≈ 1 になります。</div>
-        ${warns.map(n => `<div class="result-note-warn">⚠ ${n}</div>`).join('')}
+        ${warns.map(n => `<div class="result-note-warn">注意：${n}</div>`).join('')}
         ${notes.map(n => `<div class="result-note">※ ${n}</div>`).join('')}
       </div>
     `;

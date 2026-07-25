@@ -137,7 +137,7 @@
     $('result-area').innerHTML = `
       <div class="result-target">蒸気率 β（${phase}）</div>
       <div class="result-value-big">${fmtNum(beta)} <span class="unit">-</span></div>
-      ${warns.map(n => `<div class="result-note-warn">⚠ ${n}</div>`).join('')}
+      ${warns.map(n => `<div class="result-note-warn">注意：${n}</div>`).join('')}
       <table class="unit-table"><tbody>
         <tr><td>気相流量 V</td><td class="num">${fmtNum(V)} kmol/h</td></tr>
         <tr><td>液相流量 L</td><td class="num">${fmtNum(L)} kmol/h</td></tr>

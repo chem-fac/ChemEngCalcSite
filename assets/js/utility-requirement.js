@@ -75,7 +75,7 @@
       $('result-area').innerHTML = `
         <div class="result-target">必要蒸気量</div>
         <div class="result-value-big">${fmtNum(mdot * 3600)} <span class="unit">kg/h</span></div>
-        ${warns.map(n => `<div class="result-note-warn">⚠ ${n}</div>`).join('')}
+        ${warns.map(n => `<div class="result-note-warn">注意：${n}</div>`).join('')}
         <table class="unit-table"><tbody>
           <tr><td>必要蒸気量</td><td class="num">${fmtNum(mdot)} kg/s</td></tr>
           <tr><td>必要蒸気量</td><td class="num">${fmtNum(mdot * 3.6)} t/h</td></tr>
@@ -110,7 +110,7 @@
     $('result-area').innerHTML = `
       <div class="result-target">${mode === 'cooling' ? '必要冷却水量' : '必要熱媒油量'}</div>
       <div class="result-value-big">${fmtNum(mdot * 3600)} <span class="unit">kg/h</span></div>
-      ${warns.map(n => `<div class="result-note-warn">⚠ ${n}</div>`).join('')}
+      ${warns.map(n => `<div class="result-note-warn">注意：${n}</div>`).join('')}
       <table class="unit-table"><tbody>
         <tr><td>質量流量</td><td class="num">${fmtNum(mdot)} kg/s</td></tr>
         ${volumeRows}
