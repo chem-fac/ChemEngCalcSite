@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>なぜLMTDは「対数」平均なのか | 現場の数学</title>
+<meta name="description" content="熱交換器の設計で出てくる対数平均温度差（LMTD）。なぜ単純平均ではなく対数なのかを、微小区間の熱収支から微分方程式を立てて導きます。化学工学で本当に使う数学を、現場の問題から組み立て直すシリーズ。">
+<meta name="keywords" content="LMTD, 対数平均温度差, なぜ対数, 微分方程式, 変数分離, 指数関数, 熱交換器, 化学工学 数学, 移動現象">
+<link rel="canonical" href="https://tools.chem-fac.com/learn/lmtd-log/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="なぜLMTDは「対数」平均なのか | 現場の数学">
+<meta property="og:description" content="対数平均温度差はなぜ「対数」なのか。微小区間の熱収支から微分方程式を立てて導きます。">
+<meta property="og:url" content="https://tools.chem-fac.com/learn/lmtd-log/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+<style>
+/* このページ限定の軽微な装飾（公開時は main.css へ寄せる想定） */
+.learn-step{counter-increment:lstep;}
+.learn-step h2::before{content:"STEP " counter(lstep) "　";color:var(--accent,#1a7a6b);font-size:.7em;letter-spacing:.04em;font-weight:700;}
+.learn-body{counter-reset:lstep;}
+.insight{border-left:4px solid var(--accent,#1a7a6b);background:#f3f8f7;padding:14px 18px;border-radius:6px;margin:18px 0;}
+.insight strong{color:var(--accent,#1a7a6b);}
+.stumble{border:1px solid var(--border,#e2e6ea);border-radius:8px;padding:4px 18px 14px;margin:14px 0;background:#fcfcfd;}
+.stumble h3{margin-bottom:.4em;}
+.num-example{border-collapse:collapse;width:100%;margin:10px 0;}
+.num-example th,.num-example td{border:1px solid var(--border,#e2e6ea);padding:8px 10px;text-align:center;}
+.num-example th{background:#f3f8f7;font-weight:600;}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../" class="logo"><img src="../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../tools/">ツール一覧</a>
+<a href="../../updates/">更新情報</a><a href="../../faq/">よくある質問</a><a href="../../support/">支援する</a><a href="../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide learn-body">
+  <nav class="breadcrumb"><a href="../../">ホーム</a><span class="sep">›</span><span>現場の数学</span><span class="sep">›</span><span class="current">なぜLMTDは「対数」平均なのか</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">現場の数学</span>
+      <h1>なぜLMTDは「対数」平均なのか</h1>
+      <p class="tool-subcopy">熱交換器の伝熱面積を求めるときに使う対数平均温度差（LMTD）。なぜ算術平均ではなく対数になるのかを、微小区間の熱収支から導きます。</p>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>この記事で使う数学</h2>
+    <p>熱交換器の必要伝熱面積は $Q = U A \,\Delta T_{lm} F$ で求めます。この式の平均温度差は、算術平均ではなく <strong>対数平均温度差（LMTD）</strong> です。なぜ対数になるのかを、微小区間の熱収支から順番に導きます。使う数学は、変数分離形の微分方程式を立てて積分する、という型です。</p>
+    <ul class="symbol-list">
+      <li>使う数学：微小区間で収支を立てる／変数分離／$\displaystyle\int \frac{1}{x}\,dx = \ln x$／指数関数</li>
+      <li>前提：定常状態、$U$ が一定、相変化なし、各流体の比熱が一定</li>
+    </ul>
+  </section>
+
+  <section class="explain-block learn-step">
+    <h2>温度差は場所によって変わる</h2>
+    <p>熱交換器の中では、入口から出口に向かって高温側と低温側の温度差 $\Delta T = T_h - T_c$ が変化します。平均温度差とは、<strong>場所によって変わる $\Delta T$ を伝熱面積に沿って平均した値</strong>です。そのため、まず $\Delta T$ が面積に沿ってどう変化するかを式にします。</p>
+    <p>熱交換器を伝熱面積 $A$ の向きに薄く分け、微小面積 $dA$ の区間だけを取り出して収支を立てます。</p>
+  </section>
+
+  <section class="explain-block learn-step">
+    <h2>微小区間の熱収支を立てる</h2>
+    <p>微小面積 $dA$ で高温側から低温側へ移る熱量 $dQ$ は、その場所の温度差 $\Delta T$ に比例します。</p>
+    <div class="math-block">$$ dQ = U \,\Delta T \, dA $$</div>
+    <p>この $dQ$ のぶんだけ、高温側は冷え、低温側は温まります。各流体の熱容量流量（質量流量×比熱）を $C_h = \dot m_h c_{p,h}$、$C_c = \dot m_c c_{p,c}$ とおくと、並流（同じ向きに流れる）では次のように書けます。</p>
+    <div class="math-block">$$ dT_h = -\frac{dQ}{C_h}, \qquad dT_c = +\frac{dQ}{C_c} $$</div>
+    <p>高温側は熱を失うのでマイナス、低温側は受け取るのでプラスです。温度差 $\Delta T = T_h - T_c$ の変化はこの差として、</p>
+    <div class="math-block">$$ d(\Delta T) = dT_h - dT_c = -dQ\left(\frac{1}{C_h}+\frac{1}{C_c}\right) $$</div>
+    <p>ここに $dQ = U\,\Delta T\, dA$ を戻すと、$\Delta T$ だけについての関係式になります。</p>
+    <div class="math-block">$$ d(\Delta T) = -\,U\left(\frac{1}{C_h}+\frac{1}{C_c}\right)\Delta T \, dA $$</div>
+  </section>
+
+  <section class="explain-block learn-step">
+    <h2>変数分離して積分する</h2>
+    <p>両辺に $\Delta T$ が含まれています。$\Delta T$ を左辺に、$dA$ を右辺に集めます。これを<strong>変数分離</strong>といいます。$C_h,\,C_c,\,U$ は一定なので、まとめて定数 $k = U\left(\tfrac{1}{C_h}+\tfrac{1}{C_c}\right)$ とおきます。</p>
+    <div class="math-block">$$ \frac{d(\Delta T)}{\Delta T} = -\,k \, dA $$</div>
+    <p>両辺を、入口（$A=0$ で $\Delta T = \Delta T_1$）から出口（$A=A$ で $\Delta T = \Delta T_2$）まで積分します。左辺は $\dfrac{1}{x}$ の形なので、積分すると対数 $\ln$ になります。</p>
+    <div class="math-block">$$ \int_{\Delta T_1}^{\Delta T_2}\frac{d(\Delta T)}{\Delta T} = \int_{0}^{A} -\,k\, dA \;\;\Longrightarrow\;\; \ln\!\frac{\Delta T_2}{\Delta T_1} = -\,k\,A $$</div>
+    <div class="insight">
+      <p style="margin:0;">この式は $\Delta T_2 = \Delta T_1\, e^{-kA}$ と書き直せます。温度差は面積に沿って<strong>指数関数的に小さくなる</strong>ということです。直線的に減るなら算術平均でよいのですが、実際は指数関数で減るため、平均をとると対数が現れます。</p>
+    </div>
+  </section>
+
+  <section class="explain-block learn-step">
+    <h2>面積の式に直す</h2>
+    <p>次に、定数 $k$ を測定できる量（$Q$ と端の温度差）に置き換えます。全体の熱収支から、</p>
+    <div class="math-block">$$ Q = C_h\,(T_{h,in}-T_{h,out}) \;\Rightarrow\; \frac{1}{C_h}=\frac{T_{h,in}-T_{h,out}}{Q}, \qquad Q = C_c\,(T_{c,out}-T_{c,in}) \;\Rightarrow\; \frac{1}{C_c}=\frac{T_{c,out}-T_{c,in}}{Q} $$</div>
+    <p>この2つを足すと、ちょうど端の温度差の差 $\Delta T_1 - \Delta T_2$ になります。</p>
+    <div class="math-block">$$ \frac{1}{C_h}+\frac{1}{C_c} = \frac{(T_{h,in}-T_{h,out})+(T_{c,out}-T_{c,in})}{Q} = \frac{\Delta T_1-\Delta T_2}{Q} $$</div>
+    <p>これを $\ln(\Delta T_2/\Delta T_1) = -\,U\left(\tfrac{1}{C_h}+\tfrac{1}{C_c}\right)A$ に入れて $Q$ について整理すると、</p>
+    <div class="math-block">$$ Q = U A \,\frac{\Delta T_1 - \Delta T_2}{\ln(\Delta T_1/\Delta T_2)} = U A\,\Delta T_{lm} $$</div>
+    <p>対数平均温度差は、指数関数的に小さくなる温度差を平均した結果として導かれる量です。</p>
+    <div class="math-block">$$ \Delta T_{lm} = \frac{\Delta T_1 - \Delta T_2}{\ln(\Delta T_1/\Delta T_2)} $$</div>
+    <ul class="symbol-list">
+      <li>$Q$：熱交換量［W］</li>
+      <li>$U$：総括伝熱係数［W/(m²K)］</li>
+      <li>$A$：伝熱面積［m²］</li>
+      <li>$C_h,\,C_c$：高温側・低温側の熱容量流量 $\dot m\,c_p$［W/K］</li>
+      <li>$\Delta T_1,\,\Delta T_2$：熱交換器の両端での温度差［K］</li>
+      <li>$\Delta T_{lm}$：対数平均温度差［K］</li>
+    </ul>
+  </section>
+
+  <section class="explain-block notes-block">
+    <h2>補足：つまずきやすい点</h2>
+
+    <div class="stumble">
+      <h3>① なぜ $\int \frac{1}{x}\,dx$ だけ $\ln$ になるのか</h3>
+      <p>$x^n$ の積分は $\frac{x^{n+1}}{n+1}$ ですが、$n=-1$ では分母が $0$ になり使えません。この場合だけ、積分結果は $\ln x$ になります。実際に $\ln x$ を微分すると $\frac{d}{dx}\ln x = \frac{1}{x}$ となり、もとに戻ります。</p>
+    </div>
+
+    <div class="stumble">
+      <h3>② プラスとマイナスの符号</h3>
+      <p>$dT_h$ がマイナスなのは、高温側は熱を失って温度が下がるためです。符号をそろえないと最後の式が合いません。向流（互いに逆向きの流れ）では途中式の符号の付き方が変わりますが、両端の温度差を $\Delta T_1,\Delta T_2$ と置き直すと、最終的な式は並流と同じになります。</p>
+    </div>
+
+    <div class="stumble">
+      <h3>③ 算術平均では何がまずいのか</h3>
+      <p>温度差が指数関数的に減るため、算術平均 $\frac{\Delta T_1+\Delta T_2}{2}$ は必ずLMTD以上になります（過大評価）。温度差を大きく見積もると伝熱面積を小さく計算してしまい、熱交換器が能力不足になりやすい方向の誤差です。両端の温度差が近いときは差は小さく、離れるほど大きくなります。</p>
+    </div>
+  </section>
+
+  <section class="explain-block learn-step">
+    <h2>数値で確かめる</h2>
+    <p>向流で 高温側 120℃→70℃、低温側 25℃→60℃ の場合。両端の温度差は $\Delta T_1 = 120-60 = 60\,\text{K}$、$\Delta T_2 = 70-25 = 45\,\text{K}$ です。</p>
+    <table class="num-example">
+      <thead><tr><th>平均のとり方</th><th>計算</th><th>結果</th></tr></thead>
+      <tbody>
+        <tr><td>算術平均</td><td>$(60+45)/2$</td><td>52.5 K</td></tr>
+        <tr><td>対数平均（LMTD）</td><td>$(60-45)/\ln(60/45)$</td><td>約 52.1 K</td></tr>
+      </tbody>
+    </table>
+    <p>両端の温度差が近いこのケースでは、差は約0.7%です。端の温度差が大きいと差は大きくなります。たとえば $\Delta T_1 = 100$、$\Delta T_2 = 10$ なら、算術平均 55 K に対しLMTDは $90/\ln(10) \approx 39.1\,\text{K}$ です。算術平均は約40%大きく、これで伝熱面積を求めると約3割小さく見積もってしまいます。</p>
+    <div class="insight">
+      <p style="margin:0;">条件を変えて計算する場合は、同じ式を実装した計算ツールを利用できます。→ <a href="../../tools/heat-transfer/lmtd-area/"><strong>LMTD・伝熱面積の計算ツール</strong></a></p>
+    </div>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/48Hi37k" class="reference-card" data-asin="4254250339" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">化学工学 ―解説と演習―</p><p class="ref-meta">多田 豊 編 / 朝倉書店</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+    <a href="https://link.amazon/B04LozJG3" class="reference-card" data-asin="4888983372" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">伝熱工学 第2版（JSMEテキストシリーズ）</p><p class="ref-meta">日本機械学会 著 / 日本機械学会</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related">
+    <h3>この数学が効くツール・関連項目</h3>
+    <div class="related-grid">
+      <a href="../../tools/heat-transfer/lmtd-area/" class="related-card"><span class="small">伝熱</span>LMTD・伝熱面積</a>
+      <a href="../../tools/heat-transfer/heat-duty/" class="related-card"><span class="small">伝熱</span>熱量・熱収支</a>
+      <a href="../../tools/heat-transfer/overall-u/" class="related-card"><span class="small">伝熱</span>総括伝熱係数</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../about/">当サイトについて</a></li><li><a href="../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../contact/">お問い合わせ</a></li><li><a href="../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../terms/">利用規約</a></li><li><a href="../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../" class="logo"><img src="../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+<script src="../../assets/js/references.js"></script>
+</body>
+</html>

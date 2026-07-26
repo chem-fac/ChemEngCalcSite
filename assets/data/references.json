@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-26T09:26:19.146524+00:00",
+  "generated_at": "2026-07-26T09:46:01.436712+00:00",
   "marketplace": "www.amazon.co.jp",
   "product_data_status": "fallback",
   "items": {
@@ -102,13 +102,13 @@
       "publisher_cover": "/assets/img/covers/4621083880.jpg",
       "publisher_cover_credit": null
     },
-    "4888981205": {
-      "asin": "4888981205",
-      "title": "伝熱工学（JSMEテキストシリーズ）",
+    "4888983372": {
+      "asin": "4888983372",
+      "title": "伝熱工学 第2版（JSMEテキストシリーズ）",
       "image_url": null,
       "image_width": null,
       "image_height": null,
-      "affiliate_url": "https://amzn.to/4cYzdQt",
+      "affiliate_url": "https://link.amazon/B04LozJG3",
       "fallback_meta": "日本機械学会 著 / 日本機械学会",
       "publisher_cover": null,
       "publisher_cover_credit": null
