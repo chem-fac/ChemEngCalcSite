@@ -2387,6 +2387,21 @@ details.formula .body {
   width: auto;
   object-fit: contain;
 }
+/* 出版社提供の書影に添える出典表記（例:「提供：裳華房」）。
+   画像とクレジットを縦に積むため、スロットは縦並びにする（子1つのときの見た目は不変）。 */
+.reference-card .ref-image {
+  flex-direction: column;
+}
+.reference-card .ref-cover-credit {
+  margin-top: 3px;
+  font-size: 8px;
+  line-height: 1.2;
+  color: var(--text-sub);
+  white-space: nowrap;
+}
+.reference-card .ref-image:has(.ref-cover-credit) img {
+  max-height: 128px;
+}
 .reference-card .ref-body {
   flex: 1;
   display: flex;

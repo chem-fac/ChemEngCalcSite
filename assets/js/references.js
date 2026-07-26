@@ -22,7 +22,22 @@
 
         var slot = card.querySelector('.ref-image');
         if (!slot || slot.firstElementChild) return;
-        if (info.image_url) {
+        if (info.publisher_cover) {
+          // 出版社が利用を認めた自サイト内の書影。Amazon由来ではないので24時間制限が
+          // かからず、API障害中も表示できる。恒久表示できる分こちらを優先する。
+          var pimg = document.createElement('img');
+          pimg.src = info.publisher_cover;
+          pimg.alt = info.title || '';
+          pimg.loading = 'lazy';
+          slot.appendChild(pimg);
+          if (info.publisher_cover_credit) {
+            var cr = document.createElement('span');
+            cr.className = 'ref-cover-credit';
+            cr.textContent = info.publisher_cover_credit;
+            slot.appendChild(cr);
+          }
+          card.classList.add('has-image');
+        } else if (info.image_url) {
           var img = document.createElement('img');
           img.src = info.image_url;
           img.alt = info.title || '';

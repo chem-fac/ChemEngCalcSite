@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-26T02:06:51.807968+00:00",
+  "generated_at": "2026-07-26T06:36:16.509487+00:00",
   "marketplace": "www.amazon.co.jp",
   "product_data_status": "fallback",
   "items": {
@@ -10,7 +10,9 @@
       "image_width": null,
       "image_height": null,
       "affiliate_url": "https://amzn.to/48Hi37k",
-      "fallback_meta": "多田 豊 編 / 朝倉書店"
+      "fallback_meta": "多田 豊 編 / 朝倉書店",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
     },
     "4627674120": {
       "asin": "4627674120",
@@ -19,7 +21,9 @@
       "image_width": null,
       "image_height": null,
       "affiliate_url": "https://amzn.to/4uAk39X",
-      "fallback_meta": "杉山 弘・松村 昌典・河合 秀樹・風間 俊治 著 / 森北出版"
+      "fallback_meta": "杉山 弘・松村 昌典・河合 秀樹・風間 俊治 著 / 森北出版",
+      "publisher_cover": "/assets/img/covers/4627674120.jpg",
+      "publisher_cover_credit": null
     },
     "4065419735": {
       "asin": "4065419735",
@@ -28,7 +32,9 @@
       "image_width": null,
       "image_height": null,
       "affiliate_url": "https://amzn.to/4vOr0EP",
-      "fallback_meta": "上野 和之 著 / 講談社"
+      "fallback_meta": "上野 和之 著 / 講談社",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
     },
     "4883616568": {
       "asin": "4883616568",
@@ -37,7 +43,9 @@
       "image_width": null,
       "image_height": null,
       "affiliate_url": "https://amzn.to/4ts1HHl",
-      "fallback_meta": "化学工学会 著 / 三恵社"
+      "fallback_meta": "化学工学会 著 / 三恵社",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
     },
     "4873266599": {
       "asin": "4873266599",
@@ -46,7 +54,9 @@
       "image_width": null,
       "image_height": null,
       "affiliate_url": "https://amzn.to/4dwd2Bf",
-      "fallback_meta": "日本プロセス化学会 編 / 化学同人"
+      "fallback_meta": "日本プロセス化学会 編 / 化学同人",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
     },
     "4526059676": {
       "asin": "4526059676",
@@ -55,7 +65,9 @@
       "image_width": null,
       "image_height": null,
       "affiliate_url": "https://amzn.to/4deYvbX",
-      "fallback_meta": "大江 修造 著 / 日刊工業新聞社"
+      "fallback_meta": "大江 修造 著 / 日刊工業新聞社",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
     },
     "4785335297": {
       "asin": "4785335297",
@@ -64,7 +76,9 @@
       "image_width": null,
       "image_height": null,
       "affiliate_url": "https://amzn.to/4d0Fmvx",
-      "fallback_meta": "二井 晋・小林 敬幸・向井 康人・橋爪 進・衣笠 巧 著 / 裳華房"
+      "fallback_meta": "二井 晋・小林 敬幸・向井 康人・橋爪 進・衣笠 巧 著 / 裳華房",
+      "publisher_cover": "/assets/img/covers/4785335297.jpg",
+      "publisher_cover_credit": "提供：裳華房"
     },
     "B0D8S14QGF": {
       "asin": "B0D8S14QGF",
@@ -73,7 +87,9 @@
       "image_width": null,
       "image_height": null,
       "affiliate_url": "https://amzn.to/3P9QLA0",
-      "fallback_meta": "佐藤 一雄 著 / 丸善出版"
+      "fallback_meta": "佐藤 一雄 著 / 丸善出版",
+      "publisher_cover": "/assets/img/covers/B0D8S14QGF.jpg",
+      "publisher_cover_credit": null
     },
     "4563046345": {
       "asin": "4563046345",
@@ -82,7 +98,9 @@
       "image_width": null,
       "image_height": null,
       "affiliate_url": "https://amzn.to/3QUZV3W",
-      "fallback_meta": "橋本 健治 著 / 培風館"
+      "fallback_meta": "橋本 健治 著 / 培風館",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
     },
     "4563041653": {
       "asin": "4563041653",
@@ -91,7 +109,9 @@
       "image_width": null,
       "image_height": null,
       "affiliate_url": "https://amzn.to/4dcboU3",
-      "fallback_meta": "D.M. Himmelblau 著 / 大竹 伝雄 翻訳 / 培風館"
+      "fallback_meta": "D.M. Himmelblau 著 / 大竹 伝雄 翻訳 / 培風館",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
     },
     "4621045350": {
       "asin": "4621045350",
@@ -100,7 +120,9 @@
       "image_width": null,
       "image_height": null,
       "affiliate_url": "https://amzn.to/431YmDO",
-      "fallback_meta": "化学工学会 編集 / 丸善出版"
+      "fallback_meta": "化学工学会 編集 / 丸善出版",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
     },
     "4888981205": {
       "asin": "4888981205",
@@ -109,7 +131,9 @@
       "image_width": null,
       "image_height": null,
       "affiliate_url": "https://amzn.to/4cYzdQt",
-      "fallback_meta": "日本機械学会 著 / 日本機械学会"
+      "fallback_meta": "日本機械学会 著 / 日本機械学会",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
     },
     "4888981841": {
       "asin": "4888981841",
@@ -118,7 +142,9 @@
       "image_width": null,
       "image_height": null,
       "affiliate_url": "https://amzn.to/3QViUeI",
-      "fallback_meta": "日本機械学会 著 / 日本機械学会"
+      "fallback_meta": "日本機械学会 著 / 日本機械学会",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
     },
     "4782825099": {
       "asin": "4782825099",
@@ -127,7 +153,9 @@
       "image_width": null,
       "image_height": null,
       "affiliate_url": "https://amzn.to/4vA7FHw",
-      "fallback_meta": "亀井 三郎 編 / 産業図書"
+      "fallback_meta": "亀井 三郎 編 / 産業図書",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
     },
     "4905957206": {
       "asin": "4905957206",
@@ -136,7 +164,9 @@
       "image_width": null,
       "image_height": null,
       "affiliate_url": "https://link.amazon/B0iqWQ5e7",
-      "fallback_meta": "川村 貞夫・石川 洋次郎 著 / 工業技術社"
+      "fallback_meta": "川村 貞夫・石川 洋次郎 著 / 工業技術社",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
     }
   },
   "fallback_since": "2026-07-13T14:15:00+00:00"
