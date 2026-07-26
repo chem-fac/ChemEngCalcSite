@@ -250,7 +250,10 @@
           </ul>
         </section>
       </section>
-      <p class="ta-empty">条件に一致するツールはありません。キーワードを短くするか、分野の指定を外してください。</p>
+      <p class="ta-empty">
+        <span id="taEmptyMsg">条件に一致するツールはありません。キーワードを短くしてみてください。</span>
+        <button type="button" class="ta-clearfields" id="taClearFields" hidden>分野の指定を外す</button>
+      </p>
     </div>
 
   </div>
@@ -301,6 +304,8 @@
   var chipsBox = document.getElementById('taChips');
   var resetBtn = document.getElementById('taReset');
   var shown = document.getElementById('taShown');
+  var emptyMsg = document.getElementById('taEmptyMsg');
+  var clearFieldsBtn = document.getElementById('taClearFields');
   if (!q || !list || !chipsBox || !resetBtn || !shown) return;
 
   var groups = Array.prototype.slice.call(list.querySelectorAll('.ta-group'));
@@ -401,6 +406,24 @@
 
     shown.textContent = total;
     list.classList.toggle('ta-none', total === 0);
+
+    // 0件のとき、原因が「分野の指定」なのか「キーワード」なのかを言い分ける。
+    // レールの件数はカテゴリ選択を含めないので、分野を選んだままだと
+    // 「レールには 1 と出ているのに 0 件」という矛盾した見え方になる。その復帰導線。
+    if (total === 0) {
+      var kwOnly = 0;
+      for (var k in count) {
+        if (Object.prototype.hasOwnProperty.call(count, k)) kwOnly += count[k];
+      }
+      if (sel.size > 0 && kwOnly > 0) {
+        emptyMsg.textContent = '選択中の分野・カテゴリには該当しません。分野の指定を外すと ' + kwOnly + ' 本 見つかります。';
+        clearFieldsBtn.hidden = false;
+      } else {
+        emptyMsg.textContent = '条件に一致するツールはありません。キーワードを短くしてみてください。';
+        clearFieldsBtn.hidden = true;
+      }
+    }
+
     renderChips(kw);
 
     if (scroll) {
@@ -425,6 +448,13 @@
     q.value = '';
     apply(false);
     q.focus();          // 解除ボタン自身が hidden になるのでフォーカスを検索窓へ
+  });
+
+  // 0件のときだけ出る復帰ボタン。キーワードは残して分野の指定だけ外す
+  clearFieldsBtn.addEventListener('click', function () {
+    sel.clear();
+    apply(false);
+    q.focus();          // このボタン自身が消えるのでフォーカスを検索窓へ
   });
 
   railC.forEach(function (a) {

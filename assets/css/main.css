@@ -2614,7 +2614,11 @@ input[type="number"] {
   font-size: 14.5px;
   color: var(--text-sub);
   margin: 0;
-  max-width: 44em;
+  /* 1文なのでデスクトップでは1行に収める（44em=638px だと 709px 必要な文が2行に割れる） */
+  max-width: 54em;
+  /* 折り返すときは句読点で切る（「絞り／込めます」のような語中改行を防ぐ） */
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 /* --- 2カラム --- */
@@ -2844,6 +2848,22 @@ html:not(.js) .ta-js-only { display: none; }
 /* --- 0件 --- */
 .ta-empty { display: none; padding: 40px 0; color: var(--text-sub); font-size: 14px; }
 .ta-none .ta-empty { display: block; }
+/* 0件のときだけ出る復帰ボタン（分野の指定だけ外してキーワードは残す） */
+.ta-clearfields {
+  display: inline-block;
+  margin-left: 10px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--brand);
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+.ta-clearfields:hover { border-color: var(--brand); color: var(--brand-dark); }
+.ta-clearfields:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
 .ta-none .ta-group { display: none; }
 
 /* --- レスポンシブ --- */
