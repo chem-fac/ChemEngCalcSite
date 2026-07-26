@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-26T06:51:12.411788+00:00",
+  "generated_at": "2026-07-26T07:20:26.091573+00:00",
   "marketplace": "www.amazon.co.jp",
   "product_data_status": "fallback",
   "items": {
@@ -25,17 +25,6 @@
       "publisher_cover": "/assets/img/covers/4627674120.jpg",
       "publisher_cover_credit": null
     },
-    "4065419735": {
-      "asin": "4065419735",
-      "title": "はじめての流体力学",
-      "image_url": null,
-      "image_width": null,
-      "image_height": null,
-      "affiliate_url": "https://amzn.to/4vOr0EP",
-      "fallback_meta": "上野 和之 著 / 講談社",
-      "publisher_cover": null,
-      "publisher_cover_credit": null
-    },
     "4883616568": {
       "asin": "4883616568",
       "title": "最新ミキシング技術の基礎と応用（化学工学の進歩42）",
@@ -44,17 +33,6 @@
       "image_height": null,
       "affiliate_url": "https://amzn.to/4ts1HHl",
       "fallback_meta": "化学工学会 著 / 三恵社",
-      "publisher_cover": null,
-      "publisher_cover_credit": null
-    },
-    "4873266599": {
-      "asin": "4873266599",
-      "title": "プロセスケミストのための化学工学（基礎編）",
-      "image_url": null,
-      "image_width": null,
-      "image_height": null,
-      "affiliate_url": "https://amzn.to/4dwd2Bf",
-      "fallback_meta": "日本プロセス化学会 編 / 化学同人",
       "publisher_cover": null,
       "publisher_cover_credit": null
     },
