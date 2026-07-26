@@ -386,9 +386,27 @@
     const box = document.getElementById("siteSearchResults");
     if (!input || !box) return;
 
+    // GA4: 確定した検索語を標準イベントで送信（入力が1.5秒止まったら1回・同一語は再送しない。
+    // search_term はGA4組み込みディメンションなのでカスタム定義の登録は不要）
+    let lastSentTerm = "";
+    let termTimer = null;
+    function sendSearchTerm(q) {
+      const term = (q || "").trim();
+      if (term.length < 2 || term === lastSentTerm) return;
+      lastSentTerm = term;
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "view_search_results", { search_term: term });
+      }
+    }
+    function trackSearchTerm(q) {
+      clearTimeout(termTimer);
+      termTimer = setTimeout(() => sendSearchTerm(q), 1500);
+    }
+
     function update() {
       const q = input.value;
       render(box, search(q), q.trim().length > 0);
+      trackSearchTerm(q);
     }
 
     input.addEventListener("input", update);
@@ -402,6 +420,9 @@
 
     window.__siteSearch = {
       submit() {
+        // Enterでの遷移前に確定語を即時送信（デバウンス待ちだと送信前にページが変わる）
+        clearTimeout(termTimer);
+        sendSearchTerm(input.value);
         const hits = search(input.value);
         const direct = findDirectHit(input.value, hits);
         if (direct) {
