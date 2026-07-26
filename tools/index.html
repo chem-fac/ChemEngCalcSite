@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>全ツール一覧 | 化学工学計算支援ツール</title>
-<meta name="description" content="公開中の化学工学計算ツール38本の一覧です。流動・撹拌混合・反応・伝熱・蒸留・抽出などのカテゴリ別に、キーワードで絞り込んで探せます。">
+<meta name="description" content="公開中の化学工学計算ツール38本の一覧です。分野・カテゴリ・キーワードで絞り込んで探せます。">
 <link rel="canonical" href="https://tools.chem-fac.com/tools/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="化学工学計算支援ツール">
 <meta property="og:title" content="全ツール一覧 | 化学工学計算支援ツール">
-<meta property="og:description" content="公開中の化学工学計算ツール38本の一覧です。カテゴリ別・キーワードで絞り込んで探せます。">
+<meta property="og:description" content="公開中の化学工学計算ツール38本の一覧です。分野・カテゴリ・キーワードで絞り込んで探せます。">
 <meta property="og:url" content="https://tools.chem-fac.com/tools/">
 <meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
 <meta property="og:locale" content="ja_JP">
@@ -23,6 +23,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<script>document.documentElement.className += " js";</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
 <script>
@@ -32,7 +33,7 @@
   gtag('config', 'G-7MQ7VEMWHY');
 </script>
 </head>
-<body>
+<body class="page-tools-all">
 
 <header class="site-header">
   <div class="inner">
@@ -41,7 +42,7 @@
       化学工学計算支援ツール
     </a>
     <nav class="site-nav">
-      <a href="./">ツール一覧</a>
+      <a href="./" aria-current="page">ツール一覧</a>
       <a href="../updates/">更新情報</a>
       <a href="../faq/">よくある質問</a>
       <a href="../support/">支援する</a>
@@ -50,393 +51,208 @@
   </div>
 </header>
 
-<main class="tool-page tool-page-wide">
-
+<div class="ta-head">
   <nav class="breadcrumb">
     <a href="../">ホーム</a>
     <span class="sep">›</span>
     <span class="current">ツール一覧</span>
   </nav>
+  <h1>全ツール一覧</h1>
+  <p class="ta-lead">公開中の計算ツール38本を、分野・カテゴリ別にまとめています。キーワードと組み合わせて絞り込めます。</p>
+</div>
 
-  <!-- ===== Hero ===== -->
-  <section class="tool-hero tool-hero-simple">
-    <div class="tool-hero-content">
-      <span class="cat-tag">一覧</span>
-      <h1>全ツール一覧</h1>
-      <p class="tool-subcopy">公開中の計算ツール38本をカテゴリ別にまとめています。キーワードで絞り込みできます。</p>
+<main class="ta-layout">
+
+  <aside class="ta-rail" aria-label="ツールの絞り込み">
+    <div class="ta-rail-inner">
+      <div class="ta-rail-search ta-js-only">
+        <label class="ta-rail-label" for="taQuery">キーワード</label>
+        <input id="taQuery" type="search" autocomplete="off" placeholder="レイノルズ、NPSH、LMTD">
+      </div>
+      <p class="ta-rail-head" id="taFacetLabel">分野で絞り込む</p>
+      <nav class="ta-rail-nav" aria-labelledby="taFacetLabel">
+        <div class="ta-rail-block">
+          <a class="ta-rail-g" href="#g-basis" data-g="basis">物性・基礎収支<span class="ta-n" data-n-g="basis">5</span></a>
+          <a class="ta-rail-c" href="#c-properties" data-c="properties">物性・熱力学<span class="ta-n" data-n-c="properties">5</span></a>
+        </div>
+        <div class="ta-rail-block">
+          <a class="ta-rail-g" href="#g-transport" data-g="transport">流体・輸送<span class="ta-n" data-n-g="transport">6</span></a>
+          <a class="ta-rail-c" href="#c-fluid" data-c="fluid">流動<span class="ta-n" data-n-c="fluid">6</span></a>
+        </div>
+        <div class="ta-rail-block">
+          <a class="ta-rail-g" href="#g-heat" data-g="heat">伝熱・エネルギー<span class="ta-n" data-n-g="heat">6</span></a>
+          <a class="ta-rail-c" href="#c-heat-transfer" data-c="heat-transfer">伝熱<span class="ta-n" data-n-c="heat-transfer">6</span></a>
+        </div>
+        <div class="ta-rail-block">
+          <a class="ta-rail-g" href="#g-masstransfer" data-g="masstransfer">分離操作<span class="ta-n" data-n-g="masstransfer">8</span></a>
+          <a class="ta-rail-c" href="#c-distillation" data-c="distillation">蒸留<span class="ta-n" data-n-c="distillation">5</span></a>
+          <a class="ta-rail-c" href="#c-absorption" data-c="absorption">吸収<span class="ta-n" data-n-c="absorption">1</span></a>
+          <a class="ta-rail-c" href="#c-extraction" data-c="extraction">抽出<span class="ta-n" data-n-c="extraction">1</span></a>
+          <a class="ta-rail-c" href="#c-adsorption" data-c="adsorption">吸着<span class="ta-n" data-n-c="adsorption">1</span></a>
+        </div>
+        <div class="ta-rail-block">
+          <a class="ta-rail-g" href="#g-reaction" data-g="reaction">反応・混合<span class="ta-n" data-n-g="reaction">11</span></a>
+          <a class="ta-rail-c" href="#c-reaction" data-c="reaction">反応<span class="ta-n" data-n-c="reaction">4</span></a>
+          <a class="ta-rail-c" href="#c-mixing" data-c="mixing">撹拌混合<span class="ta-n" data-n-c="mixing">7</span></a>
+        </div>
+        <div class="ta-rail-block">
+          <a class="ta-rail-g" href="#g-mechanical" data-g="mechanical">機械的分離・粉体<span class="ta-n" data-n-g="mechanical">1</span></a>
+          <a class="ta-rail-c" href="#c-separation" data-c="separation">固液分離<span class="ta-n" data-n-c="separation">1</span></a>
+        </div>
+        <div class="ta-rail-block">
+          <a class="ta-rail-g" href="#g-instrument" data-g="instrument">計装・制御<span class="ta-n" data-n-g="instrument">1</span></a>
+        </div>
+      </nav>
     </div>
-  </section>
+  </aside>
 
-  <!-- ===== Search ===== -->
-  <section class="cat-search-section">
-    <div class="search-wrap">
-      <form class="search" id="catSearchForm" onsubmit="event.preventDefault();">
-        <input id="catSearchInput" type="text" autocomplete="off" placeholder="全ツールから検索（例：レイノルズ、NPSH、LMTD）">
-      </form>
+  <div class="ta-main">
+
+    <div class="ta-statusbar">
+      <p class="ta-count ta-js-only" role="status"><span class="ta-of">全38本中</span><b id="taShown">38</b>本を表示</p>
+      <p class="ta-count-static">全38本</p>
+      <div class="ta-chips ta-js-only" id="taChips"></div>
+      <button type="button" class="ta-reset ta-js-only" id="taReset" hidden>絞り込みを解除</button>
     </div>
-    <p class="cat-search-empty" id="catSearchEmpty" hidden>該当するツールが見つかりませんでした。</p>
-  </section>
 
-  <div id="toolList">
-    <section class="tool-list-section tools-all-group" data-cat="流動">
-      <h2 class="section-title">流動</h2>
-      <div class="tool-list">
-        <a href="fluid/reynolds/" class="tool-list-card" data-keywords="レイノルズ Reynolds Re 配管 層流 乱流 流速 流量 管内径 粘度 動粘度 円管">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">流動</span>
-            <h3 class="tool-list-title">レイノルズ数（配管）</h3>
-            <p class="tool-list-desc">密度、流速、管内径、粘度からレイノルズ数を計算するツールです。円管内流れの層流・遷移域・乱流の目安を判定します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="fluid/flow-conversion/" class="tool-list-card" data-keywords="流量 流速 配管径 管内径 換算 断面積 単位換算 体積流量 配管設計 円管">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">流動</span>
-            <h3 class="tool-list-title">流量・流速・配管径換算</h3>
-            <p class="tool-list-desc">体積流量、平均流速、管内径のうち2つを入力すると、残りの1つを計算します。配管設計・流量計算の検討に。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="fluid/continuity/" class="tool-list-card" data-keywords="連続の式 continuity 質量保存 断面変化 レジューサ 絞り 流速変化 非圧縮 Au">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">流動</span>
-            <h3 class="tool-list-title">連続の式（配管断面変化）</h3>
-            <p class="tool-list-desc">非圧縮性流れの連続の式（A₁u₁ = A₂u₂）から、入口の流速・管内径と出口の管内径から出口の平均流速を計算します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="fluid/fanning/" class="tool-list-card" data-keywords="ファニング Fanning 管摩擦係数 摩擦係数 圧力損失 ダルシー Darcy Weisbach コールブルック Colebrook プラントル カルマン ブラジウス Blasius ニクラゼ 粗さ 粗面管 平滑管 ヘッド 動圧 圧損">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">流動</span>
-            <h3 class="tool-list-title">ファニングの式・管摩擦係数（圧力損失）</h3>
-            <p class="tool-list-desc"></p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="fluid/pump/" class="tool-list-card" data-keywords="ポンプ ポンプ計算 pump 全揚程 実揚程 揚程 head NPSH NPSHa NPSHr キャビテーション 大気圧 軸動力 水動力 理論動力 モーター動力 モーター入力 効率 蒸気圧 ベルヌーイ 摩擦損失 遠心ポンプ">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">流動</span>
-            <h3 class="tool-list-title">ポンプ計算（全揚程・NPSH・軸動力）</h3>
-            <p class="tool-list-desc">ポンプ系統の全揚程、利用可能NPSH（NPSHa）、水動力・軸動力・モーター入力動力を、共通の入力から1画面でまとめて計算します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="fluid/hagen-poiseuille/" class="tool-list-card" data-keywords="ハーゲンポアズイユ ハーゲン・ポアズイユ Hagen-Poiseuille Poiseuille 速度分布 円管内流れ 円管 管内流れ 層流 放物線 最大流速 平均流速 体積流量 粘着条件 non-slip 圧力損失 圧力勾配 壁面せん断応力 せん断応力 流体力学 十分に発達した流れ">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">流動</span>
-            <h3 class="tool-list-title">ハーゲン・ポアズイユ流れ（円管内層流の速度分布）</h3>
-            <p class="tool-list-desc">十分に発達した円管内の層流（ハーゲン・ポアズイユ流れ）の速度分布を計算します。管内径と平均流速（または体積流量）から放物線状の速度分布・最大流速・圧力損失・壁面せん断応力を求め、速度分布グラフを描画します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-      </div>
-    </section>
-    <section class="tool-list-section tools-all-group" data-cat="撹拌混合">
-      <h2 class="section-title">撹拌混合</h2>
-      <div class="tool-list">
-        <a href="mixing/reynolds/" class="tool-list-card" data-keywords="撹拌レイノルズ数 Reynolds Re 層流 遷移流 乱流 撹拌槽 翼径 回転数 agitation impeller">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">撹拌混合</span>
-            <h3 class="tool-list-title">撹拌レイノルズ数</h3>
-            <p class="tool-list-desc">撹拌レイノルズ数 Re = ρnd²/μ を計算し、層流／遷移流／乱流の判定を行います。撹拌槽設計の基本指標。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="mixing/power/" class="tool-list-card" data-keywords="撹拌所要動力 所要動力 動力数 Np power トルク torque 変換 kW HP 馬力 モーター 選定">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">撹拌混合</span>
-            <h3 class="tool-list-title">撹拌所要動力／動力数／トルク変換</h3>
-            <p class="tool-list-desc">撹拌所要動力 P、動力数 Np、トルク T を相互変換します。P = Np·ρ·n³·d⁵ と P = 2πnT に対応。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="mixing/baffled-power/" class="tool-list-card" data-keywords="バッフルあり 邪魔板 撹拌所要動力 動力数 Np Npmax Np0 power バッフル幅 バッフル枚数">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">撹拌混合</span>
-            <h3 class="tool-list-title">バッフルあり撹拌所要動力</h3>
-            <p class="tool-list-desc">邪魔板（バッフル）あり撹拌槽の動力数 Np と撹拌所要動力を、バッフル幅・枚数・液深さ・Np0・Npmax から推算します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="mixing/flow/" class="tool-list-card" data-keywords="撹拌流量 吐出流量 循環流量 動力数 Np Nqd Nqc 同伴流量 循環時間 flow discharge">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">撹拌混合</span>
-            <h3 class="tool-list-title">吐出流量・循環流量</h3>
-            <p class="tool-list-desc">動力数 Np と翼寸法から吐出流量数 Nqd を推算し、吐出流量 qd と循環流量 qc を計算します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="mixing/time/" class="tool-list-card" data-keywords="混合時間 mixing time θM Np Nqd バッフル 邪魔板 液深さ 層流 乱流">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">撹拌混合</span>
-            <h3 class="tool-list-title">混合時間</h3>
-            <p class="tool-list-desc">撹拌槽の混合時間 θM を計算します。乱流域・乱流域（液深さ加味）・層流域の3パターンに対応。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="mixing/vortex/" class="tool-list-card" data-keywords="液面変化 渦 vortex バッフルなし 邪魔板なし 中心 低下 槽壁 上昇 フルード Fr">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">撹拌混合</span>
-            <h3 class="tool-list-title">撹拌液面変化(バッフルなし槽の渦)</h3>
-            <p class="tool-list-desc">バッフルなしの撹拌槽における中心部の液面低下量 ΔH1 と槽壁部の液面上昇量 ΔH2 を計算します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="mixing/kamei-hiraoka/" class="tool-list-card" data-keywords="亀井 平岡 Kamei Hiraoka Np0 Np 動力数 所要動力 パドル翼 傾斜パドル タービン プロペラ アンカー ヘリカルリボン 大型翼 邪魔板なし バッフル無し">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">撹拌混合</span>
-            <h3 class="tool-list-title">亀井・平岡の式(バッフル無し撹拌所要動力)</h3>
-            <p class="tool-list-desc">亀井・平岡の式により、バッフル無し撹拌槽の動力数 Np0 と撹拌所要動力を計算します。パドル翼、傾斜パドル翼、タービン翼、プロペラ翼、アンカー翼、ヘリカルリボン翼、大型翼に対応。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-      </div>
-    </section>
-    <section class="tool-list-section tools-all-group" data-cat="反応">
-      <h2 class="section-title">反応</h2>
-      <div class="tool-list">
-        <a href="reaction/arrhenius/" class="tool-list-card" data-keywords="アレニウス Arrhenius 活性化エネルギー Ea 頻度因子 前指数因子 反応速度定数 速度定数 k アレニウスプロット kinetics">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">反応</span>
-            <h3 class="tool-list-title">アレニウスの式（反応速度定数・活性化エネルギー）</h3>
-            <p class="tool-list-desc">アレニウスの式 k = A·exp(−Ea/RT) で反応速度定数を計算、または2点の k と T から活性化エネルギー Ea と頻度因子 A を逆算します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="reaction/batch-time/" class="tool-list-card" data-keywords="回分反応器 反応時間 batch reactor 転化率 0次 1次 2次 速度式">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">反応</span>
-            <h3 class="tool-list-title">回分反応器の反応時間</h3>
-            <p class="tool-list-desc">0次・1次・2次の不可逆反応について、目標転化率に達する回分反応時間を計算します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="reaction/cstr/" class="tool-list-card" data-keywords="CSTR 完全混合槽 連続槽型反応器 反応器設計 容積 空間時間 滞留時間 転化率">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">反応</span>
-            <h3 class="tool-list-title">CSTR設計</h3>
-            <p class="tool-list-desc">完全混合槽型反応器（CSTR）の容積と空間時間を、0次・1次・2次不可逆反応で概算します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="reaction/pfr/" class="tool-list-card" data-keywords="PFR 管型反応器 押し出し流れ プラグフロー 反応器設計 容積 空間時間 転化率">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">反応</span>
-            <h3 class="tool-list-title">PFR設計</h3>
-            <p class="tool-list-desc">管型反応器（PFR）の容積と空間時間を、0次・1次・2次不可逆反応で概算します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-      </div>
-    </section>
-    <section class="tool-list-section tools-all-group" data-cat="伝熱">
-      <h2 class="section-title">伝熱</h2>
-      <div class="tool-list">
-        <a href="heat-transfer/heat-duty/" class="tool-list-card" data-keywords="熱量 熱収支 顕熱 潜熱 熱負荷 加熱 冷却 比熱 蒸発 凝縮 heat duty energy balance">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">伝熱</span>
-            <h3 class="tool-list-title">熱量・熱収支</h3>
-            <p class="tool-list-desc">顕熱・潜熱・顕熱＋潜熱から、連続操作の熱負荷やバッチ操作の必要熱量を計算します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="heat-transfer/lmtd-area/" class="tool-list-card" data-keywords="LMTD 対数平均温度差 伝熱面積 熱交換器 総括伝熱係数 補正係数 並流 向流 heat exchanger area">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">伝熱</span>
-            <h3 class="tool-list-title">LMTD・伝熱面積</h3>
-            <p class="tool-list-desc">並流・向流の端温度差からLMTDを求め、Q = U A ΔTlm F によって必要伝熱面積を概算します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="heat-transfer/overall-u/" class="tool-list-card" data-keywords="総括伝熱係数 U 熱抵抗 境膜抵抗 汚れ係数 ファウリング 管壁 overall heat transfer coefficient">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">伝熱</span>
-            <h3 class="tool-list-title">総括伝熱係数 U</h3>
-            <p class="tool-list-desc">内外面の熱伝達係数、壁の熱伝導抵抗、汚れ係数から総括伝熱係数 U を平板近似で計算します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="heat-transfer/tube-heat-transfer/" class="tool-list-card" data-keywords="熱伝達係数 管内流 平板 自然対流 強制対流 ディタス ベルター Dittus Boelter Sieder Tate Re Pr Gr Nu Nusselt 乱流">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">伝熱</span>
-            <h3 class="tool-list-title">熱伝達係数（代表相関式）</h3>
-            <p class="tool-list-desc">円管内層流・円管内乱流・平板上乱流・垂直平板自然対流の代表相関式から、Nu数と熱伝達係数 h を概算します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="heat-transfer/utility/" class="tool-list-card" data-keywords="冷却水 蒸気 熱媒油 必要量 ユーティリティ 流量 潜熱 比熱 utility steam hot oil">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">伝熱</span>
-            <h3 class="tool-list-title">冷却水・蒸気・熱媒油の必要量</h3>
-            <p class="tool-list-desc">既知の熱量から、冷却水・加熱蒸気・熱媒油の必要流量を概算します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="heat-transfer/cp-mixing/" class="tool-list-card" data-keywords="比熱 混合比熱 比熱混合則 mass mixing rule mole mixing rule cp Cp 混合物物性 熱容量 質量分率 モル分率">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">伝熱</span>
-            <h3 class="tool-list-title">混合物の比熱（質量・モル混合則）</h3>
-            <p class="tool-list-desc">液体・気体混合物の比熱を、成分の質量分率またはモル分率と各成分の比熱から加算則で計算します。最大 8 成分まで対応。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-      </div>
-    </section>
-    <section class="tool-list-section tools-all-group" data-cat="物性・熱力学">
-      <h2 class="section-title">物性・熱力学</h2>
-      <div class="tool-list">
-        <a href="properties/ideal-gas-law/" class="tool-list-card" data-keywords="理想気体 状態方程式 PV=nRT ガス密度 モル体積 標準状態 Nm3 ノルマル立米 実流量 actual 流量換算 kg/h kmol/h">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">物性・熱力学</span>
-            <h3 class="tool-list-title">理想気体の状態方程式・標準状態換算</h3>
-            <p class="tool-list-desc">理想気体の状態方程式 PV=nRT からガス密度・モル体積を計算し、Nm³/h（標準状態）と運転条件の実 m³/h・kg/h・kmol/h を相互換算します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="properties/gas-mixture-viscosity/" class="tool-list-card" data-keywords="混合気体 粘度 Wilke ウィルク 混合粘度 気体粘度 純気体粘度 モル分率 分子量 mixture viscosity gas viscosity">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">物性・熱力学</span>
-            <h3 class="tool-list-title">混合気体の粘度（Wilke式）</h3>
-            <p class="tool-list-desc">各成分のモル分率・純気体粘度・分子量から、Wilke式で混合気体の粘度を計算します。最大6成分まで対応。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="properties/liquid-viscosity/" class="tool-list-card" data-keywords="液体 粘度 動粘度 粘性係数 密度 cP cSt センチポアズ センチストークス viscosity kinematic viscosity">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">物性・熱力学</span>
-            <h3 class="tool-list-title">液体の粘度・動粘度換算</h3>
-            <p class="tool-list-desc">液体の粘度と密度から動粘度を、動粘度と密度から粘度を計算します。Pa·s、mPa·s、cP、m²/s、mm²/s、cStに対応。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="properties/vant-hoff/" class="tool-list-card" data-keywords="ファントホッフ van't Hoff 平衡定数 温度依存 反応エンタルピー 反応熱 ギブズエネルギー エントロピー 化学平衡">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">物性・熱力学</span>
-            <h3 class="tool-list-title">ファントホッフの式</h3>
-            <p class="tool-list-desc">ファントホッフの式で、2点の平衡定数から反応エンタルピー ΔH° を求めたり、ΔH° から別温度の平衡定数を外挿します。ΔG°・ΔS° も同時に表示。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="properties/clausius-clapeyron/" class="tool-list-card" data-keywords="クラウジウス クラペイロン Clausius Clapeyron 蒸気圧 飽和蒸気圧 蒸発熱 蒸発潜熱 温度推算 外挿 沸点">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">物性・熱力学</span>
-            <h3 class="tool-list-title">クラウジウス・クラペイロンの式</h3>
-            <p class="tool-list-desc">クラウジウス・クラペイロンの式で、2点の蒸気圧データから蒸発潜熱を求めたり、蒸発熱から別温度の蒸気圧を外挿します。アントワン式が無い物質の概算に。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-      </div>
-    </section>
-    <section class="tool-list-section tools-all-group" data-cat="蒸留">
-      <h2 class="section-title">蒸留</h2>
-      <div class="tool-list">
-        <a href="distillation/antoine/" class="tool-list-card" data-keywords="アントワン Antoine 蒸気圧 沸点 純物質 気液平衡 log P 水 エタノール メタノール ベンゼン トルエン アセトン vapor pressure">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">蒸留</span>
-            <h3 class="tool-list-title">アントワン式（蒸気圧・沸点）</h3>
-            <p class="tool-list-desc">アントワン式 log P = A − B/(T+C) で純物質の蒸気圧・沸点を計算します。係数の温度単位・圧力単位・対数の底を指定できます。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="distillation/vle/" class="tool-list-card" data-keywords="気液平衡 相対揮発度 K値 Raoult ラウール 飽和蒸気圧 気相組成 蒸留">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">蒸留</span>
-            <h3 class="tool-list-title">気液平衡・相対揮発度計算</h3>
-            <p class="tool-list-desc">飽和蒸気圧と系圧力から、二成分理想系のK値、相対揮発度、気相組成を計算します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="distillation/simple/" class="tool-list-card" data-keywords="単蒸留 レイリーの式 Rayleigh レイリー 回分蒸留 留出量 釜液量 平均留出組成 相対揮発度 蒸留">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">蒸留</span>
-            <h3 class="tool-list-title">単蒸留の設計計算（レイリーの式）</h3>
-            <p class="tool-list-desc">飽和蒸気圧から相対揮発度を求め、レイリーの式で単蒸留の留出量、最終釜液量、平均留出組成を計算します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="distillation/flash/" class="tool-list-card" data-keywords="フラッシュ蒸留 蒸気率 Rachford Rice 気液平衡 K値 液相組成 気相組成 蒸留">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">蒸留</span>
-            <h3 class="tool-list-title">フラッシュ蒸留の設計計算</h3>
-            <p class="tool-list-desc">飽和蒸気圧と供給組成から、二成分理想系のフラッシュ蒸留における蒸気率、気相・液相流量、気液組成を計算します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-        <a href="distillation/mccabe-thiele/" class="tool-list-card" data-keywords="McCabe Thiele マッケーブ・シール マッケーブシール 二成分連続蒸留 二成分蒸留 理論段数 供給段 還流比 q線 操作線 相対揮発度 蒸留">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">蒸留</span>
-            <h3 class="tool-list-title">マッケーブ・シール法（二成分連続蒸留）</h3>
-            <p class="tool-list-desc">二成分連続蒸留のマッケーブ・シール図を描き、理論段数、供給段位置、最小還流比を概算します。一定相対揮発度と等モル流れを仮定した教育・概算設計向けツールです。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-      </div>
-    </section>
-    <section class="tool-list-section tools-all-group" data-cat="抽出">
-      <h2 class="section-title">抽出</h2>
-      <div class="tool-list">
-        <a href="extraction/phase-separation-time/" class="tool-list-card" data-keywords="相分離 分離時間 静置 液液分離 抽出 終末速度 沈降速度 浮上速度 ストークス アレン ニュートン 粒子レイノルズ数 Stokes Allen Newton 分散帯 液滴径 分液ロート デカンター settling phase separation">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">抽出</span>
-            <h3 class="tool-list-title">抽出後の相分離時間（静置）</h3>
-            <p class="tool-list-desc">抽出後に2相が静置で分離するまでの時間を、液滴の終末速度（ストークス・アレン・ニュートンの式）から概算します。粒子レイノルズ数で領域を自動判定し、液滴径による分離時間の変化を早見表で示します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-      </div>
-    </section>
-    <section class="tool-list-section tools-all-group" data-cat="吸収">
-      <h2 class="section-title">吸収</h2>
-      <div class="tool-list">
-        <a href="absorption/minimum-solvent-flow/" class="tool-list-card" data-keywords="ガス吸収 最小溶媒流量 最小液量 最小液ガス比 液ガス比 吸収塔 操作線 平衡線 ピンチ solvent flow absorption L/G">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">吸収</span>
-            <h3 class="tool-list-title">ガス吸収の最小溶媒流量・液ガス比</h3>
-            <p class="tool-list-desc">向流ガス吸収について、入口・出口組成と気液平衡組成から最小液ガス比、最小溶媒流量、運転溶媒流量、出口液組成を計算します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-      </div>
-    </section>
-    <section class="tool-list-section tools-all-group" data-cat="吸着">
-      <h2 class="section-title">吸着</h2>
-      <div class="tool-list">
-        <a href="adsorption/isotherm/" class="tool-list-card" data-keywords="吸着等温線 ラングミュア フロイントリッヒ 吸着平衡 吸着量 飽和吸着量 フィッティング 線形回帰 q_max K_F 1/n Langmuir Freundlich isotherm adsorption fitting">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">吸着</span>
-            <h3 class="tool-list-title">吸着等温線フィット（ラングミュア・フロイントリッヒ）</h3>
-            <p class="tool-list-desc">平衡濃度 c と吸着量 q のデータから、Langmuir 等温線・Freundlich 等温線のパラメータを線形回帰でフィットし、R² 比較で最適モデルを選定します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-      </div>
-    </section>
-    <section class="tool-list-section tools-all-group" data-cat="固液分離">
-      <h2 class="section-title">固液分離</h2>
-      <div class="tool-list">
-        <a href="separation/settling-velocity/" class="tool-list-card" data-keywords="沈降速度 終末速度 terminal velocity ストークス Stokes アレン Allen ニュートン Newton 抗力係数 Cd 粒子レイノルズ数 固液分離 重力沈降 沈降分離 スラリー 粒子径">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">固液分離</span>
-            <h3 class="tool-list-title">球形粒子の終末沈降速度</h3>
-            <p class="tool-list-desc">固液分離で、固体粒子が液中を沈むときの終末沈降速度を、ストークス・アレン・ニュートンの式から計算します。粒子レイノルズ数で領域を自動判定し、粒子径による沈降速度の変化を早見表で示します。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-      </div>
-    </section>
-    <section class="tool-list-section tools-all-group" data-cat="計装・制御">
-      <h2 class="section-title">計装・制御</h2>
-      <div class="tool-list">
-        <a href="instrumentation-control/ma-signal/" class="tool-list-card" data-keywords="4-20mA 4～20mA 420mA 電流信号 スケーリング レンジ換算 工業量 開平 開平演算 差圧式流量計 伝送器 発信器 1-5V ライブゼロ NAMUR NE43 調節計 LRV URV current loop signal scaling">
-          <div class="tool-list-card-body">
-            <span class="tool-list-cat">計装・制御</span>
-            <h3 class="tool-list-title">4-20mA信号換算（スケーリング・開平）</h3>
-            <p class="tool-list-desc">計装の4-20mA電流信号を％・工業量（温度・圧力・流量など）に相互換算します。差圧式流量計の開平換算、1-5V電圧換算、NAMUR NE43に基づくレンジ外判定に対応。</p>
-          </div>
-          <span class="tool-list-arrow">›</span>
-        </a>
-      </div>
-    </section>
+    <div id="taList">
+      <section class="ta-group" id="g-basis" data-g="basis">
+        <div class="ta-group-head">
+          <h2>物性・基礎収支<span class="ta-gn" data-n-g="basis">5</span></h2>
+          <p class="ta-group-lead">装置設計の前提になる物性値と、収支の土台。</p>
+        </div>
+        <section class="ta-cat" id="c-properties" data-c="properties">
+          <h3 class="ta-cat-head">物性・熱力学<span class="ta-cn" data-n-c="properties">5</span></h3>
+          <ul class="ta-tools">
+            <li><a class="ta-row" href="properties/ideal-gas-law/" data-kw="理想気体 状態方程式 PV=nRT ガス密度 モル体積 標準状態 Nm3 ノルマル立米 実流量 actual 流量換算 kg/h kmol/h"><h4 class="ta-rname">理想気体の状態方程式・標準状態換算</h4><span class="ta-rdesc">理想気体の状態方程式 PV=nRT からガス密度・モル体積を計算し、Nm³/h（標準状態）と運転条件の実 m³/h・kg/h・kmol/h を相互換算します。</span></a></li>
+            <li><a class="ta-row" href="properties/gas-mixture-viscosity/" data-kw="混合気体 粘度 Wilke ウィルク 混合粘度 気体粘度 純気体粘度 モル分率 分子量 mixture viscosity gas viscosity"><h4 class="ta-rname">混合気体の粘度（Wilke式）</h4><span class="ta-rdesc">各成分のモル分率・純気体粘度・分子量から、Wilke式で混合気体の粘度を計算します。最大6成分まで対応。</span></a></li>
+            <li><a class="ta-row" href="properties/liquid-viscosity/" data-kw="液体 粘度 動粘度 粘性係数 密度 cP cSt センチポアズ センチストークス viscosity kinematic viscosity"><h4 class="ta-rname">液体の粘度・動粘度換算</h4><span class="ta-rdesc">液体の粘度と密度から動粘度を、動粘度と密度から粘度を計算します。Pa·s、mPa·s、cP、m²/s、mm²/s、cStに対応。</span></a></li>
+            <li><a class="ta-row" href="properties/vant-hoff/" data-kw="ファントホッフ van&#39;t Hoff 平衡定数 温度依存 反応エンタルピー 反応熱 ギブズエネルギー エントロピー 化学平衡"><h4 class="ta-rname">ファントホッフの式</h4><span class="ta-rdesc">ファントホッフの式で、2点の平衡定数から反応エンタルピー ΔH° を求めたり、ΔH° から別温度の平衡定数を外挿します。ΔG°・ΔS° も同時に表示。</span></a></li>
+            <li><a class="ta-row" href="properties/clausius-clapeyron/" data-kw="クラウジウス クラペイロン Clausius Clapeyron 蒸気圧 飽和蒸気圧 蒸発熱 蒸発潜熱 温度推算 外挿 沸点"><h4 class="ta-rname">クラウジウス・クラペイロンの式</h4><span class="ta-rdesc">クラウジウス・クラペイロンの式で、2点の蒸気圧データから蒸発潜熱を求めたり、蒸発熱から別温度の蒸気圧を外挿します。アントワン式が無い物質の概算に。</span></a></li>
+          </ul>
+        </section>
+      </section>
+      <section class="ta-group" id="g-transport" data-g="transport">
+        <div class="ta-group-head">
+          <h2>流体・輸送<span class="ta-gn" data-n-g="transport">6</span></h2>
+          <p class="ta-group-lead">流体を送る・圧縮する。配管とポンプ・圧縮機まわり。</p>
+        </div>
+        <section class="ta-cat" id="c-fluid" data-c="fluid">
+          <h3 class="ta-cat-head">流動<span class="ta-cn" data-n-c="fluid">6</span></h3>
+          <ul class="ta-tools">
+            <li><a class="ta-row" href="fluid/reynolds/" data-kw="レイノルズ Reynolds Re 配管 層流 乱流 流速 流量 管内径 粘度 動粘度 円管"><h4 class="ta-rname">レイノルズ数（配管）</h4><span class="ta-rdesc">密度、流速、管内径、粘度からレイノルズ数を計算するツールです。円管内流れの層流・遷移域・乱流の目安を判定します。</span></a></li>
+            <li><a class="ta-row" href="fluid/flow-conversion/" data-kw="流量 流速 配管径 管内径 換算 断面積 単位換算 体積流量 配管設計 円管"><h4 class="ta-rname">流量・流速・配管径換算</h4><span class="ta-rdesc">体積流量、平均流速、管内径のうち2つを入力すると、残りの1つを計算します。配管設計・流量計算の検討に。</span></a></li>
+            <li><a class="ta-row" href="fluid/continuity/" data-kw="連続の式 continuity 質量保存 断面変化 レジューサ 絞り 流速変化 非圧縮 Au"><h4 class="ta-rname">連続の式（配管断面変化）</h4><span class="ta-rdesc">非圧縮性流れの連続の式（A₁u₁ = A₂u₂）から、入口の流速・管内径と出口の管内径から出口の平均流速を計算します。</span></a></li>
+            <li><a class="ta-row" href="fluid/fanning/" data-kw="ファニング Fanning 管摩擦係数 摩擦係数 圧力損失 ダルシー Darcy Weisbach コールブルック Colebrook プラントル カルマン ブラジウス Blasius ニクラゼ 粗さ 粗面管 平滑管 ヘッド 動圧 圧損"><h4 class="ta-rname">ファニングの式・管摩擦係数（圧力損失）</h4><span class="ta-rdesc">ファニングの式 ΔP = 4f(ρu²/2)(L/D) で配管の圧力損失を計算します。層流は f = 16/Re、乱流はコールブルック／プラントル・カルマン式を反復解で計算。</span></a></li>
+            <li><a class="ta-row" href="fluid/pump/" data-kw="ポンプ ポンプ計算 pump 全揚程 実揚程 揚程 head NPSH NPSHa NPSHr キャビテーション 大気圧 軸動力 水動力 理論動力 モーター動力 モーター入力 効率 蒸気圧 ベルヌーイ 摩擦損失 遠心ポンプ"><h4 class="ta-rname">ポンプ計算（全揚程・NPSH・軸動力）</h4><span class="ta-rdesc">ポンプ系統の全揚程、利用可能NPSH（NPSHa）、水動力・軸動力・モーター入力動力を、共通の入力から1画面でまとめて計算します。</span></a></li>
+            <li><a class="ta-row" href="fluid/hagen-poiseuille/" data-kw="ハーゲンポアズイユ ハーゲン・ポアズイユ Hagen-Poiseuille Poiseuille 速度分布 円管内流れ 円管 管内流れ 層流 放物線 最大流速 平均流速 体積流量 粘着条件 non-slip 圧力損失 圧力勾配 壁面せん断応力 せん断応力 流体力学 十分に発達した流れ"><h4 class="ta-rname">ハーゲン・ポアズイユ流れ（円管内層流の速度分布）</h4><span class="ta-rdesc">十分に発達した円管内の層流（ハーゲン・ポアズイユ流れ）の速度分布を計算します。管内径と平均流速（または体積流量）から放物線状の速度分布・最大流速・圧力損失・壁面せん断応力を求め、速度分布グラフを描画します。</span></a></li>
+          </ul>
+        </section>
+      </section>
+      <section class="ta-group" id="g-heat" data-g="heat">
+        <div class="ta-group-head">
+          <h2>伝熱・エネルギー<span class="ta-gn" data-n-g="heat">6</span></h2>
+          <p class="ta-group-lead">熱を移す・作る・逃がさない。熱交換器とユーティリティ。</p>
+        </div>
+        <section class="ta-cat" id="c-heat-transfer" data-c="heat-transfer">
+          <h3 class="ta-cat-head">伝熱<span class="ta-cn" data-n-c="heat-transfer">6</span></h3>
+          <ul class="ta-tools">
+            <li><a class="ta-row" href="heat-transfer/heat-duty/" data-kw="熱量 熱収支 顕熱 潜熱 熱負荷 加熱 冷却 比熱 蒸発 凝縮 heat duty energy balance"><h4 class="ta-rname">熱量・熱収支</h4><span class="ta-rdesc">顕熱・潜熱・顕熱＋潜熱から、連続操作の熱負荷やバッチ操作の必要熱量を計算します。</span></a></li>
+            <li><a class="ta-row" href="heat-transfer/lmtd-area/" data-kw="LMTD 対数平均温度差 伝熱面積 熱交換器 総括伝熱係数 補正係数 並流 向流 heat exchanger area"><h4 class="ta-rname">LMTD・伝熱面積</h4><span class="ta-rdesc">並流・向流の端温度差からLMTDを求め、Q = U A ΔTlm F によって必要伝熱面積を概算します。</span></a></li>
+            <li><a class="ta-row" href="heat-transfer/overall-u/" data-kw="総括伝熱係数 U 熱抵抗 境膜抵抗 汚れ係数 ファウリング 管壁 overall heat transfer coefficient"><h4 class="ta-rname">総括伝熱係数 U</h4><span class="ta-rdesc">内外面の熱伝達係数、壁の熱伝導抵抗、汚れ係数から総括伝熱係数 U を平板近似で計算します。</span></a></li>
+            <li><a class="ta-row" href="heat-transfer/tube-heat-transfer/" data-kw="熱伝達係数 管内流 平板 自然対流 強制対流 ディタス ベルター Dittus Boelter Sieder Tate Re Pr Gr Nu Nusselt 乱流"><h4 class="ta-rname">熱伝達係数（代表相関式）</h4><span class="ta-rdesc">円管内層流・円管内乱流・平板上乱流・垂直平板自然対流の代表相関式から、Nu数と熱伝達係数 h を概算します。</span></a></li>
+            <li><a class="ta-row" href="heat-transfer/utility/" data-kw="冷却水 蒸気 熱媒油 必要量 ユーティリティ 流量 潜熱 比熱 utility steam hot oil"><h4 class="ta-rname">冷却水・蒸気・熱媒油の必要量</h4><span class="ta-rdesc">既知の熱量から、冷却水・加熱蒸気・熱媒油の必要流量を概算します。</span></a></li>
+            <li><a class="ta-row" href="heat-transfer/cp-mixing/" data-kw="比熱 混合比熱 比熱混合則 mass mixing rule mole mixing rule cp Cp 混合物物性 熱容量 質量分率 モル分率"><h4 class="ta-rname">混合物の比熱（質量・モル混合則）</h4><span class="ta-rdesc">液体・気体混合物の比熱を、成分の質量分率またはモル分率と各成分の比熱から加算則で計算します。最大 8 成分まで対応。</span></a></li>
+          </ul>
+        </section>
+      </section>
+      <section class="ta-group" id="g-masstransfer" data-g="masstransfer">
+        <div class="ta-group-head">
+          <h2>分離操作<span class="ta-gn" data-n-g="masstransfer">8</span></h2>
+          <p class="ta-group-lead">相間の物質移動で分ける。蒸留・吸収・抽出ほか。</p>
+        </div>
+        <section class="ta-cat" id="c-distillation" data-c="distillation">
+          <h3 class="ta-cat-head">蒸留<span class="ta-cn" data-n-c="distillation">5</span></h3>
+          <ul class="ta-tools">
+            <li><a class="ta-row" href="distillation/antoine/" data-kw="アントワン Antoine 蒸気圧 沸点 純物質 気液平衡 log P 水 エタノール メタノール ベンゼン トルエン アセトン vapor pressure"><h4 class="ta-rname">アントワン式（蒸気圧・沸点）</h4><span class="ta-rdesc">アントワン式 log P = A − B/(T+C) で純物質の蒸気圧・沸点を計算します。係数の温度単位・圧力単位・対数の底を指定できます。</span></a></li>
+            <li><a class="ta-row" href="distillation/vle/" data-kw="気液平衡 相対揮発度 K値 Raoult ラウール 飽和蒸気圧 気相組成 蒸留"><h4 class="ta-rname">気液平衡・相対揮発度計算</h4><span class="ta-rdesc">飽和蒸気圧と系圧力から、二成分理想系のK値、相対揮発度、気相組成を計算します。</span></a></li>
+            <li><a class="ta-row" href="distillation/simple/" data-kw="単蒸留 レイリーの式 Rayleigh レイリー 回分蒸留 留出量 釜液量 平均留出組成 相対揮発度 蒸留"><h4 class="ta-rname">単蒸留の設計計算（レイリーの式）</h4><span class="ta-rdesc">飽和蒸気圧から相対揮発度を求め、レイリーの式で単蒸留の留出量、最終釜液量、平均留出組成を計算します。</span></a></li>
+            <li><a class="ta-row" href="distillation/flash/" data-kw="フラッシュ蒸留 蒸気率 Rachford Rice 気液平衡 K値 液相組成 気相組成 蒸留"><h4 class="ta-rname">フラッシュ蒸留の設計計算</h4><span class="ta-rdesc">飽和蒸気圧と供給組成から、二成分理想系のフラッシュ蒸留における蒸気率、気相・液相流量、気液組成を計算します。</span></a></li>
+            <li><a class="ta-row" href="distillation/mccabe-thiele/" data-kw="McCabe Thiele マッケーブ・シール マッケーブシール 二成分連続蒸留 二成分蒸留 理論段数 供給段 還流比 q線 操作線 相対揮発度 蒸留"><h4 class="ta-rname">マッケーブ・シール法（二成分連続蒸留）</h4><span class="ta-rdesc">二成分連続蒸留のマッケーブ・シール図を描き、理論段数、供給段位置、最小還流比を概算します。一定相対揮発度と等モル流れを仮定した教育・概算設計向けツールです。</span></a></li>
+          </ul>
+        </section>
+        <section class="ta-cat" id="c-absorption" data-c="absorption">
+          <h3 class="ta-cat-head">吸収<span class="ta-cn" data-n-c="absorption">1</span></h3>
+          <ul class="ta-tools">
+            <li><a class="ta-row" href="absorption/minimum-solvent-flow/" data-kw="ガス吸収 最小溶媒流量 最小液量 最小液ガス比 液ガス比 吸収塔 操作線 平衡線 ピンチ solvent flow absorption L/G"><h4 class="ta-rname">ガス吸収の最小溶媒流量・液ガス比</h4><span class="ta-rdesc">向流ガス吸収について、入口・出口組成と気液平衡組成から最小液ガス比、最小溶媒流量、運転溶媒流量、出口液組成を計算します。</span></a></li>
+          </ul>
+        </section>
+        <section class="ta-cat" id="c-extraction" data-c="extraction">
+          <h3 class="ta-cat-head">抽出<span class="ta-cn" data-n-c="extraction">1</span></h3>
+          <ul class="ta-tools">
+            <li><a class="ta-row" href="extraction/phase-separation-time/" data-kw="相分離 分離時間 静置 液液分離 抽出 終末速度 沈降速度 浮上速度 ストークス アレン ニュートン 粒子レイノルズ数 Stokes Allen Newton 分散帯 液滴径 分液ロート デカンター settling phase separation"><h4 class="ta-rname">抽出後の相分離時間（静置）</h4><span class="ta-rdesc">抽出後に2相が静置で分離するまでの時間を、液滴の終末速度（ストークス・アレン・ニュートンの式）から概算します。粒子レイノルズ数で領域を自動判定し、液滴径による分離時間の変化を早見表で示します。</span></a></li>
+          </ul>
+        </section>
+        <section class="ta-cat" id="c-adsorption" data-c="adsorption">
+          <h3 class="ta-cat-head">吸着<span class="ta-cn" data-n-c="adsorption">1</span></h3>
+          <ul class="ta-tools">
+            <li><a class="ta-row" href="adsorption/isotherm/" data-kw="吸着等温線 ラングミュア フロイントリッヒ 吸着平衡 吸着量 飽和吸着量 フィッティング 線形回帰 q_max K_F 1/n Langmuir Freundlich isotherm adsorption fitting"><h4 class="ta-rname">吸着等温線フィット（ラングミュア・フロイントリッヒ）</h4><span class="ta-rdesc">平衡濃度 c と吸着量 q のデータから、Langmuir 等温線・Freundlich 等温線のパラメータを線形回帰でフィットし、R² 比較で最適モデルを選定します。</span></a></li>
+          </ul>
+        </section>
+      </section>
+      <section class="ta-group" id="g-reaction" data-g="reaction">
+        <div class="ta-group-head">
+          <h2>反応・混合<span class="ta-gn" data-n-g="reaction">11</span></h2>
+          <p class="ta-group-lead">反応器の設計と、その前提になる撹拌。</p>
+        </div>
+        <section class="ta-cat" id="c-reaction" data-c="reaction">
+          <h3 class="ta-cat-head">反応<span class="ta-cn" data-n-c="reaction">4</span></h3>
+          <ul class="ta-tools">
+            <li><a class="ta-row" href="reaction/arrhenius/" data-kw="アレニウス Arrhenius 活性化エネルギー Ea 頻度因子 前指数因子 反応速度定数 速度定数 k アレニウスプロット kinetics"><h4 class="ta-rname">アレニウスの式（反応速度定数・活性化エネルギー）</h4><span class="ta-rdesc">アレニウスの式 k = A·exp(−Ea/RT) で反応速度定数を計算、または2点の k と T から活性化エネルギー Ea と頻度因子 A を逆算します。</span></a></li>
+            <li><a class="ta-row" href="reaction/batch-time/" data-kw="回分反応器 反応時間 batch reactor 転化率 0次 1次 2次 速度式"><h4 class="ta-rname">回分反応器の反応時間</h4><span class="ta-rdesc">0次・1次・2次の不可逆反応について、目標転化率に達する回分反応時間を計算します。</span></a></li>
+            <li><a class="ta-row" href="reaction/cstr/" data-kw="CSTR 完全混合槽 連続槽型反応器 反応器設計 容積 空間時間 滞留時間 転化率"><h4 class="ta-rname">CSTR設計</h4><span class="ta-rdesc">完全混合槽型反応器（CSTR）の容積と空間時間を、0次・1次・2次不可逆反応で概算します。</span></a></li>
+            <li><a class="ta-row" href="reaction/pfr/" data-kw="PFR 管型反応器 押し出し流れ プラグフロー 反応器設計 容積 空間時間 転化率"><h4 class="ta-rname">PFR設計</h4><span class="ta-rdesc">管型反応器（PFR）の容積と空間時間を、0次・1次・2次不可逆反応で概算します。</span></a></li>
+          </ul>
+        </section>
+        <section class="ta-cat" id="c-mixing" data-c="mixing">
+          <h3 class="ta-cat-head">撹拌混合<span class="ta-cn" data-n-c="mixing">7</span></h3>
+          <ul class="ta-tools">
+            <li><a class="ta-row" href="mixing/reynolds/" data-kw="撹拌レイノルズ数 Reynolds Re 層流 遷移流 乱流 撹拌槽 翼径 回転数 agitation impeller"><h4 class="ta-rname">撹拌レイノルズ数</h4><span class="ta-rdesc">撹拌レイノルズ数 Re = ρnd²/μ を計算し、層流／遷移流／乱流の判定を行います。撹拌槽設計の基本指標。</span></a></li>
+            <li><a class="ta-row" href="mixing/power/" data-kw="撹拌所要動力 所要動力 動力数 Np power トルク torque 変換 kW HP 馬力 モーター 選定"><h4 class="ta-rname">撹拌所要動力／動力数／トルク変換</h4><span class="ta-rdesc">撹拌所要動力 P、動力数 Np、トルク T を相互変換します。P = Np·ρ·n³·d⁵ と P = 2πnT に対応。</span></a></li>
+            <li><a class="ta-row" href="mixing/baffled-power/" data-kw="バッフルあり 邪魔板 撹拌所要動力 動力数 Np Npmax Np0 power バッフル幅 バッフル枚数"><h4 class="ta-rname">バッフルあり撹拌所要動力</h4><span class="ta-rdesc">邪魔板（バッフル）あり撹拌槽の動力数 Np と撹拌所要動力を、バッフル幅・枚数・液深さ・Np0・Npmax から推算します。</span></a></li>
+            <li><a class="ta-row" href="mixing/flow/" data-kw="撹拌流量 吐出流量 循環流量 動力数 Np Nqd Nqc 同伴流量 循環時間 flow discharge"><h4 class="ta-rname">吐出流量・循環流量</h4><span class="ta-rdesc">動力数 Np と翼寸法から吐出流量数 Nqd を推算し、吐出流量 qd と循環流量 qc を計算します。</span></a></li>
+            <li><a class="ta-row" href="mixing/time/" data-kw="混合時間 mixing time θM Np Nqd バッフル 邪魔板 液深さ 層流 乱流"><h4 class="ta-rname">混合時間</h4><span class="ta-rdesc">撹拌槽の混合時間 θM を計算します。乱流域・乱流域（液深さ加味）・層流域の3パターンに対応。</span></a></li>
+            <li><a class="ta-row" href="mixing/vortex/" data-kw="液面変化 渦 vortex バッフルなし 邪魔板なし 中心 低下 槽壁 上昇 フルード Fr"><h4 class="ta-rname">撹拌液面変化(バッフルなし槽の渦)</h4><span class="ta-rdesc">バッフルなしの撹拌槽における中心部の液面低下量 ΔH1 と槽壁部の液面上昇量 ΔH2 を計算します。</span></a></li>
+            <li><a class="ta-row" href="mixing/kamei-hiraoka/" data-kw="亀井 平岡 Kamei Hiraoka Np0 Np 動力数 所要動力 パドル翼 傾斜パドル タービン プロペラ アンカー ヘリカルリボン 大型翼 邪魔板なし バッフル無し"><h4 class="ta-rname">亀井・平岡の式(バッフル無し撹拌所要動力)</h4><span class="ta-rdesc">亀井・平岡の式により、バッフル無し撹拌槽の動力数 Np0 と撹拌所要動力を計算します。パドル翼、傾斜パドル翼、タービン翼、プロペラ翼、アンカー翼、ヘリカルリボン翼、大型翼に対応。</span></a></li>
+          </ul>
+        </section>
+      </section>
+      <section class="ta-group" id="g-mechanical" data-g="mechanical">
+        <div class="ta-group-head">
+          <h2>機械的分離・粉体<span class="ta-gn" data-n-g="mechanical">1</span></h2>
+          <p class="ta-group-lead">力学的に分ける。固液分離・集塵と粉体の取り扱い。</p>
+        </div>
+        <section class="ta-cat" id="c-separation" data-c="separation">
+          <h3 class="ta-cat-head">固液分離<span class="ta-cn" data-n-c="separation">1</span></h3>
+          <ul class="ta-tools">
+            <li><a class="ta-row" href="separation/settling-velocity/" data-kw="沈降速度 終末速度 terminal velocity ストークス Stokes アレン Allen ニュートン Newton 抗力係数 Cd 粒子レイノルズ数 固液分離 重力沈降 沈降分離 スラリー 粒子径"><h4 class="ta-rname">球形粒子の終末沈降速度</h4><span class="ta-rdesc">固液分離で、固体粒子が液中を沈むときの終末沈降速度を、ストークス・アレン・ニュートンの式から計算します。粒子レイノルズ数で領域を自動判定し、粒子径による沈降速度の変化を早見表で示します。</span></a></li>
+          </ul>
+        </section>
+      </section>
+      <section class="ta-group" id="g-instrument" data-g="instrument">
+        <div class="ta-group-head">
+          <h2>計装・制御<span class="ta-gn" data-n-g="instrument">1</span></h2>
+          <p class="ta-group-lead">測る・信号にする・弁で操作する。</p>
+        </div>
+        <section class="ta-cat" id="c-instrumentation-control" data-c="instrumentation-control">
+          <ul class="ta-tools">
+            <li><a class="ta-row" href="instrumentation-control/ma-signal/" data-kw="4-20mA 4～20mA 420mA 電流信号 スケーリング レンジ換算 工業量 開平 開平演算 差圧式流量計 伝送器 発信器 1-5V ライブゼロ NAMUR NE43 調節計 LRV URV current loop signal scaling"><h3 class="ta-rname">4-20mA信号換算（スケーリング・開平）</h3><span class="ta-rdesc">計装の4-20mA電流信号を％・工業量（温度・圧力・流量など）に相互換算します。差圧式流量計の開平換算、1-5V電圧換算、NAMUR NE43に基づくレンジ外判定に対応。</span></a></li>
+          </ul>
+        </section>
+      </section>
+      <p class="ta-empty">条件に一致するツールはありません。キーワードを短くするか、分野の指定を外してください。</p>
+    </div>
+
   </div>
 
 </main>
@@ -477,28 +293,180 @@
 
 <script>
 (function () {
-  const input = document.getElementById('catSearchInput');
-  const list = document.getElementById('toolList');
-  const empty = document.getElementById('catSearchEmpty');
-  if (!input || !list) return;
-  const groups = Array.from(list.querySelectorAll('.tools-all-group'));
-  function filter() {
-    const q = input.value.trim().toLowerCase();
-    let visible = 0;
-    groups.forEach(g => {
-      let inGroup = 0;
-      g.querySelectorAll('.tool-list-card').forEach(c => {
-        const hay = (c.textContent + ' ' + (c.dataset.keywords || '')).toLowerCase();
-        const show = !q || hay.includes(q);
-        c.hidden = !show;
-        if (show) inGroup++;
-      });
-      g.hidden = inGroup === 0;
-      visible += inGroup;
+  var CATNAME = {"properties": "物性・熱力学", "fluid": "流動", "heat-transfer": "伝熱", "distillation": "蒸留", "absorption": "吸収", "extraction": "抽出", "adsorption": "吸着", "reaction": "反応", "mixing": "撹拌混合", "separation": "固液分離", "instrumentation-control": "計装・制御"};
+  var GROUPCAT = {"basis": ["properties"], "transport": ["fluid"], "heat": ["heat-transfer"], "masstransfer": ["distillation", "absorption", "extraction", "adsorption"], "reaction": ["reaction", "mixing"], "mechanical": ["separation"], "instrument": ["instrumentation-control"]};
+
+  var q = document.getElementById('taQuery');
+  var list = document.getElementById('taList');
+  var chipsBox = document.getElementById('taChips');
+  var resetBtn = document.getElementById('taReset');
+  var shown = document.getElementById('taShown');
+  if (!q || !list || !chipsBox || !resetBtn || !shown) return;
+
+  var groups = Array.prototype.slice.call(list.querySelectorAll('.ta-group'));
+  var cats = Array.prototype.slice.call(list.querySelectorAll('.ta-cat'));
+  var railG = Array.prototype.slice.call(document.querySelectorAll('.ta-rail-g'));
+  var railC = Array.prototype.slice.call(document.querySelectorAll('.ta-rail-c'));
+
+  // 各行の検索対象テキストを一度だけ作る
+  var rows = cats.map(function (sec) {
+    return {
+      sec: sec,
+      slug: sec.dataset.c,
+      items: Array.prototype.slice.call(sec.querySelectorAll('.ta-row')).map(function (a) {
+        return {
+          el: a.parentNode,
+          hay: (a.textContent + ' ' + (a.dataset.kw || '') + ' ' + CATNAME[sec.dataset.c]).toLowerCase()
+        };
+      })
+    };
+  });
+
+  var sel = new Set();
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
-    empty.hidden = !(q && visible === 0);
   }
-  input.addEventListener('input', filter);
+
+  function renderChips(kw) {
+    var html = '';
+    sel.forEach(function (c) {
+      html += '<button type="button" class="ta-chip" data-off="' + escapeHtml(c) + '">'
+            + escapeHtml(CATNAME[c]) + '<span class="ta-x" aria-hidden="true">×</span>'
+            + '<span class="ta-sr">の絞り込みを外す</span></button>';
+    });
+    if (kw) {
+      html += '<button type="button" class="ta-chip" data-off="__kw">「' + escapeHtml(q.value.trim())
+            + '」<span class="ta-x" aria-hidden="true">×</span>'
+            + '<span class="ta-sr">のキーワードを外す</span></button>';
+    }
+    chipsBox.innerHTML = html;
+    resetBtn.hidden = !(sel.size || kw);
+  }
+
+  function apply(scroll) {
+    var kw = q.value.trim().toLowerCase();
+    var total = 0;
+    var count = {};    // キーワードだけの件数（レールのファセット表示用）
+    var visible = {};  // 実際に表示している行数（一覧の見出し用）
+
+    rows.forEach(function (r) {
+      var picked = sel.size === 0 || sel.has(r.slug);
+      var hit = 0;
+      var vis = 0;
+      r.items.forEach(function (it) {
+        var byKw = !kw || it.hay.indexOf(kw) !== -1;
+        if (byKw) hit++;                       // ファセット件数はカテゴリ選択を含めない
+        var ok = byKw && picked;
+        it.el.hidden = !ok;
+        if (ok) vis++;
+      });
+      count[r.slug] = hit;
+      visible[r.slug] = vis;
+      r.sec.hidden = vis === 0;
+      total += vis;
+    });
+
+    groups.forEach(function (g) {
+      g.hidden = !Array.prototype.some.call(g.querySelectorAll('.ta-cat'), function (s) {
+        return !s.hidden;
+      });
+    });
+
+    railC.forEach(function (a) {
+      var n = count[a.dataset.c] || 0;
+      a.querySelector('.ta-n').textContent = n;
+      a.classList.toggle('is-empty', n === 0);
+      a.setAttribute('aria-current', sel.has(a.dataset.c) ? 'true' : 'false');
+    });
+    railG.forEach(function (a) {
+      var cs = GROUPCAT[a.dataset.g] || [];
+      var n = cs.reduce(function (s, c) { return s + (count[c] || 0); }, 0);
+      a.querySelector('.ta-n').textContent = n;
+      a.classList.toggle('is-empty', n === 0);
+      var all = cs.length > 0 && cs.every(function (c) { return sel.has(c); });
+      a.setAttribute('aria-current', (sel.size > 0 && all) ? 'true' : 'false');
+    });
+
+    // 一覧側の見出しはレールと違い「いま出している行数」を出す
+    list.querySelectorAll('.ta-cat-head .ta-cn').forEach(function (s) {
+      if (visible[s.dataset.nC] != null) s.textContent = visible[s.dataset.nC];
+    });
+    list.querySelectorAll('.ta-group-head .ta-gn').forEach(function (s) {
+      var cs = GROUPCAT[s.dataset.nG] || [];
+      s.textContent = cs.reduce(function (t, c) { return t + (visible[c] || 0); }, 0);
+    });
+
+    shown.textContent = total;
+    list.classList.toggle('ta-none', total === 0);
+    renderChips(kw);
+
+    if (scroll) {
+      var top = list.getBoundingClientRect().top + window.pageYOffset - 130;
+      if (window.pageYOffset > top) window.scrollTo(0, top);
+    }
+  }
+
+  // チップは押すと消えるので、フォーカスが body に落ちないよう明示的に移す
+  chipsBox.addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-off]');
+    if (!b) return;
+    if (b.dataset.off === '__kw') q.value = '';
+    else sel.delete(b.dataset.off);
+    apply(false);
+    var next = chipsBox.querySelector('.ta-chip');
+    if (next) next.focus(); else q.focus();
+  });
+
+  resetBtn.addEventListener('click', function () {
+    sel.clear();
+    q.value = '';
+    apply(false);
+    q.focus();          // 解除ボタン自身が hidden になるのでフォーカスを検索窓へ
+  });
+
+  railC.forEach(function (a) {
+    a.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      var c = a.dataset.c;
+      if (sel.has(c)) sel.delete(c); else sel.add(c);
+      apply(true);
+    });
+  });
+  railG.forEach(function (a) {
+    a.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      var cs = GROUPCAT[a.dataset.g] || [];
+      var all = cs.every(function (c) { return sel.has(c); });
+      cs.forEach(function (c) { if (all) sel.delete(c); else sel.add(c); });
+      apply(true);
+    });
+  });
+
+  var timer;
+  q.addEventListener('input', function () {
+    clearTimeout(timer);
+    timer = setTimeout(function () { apply(false); }, 120);
+  });
+
+  // スクロール位置（現在地）をレールに反映
+  if ('IntersectionObserver' in window) {
+    var seen = {};
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { seen[e.target.dataset.c] = e.isIntersecting; });
+      var here = cats.filter(function (s) { return seen[s.dataset.c] && !s.hidden; })[0];
+      railC.forEach(function (a) {
+        a.classList.toggle('is-here', !!here && a.dataset.c === here.dataset.c);
+      });
+      var gid = here ? here.closest('.ta-group').dataset.g : null;
+      railG.forEach(function (a) { a.classList.toggle('is-here', a.dataset.g === gid); });
+    }, { rootMargin: '-130px 0px -70% 0px' });
+    cats.forEach(function (s) { io.observe(s); });
+  }
+
+  apply(false);
 })();
 </script>
 <script src="../assets/js/share.js"></script>

@@ -2580,3 +2580,325 @@ input[type="number"] {
   padding: 4px 12px;
   background: #fbfcfb;
 }
+
+/* ===========================================================================
+   All-tools index (/tools/) — ファセット絞り込み型の一覧
+   生成元: _dev/build_tools_index.py
+   接頭辞 .ta- で閉じている。カテゴリページで使う .tool-list-card 系とは
+   一切共有しないので、この節だけを触れば一覧ページの見た目が変わる。
+   =========================================================================== */
+.page-tools-all {
+  --ta-header-h: 71px;   /* .site-header の高さ（padding 18px×2 + logo 34px + 罫線 1px） */
+  --ta-bar-h: 50px;      /* 件数バーの高さ */
+}
+.site-nav a[aria-current="page"] { color: var(--brand); font-weight: 600; }
+
+/* --- ページ見出し ---
+   コンテナ幅 1080px はサイト内の他コンテンツ（.tool-page）と同じ。
+   share.js の左固定シェアボタンは 1200px 超で left:20px・幅44px（右端 x=64）、
+   1200px 以下で left:12px・幅38px（右端 x=50）。1144px 以上ならセンタリングの
+   余白だけで左レールに掛からない。1143px 以下は下のメディアクエリで逃がす。
+   幅を変えるときはシェアボタンとの当たりを必ず実測すること。 */
+.ta-head {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 26px 32px 22px;
+}
+.ta-head h1 {
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  letter-spacing: 0.01em;
+}
+.ta-lead {
+  font-size: 14.5px;
+  color: var(--text-sub);
+  margin: 0;
+  max-width: 44em;
+}
+
+/* --- 2カラム --- */
+.ta-layout {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 32px 64px;
+  display: grid;
+  grid-template-columns: 248px minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+
+/* --- 左レール --- */
+.ta-rail { position: sticky; top: calc(var(--ta-header-h) + 16px); }
+.ta-rail-inner {
+  max-height: calc(100vh - var(--ta-header-h) - 36px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 4px;
+}
+.ta-rail-label,
+.ta-rail-head {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--text-sub);
+  margin: 0 0 8px;
+}
+.ta-rail-head { margin-top: 24px; }
+.ta-rail-search input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 9px 11px 9px 32px;
+  font-size: 13.5px;
+  font-family: inherit;
+  color: var(--text);
+  background: #fff no-repeat 10px center;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='%23777777' stroke-width='2' stroke-linecap='round'><circle cx='11' cy='11' r='8'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>");
+  transition: border-color 0.15s ease;
+}
+.ta-rail-search input:focus { border-color: var(--brand); }
+.ta-rail-search input:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
+.ta-rail-block { border-top: 1px solid var(--border); padding: 6px 0; }
+.ta-rail-block:first-child { border-top: none; }
+.ta-rail-g,
+.ta-rail-c {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 5px 8px;
+  border-radius: 4px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.ta-rail-g { font-size: 13.5px; font-weight: 600; color: var(--text); }
+.ta-rail-c { font-size: 12.5px; color: var(--text-sub); padding-left: 20px; }
+.ta-rail-g:hover,
+.ta-rail-c:hover { background: var(--brand-faint); color: var(--brand); text-decoration: none; }
+.ta-rail-g:focus-visible,
+.ta-rail-c:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
+.ta-n {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--text-sub);
+  font-variant-numeric: tabular-nums;
+}
+.ta-rail-g[aria-current="true"],
+.ta-rail-c[aria-current="true"] { background: var(--brand-faint); color: var(--brand-dark); }
+.ta-rail-c[aria-current="true"] { font-weight: 600; }
+.ta-rail-g.is-here,
+.ta-rail-c.is-here { color: var(--brand-dark); }
+/* 0件のファセットは押せるまま残るので、透過ではなく色で弱める。
+   #6e746e は白背景で 4.79:1（本文 var(--text-sub) #666 の 5.74:1 より弱いが AA を満たす）。 */
+.ta-rail-g.is-empty,
+.ta-rail-c.is-empty,
+.ta-rail-g.is-empty .ta-n,
+.ta-rail-c.is-empty .ta-n { color: #6e746e; }
+.ta-rail-g.is-empty:hover,
+.ta-rail-c.is-empty:hover,
+.ta-rail-g.is-empty:hover .ta-n,
+.ta-rail-c.is-empty:hover .ta-n { color: var(--brand); }
+
+/* --- 件数バー --- */
+.ta-statusbar {
+  position: sticky;
+  top: var(--ta-header-h);
+  z-index: 50;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  min-height: var(--ta-bar-h);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  padding: 10px 0;
+}
+.ta-count,
+.ta-count-static { margin: 0; font-size: 13px; color: var(--text-sub); white-space: nowrap; }
+.ta-count b {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  margin: 0 2px 0 6px;
+}
+.ta-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.ta-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--text);
+  font-size: 12px;
+  padding: 3px 6px 3px 11px;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.ta-chip:hover { border-color: var(--brand); color: var(--brand); }
+.ta-chip:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
+.ta-x { font-size: 14px; line-height: 1; color: var(--text-sub); }
+.ta-chip:hover .ta-x { color: var(--brand); }
+.ta-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.ta-reset {
+  margin-left: auto;
+  background: none;
+  border: none;
+  padding: 3px 2px;
+  font-size: 12.5px;
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.ta-reset:hover { color: var(--brand-dark); }
+.ta-reset:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
+
+/* JS 有無の出し分け（レール・行は素のリンクなので JS 無しでも全件到達できる） */
+html:not(.js) .ta-js-only { display: none; }
+.js .ta-count-static { display: none; }
+
+/* --- 大分野・カテゴリの見出し --- */
+.ta-group { scroll-margin-top: calc(var(--ta-header-h) + var(--ta-bar-h) + 8px); }
+.ta-group-head { padding-top: 44px; }
+.ta-group:first-child .ta-group-head { padding-top: 26px; }
+.ta-group-head h2 {
+  font-size: 21px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.ta-gn,
+.ta-cn {
+  font-weight: 500;
+  color: var(--text-sub);
+  font-variant-numeric: tabular-nums;
+}
+.ta-gn { font-size: 12px; }
+.ta-gn::after,
+.ta-cn::after { content: "本"; }
+.ta-group-lead { margin: 0; font-size: 13px; color: var(--text-sub); }
+
+.ta-cat { scroll-margin-top: calc(var(--ta-header-h) + var(--ta-bar-h) + 8px); }
+.ta-cat-head {
+  position: sticky;
+  top: calc(var(--ta-header-h) + var(--ta-bar-h));
+  z-index: 20;
+  margin: 22px 0 0;
+  padding: 8px 0 7px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+}
+.ta-cn { font-size: 11.5px; }
+
+/* --- 1行1ツール（名前と説明の開始位置を全行で揃える）
+   説明は一覧の「探す手がかり」なので、デスクトップでも 2 行まで見せる。 --- */
+.ta-tools { list-style: none; margin: 0; padding: 0; }
+/* カテゴリ見出しを省いた大分野（1:1 同名）でも、見出しとの間に同じ罫線を引く */
+.ta-cat > .ta-tools:first-child { margin-top: 20px; border-top: 1px solid var(--border); }
+.ta-tools li:not([hidden]) ~ li:not([hidden]) .ta-row { border-top: 1px solid var(--border); }
+.ta-row {
+  display: grid;
+  grid-template-columns: minmax(0, 20em) minmax(0, 1fr);
+  align-items: baseline;
+  gap: 4px 20px;
+  padding: 9px 10px;
+  margin: 0 -10px;
+  border-radius: 4px;
+  color: var(--text);
+  font-size: 15px;
+  transition: background-color 0.15s ease;
+}
+.ta-row:hover { background: var(--brand-faint); text-decoration: none; }
+.ta-row:focus-visible { outline: 2px solid var(--brand); outline-offset: -2px; }
+/* h3（見出しアウトラインに載せる）だが、見た目は本文サイズの行名のまま */
+.ta-rname { font-size: 14.5px; font-weight: 500; line-height: 1.55; margin: 0; }
+.ta-row:hover .ta-rname { color: var(--brand-dark); text-decoration: underline; text-underline-offset: 3px; }
+.ta-rdesc {
+  font-size: 12.5px;
+  color: var(--text-sub);
+  line-height: 1.6;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* --- 0件 --- */
+.ta-empty { display: none; padding: 40px 0; color: var(--text-sub); font-size: 14px; }
+.ta-none .ta-empty { display: block; }
+.ta-none .ta-group { display: none; }
+
+/* --- レスポンシブ --- */
+/* 左固定シェアボタンは share.js が 1200px 以下で left:12px・幅38px（右端 x=50）になり、
+   768px 以下で下部バーへ移る。その間の幅ではセンタリングの余白が足りず本文・レールに
+   掛かるので、769〜1199px を左パディングで逃がす。
+   上限を 1199px に取るのは、1144px 前後だとスクロールバー幅（約15px）ぶん中央寄せが
+   詰まって余裕が数pxしか残らないため（share.js のブレークポイントに合わせるのが安全）。
+   share.js の left / width を変えたらこの値も見直すこと。 */
+@media (min-width: 769px) and (max-width: 1199px) {
+  .ta-head,
+  .ta-layout { padding-left: 64px; }
+}
+@media (max-width: 1080px) {
+  .ta-layout { grid-template-columns: 216px minmax(0, 1fr); gap: 28px; }
+  /* 横並びのままだと説明の幅が 300px を切って 2 行でも大半が省略されるので、
+     ここから下は名前の下に説明を回す（2行クランプは共通） */
+  .ta-row { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}
+@media (max-width: 900px) {
+  /* 左パディングは 64px を維持する（769〜900px でも左固定シェアボタンが右端 x=50
+     まで張り出しているため。20px にすると本文とレールに被る）。 */
+  .ta-head { padding-left: 64px; padding-right: 20px; }
+  .ta-layout { grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 0 20px 48px 64px; }
+  .ta-rail { position: static; }
+  .ta-rail-inner { max-height: none; overflow: visible; padding-right: 0; }
+  .ta-rail-search input { max-width: 420px; }
+  .ta-rail-nav { display: flex; flex-wrap: wrap; gap: 7px; }
+  .ta-rail-block { display: contents; }
+  .ta-rail-c { display: none; }
+  .ta-rail-head { width: 100%; margin-top: 20px; margin-bottom: 2px; }
+  .ta-rail-g {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 12.5px;
+    font-weight: 500;
+  }
+  .ta-rail-g[aria-current="true"] { border-color: var(--brand); }
+  .ta-n { margin-left: 6px; }
+  .ta-statusbar { margin-top: 14px; }
+  /* 件数バーは 900px 以下でも sticky（71〜121px を占有）なので、アンカー着地位置も
+     既定の calc(header + bar + 8px) のままにする。下げると見出しがバーに潜り込む。 */
+}
+@media (max-width: 768px) {
+  .ta-row { padding: 10px; }
+  .ta-cat-head { position: static; }
+  .ta-group-head { padding-top: 34px; }
+  /* この幅ではシェアボタンが下部固定バーになり左に張り出さないので、
+     769〜900px 用の左逃げ（64px）を通常値へ戻す。 */
+  .ta-head { padding-left: 20px; }
+  .ta-layout { padding-left: 20px; }
+}
+@media (max-width: 640px) {
+  .ta-head { padding: 20px 16px 16px; }
+  .ta-head h1 { font-size: 24px; }
+  .ta-layout { padding: 0 16px 40px; }
+}
