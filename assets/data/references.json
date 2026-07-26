@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-26T06:36:16.509487+00:00",
+  "generated_at": "2026-07-26T06:51:12.411788+00:00",
   "marketplace": "www.amazon.co.jp",
   "product_data_status": "fallback",
   "items": {
@@ -113,15 +113,15 @@
       "publisher_cover": null,
       "publisher_cover_credit": null
     },
-    "4621045350": {
-      "asin": "4621045350",
-      "title": "化学工学便覧 改訂6版",
+    "4621083880": {
+      "asin": "4621083880",
+      "title": "改訂七版 化学工学便覧",
       "image_url": null,
       "image_width": null,
       "image_height": null,
-      "affiliate_url": "https://amzn.to/431YmDO",
+      "affiliate_url": "https://link.amazon/B034YtjaA",
       "fallback_meta": "化学工学会 編集 / 丸善出版",
-      "publisher_cover": null,
+      "publisher_cover": "/assets/img/covers/4621083880.jpg",
       "publisher_cover_credit": null
     },
     "4888981205": {
