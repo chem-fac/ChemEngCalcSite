@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-26T07:20:26.091573+00:00",
+  "generated_at": "2026-07-26T07:46:48.714918+00:00",
   "marketplace": "www.amazon.co.jp",
   "product_data_status": "fallback",
   "items": {
@@ -47,15 +47,15 @@
       "publisher_cover": null,
       "publisher_cover_credit": null
     },
-    "4785335297": {
-      "asin": "4785335297",
+    "B0DZ1QFVKD": {
+      "asin": "B0DZ1QFVKD",
       "title": "スッキリわかる 化学工学",
       "image_url": null,
       "image_width": null,
       "image_height": null,
-      "affiliate_url": "https://amzn.to/4d0Fmvx",
+      "affiliate_url": "https://link.amazon/B08Ohi4pn",
       "fallback_meta": "二井 晋・小林 敬幸・向井 康人・橋爪 進・衣笠 巧 著 / 裳華房",
-      "publisher_cover": "/assets/img/covers/4785335297.jpg",
+      "publisher_cover": "/assets/img/covers/B0DZ1QFVKD.jpg",
       "publisher_cover_credit": "提供：裳華房"
     },
     "B0D8S14QGF": {
