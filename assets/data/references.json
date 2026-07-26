@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-26T07:46:48.714918+00:00",
+  "generated_at": "2026-07-26T09:26:19.146524+00:00",
   "marketplace": "www.amazon.co.jp",
   "product_data_status": "fallback",
   "items": {
@@ -11,7 +11,7 @@
       "image_height": null,
       "affiliate_url": "https://amzn.to/48Hi37k",
       "fallback_meta": "多田 豊 編 / 朝倉書店",
-      "publisher_cover": null,
+      "publisher_cover": "/assets/img/covers/4254250339.jpg",
       "publisher_cover_credit": null
     },
     "4627674120": {
