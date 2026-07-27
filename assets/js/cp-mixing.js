@@ -8,10 +8,15 @@
 
   function buildRows() {
     const tb = $('cp-rows');
+    const examples = [
+      { name: '水', w: '0.7', cp: '4.18' },
+      { name: 'エタノール', w: '0.3', cp: '2.44' },
+    ];
     tb.innerHTML = '';
     for (let i = 0; i < N_ROWS; i++) {
+      const example = examples[i] || {};
       const tr = document.createElement('tr');
-      tr.innerHTML = `<td>${i + 1}</td><td><input type="text" data-name="${i}" placeholder="例：水"></td><td><input type="number" inputmode="decimal" step="any" data-w="${i}" placeholder=""></td><td><input type="number" inputmode="decimal" step="any" data-cp="${i}" placeholder=""></td>`;
+      tr.innerHTML = `<td>${i + 1}</td><td><input type="text" data-name="${i}" placeholder="${example.name ? `例：${example.name}` : ''}"></td><td><input type="number" inputmode="decimal" step="any" data-w="${i}" placeholder="${example.w ? `例：${example.w}` : ''}"></td><td><input type="number" inputmode="decimal" step="any" data-cp="${i}" placeholder="${example.cp ? `例：${example.cp}` : ''}"></td>`;
       tb.appendChild(tr);
     }
   }

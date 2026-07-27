@@ -235,11 +235,17 @@
     var EX_RE = /^例[：:]\s*(.+)$/;
     var NUM_RE = /^-?\d*\.?\d+([eE][+-]?\d+)?$/;
 
+    function exampleFields() {
+      return Array.prototype.slice.call(root.querySelectorAll('input, select[data-example]'));
+    }
+
     function setupExampleButton() {
       var btnRow = root.querySelector('.btn-row');
       if (!btnRow) return;
-      var hasExample = fields().some(function (el) {
-        return el.tagName === 'INPUT' && EX_RE.test(el.placeholder || '');
+      if (document.getElementById('example-btn')) return;
+      var hasExample = exampleFields().some(function (el) {
+        return (el.tagName === 'INPUT' && EX_RE.test(el.placeholder || '')) ||
+          (el.tagName === 'SELECT' && el.dataset.example);
       });
       if (!hasExample) return;
       var ex = document.createElement('button');
@@ -251,8 +257,14 @@
       ex.addEventListener('click', function () {
         // GA4利用計測: 計算例で試した（初見ユーザーの入口の指標）
         if (typeof window.gtag === 'function') window.gtag('event', 'example_fill');
-        fields().forEach(function (el) {
-          if (el.tagName !== 'INPUT' || el.offsetParent === null) return;
+        exampleFields().forEach(function (el) {
+          if (el.offsetParent === null) return;
+          if (el.tagName === 'SELECT' && el.dataset.example) {
+            el.value = el.dataset.example;
+            fireEvents(el);
+            return;
+          }
+          if (el.tagName !== 'INPUT') return;
           var m = (el.placeholder || '').match(EX_RE);
           if (!m) return;
           var v = m[1].trim();
