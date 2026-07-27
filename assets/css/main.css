@@ -2195,6 +2195,7 @@ details.formula .body {
 }
 
 .share-btn {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2217,6 +2218,11 @@ details.formula .body {
 }
 
 .share-btn img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
   width: 22px;
   height: 22px;
   object-fit: contain;
