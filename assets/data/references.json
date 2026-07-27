@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-27T02:14:01.825063+00:00",
+  "generated_at": "2026-07-27T12:10:38.310515+00:00",
   "marketplace": "www.amazon.co.jp",
   "product_data_status": "fallback",
   "items": {
@@ -33,7 +33,7 @@
       "image_height": null,
       "affiliate_url": "https://amzn.to/4ts1HHl",
       "fallback_meta": "化学工学会 著 / 三恵社",
-      "publisher_cover": null,
+      "publisher_cover": "/assets/img/covers/4883616568.jpg",
       "publisher_cover_credit": null
     },
     "4526059676": {
