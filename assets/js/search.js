@@ -301,6 +301,12 @@
       keywords: ["晶析", "結晶化", "溶解度", "過飽和", "核発生", "粒径", "結晶", "crystallization", "crystal", "supersaturation"]
     },
     {
+      title: "湿球温度・湿り空気状態量",
+      url: "tools/moisture/humid-air/",
+      category: "調湿・乾燥",
+      keywords: ["湿球温度", "湿球", "wet bulb", "Stull", "乾球温度", "乾湿差", "湿り空気", "絶対湿度", "相対湿度", "露点温度", "露点", "比エンタルピー", "比容積", "空気線図", "psychrometric", "humidity", "dew point"]
+    },
+    {
       title: "調湿・乾燥（カテゴリ）",
       url: "tools/moisture/",
       category: "カテゴリ",
