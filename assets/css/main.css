@@ -600,31 +600,16 @@ button { font-family: inherit; cursor: pointer; }
   justify-content: center;
   min-width: 72px;
   padding: 3px 7px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--brand);
   border-radius: 4px;
-  background: var(--bg-soft);
-  color: var(--text-sub);
+  background: #fff;
+  color: var(--brand-dark);
   font-size: 11px;
   font-weight: 600;
   line-height: 1.35;
   letter-spacing: 0.02em;
   white-space: nowrap;
 }
-.info-list.updates .update-kind--tool {
-  border-color: rgba(0, 105, 56, 0.28);
-  background: var(--brand-faint);
-  color: var(--brand-dark);
-}
-.info-list.updates .update-kind--feature {
-  border-color: var(--brand);
-  background: #fff;
-  color: var(--brand-dark);
-}
-.info-list.updates .update-kind--revision {
-  background: #fff;
-  color: var(--text);
-}
-
 @media (max-width: 600px) {
   .info-list.updates li {
     grid-template-columns: 72px minmax(0, 1fr);
