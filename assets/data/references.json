@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T15:35:40.896136+00:00",
+  "generated_at": "2026-09-03T21:23:01.512174+00:00",
   "marketplace": "www.amazon.co.jp",
   "product_data_status": "fallback",
   "items": {
@@ -23,6 +23,17 @@
       "affiliate_url": "https://amzn.to/48Hi37k",
       "fallback_meta": "多田 豊 編 / 朝倉書店",
       "publisher_cover": "/assets/img/covers/4254250339.jpg",
+      "publisher_cover_credit": null
+    },
+    "4873266599": {
+      "asin": "4873266599",
+      "title": "プロセスケミストのための化学工学（基礎編）",
+      "image_url": null,
+      "image_width": null,
+      "image_height": null,
+      "affiliate_url": "https://www.amazon.co.jp/dp/4873266599?tag=chemengcalc-22",
+      "fallback_meta": "日本プロセス化学会 編 / 化学工業日報社",
+      "publisher_cover": null,
       "publisher_cover_credit": null
     },
     "4627674120": {
