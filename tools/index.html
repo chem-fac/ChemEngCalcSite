@@ -127,7 +127,7 @@
           <ul class="ta-tools">
             <li><a class="ta-row" href="properties/ideal-gas-law/" data-kw="理想気体 状態方程式 PV=nRT ガス密度 モル体積 標準状態 Nm3 ノルマル立米 実流量 actual 流量換算 kg/h kmol/h"><h4 class="ta-rname">理想気体の状態方程式・標準状態換算</h4><span class="ta-rdesc">理想気体の状態方程式 PV=nRT からガス密度・モル体積を計算し、Nm³/h（標準状態）と運転条件の実 m³/h・kg/h・kmol/h を相互換算します。</span></a></li>
             <li><a class="ta-row" href="properties/gas-mixture-viscosity/" data-kw="混合気体 粘度 Wilke ウィルク 混合粘度 気体粘度 純気体粘度 モル分率 分子量 mixture viscosity gas viscosity"><h4 class="ta-rname">混合気体の粘度（Wilke式）</h4><span class="ta-rdesc">各成分のモル分率・純気体粘度・分子量から、Wilke式で混合気体の粘度を計算します。最大6成分まで対応。</span></a></li>
-            <li><a class="ta-row" href="properties/liquid-viscosity/" data-kw="液体 粘度 動粘度 粘性係数 密度 cP cSt センチポアズ センチストークス viscosity kinematic viscosity"><h4 class="ta-rname">液体の粘度・動粘度換算</h4><span class="ta-rdesc">液体の粘度と密度から動粘度を、動粘度と密度から粘度を計算します。Pa·s、mPa·s、cP、m²/s、mm²/s、cStに対応。</span></a></li>
+            <li><a class="ta-row" href="properties/liquid-viscosity/" data-kw="液体 粘度 動粘度 粘性係数 密度 cP cSt センチポアズ センチストークス viscosity kinematic viscosity"><h4 class="ta-rname">液体の粘度・動粘度換算</h4><span class="ta-rdesc">液体の粘度と動粘度を密度から相互換算するツール。Pa·s、mPa·s、cP と m²/s、mm²/s、cSt に対応。動粘度 ν = μ/ρ の関係と単位の換算も掲載。</span></a></li>
             <li><a class="ta-row" href="properties/vant-hoff/" data-kw="ファントホッフ van&#39;t Hoff 平衡定数 温度依存 反応エンタルピー 反応熱 ギブズエネルギー エントロピー 化学平衡"><h4 class="ta-rname">ファントホッフの式</h4><span class="ta-rdesc">ファントホッフの式で、2点の平衡定数から反応エンタルピー ΔH° を求めたり、ΔH° から別温度の平衡定数を外挿します。ΔG°・ΔS° も同時に表示。</span></a></li>
             <li><a class="ta-row" href="properties/clausius-clapeyron/" data-kw="クラウジウス クラペイロン Clausius Clapeyron 蒸気圧 飽和蒸気圧 蒸発熱 蒸発潜熱 温度推算 外挿 沸点"><h4 class="ta-rname">クラウジウス・クラペイロンの式</h4><span class="ta-rdesc">クラウジウス・クラペイロンの式で、2点の蒸気圧データから蒸発潜熱を求めたり、蒸発熱から別温度の蒸気圧を外挿します。アントワン式が無い物質の概算に。</span></a></li>
           </ul>
@@ -141,12 +141,12 @@
         <section class="ta-cat" id="c-fluid" data-c="fluid">
           <h3 class="ta-cat-head">流動<span class="ta-cn" data-n-c="fluid">6</span></h3>
           <ul class="ta-tools">
-            <li><a class="ta-row" href="fluid/reynolds/" data-kw="レイノルズ Reynolds Re 配管 層流 乱流 流速 流量 管内径 粘度 動粘度 円管"><h4 class="ta-rname">レイノルズ数（配管）</h4><span class="ta-rdesc">密度、流速、管内径、粘度からレイノルズ数を計算するツールです。円管内流れの層流・遷移域・乱流の目安を判定します。</span></a></li>
+            <li><a class="ta-row" href="fluid/reynolds/" data-kw="レイノルズ Reynolds Re 配管 層流 乱流 流速 流量 管内径 粘度 動粘度 円管"><h4 class="ta-rname">レイノルズ数（配管）</h4><span class="ta-rdesc">密度・流速・管内径・粘度からレイノルズ数 Re = ρuD/μ を計算するツール。円管内流れの層流・遷移域・乱流の目安を判定し、計算式と求め方も掲載。</span></a></li>
             <li><a class="ta-row" href="fluid/flow-conversion/" data-kw="流量 流速 配管径 管内径 換算 断面積 単位換算 体積流量 配管設計 円管"><h4 class="ta-rname">流量・流速・配管径換算</h4><span class="ta-rdesc">体積流量、平均流速、管内径のうち2つを入力すると、残りの1つを計算します。配管設計・流量計算の検討に。</span></a></li>
             <li><a class="ta-row" href="fluid/continuity/" data-kw="連続の式 continuity 質量保存 断面変化 レジューサ 絞り 流速変化 非圧縮 Au"><h4 class="ta-rname">連続の式（配管断面変化）</h4><span class="ta-rdesc">非圧縮性流れの連続の式（A₁u₁ = A₂u₂）から、入口の流速・管内径と出口の管内径から出口の平均流速を計算します。</span></a></li>
-            <li><a class="ta-row" href="fluid/fanning/" data-kw="ファニング Fanning 管摩擦係数 摩擦係数 圧力損失 ダルシー Darcy Weisbach コールブルック Colebrook プラントル カルマン ブラジウス Blasius ニクラゼ 粗さ 粗面管 平滑管 ヘッド 動圧 圧損"><h4 class="ta-rname">ファニングの式・管摩擦係数（圧力損失）</h4><span class="ta-rdesc">ファニングの式 ΔP = 4f(ρu²/2)(L/D) で配管の圧力損失を計算します。層流は f = 16/Re、乱流はコールブルック／プラントル・カルマン式を反復解で計算。</span></a></li>
+            <li><a class="ta-row" href="fluid/fanning/" data-kw="ファニング Fanning 管摩擦係数 摩擦係数 圧力損失 ダルシー Darcy Weisbach コールブルック Colebrook プラントル カルマン ブラジウス Blasius ニクラゼ 粗さ 粗面管 平滑管 ヘッド 動圧 圧損"><h4 class="ta-rname">ファニングの式・管摩擦係数（圧力損失）</h4><span class="ta-rdesc">ファニングの式 ΔP = 4f(ρu²/2)(L/D) で配管直管部の圧力損失を計算するツール。管摩擦係数 f は層流 f = 16/Re、乱流はコールブルック式の反復解で求め、ダルシー・ワイスバッハの式との関係も説明します。</span></a></li>
             <li><a class="ta-row" href="fluid/pump/" data-kw="ポンプ ポンプ計算 pump 全揚程 実揚程 揚程 head NPSH NPSHa NPSHr キャビテーション 大気圧 軸動力 水動力 理論動力 モーター動力 モーター入力 効率 蒸気圧 ベルヌーイ 摩擦損失 遠心ポンプ"><h4 class="ta-rname">ポンプ計算（全揚程・NPSH・軸動力）</h4><span class="ta-rdesc">ポンプ系統の全揚程、利用可能NPSH（NPSHa）、水動力・軸動力・モーター入力動力を、共通の入力から1画面でまとめて計算します。</span></a></li>
-            <li><a class="ta-row" href="fluid/hagen-poiseuille/" data-kw="ハーゲンポアズイユ ハーゲン・ポアズイユ Hagen-Poiseuille Poiseuille 速度分布 円管内流れ 円管 管内流れ 層流 放物線 最大流速 平均流速 体積流量 粘着条件 non-slip 圧力損失 圧力勾配 壁面せん断応力 せん断応力 流体力学 十分に発達した流れ"><h4 class="ta-rname">ハーゲン・ポアズイユ流れ（円管内層流の速度分布）</h4><span class="ta-rdesc">十分に発達した円管内の層流（ハーゲン・ポアズイユ流れ）の速度分布を計算します。管内径と平均流速（または体積流量）から放物線状の速度分布・最大流速・圧力損失・壁面せん断応力を求め、速度分布グラフを描画します。</span></a></li>
+            <li><a class="ta-row" href="fluid/hagen-poiseuille/" data-kw="ハーゲンポアズイユ ハーゲン・ポアズイユ Hagen-Poiseuille Poiseuille 速度分布 円管内流れ 円管 管内流れ 層流 放物線 最大流速 平均流速 体積流量 粘着条件 non-slip 圧力損失 圧力勾配 壁面せん断応力 せん断応力 流体力学 十分に発達した流れ"><h4 class="ta-rname">ハーゲン・ポアズイユ流れ（円管内層流の速度分布）</h4><span class="ta-rdesc">ハーゲン・ポアズイユの式（法則）で円管内層流の速度分布と圧力損失を計算するツール。管内径と平均流速または流量から、放物線状の速度分布・最大流速 2U・壁面せん断応力を求め、グラフを描画します。</span></a></li>
           </ul>
         </section>
       </section>
@@ -161,7 +161,7 @@
             <li><a class="ta-row" href="heat-transfer/heat-duty/" data-kw="熱量 熱収支 顕熱 潜熱 熱負荷 加熱 冷却 比熱 蒸発 凝縮 heat duty energy balance"><h4 class="ta-rname">熱量・熱収支</h4><span class="ta-rdesc">顕熱・潜熱・顕熱＋潜熱から、連続操作の熱負荷やバッチ操作の必要熱量を計算します。</span></a></li>
             <li><a class="ta-row" href="heat-transfer/lmtd-area/" data-kw="LMTD 対数平均温度差 伝熱面積 熱交換器 総括伝熱係数 補正係数 並流 向流 heat exchanger area"><h4 class="ta-rname">LMTD・伝熱面積</h4><span class="ta-rdesc">並流・向流の端温度差からLMTDを求め、Q = U A ΔTlm F によって必要伝熱面積を概算します。</span></a></li>
             <li><a class="ta-row" href="heat-transfer/overall-u/" data-kw="総括伝熱係数 U 熱抵抗 境膜抵抗 汚れ係数 ファウリング 管壁 overall heat transfer coefficient"><h4 class="ta-rname">総括伝熱係数 U</h4><span class="ta-rdesc">内外面の熱伝達係数、壁の熱伝導抵抗、汚れ係数から総括伝熱係数 U を平板近似で計算します。</span></a></li>
-            <li><a class="ta-row" href="heat-transfer/tube-heat-transfer/" data-kw="熱伝達係数 管内流 平板 自然対流 強制対流 ディタス ベルター Dittus Boelter Sieder Tate Re Pr Gr Nu Nusselt 乱流"><h4 class="ta-rname">熱伝達係数（代表相関式）</h4><span class="ta-rdesc">円管内層流・円管内乱流・平板上乱流・垂直平板自然対流の代表相関式から、Nu数と熱伝達係数 h を概算します。</span></a></li>
+            <li><a class="ta-row" href="heat-transfer/tube-heat-transfer/" data-kw="熱伝達係数 管内流 平板 自然対流 強制対流 ディタス ベルター Dittus Boelter Sieder Tate Re Pr Gr Nu Nusselt 乱流"><h4 class="ta-rname">熱伝達係数（代表相関式）</h4><span class="ta-rdesc">円管内層流・円管内乱流・平板上乱流・垂直平板自然対流の代表相関式（Dittus-Boelter、Sieder-Tate など）から、ヌセルト数 Nu と熱伝達係数 h を概算するツール。</span></a></li>
             <li><a class="ta-row" href="heat-transfer/utility/" data-kw="冷却水 蒸気 熱媒油 必要量 ユーティリティ 流量 潜熱 比熱 utility steam hot oil"><h4 class="ta-rname">冷却水・蒸気・熱媒油の必要量</h4><span class="ta-rdesc">既知の熱量から、冷却水・加熱蒸気・熱媒油の必要流量を概算します。</span></a></li>
             <li><a class="ta-row" href="heat-transfer/cp-mixing/" data-kw="比熱 混合比熱 比熱混合則 mass mixing rule mole mixing rule cp Cp 混合物物性 熱容量 質量分率 モル分率"><h4 class="ta-rname">混合物の比熱（質量・モル混合則）</h4><span class="ta-rdesc">液体・気体混合物の比熱を、成分の質量分率またはモル分率と各成分の比熱から加算則で計算します。最大 8 成分まで対応。</span></a></li>
           </ul>
@@ -176,10 +176,10 @@
           <h3 class="ta-cat-head">蒸留<span class="ta-cn" data-n-c="distillation">5</span></h3>
           <ul class="ta-tools">
             <li><a class="ta-row" href="distillation/antoine/" data-kw="アントワン Antoine 蒸気圧 沸点 純物質 気液平衡 log P 水 エタノール メタノール ベンゼン トルエン アセトン vapor pressure"><h4 class="ta-rname">アントワン式（蒸気圧・沸点）</h4><span class="ta-rdesc">アントワン式 log P = A − B/(T+C) で純物質の蒸気圧・沸点を計算します。係数の温度単位・圧力単位・対数の底を指定できます。</span></a></li>
-            <li><a class="ta-row" href="distillation/vle/" data-kw="気液平衡 相対揮発度 K値 Raoult ラウール 飽和蒸気圧 気相組成 蒸留"><h4 class="ta-rname">気液平衡・相対揮発度計算</h4><span class="ta-rdesc">飽和蒸気圧と系圧力から、二成分理想系のK値、相対揮発度、気相組成を計算します。</span></a></li>
+            <li><a class="ta-row" href="distillation/vle/" data-kw="気液平衡 相対揮発度 K値 Raoult ラウール 飽和蒸気圧 気相組成 蒸留"><h4 class="ta-rname">気液平衡・相対揮発度計算</h4><span class="ta-rdesc">気液平衡の計算ツール。二成分系の飽和蒸気圧と系圧力から、ラウールの法則で気液平衡比（K値）・相対揮発度・気相組成 y を求めます。計算式と適用範囲も掲載。</span></a></li>
             <li><a class="ta-row" href="distillation/simple/" data-kw="単蒸留 レイリーの式 Rayleigh レイリー 回分蒸留 留出量 釜液量 平均留出組成 相対揮発度 蒸留"><h4 class="ta-rname">単蒸留の設計計算（レイリーの式）</h4><span class="ta-rdesc">飽和蒸気圧から相対揮発度を求め、レイリーの式で単蒸留の留出量、最終釜液量、平均留出組成を計算します。</span></a></li>
             <li><a class="ta-row" href="distillation/flash/" data-kw="フラッシュ蒸留 蒸気率 Rachford Rice 気液平衡 K値 液相組成 気相組成 蒸留"><h4 class="ta-rname">フラッシュ蒸留の設計計算</h4><span class="ta-rdesc">飽和蒸気圧と供給組成から、二成分理想系のフラッシュ蒸留における蒸気率、気相・液相流量、気液組成を計算します。</span></a></li>
-            <li><a class="ta-row" href="distillation/mccabe-thiele/" data-kw="McCabe Thiele マッケーブ・シール マッケーブシール 二成分連続蒸留 二成分蒸留 理論段数 供給段 還流比 q線 操作線 相対揮発度 蒸留"><h4 class="ta-rname">マッケーブ・シール法（二成分連続蒸留）</h4><span class="ta-rdesc">二成分連続蒸留のマッケーブ・シール図を描き、理論段数、供給段位置、最小還流比を概算します。一定相対揮発度と等モル流れを仮定した教育・概算設計向けツールです。</span></a></li>
+            <li><a class="ta-row" href="distillation/mccabe-thiele/" data-kw="McCabe Thiele マッケーブ・シール マッケーブシール 二成分連続蒸留 二成分蒸留 理論段数 供給段 還流比 q線 操作線 相対揮発度 蒸留"><h4 class="ta-rname">マッケーブ・シール法（二成分連続蒸留）</h4><span class="ta-rdesc">マッケーブ・シール法（McCabe-Thiele法）で二成分連続蒸留の理論段数を求める計算ツール。平衡曲線・操作線・q線を描いて段数を図上でカウントし、最小還流比と供給段位置も計算します。</span></a></li>
           </ul>
         </section>
         <section class="ta-cat" id="c-absorption" data-c="absorption">
@@ -215,7 +215,7 @@
         <section class="ta-cat" id="c-reaction" data-c="reaction">
           <h3 class="ta-cat-head">反応<span class="ta-cn" data-n-c="reaction">4</span></h3>
           <ul class="ta-tools">
-            <li><a class="ta-row" href="reaction/arrhenius/" data-kw="アレニウス Arrhenius 活性化エネルギー Ea 頻度因子 前指数因子 反応速度定数 速度定数 k アレニウスプロット kinetics"><h4 class="ta-rname">アレニウスの式（反応速度定数・活性化エネルギー）</h4><span class="ta-rdesc">アレニウスの式 k = A·exp(−Ea/RT) で反応速度定数を計算、または2点の k と T から活性化エネルギー Ea と頻度因子 A を逆算します。</span></a></li>
+            <li><a class="ta-row" href="reaction/arrhenius/" data-kw="アレニウス Arrhenius 活性化エネルギー Ea 頻度因子 前指数因子 反応速度定数 速度定数 k アレニウスプロット kinetics"><h4 class="ta-rname">アレニウスの式（反応速度定数・活性化エネルギー）</h4><span class="ta-rdesc">アレニウスの式 k = A·exp(−Ea/RT) で反応速度定数 k を計算するツール。2点の温度と速度定数から活性化エネルギー Ea と頻度因子 A を逆算する2点法、アレニウスプロットの考え方と単位も掲載。</span></a></li>
             <li><a class="ta-row" href="reaction/batch-time/" data-kw="回分反応器 反応時間 batch reactor 転化率 0次 1次 2次 速度式"><h4 class="ta-rname">回分反応器の反応時間</h4><span class="ta-rdesc">0次・1次・2次の不可逆反応について、目標転化率に達する回分反応時間を計算します。</span></a></li>
             <li><a class="ta-row" href="reaction/cstr/" data-kw="CSTR 完全混合槽 連続槽型反応器 反応器設計 容積 空間時間 滞留時間 転化率"><h4 class="ta-rname">CSTR設計</h4><span class="ta-rdesc">完全混合槽型反応器（CSTR）の容積と空間時間を、0次・1次・2次不可逆反応で概算します。</span></a></li>
             <li><a class="ta-row" href="reaction/pfr/" data-kw="PFR 管型反応器 押し出し流れ プラグフロー 反応器設計 容積 空間時間 転化率"><h4 class="ta-rname">PFR設計</h4><span class="ta-rdesc">管型反応器（PFR）の容積と空間時間を、0次・1次・2次不可逆反応で概算します。</span></a></li>
