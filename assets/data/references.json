@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T02:19:40.009521+00:00",
+  "generated_at": "2026-09-06T07:26:40.317168+00:00",
   "marketplace": "www.amazon.co.jp",
   "product_data_status": "fallback",
   "items": {
@@ -33,7 +33,7 @@
       "image_height": null,
       "affiliate_url": "https://www.amazon.co.jp/dp/4873266599?tag=chemengcalc-22",
       "fallback_meta": "日本プロセス化学会 編 / 化学工業日報社",
-      "publisher_cover": null,
+      "publisher_cover": "/assets/img/covers/4873266599.jpg",
       "publisher_cover_credit": null
     },
     "4627674120": {
