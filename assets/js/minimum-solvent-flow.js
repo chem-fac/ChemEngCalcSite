@@ -257,6 +257,14 @@
     if (!(deltaY > 0)) return setError('入口・出口ガス組成から正の吸収量を計算できません。');
     if (!(deltaXEq > 0)) return setError('平衡組成と入口液組成から正の吸収能力を計算できません。');
 
+    // 塔頂の吸収推進力：入口吸収液（X_in）と平衡な気相モル比 Y* = m·X_in が出口ガス Y_out 以上なら、
+    // 直線平衡（原点〜入力平衡点）のもとでは塔頂で吸収が起こらず、どれだけ溶媒を増やしても目標出口組成に到達できない
+    const equilibriumSlope = yRatioIn / xRatioEq;
+    const yRatioStarTop = equilibriumSlope * xRatioIn;
+    if (!(yRatioOut > yRatioStarTop)) {
+      return setError(`塔頂で吸収の推進力がありません。入口吸収液組成と平衡な気相モル比 Y* = ${formatNumber(yRatioStarTop, 4)} が出口ガスのモル比 Y = ${formatNumber(yRatioOut, 4)} 以上です。入口吸収液の溶質濃度を下げるか、出口ガス組成の目標を緩めてください（直線平衡近似での判定）。`);
+    }
+
     const minRatio = deltaY / deltaXEq;
     const minSolvent = gasSoluteFree * minRatio;
     const operatingRatio = minRatio * factor;
