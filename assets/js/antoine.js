@@ -81,6 +81,7 @@
       if(denom === 0) return setError('A − log(P) = 0 となり T を求められません。');
       const T = B / denom - C;
       if(!isFinite(T)) return setError('入力値の組み合わせで計算結果が数値範囲を超えました。');
+      if(T_to_K(T, Tunit) <= 0) return setError(`逆算した温度 ${fmtNum(T)} ${Tunit === 'C' ? '°C' : 'K'} が絶対零度以下です。この圧力は Antoine 式の適用範囲外です。圧力または係数を見直してください。`);
       const Tcoef_unit_label = Tunit === 'C' ? '°C' : 'K';
       const T_C = Tunit === 'C' ? T : T - 273.15;
       const T_K = Tunit === 'K' ? T : T + 273.15;
