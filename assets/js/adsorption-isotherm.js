@@ -145,9 +145,13 @@
     clearError();
     const data = [];
     for (let i = 0; i < N_ROWS; i++) {
-      const c = parseFloat(document.querySelector(`[data-c="${i}"]`).value);
-      const q = parseFloat(document.querySelector(`[data-q="${i}"]`).value);
-      if (isFinite(c) && c > 0 && isFinite(q) && q > 0) data.push({ c, q });
+      const cRaw = document.querySelector(`[data-c="${i}"]`).value;
+      const qRaw = document.querySelector(`[data-q="${i}"]`).value;
+      if (cRaw === '' && qRaw === '') continue;   // 未使用行
+      const c = parseFloat(cRaw), q = parseFloat(qRaw);
+      // 入力途中・負値の行を黙って除外すると、残った点だけで見かけ上良好な決定係数が出るため、明示エラーにする
+      if (!(c > 0) || !(q > 0)) return setError(`${i + 1} 行目：平衡濃度 c と吸着量 q はともに正の値で入力してください（c = ${cRaw === '' ? '未入力' : cRaw}, q = ${qRaw === '' ? '未入力' : qRaw}）。使わない行は両欄を空にしてください。`);
+      data.push({ c, q });
     }
     if (data.length < 3) return setError('最低 3 点のデータを入力してください（c > 0, q > 0）。');
     data.sort((a, b) => a.c - b.c);
