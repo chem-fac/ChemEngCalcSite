@@ -94,7 +94,7 @@
       title: "物性・熱力学（カテゴリ）",
       url: "tools/properties/",
       category: "カテゴリ",
-      keywords: ["物性", "熱力学", "状態方程式", "気体粘度", "混合粘度", "Wilke", "化学平衡", "蒸気圧", "properties", "thermodynamics"]
+      keywords: ["物性", "熱力学", "状態方程式", "気体粘度", "混合粘度", "Wilke", "溶液濃度", "化学平衡", "蒸気圧", "properties", "thermodynamics"]
     },
     {
       title: "理想気体の状態方程式・標準状態換算",
@@ -113,6 +113,12 @@
       url: "tools/properties/liquid-viscosity/",
       category: "物性・熱力学",
       keywords: ["液体", "粘度", "動粘度", "粘性係数", "密度", "cP", "cSt", "センチポアズ", "センチストークス", "viscosity", "kinematic viscosity"]
+    },
+    {
+      title: "溶液濃度の単位換算",
+      url: "tools/properties/concentration-conversion/",
+      category: "物性・熱力学",
+      keywords: ["溶液", "濃度", "単位換算", "質量パーセント", "質量分率", "wt%", "モル濃度", "mol/L", "質量モル濃度", "mol/kg", "モル分率", "g/L", "mg/L", "ppm", "密度", "モル質量", "concentration"]
     },
     {
       title: "ファントホッフの式",

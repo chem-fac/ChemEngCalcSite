@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>溶液濃度の単位換算（質量% / mol·L⁻¹ / モル分率 / ppm / 質量モル濃度） | 化学工学計算支援ツール</title>
+<meta name="description" content="質量パーセント・モル濃度(mol/L)・質量モル濃度(mol/kg)・モル分率・g/L・mg/L・ppm を相互換算します。溶質と溶媒のモル質量、溶液密度から一括変換。">
+<meta name="keywords" content="濃度換算, 濃度変換, 質量パーセント, モル濃度, モル分率, 質量モル濃度, molarity, molality, ppm, mg/L, g/L, 規定度, 溶液">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/properties/concentration-conversion/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="溶液濃度の単位換算 | 化学工学計算支援ツール">
+<meta property="og:description" content="質量%・mol/L・モル分率・ppm・mol/kg を溶液密度とモル質量から相互換算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/properties/concentration-conversion/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"溶液濃度の単位換算","url":"https://tools.chem-fac.com/tools/properties/concentration-conversion/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"質量%・mol/L・モル分率・ppm・mol/kg・g/L の相互換算。","inLanguage":"ja","isAccessibleForFree":true,"about":"物性・熱力学"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+<style>.explain-block .math-block { overflow-x:auto; }</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">物性・熱力学</a><span class="sep">›</span><span class="current">溶液濃度の単位換算</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">物性・熱力学</span>
+      <h1>溶液濃度の単位換算</h1>
+      <p class="tool-subcopy">質量パーセント・モル濃度(mol/L)・質量モル濃度(mol/kg)・モル分率・g/L・mg/L・ppm を、溶質と溶媒のモル質量・溶液密度から一括換算します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <div class="input-row">
+          <label for="MA">溶質のモル質量 <span class="sym">M<sub>A</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="MA" step="any" placeholder="例：58.44">
+            <span class="unit-label">g/mol</span>
+          </div>
+          <p class="hint">NaCl=58.44、NaOH=40.00、ショ糖=342.3、エタノール=46.07。</p>
+        </div>
+        <div class="input-row">
+          <label for="MB">溶媒のモル質量 <span class="sym">M<sub>B</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="MB" step="any" value="18.015" placeholder="例：18.015">
+            <span class="unit-label">g/mol</span>
+          </div>
+          <p class="hint">水=18.015。モル分率の計算に使います。</p>
+        </div>
+        <div class="input-row">
+          <label for="rho">溶液の密度 <span class="sym">ρ</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1.034">
+            <select id="rho_unit" aria-label="溶液密度の単位"><option value="gcm3">g/cm³</option><option value="kgL">kg/L</option><option value="kgm3">kg/m³</option><option value="gL">g/L</option></select>
+          </div>
+          <p class="hint">モル濃度・g/L・mg/L の換算に必要です。</p>
+        </div>
+        <div class="input-row">
+          <label for="conc">濃度の値 <span class="sym">C</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="conc" step="any" placeholder="例：5">
+            <select id="conc_unit" aria-label="濃度の単位">
+              <option value="masspct">質量 %</option>
+              <option value="molL">mol/L（モル濃度）</option>
+              <option value="molkg">mol/kg（質量モル濃度）</option>
+              <option value="xfrac">モル分率 x_A［-］</option>
+              <option value="gL">g/L</option>
+              <option value="mgL">mg/L</option>
+              <option value="ppm">ppm（質量）</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">換算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+
+      <div class="calc-pane calc-result-pane">
+        <h2>換算結果</h2>
+        <div id="result-area"><div class="placeholder">値と単位を入れて「換算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>換算の考え方</h2>
+    <p>すべての濃度は、まず<strong>質量分率 $w$</strong>（溶質質量 ÷ 溶液質量）に直してから相互変換します。</p>
+    <div class="math-block">$$ \begin{aligned} \text{質量\%} &amp;= 100w \\ C\,[\mathrm{mol/L}] &amp;= \dfrac{w\,\rho}{M_A} \\ b\,[\mathrm{mol/kg}] &amp;= \dfrac{1000\,w}{M_A(1-w)} \end{aligned} $$</div>
+    <div class="math-block">$$ \begin{aligned} x_A &amp;= \dfrac{w/M_A}{\,w/M_A+(1-w)/M_B\,} \\ \text{質量ppm} &amp;= 10^6 w \\ \text{質量濃度}\,[\mathrm{g/L}] &amp;= w\rho \end{aligned} $$</div>
+    <ul class="symbol-list">
+      <li>$w$：溶質の質量分率［-］</li>
+      <li>$\rho$：溶液密度［g/L］</li>
+      <li>$M_A$：溶質のモル質量［g/mol］</li>
+      <li>$M_B$：溶媒のモル質量［g/mol］</li>
+      <li>$C$：モル濃度［mol/L］、$b$：質量モル濃度［mol/kg-溶媒］、$x_A$：溶質のモル分率</li>
+    </ul>
+    <h2>使い方のメモ</h2>
+    <ul>
+      <li>溶質1種類と溶媒1種類の溶液を対象とし、質量分率は 0 以上 1 未満で換算します。モル分率は入力した溶質・溶媒を各1成分として求め、電離によるイオン数の変化は扱いません。</li>
+      <li>mol/L・g/L・mg/L の換算には溶液密度が必須です。質量%・ppm・モル分率・質量モル濃度だけなら密度は使いません。</li>
+      <li>ppm（質量）は 10⁶ × 質量分率です。希薄水溶液では 1 mg/L ≒ 1 ppm（密度 ≒ 1 kg/L のため）ですが、濃厚液・非水溶媒では密度差を反映します。</li>
+    </ul>
+  </section>
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/4dcboU3" class="reference-card" data-asin="4563041653" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">化学工学の基礎と計算</p><p class="ref-meta">D.M. Himmelblau 著 / 大竹 伝雄 翻訳 / 培風館</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../liquid-viscosity/" class="related-card"><span class="small">物性・熱力学</span>液体の粘度・動粘度換算</a>
+      <a href="../ideal-gas-law/" class="related-card"><span class="small">物性・熱力学</span>理想気体の状態方程式・標準状態換算</a>
+      <a href="../../heat-transfer/cp-mixing/" class="related-card"><span class="small">伝熱</span>混合物の比熱</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 Chemical Engineering Calculation Support Tool</div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/concentration-conversion.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+</body>
+</html>

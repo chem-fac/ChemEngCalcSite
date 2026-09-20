@@ -28,7 +28,7 @@ function initDensityPlaceholders() {
   if (!rho || !unit) return;
 
   const update = () => {
-    rho.placeholder = unit.value === 'gcm3' ? '例：1.0' : '例：1000';
+    rho.placeholder = (unit.value === 'gcm3' || unit.value === 'kgL') ? '例：1.0' : '例：1000';
   };
 
   unit.addEventListener('change', update);
