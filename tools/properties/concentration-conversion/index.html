@@ -68,7 +68,7 @@
         <div class="input-row">
           <label for="MB">溶媒のモル質量 <span class="sym">M<sub>B</sub></span></label>
           <div class="input-group">
-            <input type="number" inputmode="decimal" id="MB" step="any" value="18.015" placeholder="例：18.015">
+            <input type="number" inputmode="decimal" id="MB" step="any" placeholder="例：18.015">
             <span class="unit-label">g/mol</span>
           </div>
           <p class="hint">水=18.015。モル分率の計算に使います。</p>
@@ -114,8 +114,8 @@
   <section class="explain-block">
     <h2>換算の考え方</h2>
     <p>すべての濃度は、まず<strong>質量分率 $w$</strong>（溶質質量 ÷ 溶液質量）に直してから相互変換します。</p>
-    <div class="math-block">$$ \begin{aligned} \text{質量\%} &amp;= 100w \\ C\,[\mathrm{mol/L}] &amp;= \dfrac{w\,\rho}{M_A} \\ b\,[\mathrm{mol/kg}] &amp;= \dfrac{1000\,w}{M_A(1-w)} \end{aligned} $$</div>
-    <div class="math-block">$$ \begin{aligned} x_A &amp;= \dfrac{w/M_A}{\,w/M_A+(1-w)/M_B\,} \\ \text{質量ppm} &amp;= 10^6 w \\ \text{質量濃度}\,[\mathrm{g/L}] &amp;= w\rho \end{aligned} $$</div>
+    <div class="math-block">$$ \begin{aligned} \text{質量\%} &amp;= 100w \\[1em] C\,[\mathrm{mol/L}] &amp;= \dfrac{w\,\rho}{M_A} \\[1em] b\,[\mathrm{mol/kg}] &amp;= \dfrac{1000\,w}{M_A(1-w)} \end{aligned} $$</div>
+    <div class="math-block">$$ \begin{aligned} x_A &amp;= \dfrac{w/M_A}{\,w/M_A+(1-w)/M_B\,} \\[1em] \text{質量ppm} &amp;= 10^6 w \\[1em] \text{質量濃度}\,[\mathrm{g/L}] &amp;= w\rho \end{aligned} $$</div>
     <ul class="symbol-list">
       <li>$w$：溶質の質量分率［-］</li>
       <li>$\rho$：溶液密度［g/L］</li>

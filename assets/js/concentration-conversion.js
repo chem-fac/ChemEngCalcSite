@@ -74,8 +74,7 @@
   }
 
   function reset() {
-    ['MA', 'rho', 'conc'].forEach(id => { if ($(id)) $(id).value = ''; });
-    $('MB').value = '18.015';
+    ['MA', 'MB', 'rho', 'conc'].forEach(id => { if ($(id)) $(id).value = ''; });
     clearError();
     clearResult();
   }
