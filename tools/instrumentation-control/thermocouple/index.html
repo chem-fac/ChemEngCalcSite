@@ -15,6 +15,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"熱電対 起電力⇔温度（K/J/T 型）","url":"https://tools.chem-fac.com/tools/instrumentation-control/thermocouple/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"熱電対（K 型・J 型・T 型）の起電力⇔温度を ITS-90 NIST 多項式で相互換算します。冷接点 0 °C 基準。冷接点補正にも対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"熱電対, thermocouple, K型, J型, T型, ITS-90, NIST, 起電力, mV, 温度補償, 冷接点","about":"計装・制御"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -76,7 +77,7 @@
           <div class="input-group"><input type="number" inputmode="decimal" id="E" step="any" placeholder="例：20.644"><span class="unit-label">mV</span></div>
         </div>
         <div class="input-row">
-          <label>冷接点温度 <span class="sym">T_cj</span>（任意）</label>
+          <label>冷接点温度 <span class="sym">T<sub>cj</sub></span></label>
           <div class="input-group"><input type="number" inputmode="decimal" id="Tcj" step="any" value="0" placeholder="0"><span class="unit-label">°C</span></div>
           <p class="hint">標準は 0 °C（氷点）。室温の場合は 25 °C 程度を入力すると、ITS-90 で冷接点補正した値が出ます。</p>
         </div>
@@ -95,7 +96,7 @@
 
   <section class="explain-block">
     <h2>熱電対の原理と冷接点補正</h2>
-    <p>熱電対は 2 種類の金属を接合し、両端の温度差に起電力（ゼーベック効果）を発生させます。基準（NIST/JIS）では<strong>冷接点が 0 °C</strong>のときの起電力 $E(T)$ が定義されており、本ツールでは ITS-90 標準多項式を実装しています。</p>
+    <p>熱電対は 2 種類の金属を接合し、両端の温度差に応じた起電力（ゼーベック効果）を生じます。規格（NIST・JIS C 1602）は冷接点が 0 °C のときの起電力 $E(T)$ を ITS-90 の基準関数で定めており、本ツールはこの多項式で計算します。</p>
     <p>実機の冷接点（端子台など）が 0 °C でない場合は、次の補正を行います。</p>
     <div class="math-block">$$ E_\mathrm{measured}(T, T_{cj}) = E(T) - E(T_{cj}) $$</div>
     <p>逆に、起電力測定値 $E_\mathrm{measured}$ から測温接点温度 $T$ を求める場合：</p>
@@ -106,28 +107,26 @@
     <table class="regime-table">
       <thead><tr><th>型式</th><th>規格使用範囲</th><th>本ツール対応範囲</th><th>感度（25 °C 近傍）</th><th>主な用途</th></tr></thead>
       <tbody>
-        <tr><td>K 型</td><td>−200 〜 1372 °C</td><td><strong>0 〜 1372 °C</strong></td><td>≒ 41 μV/°C</td><td>汎用、最も普及</td></tr>
-        <tr><td>J 型</td><td>−210 〜 760 °C</td><td><strong>0 〜 760 °C</strong></td><td>≒ 52 μV/°C</td><td>還元・真空雰囲気</td></tr>
-        <tr><td>T 型</td><td>−270 〜 400 °C</td><td><strong>0 〜 400 °C</strong></td><td>≒ 41 μV/°C</td><td>低温・湿潤雰囲気</td></tr>
+        <tr><td>K 型</td><td>−270 〜 1372 °C</td><td>0 〜 1372 °C</td><td>≒ 41 μV/°C</td><td>汎用</td></tr>
+        <tr><td>J 型</td><td>−210 〜 1200 °C</td><td>0 〜 760 °C</td><td>≒ 52 μV/°C</td><td>還元・真空雰囲気</td></tr>
+        <tr><td>T 型</td><td>−270 〜 400 °C</td><td>0 〜 400 °C</td><td>≒ 41 μV/°C</td><td>低温・湿潤雰囲気</td></tr>
       </tbody>
     </table>
-    <p>本ツールは正の温度範囲（0 °C 以上）の ITS-90 多項式のみを実装しています。負の温度域（T 型 −270 °C など低温用途）は別係数が必要で、本ツールでは入力エラーで扱います。低温用途では NIST ITS-90 ネガティブ範囲の係数で実装したツールを使ってください。実機の指示計は基準接点補償（自動冷接点補正）回路を内蔵しているのが普通です。</p>
+    <p>規格使用範囲は ITS-90 基準関数が定義されている温度範囲です。本ツールは 0 °C 以上の係数だけを使うため、0 °C 未満の温度や冷接点温度は入力エラーにします。指示計の多くは冷接点補償の回路を内蔵しているので、指示計の表示温度にこの補正を重ねてかけないようにします。</p>
   </section>
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
-    <a href="https://link.amazon/B0iqWQ5e7" class="reference-card" data-asin="4905957206" target="_blank" rel="noopener nofollow sponsored">
-      <div class="ref-image" aria-hidden="true"></div>
-      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">工業計測と制御の基礎</p><p class="ref-meta">川村 貞夫・石川 洋次郎 著 / 工業技術社</p><span class="ref-cta">Amazonで見る</span></div>
-    </a>
+    <ul>
+      <li>NIST, ITS-90 Thermocouple Database（基準関数と逆関数の係数）（<a href="https://srdata.nist.gov/its90/main/" target="_blank" rel="noopener">NIST</a>）</li>
+      <li>JIS C 1602 熱電対</li>
+    </ul>
   </section>
 
 
   <section class="related">
     <h3>関連ツール</h3>
     <div class="related-grid">
-      <a href="../control-valve-cv/" class="related-card"><span class="small">計装・制御</span>コントロールバルブ Cv 選定</a>
-      <a href="../orifice-meter/" class="related-card"><span class="small">計装・制御</span>オリフィス流量計</a>
-      <a href="../pid-tuning/" class="related-card"><span class="small">計装・制御</span>PID 整定</a>
+      <a href="../ma-signal/" class="related-card"><span class="small">計装・制御</span>4-20mA信号換算（スケーリング・開平）</a>
     </div>
   </section>
 </main>
@@ -143,6 +142,5 @@
 <script src="../../../assets/js/thermocouple.js"></script>
 <script src="../../../assets/js/share.js"></script>
 <script src="../../../assets/js/calc-utils.js"></script>
-  <script src="../../../assets/js/references.js"></script>
 </body>
 </html>

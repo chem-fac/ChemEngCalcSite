@@ -43,6 +43,12 @@
       keywords: ["流動", "流体", "配管", "圧力損失", "fluid"]
     },
     {
+      title: "配管口径選定（推奨流速と呼び径の候補）",
+      url: "tools/fluid/pipe-sizing/",
+      category: "流動",
+      keywords: ["配管口径", "配管選定", "経済流速", "推奨流速", "呼び径", "JIS", "スケジュール", "配管設計", "ライン仕様", "管内径", "STPG", "Sch40", "流速", "口径", "pipe sizing"]
+    },
+    {
       title: "撹拌混合（カテゴリ）",
       url: "tools/mixing/",
       category: "カテゴリ",
@@ -89,6 +95,12 @@
       url: "tools/heat-transfer/cp-mixing/",
       category: "伝熱",
       keywords: ["比熱", "混合比熱", "比熱混合則", "mass mixing rule", "mole mixing rule", "cp", "Cp", "混合物物性", "熱容量", "質量分率", "モル分率"]
+    },
+    {
+      title: "飽和蒸気表（温度⇔圧力・物性値）",
+      url: "tools/heat-transfer/steam-table/",
+      category: "伝熱",
+      keywords: ["蒸気表", "飽和蒸気", "飽和水", "比容積", "比エンタルピー", "蒸発潜熱", "比エントロピー", "h_fg", "IAPWS", "スチームテーブル", "蒸気物性", "ボイラ", "ゲージ圧", "絶対圧", "飽和温度", "飽和圧力", "steam table", "saturated steam"]
     },
     {
       title: "物性・熱力学（カテゴリ）",
@@ -335,6 +347,12 @@
       url: "tools/instrumentation-control/",
       category: "カテゴリ",
       keywords: ["計装", "制御", "プロセス制御", "PID", "センサ", "トランスミッタ", "調節弁", "制御弁", "流量計", "温度計", "圧力計", "instrumentation", "control", "process control"]
+    },
+    {
+      title: "熱電対 起電力⇔温度（K/J/T 型）",
+      url: "tools/instrumentation-control/thermocouple/",
+      category: "計装・制御",
+      keywords: ["熱電対", "thermocouple", "K型", "J型", "T型", "ITS-90", "NIST", "起電力", "mV", "温度補償", "冷接点", "熱起電力", "基準接点補償", "JIS C 1602", "温度計測"]
     },
     {
       title: "0.6乗則・0.7乗則による設備費の換算",

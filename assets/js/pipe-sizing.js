@@ -11,19 +11,18 @@
     steam_sat: [20, 40, '飽和蒸気'],
     steam_sh: [40, 60, '過熱蒸気'],
   };
-  // JIS B 2311 配管用炭素鋼鋼管 (STPG Sch.40) 呼び径と内径
-  // [呼び径, 外径 mm, 内径 Sch.40 mm]
+  // JIS G 3454 圧力配管用炭素鋼鋼管（STPG）Sch.40：[呼び径, 外径 mm, 厚さ mm]。内径 = 外径 − 2×厚さ
   const NOM = [
-    ['6A (1/8")', 10.5, 7.1], ['8A (1/4")', 13.8, 9.2], ['10A (3/8")', 17.3, 12.7],
-    ['15A (1/2")', 21.7, 16.1], ['20A (3/4")', 27.2, 21.6], ['25A (1")', 34.0, 27.6],
-    ['32A (1-1/4")', 42.7, 35.7], ['40A (1-1/2")', 48.6, 41.6], ['50A (2")', 60.5, 52.7],
-    ['65A (2-1/2")', 76.3, 65.9], ['80A (3")', 89.1, 78.1], ['90A (3-1/2")', 101.6, 90.1],
-    ['100A (4")', 114.3, 102.3], ['125A (5")', 139.8, 126.6], ['150A (6")', 165.2, 151.0],
-    ['200A (8")', 216.3, 199.9], ['250A (10")', 267.4, 248.8], ['300A (12")', 318.5, 297.9],
-    ['350A (14")', 355.6, 333.3], ['400A (16")', 406.4, 381.0], ['450A (18")', 457.2, 428.7],
-    ['500A (20")', 508.0, 478.0], ['600A (24")', 609.6, 574.7],
-  ];
-  function qToSI(value, unit) { const map = { m3h: 1 / 3600, m3min: 1 / 60, Lmin: 1e-3 / 60, m3s: 1, Nm3h: 1 / 3600 }; return value * (map[unit] || 1); }
+    ['6A (1/8B)', 10.5, 1.7], ['8A (1/4B)', 13.8, 2.2], ['10A (3/8B)', 17.3, 2.3],
+    ['15A (1/2B)', 21.7, 2.8], ['20A (3/4B)', 27.2, 2.9], ['25A (1B)', 34.0, 3.4],
+    ['32A (1-1/4B)', 42.7, 3.6], ['40A (1-1/2B)', 48.6, 3.7], ['50A (2B)', 60.5, 3.9],
+    ['65A (2-1/2B)', 76.3, 5.2], ['80A (3B)', 89.1, 5.5], ['90A (3-1/2B)', 101.6, 5.7],
+    ['100A (4B)', 114.3, 6.0], ['125A (5B)', 139.8, 6.6], ['150A (6B)', 165.2, 7.1],
+    ['200A (8B)', 216.3, 8.2], ['250A (10B)', 267.4, 9.3], ['300A (12B)', 318.5, 10.3],
+    ['350A (14B)', 355.6, 11.1], ['400A (16B)', 406.4, 12.7], ['450A (18B)', 457.2, 14.3],
+    ['500A (20B)', 508.0, 15.1], ['600A (24B)', 609.6, 17.5],
+  ].map(([name, od, t]) => [name, od, Math.round((od - 2 * t) * 10) / 10]);
+  function qToSI(value, unit) { const map = { m3h: 1 / 3600, m3min: 1 / 60, Lmin: 1e-3 / 60, m3s: 1 }; return value * (map[unit] || NaN); }
   function fmtNum(v, sig = 4) { if (!isFinite(v)) return '-'; const a = Math.abs(v); if (a === 0) return '0'; if (a >= 1e5 || a < 1e-3) return v.toExponential(sig - 1); return Number(v.toPrecision(sig)).toString(); }
   function val(id) { const el = $(id); return (el && el.value !== '') ? parseFloat(el.value) : NaN; }
   const setError = (m) => { const e = $('error'); e.textContent = m; e.style.display = 'block'; const ra = $('result-area'); if (ra) ra.innerHTML = '<div class="placeholder">入力値を見直して再度計算してください</div>'; };
@@ -72,6 +71,9 @@
       const lo = Math.max(0, firstIdx - 1);
       const hi = Math.min(rows.length, lastIdx + 2);
       displayRows = rows.slice(lo, hi);
+    } else {
+      const k = rows.findIndex(r => r.u < uMin);  // 推奨範囲より遅くなる最初の呼び径
+      if (k > 0) displayRows = rows.slice(k - 1, k + 1);
     }
     const body = displayRows.map(r => `<tr${r.cls}><td>${r.name}</td><td class="num">${r.od}</td><td class="num">${r.id}</td><td class="num">${fmtNum(r.u)}</td></tr>`).join('');
 
@@ -91,7 +93,11 @@
           <thead><tr><th>呼び径</th><th class="num">外径 [mm]</th><th class="num">内径 [mm]</th><th class="num">流速 [m/s]</th></tr></thead>
           <tbody>${body}</tbody>
         </table>
-        <p class="result-note" style="margin-top:6px;">緑色行が推奨流速範囲内の呼び径です。</p>
+        <p class="result-note" style="margin-top:6px;">${candidates.length
+          ? '緑色行が推奨流速範囲内の呼び径です。'
+          : (rows[0].u > uMax && rows[rows.length - 1].u < uMin
+              ? '推奨流速範囲に入る呼び径がありません（隣り合う呼び径の間に範囲が収まっています）。前後の呼び径の流速を見て選んでください。'
+              : '6A〜600A の範囲に推奨流速を満たす呼び径がありません。流量の単位と値を確認してください。')}</p>
       </div>
       <div class="result-meta">
         <div class="result-note">※ Sch.40 STPG（炭素鋼鋼管）を前提とした内径。Sch.80・SUS・PVC・グラスライニングなど他仕様では内径が異なります。</div>

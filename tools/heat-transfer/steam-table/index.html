@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>飽和蒸気表（温度⇔圧力・物性値） | 化学工学計算支援ツール</title>
+<meta name="description" content="飽和水蒸気の温度・圧力・比容積・比エンタルピー・蒸発潜熱・比エントロピーを相互換算します。蒸気ライン・コンデンサ・リボイラ設計の参照に。">
+<meta name="keywords" content="蒸気表, 飽和蒸気, 飽和水, 比容積, 比エンタルピー, 蒸発潜熱, 比エントロピー, h_fg, IAPWS, スチームテーブル, 蒸気物性, ボイラ">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/heat-transfer/steam-table/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="飽和蒸気表（温度⇔圧力・物性値） | 化学工学計算支援ツール">
+<meta property="og:description" content="飽和水蒸気の温度・圧力・比容積・比エンタルピー・蒸発潜熱を相互換算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/heat-transfer/steam-table/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/icon-512.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"飽和蒸気表（温度⇔圧力・物性値）","url":"https://tools.chem-fac.com/tools/heat-transfer/steam-table/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"飽和水蒸気の温度・圧力・比容積・比エンタルピー・蒸発潜熱・比エントロピーを相互換算します。蒸気ライン・コンデンサ・リボイラ設計の参照に。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"蒸気表, 飽和蒸気, 飽和水, 比容積, 比エンタルピー, 蒸発潜熱, 比エントロピー, h_fg, IAPWS, スチームテーブル, 蒸気物性, ボイラ","about":"伝熱"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+<style>
+.st-table { width:100%; border-collapse:collapse; margin-top:8px; font-size:13px; }
+.st-table th, .st-table td { padding:5px 6px; border-bottom:1px solid var(--border); text-align:right; font-variant-numeric:tabular-nums; }
+.st-table th { background:#f6f7f9; font-weight:600; }
+.st-table td:first-child, .st-table th:first-child { text-align:left; }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">伝熱</a><span class="sep">›</span><span class="current">飽和蒸気表</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">伝熱</span>
+      <h1>飽和蒸気表（温度⇔圧力・物性値）</h1>
+      <p class="tool-subcopy">飽和水蒸気の温度・圧力から、比容積・比エンタルピー・蒸発潜熱・比エントロピーを取得します。0〜373.95 °C の範囲で IAPWS 系の標準値に基づく線形補間。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab active" data-mode="T">温度から</button>
+      <button type="button" class="mode-tab" data-mode="P">圧力から</button>
+    </div>
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <div class="input-row" data-show-when="T">
+          <label>飽和温度 <span class="sym">T_sat</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="T" step="any" placeholder="例：150">
+            <span class="unit-label">°C</span>
+          </div>
+          <p class="hint">0 〜 373.95 °C（臨界点）の範囲で入力してください。</p>
+        </div>
+        <div class="input-row" data-show-when="P">
+          <label>飽和圧力 <span class="sym">P_sat</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="P" step="any" placeholder="例：0.476">
+            <select id="P_unit"><option value="MPaA">MPaA</option><option value="kPaA">kPaA</option><option value="MPaG">MPaG</option><option value="kPaG">kPaG</option><option value="barA">barA</option><option value="barG">barG</option></select>
+          </div>
+          <p class="hint">0.0006117 〜 22.064 MPaA の範囲。「G」を選んだ場合は大気圧 101.325 kPa を加えて絶対圧として処理します。</p>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">物性を取得</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+          <button class="btn btn-ghost" id="show-table-btn">全表を表示</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">温度または圧力を入れて「物性を取得」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>ゲージ圧で入力した場合は、大気圧を足して絶対圧に直します。</p>
+    <div class="math-block">$$ P_\mathrm{abs} = P_\mathrm{gauge} + 0.101325\ \mathrm{MPa} $$</div>
+    <p>温度から求める場合は、入力温度をはさむ表の2点 $T_i \le T \le T_{i+1}$ の間で直線補間します。</p>
+    <div class="math-block">$$ t = \dfrac{T - T_i}{T_{i+1} - T_i},\qquad X = X_i + t\,(X_{i+1} - X_i) $$</div>
+    <p>圧力から求める場合は、飽和圧力が温度に対して指数関数的に増えるため、$\ln P$ で補間の割合を決めます。温度と物性値はこの $t$ で直線補間します。</p>
+    <div class="math-block">$$ t = \dfrac{\ln P - \ln P_i}{\ln P_{i+1} - \ln P_i},\qquad T = T_i + t\,(T_{i+1} - T_i) $$</div>
+    <p>蒸発潜熱と密度は、補間した値から求めます。</p>
+    <div class="math-block">$$ h_{fg} = h_g - h_f,\qquad \rho_f = \dfrac{1}{v_f},\qquad \rho_g = \dfrac{1}{v_g} $$</div>
+
+    <h2>記号の説明</h2>
+    <ul class="symbol-list">
+      <li>$X$：補間する物性値（$P$, $v_f$, $v_g$, $h_f$, $h_g$, $s_f$, $s_g$）</li>
+      <li>$i$, $i+1$：入力値をはさむ表の行</li>
+      <li>$t$：2点の間での位置（0〜1）</li>
+      <li>$T_\mathrm{sat}$：飽和温度 [°C]</li>
+      <li>$P_\mathrm{sat}$：飽和圧力 [MPa, abs]</li>
+      <li>$v_f, v_g$：飽和液・飽和蒸気の比容積 [m³/kg]</li>
+      <li>$\rho_f = 1/v_f$, $\rho_g = 1/v_g$：飽和液・飽和蒸気の密度 [kg/m³]</li>
+      <li>$h_f, h_g$：飽和液・飽和蒸気の比エンタルピー [kJ/kg]</li>
+      <li>$h_{fg} = h_g - h_f$：蒸発潜熱 [kJ/kg]</li>
+      <li>$s_f, s_g$：飽和液・飽和蒸気の比エントロピー [kJ/(kg·K)]</li>
+    </ul>
+    <p>$h$ の基準点は三重点 0.01 °C・611.657 Pa における飽和液の $h$ = 0（IAPWS 基準）。</p>
+
+    <h2>使い方の例</h2>
+    <ul>
+      <li>0.5 MPaG（≒ 0.6 MPaA、≒ 158 °C）の飽和蒸気を 1 kg 凝縮させたときの放出熱量 ≒ $h_{fg}$ ≒ 2086 kJ/kg。</li>
+      <li>冷却塔・コンデンサ設計：必要な冷却水量 = $Q / (c_p \Delta T)$、$Q$ は蒸気側の凝縮潜熱から算出。</li>
+      <li>スチームトレース・ジャケット加熱：温度仕様から飽和圧力を逆算し、減圧弁・トラップ仕様を決定。</li>
+    </ul>
+
+    <h2>精度</h2>
+    <p>表の代表点（0〜373.95 °C）を補間しています。0.05〜3 MPaG の範囲で IAPWS-IF97 の値と比べた差は、飽和温度 0.2 K 以内、蒸発潜熱 0.1% 以内、飽和蒸気の比容積 1.5% 以内です。臨界点（373.95 °C, 22.064 MPa）に近づくほど物性の変化が急になり、補間の誤差が大きくなります。</p>
+
+  </section>
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <ul>
+      <li>IAPWS, Revised Release on the IAPWS Industrial Formulation 1997 for the Thermodynamic Properties of Water and Steam（IAPWS-IF97）（<a href="https://www.iapws.org/relguide/IF97-Rev.html" target="_blank" rel="noopener">IAPWS</a>）</li>
+      <li>日本機械学会 編『伝熱工学資料』日本機械学会</li>
+    </ul>
+  </section>
+
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../utility/" class="related-card"><span class="small">伝熱</span>冷却水・蒸気・熱媒油の必要量</a>
+      <a href="../heat-duty/" class="related-card"><span class="small">伝熱</span>熱量・熱収支</a>
+      <a href="../lmtd-area/" class="related-card"><span class="small">伝熱</span>LMTD・伝熱面積</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/steam-table.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+</body>
+</html>
