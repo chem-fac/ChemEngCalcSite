@@ -43,12 +43,6 @@
       keywords: ["流動", "流体", "配管", "圧力損失", "fluid"]
     },
     {
-      title: "配管口径選定（推奨流速と呼び径の候補）",
-      url: "tools/fluid/pipe-sizing/",
-      category: "流動",
-      keywords: ["配管口径", "配管選定", "経済流速", "推奨流速", "呼び径", "JIS", "スケジュール", "配管設計", "ライン仕様", "管内径", "STPG", "Sch40", "流速", "口径", "pipe sizing"]
-    },
-    {
       title: "撹拌混合（カテゴリ）",
       url: "tools/mixing/",
       category: "カテゴリ",
@@ -347,12 +341,6 @@
       url: "tools/instrumentation-control/",
       category: "カテゴリ",
       keywords: ["計装", "制御", "プロセス制御", "PID", "センサ", "トランスミッタ", "調節弁", "制御弁", "流量計", "温度計", "圧力計", "instrumentation", "control", "process control"]
-    },
-    {
-      title: "熱電対 起電力⇔温度（K/J/T 型）",
-      url: "tools/instrumentation-control/thermocouple/",
-      category: "計装・制御",
-      keywords: ["熱電対", "thermocouple", "K型", "J型", "T型", "ITS-90", "NIST", "起電力", "mV", "温度補償", "冷接点", "熱起電力", "基準接点補償", "JIS C 1602", "温度計測"]
     },
     {
       title: "0.6乗則・0.7乗則による設備費の換算",
