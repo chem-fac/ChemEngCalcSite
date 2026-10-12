@@ -323,6 +323,18 @@
       url: "tools/instrumentation-control/",
       category: "カテゴリ",
       keywords: ["計装", "制御", "プロセス制御", "PID", "センサ", "トランスミッタ", "調節弁", "制御弁", "流量計", "温度計", "圧力計", "instrumentation", "control", "process control"]
+    },
+    {
+      title: "0.6乗則・0.7乗則による設備費の換算",
+      url: "tools/economics/six-tenths-rule/",
+      category: "経済性",
+      keywords: ["0.6乗則", "0.7乗則", "シックステンス", "six-tenths rule", "スケールファクター", "容量指数", "能力換算", "設備費", "建設費", "プラントコスト", "コスト指数", "コストインデックス", "プラントコストインデックス", "PCI", "企業物価指数", "価格換算", "スケールメリット", "見積もり", "概算", "cost scaling"]
+    },
+    {
+      title: "経済性（カテゴリ）",
+      url: "tools/economics/",
+      category: "カテゴリ",
+      keywords: ["経済性", "経済評価", "設備費", "建設費", "プラントコスト", "費用", "コスト", "見積もり", "概算", "economics", "cost estimation"]
     }
   ];
 
