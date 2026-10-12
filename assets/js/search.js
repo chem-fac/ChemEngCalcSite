@@ -205,6 +205,12 @@
       keywords: ["McCabe", "Thiele", "マッケーブ・シール", "マッケーブシール", "二成分連続蒸留", "二成分蒸留", "理論段数", "供給段", "還流比", "q線", "操作線", "相対揮発度", "蒸留"]
     },
     {
+      title: "充填塔の理論段数と充填高さの換算（HETP）",
+      url: "tools/distillation/packed-column/",
+      category: "蒸留",
+      keywords: ["充填塔", "理論段数", "充填高さ", "HETP", "理論段相当高さ", "換算", "濃縮部", "回収部", "全還流", "Fenske", "規則充填物", "不規則充填物", "packed column", "蒸留"]
+    },
+    {
       title: "アレニウスの式（反応速度定数・活性化エネルギー）",
       url: "tools/reaction/arrhenius/",
       category: "反応",
