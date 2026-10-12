@@ -211,6 +211,12 @@
       keywords: ["充填塔", "理論段数", "充填高さ", "HETP", "理論段相当高さ", "換算", "濃縮部", "回収部", "全還流", "Fenske", "規則充填物", "不規則充填物", "packed column", "蒸留"]
     },
     {
+      title: "FUG法（Fenske・Underwood・Gilliland）",
+      url: "tools/distillation/fug/",
+      category: "蒸留",
+      keywords: ["FUG法", "Fenske", "Underwood", "Gilliland", "フェンスケ", "アンダーウッド", "ギリランド", "最小段数", "最小還流比", "還流比", "理論段数", "二成分蒸留", "相対揮発度", "蒸留"]
+    },
+    {
       title: "アレニウスの式（反応速度定数・活性化エネルギー）",
       url: "tools/reaction/arrhenius/",
       category: "反応",
