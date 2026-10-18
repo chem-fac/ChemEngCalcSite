@@ -1,14 +1,22 @@
+/* 色はデザインの決まり（2026-10-18）の6色＋機能面1色。
+   紙 #fff／墨 #1c2320／薄墨 #555f59／罫 #d5dcd8／緑 #006938／濃緑 #004d2a、
+   面 #f5f6f5 は入力欄・計算結果など機能のある所だけ。
+   旧トークン名（--brand-light / --brand-faint / --bg-soft）は互換のため残し、緑がかった面をやめて無彩色の面に寄せた。
+   層流・遷移・乱流の3色は情報の色なので残す。 */
 :root {
   --brand: #006938;
-  --brand-dark: #00532c;
-  --brand-light: #e6f1eb;
-  --brand-faint: #f4f9f6;
-  --text: #2a2a2a;
-  --text-sub: #666;
-  --border: #e3e6e4;
+  --brand-dark: #004d2a;
+  --ink: #1c2320;
+  --ink-sub: #555f59;
+  --rule: #d5dcd8;
+  --surface: #f5f6f5;
+  --brand-light: #f5f6f5;
+  --brand-faint: #f5f6f5;
+  --text: #1c2320;
+  --text-sub: #555f59;
+  --border: #d5dcd8;
   --bg: #ffffff;
-  --bg-soft: #f7f8f7;
-  --new-badge: #1a8b4d;
+  --bg-soft: #f5f6f5;
   --laminar: #2c7be5;
   --transition: #e09f00;
   --turbulent: #d63b3b;
@@ -22,22 +30,42 @@ html, body {
   font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic UI", sans-serif;
   color: var(--text);
   background: var(--bg);
-  line-height: 1.7;
-  font-size: 15px;
+  line-height: 1.8;
+  font-size: 16px;
 }
 
 a { color: var(--brand); text-decoration: none; }
-a:hover { text-decoration: underline; }
+a:hover { color: var(--brand-dark); text-decoration: underline; }
 
 button { font-family: inherit; cursor: pointer; }
+
+h1, h2 { word-break: auto-phrase; }
+
+/* キーボード操作のときの現在地。マウス操作では出さない */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 
 /* ===== Header ===== */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255,255,255,0.96);
-  backdrop-filter: blur(8px);
+  background: #fff;
   border-bottom: 1px solid var(--border);
 }
 .site-header .inner {
@@ -68,73 +96,51 @@ button { font-family: inherit; cursor: pointer; }
   color: var(--text-sub);
   font-weight: 500;
 }
+.site-nav a { transition: color 0.12s; }
 .site-nav a:hover { color: var(--brand); text-decoration: none; }
 
-/* ===== Hero ===== */
-.hero {
-  position: relative;
-  background: linear-gradient(180deg, #fbfdfc 0%, #ffffff 100%);
-  overflow: hidden;
-}
-.hero-bg {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-image: url("../img/hero-bg.png");
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: contain;
-  pointer-events: none;
-  z-index: 0;
-}
-.hero-inner {
+/* ===== Top intro（トップの導入部：左揃え・何のサイトか・誰が作っているか・検索1つ） ===== */
+.top-intro {
   max-width: 1280px;
   margin: 0 auto;
-  padding: clamp(72px, 8vw, 96px) 32px clamp(32px, 3.5vw, 48px);
-  min-height: clamp(180px, 22vw, 260px);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(240px, 1fr);
-  gap: clamp(24px, 4vw, 40px);
-  align-items: center;
-  position: relative;
-  z-index: 1;
+  padding: 40px 32px 32px;
 }
-.hero-content {
-  position: relative;
-  z-index: 2;
-}
-.hero h1 {
-  font-size: 46px;
+.top-intro h1 {
+  font-size: clamp(24px, 1.6vw + 16px, 34px);
   font-weight: 700;
-  line-height: 1.3;
-  margin: 0 0 12px;
-  letter-spacing: 0.02em;
+  line-height: 1.35;
+  margin: 0 0 10px;
 }
-.hero .lead {
-  font-size: 17px;
+.top-intro .lead {
+  font-size: 16px;
+  line-height: 1.8;
   color: var(--text-sub);
-  margin: 0 0 28px;
+  margin: 0 0 20px;
+  max-width: 40em;
+  word-break: auto-phrase;
 }
 .search {
   display: flex;
   background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  border: 1px solid var(--ink-sub);
+  border-radius: 4px;
   overflow: hidden;
   max-width: 540px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.search:focus-within {
+  outline: 2px solid var(--brand);
+  outline-offset: 1px;
 }
 .search input {
   flex: 1;
   min-width: 0;
   border: none;
-  outline: none;
-  padding: 16px 18px 16px 46px;
+  /* 枠は .search:focus-within が出す。透明の線は強制カラーモードで見える */
+  outline: 2px solid transparent;
+  padding: 14px 18px 14px 46px;
   font-size: 15px;
   font-family: inherit;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23555f59' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>");
   background-repeat: no-repeat;
   background-position: 16px center;
 }
@@ -144,8 +150,8 @@ button { font-family: inherit; cursor: pointer; }
   border: none;
   padding: 0 30px;
   font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-weight: 700;
+  transition: background-color 0.12s;
 }
 .search button:hover { background: var(--brand-dark); }
 
@@ -154,8 +160,9 @@ button { font-family: inherit; cursor: pointer; }
   margin-top: 8px;
   background: #fff;
   border: 1px solid var(--border);
-  border-radius: 6px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  border-radius: 4px;
+  /* 検索結果は本文の上に重なって出るので、浮く物として影を付ける */
+  box-shadow: 0 4px 12px rgba(28,35,32,0.12);
   overflow: hidden;
 }
 .search-hit {
@@ -166,221 +173,96 @@ button { font-family: inherit; cursor: pointer; }
   border-bottom: 1px solid var(--border);
   text-decoration: none;
   color: var(--text);
-  transition: background 0.12s;
+  transition: background-color 0.12s;
 }
 .search-hit:last-child { border-bottom: none; }
 .search-hit:hover { background: var(--bg-soft); text-decoration: none; }
 .search-hit-cat {
   display: inline-block;
-  background: var(--brand-light);
-  color: var(--brand);
-  font-size: 11px;
-  font-weight: 600;
-  padding: 3px 8px;
-  border-radius: 3px;
+  color: var(--text-sub);
+  font-size: 13px;
+  padding: 0 6px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
   flex: 0 0 auto;
 }
-.search-hit-title { font-size: 14.5px; font-weight: 500; }
+.search-hit-title { font-size: 15px; font-weight: 500; }
 .search-empty {
   padding: 14px 16px;
   font-size: 13.5px;
   color: var(--text-sub);
 }
 
-.keywords {
-  margin-top: 22px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-}
-.keywords-label {
-  color: var(--text-sub);
-  margin-right: 4px;
-}
-.chip {
-  display: inline-block;
-  padding: 5px 14px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  color: var(--text-sub);
-  background: #fff;
-  font-size: 12.5px;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-.chip:hover {
-  border-color: var(--brand);
-  color: var(--brand);
-  text-decoration: none;
-}
-
-.hero-illust-removed { display: none !important; }
-.hero-waves { display: none; }
 
 /* ===== Section common ===== */
 .section {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 32px 32px 60px;
+  padding: 24px 32px 56px;
 }
+/* 節の始まり：見出しの上に本文幅いっぱいの墨の罫線（2px） */
 .section-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
   font-size: 20px;
   font-weight: 700;
-  margin: 0 0 28px;
-}
-.section-title::before {
-  content: "";
-  display: inline-block;
-  width: 4px;
-  height: 22px;
-  background: var(--brand);
-  border-radius: 2px;
+  line-height: 1.4;
+  margin: 0 0 20px;
+  padding-top: 14px;
+  border-top: 2px solid var(--ink);
 }
 
-/* ===== Category grid ===== */
-.cat-grid {
+/* ===== Category index (top)：分野の目録。箱にせず細い罫線で区切る ===== */
+.cat-index {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 32px;
+  border-top: 1px solid var(--border);
 }
-.cat-grid-launch {
-  grid-template-columns: repeat(5, minmax(0, 190px));
-  justify-content: center;
+.cat-index li {
+  border-bottom: 1px solid var(--border);
+  min-width: 0;
 }
-.cat-coming {
-  background: linear-gradient(135deg, var(--brand-faint) 0%, #ffffff 100%);
-  border: 1.5px dashed rgba(0,105,56,0.45);
-  border-radius: 8px;
-  padding: 18px 12px;
+.cat-link {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 1 / 1;
-  width: 100%;
-}
-.cat-coming::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(-45deg, transparent 0 18px, rgba(0,105,56,0.035) 18px 36px);
-  pointer-events: none;
-}
-.cat-coming-label {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.4em;
-  padding-left: 0.4em;
-  color: var(--brand);
-  background: #fff;
-  padding: 6px 14px;
-  border: 1px solid var(--brand);
-  border-radius: 999px;
-  margin-bottom: 12px;
-  position: relative;
-  z-index: 1;
-}
-.cat-coming-title {
-  font-size: 12px;
-  line-height: 1.55;
-  color: var(--text-sub);
-  margin-bottom: 0;
-  position: relative;
-  z-index: 1;
-}
-.cat-coming-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px 10px;
-  position: relative;
-  z-index: 1;
-}
-.cat-coming-list span {
-  font-size: 12px;
-  padding: 5px 14px;
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  color: var(--text-sub);
-}
-.cat-card {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 22px 12px 18px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: all 0.18s;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 20px 0 18px;
   color: var(--text);
-  aspect-ratio: 1 / 1;
-  width: 100%;
-  position: relative;
 }
-.cat-card[href]:hover {
-  border-color: var(--brand);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0,105,56,0.08);
-  text-decoration: none;
-}
-.cat-card .icon {
-  width: 144px;
-  height: 144px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--brand);
-}
-.cat-card .icon svg { width: 100%; height: 100%; }
-.cat-card .icon img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+.cat-link:hover { text-decoration: none; }
+/* 自作の装置線画は、このサイトだけの資産なので図として読める大きさで置く */
+.cat-link img {
+  flex: 0 0 auto;
+  width: 96px;
+  height: 80px;
   object-fit: contain;
+  object-position: left bottom;
   display: block;
 }
-.cat-card .icon img[src*="heat_transfer"] { transform: scale(1); }
-.cat-card .name {
-  font-weight: 700;
+.cat-link-body { min-width: 0; }
+.cat-link-name {
+  display: block;
   font-size: 17px;
-  letter-spacing: 0.04em;
-}
-.cat-card-pending {
-  border-style: dashed;
-  background: #fbfcfb;
-  color: var(--text-sub);
-}
-.cat-card-pending .icon {
-  opacity: 0.58;
-  filter: grayscale(0.18);
-}
-.cat-card-status {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  font-size: 11px;
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.5;
   color: var(--brand);
-  background: #fff;
-  border: 1px solid rgba(0,105,56,0.35);
-  border-radius: 999px;
-  padding: 6px 12px;
+  transition: color 0.12s;
+}
+.cat-link:hover .cat-link-name {
+  color: var(--brand-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.cat-link-desc {
+  display: block;
+  word-break: auto-phrase;
+  margin-top: 2px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-sub);
 }
 
 /* ===== Category landing: tool list ===== */
@@ -393,117 +275,84 @@ button { font-family: inherit; cursor: pointer; }
 .tool-list-section { margin-bottom: 40px; }
 .tool-list-section .section-title {
   font-size: 18px;
-  font-weight: 700;
-  margin: 0 0 16px;
-  padding-left: 12px;
-  border-left: 4px solid var(--brand);
-  line-height: 1.4;
 }
-/* border-left と二重にならないよう、共通 .section-title の縦バーは消す */
-.tool-list-section .section-title::before {
-  content: none;
-}
+/* カテゴリ内のツール一覧：箱にせず、行の上下を細い罫線で区切る */
 .tool-list {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  border-top: 1px solid var(--border);
 }
 .tool-list-card {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 20px 22px;
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  align-items: baseline;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
   text-decoration: none;
   color: var(--text);
-  transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
 }
-.tool-list-card:hover {
-  border-color: var(--brand);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0,105,56,0.08);
-  text-decoration: none;
+.tool-list-card:hover { text-decoration: none; }
+/* 1行に「ツール名｜説明」を並べる（PC）。スマホは縦に積む */
+.tool-list-card-body {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 19em) minmax(0, 1fr);
+  column-gap: 32px;
+  align-items: baseline;
 }
-.tool-list-card-body { flex: 1; min-width: 0; }
-.tool-list-cat {
-  display: inline-block;
-  background: var(--brand-light);
-  color: var(--brand);
-  font-size: 11px;
-  font-weight: 600;
-  padding: 3px 9px;
-  border-radius: 3px;
-  margin-bottom: 8px;
-}
+/* 同じカテゴリのページでは全行が同じ分野名になるので出さない（見出しとパンくずが持っている） */
+.tool-list-cat { display: none; }
 .tool-list-title {
   font-size: 16px;
   font-weight: 700;
-  margin: 0 0 6px;
-  color: var(--text);
+  line-height: 1.55;
+  margin: 0;
+  color: var(--brand);
+  transition: color 0.12s;
+}
+.tool-list-card:hover .tool-list-title {
+  color: var(--brand-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .tool-list-desc {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.7;
   color: var(--text-sub);
   margin: 0;
+  max-width: 44em;
 }
 .tool-list-arrow {
-  color: var(--brand);
-  font-size: 22px;
-  line-height: 1;
+  color: var(--text-sub);
+  font-size: 18px;
+  line-height: 1.5;
   flex: 0 0 auto;
 }
 
 /* ===== Category empty state ===== */
 .cat-empty {
-  background: linear-gradient(135deg, var(--brand-faint) 0%, #ffffff 100%);
-  border: 1.5px dashed rgba(0,105,56,0.45);
-  border-radius: 8px;
-  padding: 56px 28px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-.cat-empty::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(-45deg, transparent 0 18px, rgba(0,105,56,0.035) 18px 36px);
-  pointer-events: none;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 32px 0;
 }
 .cat-empty-label {
-  display: inline-block;
-  font-size: 11px;
+  display: block;
+  font-size: 15px;
   font-weight: 700;
-  letter-spacing: 0.45em;
-  padding-left: 0.45em;
-  color: var(--brand);
-  background: #fff;
-  padding: 7px 18px;
-  border: 1px solid var(--brand);
-  border-radius: 999px;
-  margin-bottom: 18px;
-  position: relative;
-  z-index: 1;
+  color: var(--text);
+  margin-bottom: 8px;
 }
 .cat-empty-text {
   font-size: 14px;
   line-height: 1.85;
   color: var(--text-sub);
   margin: 0 0 18px;
-  position: relative;
-  z-index: 1;
 }
 .cat-empty-back {
   display: inline-block;
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--brand);
   text-decoration: none;
-  position: relative;
-  z-index: 1;
 }
 .cat-empty-back:hover { text-decoration: underline; }
 
@@ -511,19 +360,14 @@ button { font-family: inherit; cursor: pointer; }
 .info-section {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 32px 60px;
+  padding: 8px 32px 64px;
 }
 .info-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
 }
-.info-card {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 24px 26px;
-}
+.info-card { padding: 0; }
 .info-list {
   list-style: none;
   margin: 0 0 16px;
@@ -531,121 +375,69 @@ button { font-family: inherit; cursor: pointer; }
 }
 .info-list li {
   padding: 10px 0;
-  border-bottom: 1px dashed var(--border);
+  border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 13.5px;
+  font-size: 15px;
 }
-.info-list li:last-child { border-bottom: none; }
-.info-card .info-list.updates li:nth-child(5) { border-bottom: none; }
 .info-card .info-list.updates li:nth-child(n+6) { display: none; }
-.rank-num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--brand-light);
-  color: var(--brand);
-  font-weight: 700;
-  font-size: 12px;
-  flex-shrink: 0;
-}
 .info-list .item-name { flex: 1; color: var(--text); }
 .info-list .item-name a {
   color: var(--brand);
   text-decoration: underline;
-  text-decoration-color: rgba(0,105,56,0.35);
-  text-underline-offset: 3px;
-  transition: color 0.15s, text-decoration-color 0.15s;
+  text-decoration-color: var(--border);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: color 0.12s, text-decoration-color 0.12s;
 }
 .info-list .item-name a:hover {
   color: var(--brand-dark);
   text-decoration-color: var(--brand-dark);
 }
-.info-list .item-desc { color: var(--text-sub); font-size: 12px; }
-.info-list .arrow { color: #ccc; font-size: 14px; }
-.info-list.guide li { padding: 12px 0; }
-.info-list.guide .icon-box {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  background: var(--brand-faint);
-  border-radius: 4px;
-  color: var(--brand);
-  flex-shrink: 0;
-}
+.info-list .item-desc { color: var(--text-sub); font-size: 13px; }
 .info-list.updates .date {
   color: var(--text-sub);
-  font-size: 12px;
-  font-family: "SF Mono", Consolas, monospace;
+  font-size: 14px;
   font-variant-numeric: tabular-nums;
   flex-shrink: 0;
-  width: 72px;
+  width: 84px;
 }
 .info-list.updates li {
   display: grid;
-  grid-template-columns: 72px 72px minmax(0, 1fr);
-  align-items: center;
-  column-gap: 10px;
+  grid-template-columns: 84px 5.5em minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: 12px;
 }
+/* 種別は事実の文字だけ（枠・面なし） */
 .info-list.updates .update-kind {
-  display: inline-flex;
   justify-self: start;
-  align-items: center;
-  justify-content: center;
-  min-width: 72px;
-  padding: 3px 7px;
-  border: 1px solid var(--brand);
-  border-radius: 4px;
-  background: #fff;
-  color: var(--brand-dark);
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1.35;
-  letter-spacing: 0.02em;
+  color: var(--text-sub);
+  font-size: 13px;
+  line-height: 1.5;
   white-space: nowrap;
 }
 @media (max-width: 600px) {
   .info-list.updates li {
-    grid-template-columns: 72px minmax(0, 1fr);
-    row-gap: 7px;
+    grid-template-columns: 84px minmax(0, 1fr);
+    row-gap: 2px;
   }
   .info-list.updates .item-name {
     grid-column: 1 / -1;
   }
 }
-.new-badge {
-  display: inline-block;
-  background: var(--new-badge);
-  color: #fff;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 3px;
-  margin-left: 4px;
-  letter-spacing: 0.05em;
-}
 .info-more {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 14px;
-  border-top: 1px solid var(--border);
-  font-size: 13px;
-  color: var(--brand);
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 15px;
   font-weight: 500;
 }
 
 /* ===== Footer ===== */
 .site-footer {
-  background: var(--bg-soft);
-  border-top: 1px solid var(--border);
-  padding: 50px 0 30px;
+  background: #fff;
+  border-top: 2px solid var(--ink);
+  padding: 40px 0 30px;
 }
 .footer-inner {
   max-width: 1280px;
@@ -656,17 +448,17 @@ button { font-family: inherit; cursor: pointer; }
   gap: 40px;
 }
 .footer-col h4 {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
-  margin: 0 0 16px;
-  color: var(--brand);
+  margin: 0 0 12px;
+  color: var(--text);
 }
 .footer-col ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-.footer-col li { margin-bottom: 10px; font-size: 13px; }
+.footer-col li { margin-bottom: 8px; font-size: 14px; }
 .footer-col a { color: var(--text-sub); }
 .footer-col a:hover { color: var(--brand); }
 .footer-brand {
@@ -678,7 +470,7 @@ button { font-family: inherit; cursor: pointer; }
 .footer-brand .logo { font-size: 16px; }
 .footer-copy {
   margin-top: 14px;
-  font-size: 11.5px;
+  font-size: 13px;
   color: var(--text-sub);
 }
 
@@ -694,34 +486,8 @@ button { font-family: inherit; cursor: pointer; }
   margin-bottom: 18px;
 }
 .breadcrumb a { color: var(--text-sub); }
-.breadcrumb .sep { margin: 0 8px; color: #bbb; }
+.breadcrumb .sep { margin: 0 8px; color: var(--text-sub); }
 .breadcrumb .current { color: var(--text); }
-
-.tool-header {
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 22px;
-  margin-bottom: 32px;
-}
-.tool-header h1 {
-  font-size: 28px;
-  font-weight: 700;
-  margin: 0 0 10px;
-}
-.tool-header .desc {
-  color: var(--text-sub);
-  font-size: 14.5px;
-  margin: 0;
-}
-.tool-header .cat-tag {
-  display: inline-block;
-  background: var(--brand-light);
-  color: var(--brand);
-  font-size: 12px;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 3px;
-  margin-bottom: 12px;
-}
 
 .tool-layout {
   display: grid;
@@ -729,34 +495,13 @@ button { font-family: inherit; cursor: pointer; }
   gap: 28px;
   margin-bottom: 36px;
 }
-.panel {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 26px 28px;
-}
-.panel h2 {
-  font-size: 16px;
-  font-weight: 700;
-  margin: 0 0 22px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.panel h2::before {
-  content: "";
-  width: 3px;
-  height: 16px;
-  background: var(--brand);
-  border-radius: 2px;
-}
 
 .input-row {
   margin-bottom: 18px;
 }
 .input-row label {
   display: block;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   margin-bottom: 6px;
   color: var(--text);
@@ -770,14 +515,9 @@ button { font-family: inherit; cursor: pointer; }
 .input-row label .opt {
   display: inline-block;
   margin-left: 6px;
-  padding: 1px 7px;
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 400;
   color: var(--text-sub);
-  background: var(--brand-faint);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  vertical-align: middle;
 }
 .input-group {
   display: flex;
@@ -788,76 +528,85 @@ button { font-family: inherit; cursor: pointer; }
   padding: 10px 12px;
   border: 1px solid var(--border);
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 15px;
   font-family: inherit;
-  outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.12s;
 }
 .input-group input:focus { border-color: var(--brand); }
+.input-group input:focus-visible,
+.input-group select:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
 .input-group select {
   padding: 10px 8px;
   border: 1px solid var(--border);
   border-radius: 4px;
-  font-size: 13px;
+  font-size: 14px;
   background: #fff;
   font-family: inherit;
-  outline: none;
   min-width: 90px;
 }
+/* 単位は入力欄の右に置く固定の文字（枠・面を付けると選べる部品に見える） */
 .input-group .unit-static {
-  min-width: 70px;
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  background: #f8faf9;
-  color: var(--text-sub);
-  font-size: 13px;
-  text-align: center;
+  min-width: 4.5em;
+  padding: 10px 0 10px 2px;
+  color: var(--text);
+  font-size: 14px;
+  text-align: left;
 }
 .unit-label {
   flex: 0 0 auto;
-  min-width: 76px;
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  background: #f8faf9;
-  color: var(--text-sub);
-  font-size: 13px;
-  text-align: center;
+  min-width: 4.5em;
+  padding: 10px 0 10px 2px;
+  color: var(--text);
+  font-size: 14px;
+  text-align: left;
   white-space: nowrap;
 }
 
 .btn-row {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
   margin-top: 22px;
 }
 .btn {
   padding: 12px 22px;
   border: none;
   border-radius: 4px;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   font-family: inherit;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: background-color 0.12s, border-color 0.12s, color 0.12s;
 }
 .btn-primary {
   background: var(--brand);
   color: #fff;
-  flex: 1;
+  flex: 0 0 auto;
+  min-width: 10em;
+  padding-left: 36px;
+  padding-right: 36px;
 }
 .btn-primary:hover { background: var(--brand-dark); }
+/* リセット・計算例・コピーは主な操作ではないので文字のボタンにする */
 .btn-ghost {
-  background: #fff;
-  border: 1px solid var(--border);
-  color: var(--text-sub);
+  background: transparent;
+  border: none;
+  padding-left: 2px;
+  padding-right: 2px;
+  color: var(--brand);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: color 0.12s, text-decoration-color 0.12s;
 }
-.btn-ghost:hover { border-color: var(--brand); color: var(--brand); }
+.btn-ghost:hover { color: var(--brand-dark); text-decoration-color: var(--brand-dark); }
 
 .preset-row {
   margin-top: 6px;
-  font-size: 12px;
+  font-size: 13px;
 }
 .preset-row a {
   margin-right: 12px;
@@ -871,29 +620,6 @@ button { font-family: inherit; cursor: pointer; }
   flex-direction: column;
   gap: 14px;
 }
-.result-item {
-  background: var(--brand-faint);
-  border-left: 3px solid var(--brand);
-  padding: 14px 18px;
-  border-radius: 4px;
-}
-.result-item .label {
-  font-size: 12px;
-  color: var(--text-sub);
-  margin-bottom: 4px;
-}
-.result-item .value {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--text);
-  font-family: "SF Mono", Consolas, monospace;
-}
-.result-item .unit {
-  font-size: 13px;
-  color: var(--text-sub);
-  margin-left: 4px;
-  font-weight: 500;
-}
 .regime-display {
   margin-top: 6px;
   padding: 18px;
@@ -903,7 +629,7 @@ button { font-family: inherit; cursor: pointer; }
   text-align: center;
 }
 .regime-label {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-sub);
   margin-bottom: 6px;
 }
@@ -914,30 +640,41 @@ button { font-family: inherit; cursor: pointer; }
   font-weight: 700;
   font-size: 16px;
   color: #fff;
-  background: #aaa;
-  letter-spacing: 0.05em;
+  background: #6e746e;
 }
 .regime-badge.laminar { background: var(--laminar); }
 .regime-badge.transition { background: var(--transition); }
 .regime-badge.turbulent { background: var(--turbulent); }
 .regime-note {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-sub);
   margin-top: 8px;
 }
 
+/* 計算前：答えが入る場所を「—」で示す（中央寄せの薄い一文だけにしない） */
 .placeholder {
-  color: #bbb;
-  text-align: center;
-  padding: 40px 0;
-  font-size: 13px;
+  color: var(--text-sub);
+  text-align: left;
+  padding: 16px 20px 18px;
+  font-size: 14px;
+  background: var(--surface);
+  border-radius: 4px;
+}
+.placeholder::before {
+  content: "—";
+  display: block;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-sub);
+  margin-bottom: 6px;
 }
 
 /* ===== Formula / notes ===== */
 details.formula {
   background: #fff;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 4px;
   margin-bottom: 22px;
 }
 details.formula summary {
@@ -950,78 +687,45 @@ details.formula summary {
   gap: 8px;
   list-style: none;
 }
-details.formula summary::before {
-  content: "📐";
-  font-size: 16px;
-}
 details.formula[open] summary { border-bottom: 1px solid var(--border); }
 details.formula .body {
   padding: 22px 28px;
 }
-.formula-block {
-  background: var(--brand-faint);
-  padding: 16px 20px;
-  border-radius: 4px;
-  font-family: "SF Mono", Consolas, monospace;
-  font-size: 15px;
-  margin: 12px 0;
-}
-.formula-block .var {
-  color: var(--brand);
-  font-weight: 700;
-}
-
-.notes {
-  background: #fffaf0;
-  border-left: 3px solid #e09f00;
-  padding: 16px 22px;
-  border-radius: 4px;
-  font-size: 13.5px;
-  margin-bottom: 22px;
-}
-.notes h3 {
-  font-size: 14px;
-  margin: 0 0 8px;
-  color: #b07a00;
-}
-.notes ul { margin: 0; padding-left: 18px; }
-.notes li { margin-bottom: 4px; }
 
 .related h3 {
   font-size: 16px;
   margin: 0 0 14px;
 }
+/* 関連ツール：箱を並べず、罫線で区切った目録の行にする */
 .related-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(16em, 1fr));
+  column-gap: 32px;
+  border-top: 1px solid var(--border);
 }
 .related-card {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 14px 16px;
-  font-size: 13.5px;
-  color: var(--text);
+  display: block;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--brand);
 }
-.related-card:hover {
-  border-color: var(--brand);
-  text-decoration: none;
-}
+.related-card:hover { color: var(--brand-dark); }
 .related-card .small {
   display: block;
-  font-size: 11px;
+  font-size: 13px;
+  font-weight: 400;
   color: var(--text-sub);
-  margin-bottom: 4px;
 }
 
 .error-msg {
-  background: #fef2f2;
-  border-left: 3px solid var(--turbulent);
+  background: #fff;
+  border: 1px solid #b32424;
   color: #b32424;
   padding: 12px 16px;
   border-radius: 4px;
-  font-size: 13px;
+  font-size: 14px;
   margin-top: 14px;
 }
 
@@ -1033,9 +737,8 @@ details.formula .body {
   grid-template-columns: 1.2fr 1fr;
   gap: 36px;
   align-items: center;
-  padding: 36px 0 28px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 36px;
+  padding: 20px 0 8px;
+  margin-bottom: 28px;
 }
 .tool-hero-simple {
   display: block;
@@ -1043,18 +746,11 @@ details.formula .body {
 .tool-hero h1 {
   font-size: 30px;
   font-weight: 700;
-  margin: 6px 0 12px;
+  margin: 0 0 12px;
   line-height: 1.35;
 }
-.tool-hero .cat-tag {
-  display: inline-block;
-  background: var(--brand-light);
-  color: var(--brand);
-  font-size: 12px;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 3px;
-}
+/* 見出しの上の分野名はパンくずと同じ情報なので出さない */
+.tool-hero .cat-tag { display: none; }
 .tool-subcopy {
   font-size: 16px;
   font-weight: 500;
@@ -1062,27 +758,25 @@ details.formula .body {
   margin: 0 0 14px;
   line-height: 1.7;
 }
+.tool-subcopy, .tool-desc { max-width: 45em; }
 .tool-desc {
-  font-size: 14px;
+  font-size: 15px;
   color: var(--text-sub);
   line-height: 1.85;
   margin: 0;
 }
-.tool-hero-illust svg { width: 100%; height: auto; max-height: 220px; }
 
 /* ===== Calculator card ===== */
+/* 計算部：箱で囲まず、節の始まりと同じ墨の2px罫線から始める */
 .calc-card {
   background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 44px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+  border-top: 2px solid var(--ink);
+  margin-bottom: 48px;
 }
 .mode-tabs {
   display: flex;
   border-bottom: 1px solid var(--border);
-  background: var(--bg-soft);
+  background: #fff;
 }
 .mode-tab {
   flex: 1;
@@ -1094,10 +788,10 @@ details.formula .body {
   color: var(--text-sub);
   font-family: inherit;
   cursor: pointer;
-  border-bottom: 3px solid transparent;
-  transition: all 0.15s;
+  border-bottom: 2px solid transparent;
+  transition: color 0.12s, background-color 0.12s, border-color 0.12s;
 }
-.mode-tab:hover { color: var(--brand); background: rgba(0,105,56,0.04); }
+.mode-tab:hover { color: var(--brand); }
 .mode-tab.active {
   color: var(--brand);
   background: #fff;
@@ -1108,13 +802,13 @@ details.formula .body {
   grid-template-columns: 1fr 1fr;
 }
 .calc-pane {
-  padding: 28px 30px;
+  padding: 14px 0 28px;
 }
 .calc-input-pane {
-  border-right: 1px solid var(--border);
   background: #fff;
 }
-.calc-result-pane { background: var(--brand-faint); }
+.calc-grid { column-gap: 48px; }
+.calc-result-pane { background: #fff; }
 .calc-card-stacked .calc-grid {
   grid-template-columns: 1fr;
 }
@@ -1171,13 +865,13 @@ details.formula .body {
   align-items: center;
   background: var(--bg-soft);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 14px;
 }
 .distillation-constant-title {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
-  color: var(--brand);
+  color: var(--text);
   white-space: nowrap;
 }
 .distillation-mini-grid {
@@ -1191,7 +885,7 @@ details.formula .body {
   align-items: center;
   gap: 6px;
   margin: 0;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-sub);
 }
 .distillation-mini-grid input {
@@ -1206,7 +900,7 @@ details.formula .body {
   margin-top: 18px;
   background: #fff;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 10px;
 }
 .distillation-chart-wrap canvas {
@@ -1219,7 +913,7 @@ details.formula .body {
   margin: 0 0 18px;
   background: #fff;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 8px;
 }
 .tool-chart-wrap canvas {
@@ -1228,31 +922,22 @@ details.formula .body {
   height: auto;
 }
 .calc-pane h2 {
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 700;
-  margin: 0 0 22px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.calc-pane h2::before {
-  content: "";
-  width: 3px;
-  height: 16px;
-  background: var(--brand);
-  border-radius: 2px;
+  line-height: 1.4;
+  margin: 0 0 18px;
 }
 
 /* ===== Preset ===== */
 .preset-block {
   background: var(--bg-soft);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 4px;
   padding: 14px 16px;
   margin-bottom: 20px;
 }
 .preset-label {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--text-sub);
   margin-bottom: 8px;
@@ -1268,24 +953,24 @@ details.formula .body {
   border: 1px solid var(--border);
   color: var(--text-sub);
   font-family: inherit;
-  font-size: 12px;
+  font-size: 13px;
   padding: 5px 12px;
-  border-radius: 999px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: border-color 0.12s, color 0.12s;
 }
 .preset-buttons button:hover {
   border-color: var(--brand);
   color: var(--brand);
 }
 .preset-note {
-  font-size: 11.5px;
+  font-size: 13px;
   color: var(--text-sub);
   margin: 0;
   line-height: 1.6;
 }
 .input-row .hint {
-  font-size: 11.5px;
+  font-size: 13px;
   color: var(--text-sub);
   margin: 6px 0 0;
   line-height: 1.6;
@@ -1297,7 +982,7 @@ details.formula .body {
   display: inline-flex;
   background: var(--bg-soft);
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: 4px;
   padding: 3px;
   margin-bottom: 10px;
   font-size: 0;
@@ -1306,13 +991,13 @@ details.formula .body {
   background: transparent;
   border: none;
   padding: 6px 14px;
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 600;
   font-family: inherit;
   color: var(--text-sub);
   cursor: pointer;
-  border-radius: 999px;
-  transition: all 0.15s;
+  border-radius: 2px;
+  transition: background-color 0.12s, color 0.12s;
 }
 .d-mode-tab:hover { color: var(--brand); }
 .d-mode-tab.active {
@@ -1324,14 +1009,14 @@ details.formula .body {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   width: 100%;
-  border-radius: 6px;
+  border-radius: 4px;
 }
 .flow-diameter-row .d-mode-tab {
   white-space: normal;
   line-height: 1.4;
 }
 .flow-diameter-row .d-mode-tab.active {
-  border-radius: 4px;
+  border-radius: 2px;
 }
 .flow-diameter-row .d-mode-pane {
   margin-top: 12px;
@@ -1346,36 +1031,34 @@ details.formula .body {
   margin-bottom: 6px;
 }
 .sub-label {
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 600;
   margin-bottom: 5px;
   color: var(--text-sub);
 }
-.sub-label .sym { font-style: italic; color: var(--brand); margin-left: 3px; }
+.sub-label .sym { font-style: italic; color: var(--text-sub); margin-left: 3px; }
 .sub-label .sym sub { font-size: 0.75em; }
 
 /* ===== Result ===== */
 .result-main {
-  text-align: center;
-  padding: 18px 12px 22px;
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  text-align: left;
+  padding: 16px 20px 18px;
+  background: var(--surface);
+  border-radius: 4px;
   margin-bottom: 16px;
 }
 .result-main .result-label {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-sub);
   margin-bottom: 6px;
 }
 .result-value-big {
-  font-family: "SF Mono", Consolas, monospace;
   font-size: 38px;
   font-weight: 700;
   color: var(--text);
   line-height: 1.2;
-  margin-bottom: 12px;
-  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+  font-variant-numeric: tabular-nums;
 }
 .result-value-big .unit {
   font-size: 14px;
@@ -1384,38 +1067,35 @@ details.formula .body {
   margin-left: 6px;
 }
 .result-target {
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--text-sub);
   margin-bottom: 6px;
-  letter-spacing: 0.04em;
 }
-.result-target .sym { font-style: italic; margin-left: 2px; color: var(--brand); }
+.result-target .sym { font-style: italic; margin-left: 2px; color: var(--text); }
 .result-detail-label {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--text-sub);
   margin: 18px 0 8px;
-  letter-spacing: 0.04em;
 }
 .unit-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13.5px;
+  font-size: 14px;
   margin-bottom: 14px;
   background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  overflow: hidden;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
 }
 .unit-table td {
-  padding: 8px 12px;
+  padding: 8px 4px;
   border-bottom: 1px solid var(--border);
 }
 .unit-table tr:last-child td { border-bottom: none; }
 .unit-table td.num {
   text-align: right;
-  font-family: "SF Mono", Consolas, monospace;
+  font-variant-numeric: tabular-nums;
   font-weight: 600;
   color: var(--text);
 }
@@ -1433,7 +1113,7 @@ details.formula .body {
   border-bottom: 1px solid var(--border);
   background: var(--brand-faint);
   color: var(--text-sub);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   text-align: left;
   white-space: nowrap;
@@ -1447,37 +1127,36 @@ details.formula .body {
 .result-meta {
   margin-top: 14px;
   padding-top: 12px;
-  border-top: 1px dashed var(--border);
-  font-size: 12.5px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
   color: var(--text-sub);
   line-height: 1.85;
 }
-.result-meta .sym { font-style: italic; color: var(--brand); margin: 0 1px; }
+.unit-table + .result-meta { border-top: none; padding-top: 4px; }
+.result-meta .sym { font-style: italic; color: var(--text); margin: 0 1px; }
 .result-note {
   margin-top: 8px;
-  padding: 8px 10px;
-  background: var(--brand-faint);
-  border-radius: 4px;
-  font-size: 12px;
+  padding: 8px 0 0;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
   line-height: 1.7;
   color: var(--text);
 }
 .result-note-warn {
   margin-top: 8px;
-  padding: 8px 10px;
-  background: var(--brand-faint);
-  border-radius: 4px;
-  font-size: 12px;
+  padding: 8px 0 0;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
   line-height: 1.7;
   color: var(--text);
 }
 .unit-table .row-pseudo td {
   color: var(--text-sub);
-  background: #fafafa;
+  background: var(--surface);
 }
 .unit-table .row-pseudo td:first-child::after {
   content: '（参考）';
-  font-size: 11px;
+  font-size: 13px;
   color: var(--transition);
   margin-left: 4px;
 }
@@ -1488,8 +1167,7 @@ details.formula .body {
   font-weight: 700;
   font-size: 14px;
   color: #fff;
-  background: #aaa;
-  letter-spacing: 0.05em;
+  background: #6e746e;
 }
 .regime-badge.laminar { background: var(--laminar); }
 .regime-badge.transition { background: var(--transition); }
@@ -1498,14 +1176,14 @@ details.formula .body {
 .regime-scale {
   background: #fff;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 16px;
   margin-bottom: 16px;
 }
 .scale-zones {
   display: grid;
   grid-template-columns: 30% 10% 60%;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   margin-bottom: 4px;
   text-align: center;
@@ -1532,12 +1210,11 @@ details.formula .body {
   border: 1.5px solid #fff;
   border-radius: 2px;
   transform: translateX(-50%);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 .scale-labels {
   position: relative;
   height: 16px;
-  font-size: 10.5px;
+  font-size: 13px;
   color: var(--text-sub);
   margin-top: 6px;
 }
@@ -1548,9 +1225,9 @@ details.formula .body {
 
 .result-aux {
   background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 14px 16px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 6px 0;
   margin-bottom: 14px;
 }
 .aux-item {
@@ -1558,32 +1235,30 @@ details.formula .body {
   justify-content: space-between;
   align-items: baseline;
   padding: 6px 0;
-  border-bottom: 1px dashed var(--border);
+  border-bottom: 1px solid var(--border);
   font-size: 13px;
 }
 .aux-item:last-child { border-bottom: none; }
 .aux-label { color: var(--text-sub); }
 .aux-value {
-  font-family: "SF Mono", Consolas, monospace;
+  font-variant-numeric: tabular-nums;
   color: var(--text);
   font-weight: 600;
 }
 
 .regime-comment {
-  background: #fff;
-  border-left: 3px solid var(--brand);
-  padding: 12px 16px;
-  font-size: 13px;
+  border-top: 1px solid var(--border);
+  padding: 12px 0 0;
+  font-size: 14px;
   line-height: 1.75;
   color: var(--text);
-  border-radius: 4px;
   margin-bottom: 14px;
 }
 
 .calc-process {
   background: #fff;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 4px;
 }
 .calc-process summary {
   padding: 12px 16px;
@@ -1596,48 +1271,63 @@ details.formula .body {
 .calc-process-body {
   padding: 14px 16px;
   font-family: "SF Mono", Consolas, monospace;
-  font-size: 12.5px;
+  font-size: 13px;
   line-height: 1.85;
   color: var(--text);
   background: var(--bg-soft);
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 4px 4px;
   white-space: pre-wrap;
 }
 
 /* ===== Explanation blocks ===== */
 .explain-block {
-  margin-bottom: 36px;
+  margin-bottom: 40px;
 }
+/* 節の始まり：見出しの上に本文幅いっぱいの墨の罫線（2px） */
 .explain-block h2 {
   font-size: 20px;
   font-weight: 700;
   color: var(--text);
   margin: 0 0 14px;
-  padding-left: 12px;
-  border-left: 4px solid var(--brand);
+  padding-top: 12px;
+  border-top: 2px solid var(--ink);
   line-height: 1.4;
 }
 .explain-block h3 {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
-  color: var(--brand);
-  margin: 22px 0 8px;
+  color: var(--text);
+  margin: 24px 0 8px;
 }
+/* 本文・箇条書き・式を同じ幅（45字前後）の1本の段にそろえる。表と入力欄は全幅のまま */
 .explain-block p {
-  font-size: 14.5px;
+  font-size: 16px;
   line-height: 1.85;
   margin: 0 0 12px;
   color: var(--text);
+  max-width: 45em;
+  line-break: strict;
 }
 .explain-block ul, .explain-block ol {
   padding-left: 22px;
   margin: 0 0 14px;
+  max-width: 45em;
+}
+.explain-block > .math-block { max-width: 45em; }
+/* PC幅では文中の式を途中で折り返さない（スマホは折り返しを許してはみ出しを防ぐ） */
+@media (min-width: 769px) {
+  .explain-block p .katex { white-space: nowrap; }
 }
 .explain-block li {
-  font-size: 14px;
-  line-height: 1.85;
+  font-size: 16px;
+  line-height: 1.8;
   margin-bottom: 6px;
 }
+.explain-block .symbol-list { max-width: 45em; }
+.explain-block .symbol-list li { font-size: 15px; }
+/* 長い式はスマホで横にはみ出すので、式の中だけ横スクロールにする */
+.math-block, .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+.katex-display { padding: 2px 0; }
 .symbol-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1660,13 +1350,12 @@ details.formula .body {
   padding: 14px 16px 14px 70px;
   background: #fff;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 4px;
   line-height: 1.55;
-  transition: border-color .15s, box-shadow .15s;
+  transition: border-color 0.12s;
 }
 .paper-link-list li:hover {
   border-color: var(--brand);
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
 }
 .paper-link-list li::before {
   content: "文献";
@@ -1676,9 +1365,9 @@ details.formula .body {
   display: inline-block;
   color: var(--text-sub);
   border: 1px solid var(--border);
-  border-radius: 3px;
-  padding: 1px 6px;
-  font-size: 11px;
+  border-radius: 2px;
+  padding: 0 6px;
+  font-size: 13px;
   line-height: 1.5;
 }
 .paper-link-list a {
@@ -1691,31 +1380,17 @@ details.formula .body {
   display: inline-block;
   margin-top: 4px;
   color: var(--text-sub);
-  font-size: 12.5px;
+  font-size: 13px;
 }
 .formula-block-large {
-  background: var(--brand-faint);
-  border-left: 3px solid var(--brand);
+  background: var(--surface);
   padding: 18px 22px;
   border-radius: 4px;
-  font-family: "SF Mono", Consolas, monospace;
   font-size: 18px;
   text-align: center;
   margin: 14px 0;
-  letter-spacing: 0.02em;
 }
-.formula-block-small {
-  background: var(--brand-faint);
-  padding: 10px 16px;
-  border-radius: 4px;
-  font-family: "SF Mono", Consolas, monospace;
-  font-size: 14px;
-  display: inline-block;
-  margin: 6px 0 14px;
-}
-.formula-block-large .var,
-.formula-block-small .var {
-  color: var(--brand);
+.formula-block-large .var {
   font-weight: 700;
   font-style: italic;
 }
@@ -1738,16 +1413,16 @@ details.formula .body {
   color: var(--text-sub);
 }
 .example-card {
-  background: var(--bg-soft);
+  background: #fff;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 20px 22px;
   margin-bottom: 16px;
 }
 .example-title {
   font-weight: 700;
-  font-size: 15px;
-  color: var(--brand);
+  font-size: 16px;
+  color: var(--text);
   margin-bottom: 10px;
 }
 .example-conds {
@@ -1759,82 +1434,30 @@ details.formula .body {
   padding: 10px 18px;
   margin-bottom: 12px !important;
 }
-.example-calc {
-  background: #fff;
-  border-left: 3px solid var(--brand);
-  padding: 12px 16px;
-  font-family: "SF Mono", Consolas, monospace;
-  font-size: 13.5px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-}
 .example-result {
   font-size: 13.5px !important;
   color: var(--text-sub);
   margin: 0 !important;
 }
-.mistake-list {
-  list-style: none !important;
-  padding: 0 !important;
-  counter-reset: mistake;
-}
-.mistake-list li {
-  counter-increment: mistake;
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 14px 18px 14px 56px;
-  margin-bottom: 10px !important;
-  position: relative;
-}
-.mistake-list li::before {
-  content: counter(mistake);
-  position: absolute;
-  left: 14px;
-  top: 14px;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--brand-light);
-  color: var(--brand);
-  font-weight: 700;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.mistake-list .mistake-title {
-  font-weight: 700;
-  font-size: 14px;
-  color: var(--text);
-  margin-bottom: 4px;
-}
-.mistake-list p {
-  font-size: 13px;
-  color: var(--text-sub);
-  margin: 0;
-}
+/* 注意事項の節。黄色い枠はやめ、ほかの節と同じ罫線で始める（安全の数値・本文はそのまま） */
 .notes-block {
-  background: #fffaf0;
-  border: 1px solid #f0d8a0;
-  border-radius: 8px;
-  padding: 22px 26px;
-}
-.notes-block h2 {
-  border-left-color: #e09f00;
+  background: none;
+  border: none;
+  padding: 0;
 }
 
 .related-card.disabled {
   pointer-events: none;
   opacity: 0.6;
 }
-.related-card.disabled:hover { border-color: var(--border); }
+.related-card.disabled:hover { color: var(--brand); }
 .reynolds-page .related { display: none; }
 
 .update-archive-list {
   margin-top: 24px;
   border-top: 1px solid var(--border);
 }
+.doc-page .info-list { padding-left: 0; }
 .update-archive-list li {
   padding: 16px 0;
 }
@@ -1843,19 +1466,14 @@ details.formula .body {
 .profile-section {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 32px 60px;
+  padding: 8px 32px 56px;
 }
 .profile-inner {
   max-width: none;
   margin: 0;
   padding: 0;
 }
-.profile-card {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 32px;
-}
+.profile-card { padding: 0; }
 .profile-header {
   display: flex;
   align-items: flex-start;
@@ -1868,7 +1486,7 @@ details.formula .body {
   height: 110px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--border);
+  border: 1px solid var(--border);
   background: #fff;
 }
 .profile-name-block { flex: 1; min-width: 0; }
@@ -1881,42 +1499,44 @@ details.formula .body {
 .profile-bio {
   margin: 0;
   line-height: 1.85;
-  color: var(--text-sub);
-  font-size: 14px;
+  color: var(--text);
+  font-size: 16px;
+  max-width: 40em;
 }
 .profile-links {
   list-style: none;
   margin: 0;
-  padding: 22px 0 0;
+  padding: 0;
   border-top: 1px solid var(--border);
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px 36px;
+  gap: 0 36px;
 }
 .profile-links li {
   display: grid;
-  grid-template-columns: 130px 1fr;
-  gap: 4px 14px;
+  grid-template-columns: 9em 1fr;
+  gap: 2px 14px;
   align-items: baseline;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.6;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
 }
 @media (max-width: 900px) {
   .profile-links { grid-template-columns: 1fr; }
 }
 .profile-link-label {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  font-size: 13px;
   color: var(--text-sub);
-  padding-top: 2px;
 }
 .profile-link {
   color: var(--brand);
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: underline;
+  text-decoration-color: var(--border);
   text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
+  text-underline-offset: 4px;
+  transition: color 0.12s, text-decoration-color 0.12s;
 }
 .profile-link::after {
   content: " ↗";
@@ -1924,16 +1544,16 @@ details.formula .body {
   color: var(--text-sub);
   display: inline-block;
 }
-.profile-link:hover { color: var(--brand-dark); }
+.profile-link:hover { color: var(--brand-dark); text-decoration-color: var(--brand-dark); }
 .profile-link-desc {
   grid-column: 2;
-  font-size: 12.5px;
+  font-size: 14px;
   color: var(--text-sub);
   line-height: 1.5;
 }
 @media (max-width: 640px) {
-  .profile-header { flex-direction: column; align-items: center; text-align: center; }
-  .profile-bio { text-align: left; }
+  .profile-header { gap: 16px; }
+  .profile-avatar { width: 72px; height: 72px; }
   .profile-links li { grid-template-columns: 1fr; gap: 2px; }
   .profile-link-desc { grid-column: 1; }
 }
@@ -1945,28 +1565,29 @@ details.formula .body {
   padding: 32px;
 }
 .doc-page h1 {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 700;
+  line-height: 1.4;
   margin: 8px 0 8px;
-  padding-bottom: 14px;
-  border-bottom: 2px solid var(--brand);
 }
 .doc-page .doc-meta {
   color: var(--text-sub);
-  font-size: 12px;
+  font-size: 14px;
   margin: 0 0 28px;
 }
 .doc-page h2 {
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 700;
-  color: var(--brand);
-  margin: 36px 0 12px;
-  padding-left: 10px;
-  border-left: 3px solid var(--brand);
+  line-height: 1.4;
+  color: var(--text);
+  margin: 40px 0 12px;
+  padding-top: 12px;
+  border-top: 2px solid var(--ink);
 }
 .doc-page p {
   margin: 0 0 14px;
-  font-size: 14.5px;
+  font-size: 16px;
+  max-width: 40em;
 }
 .doc-page ul {
   padding-left: 22px;
@@ -1974,14 +1595,11 @@ details.formula .body {
 }
 .doc-page li {
   margin-bottom: 6px;
-  font-size: 14px;
+  font-size: 16px;
 }
 .doc-page .qa {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 16px 20px;
-  margin-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
 }
 .doc-page .qa .q {
   font-weight: 700;
@@ -1994,8 +1612,8 @@ details.formula .body {
   font-weight: 700;
 }
 .doc-page .qa .a {
-  color: var(--text-sub);
-  font-size: 14px;
+  color: var(--text);
+  font-size: 16px;
   margin: 0;
 }
 .doc-page .qa .a::before {
@@ -2005,7 +1623,7 @@ details.formula .body {
 }
 .doc-page .ext::after {
   content: " ↗";
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-sub);
 }
 
@@ -2042,14 +1660,16 @@ details.formula .body {
 .support-btn {
   display: inline-block;
   padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   border-radius: 4px;
   text-decoration: none;
   border: 1px solid var(--brand);
-  transition: opacity 0.15s;
+  transition: background-color 0.12s, color 0.12s, border-color 0.12s;
 }
-.support-btn:hover { opacity: 0.85; }
+.support-btn:hover { text-decoration: none; }
+.support-btn--primary:hover { background: var(--brand-dark); border-color: var(--brand-dark); color: #fff; }
+.support-btn--ghost:hover { color: var(--brand-dark); border-color: var(--brand-dark); }
 .support-btn--primary {
   background: var(--brand);
   color: #fff;
@@ -2073,31 +1693,24 @@ details.formula .body {
 
 /* ===== Responsive ===== */
 @media (max-width: 1080px) {
-  .cat-grid { grid-template-columns: repeat(4, 1fr); }
-  .cat-grid-launch { grid-template-columns: repeat(4, minmax(0, 200px)); }
+  .cat-index { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .info-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
   .footer-brand { align-items: flex-start; }
 }
+@media (max-width: 900px) {
+  .cat-index { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .cat-index { grid-template-columns: minmax(0, 1fr); }
+  .cat-index .cat-link { flex-direction: row; gap: 16px; padding: 14px 0; }
+  .cat-index .cat-link img { width: 64px; height: 56px; object-position: center; }
+}
 @media (max-width: 768px) {
   html, body { overflow-x: hidden; max-width: 100vw; }
   body { width: 100%; }
-  .hero-inner { grid-template-columns: 1fr; padding: 36px 18px 44px; min-height: auto; }
-  .hero-bg { display: none; }
-  .hero h1 {
-    font-size: 26px;
-    line-height: 1.3;
-    overflow-wrap: anywhere;
-    word-break: keep-all;
-    letter-spacing: 0;
-  }
-  .hero .lead {
-    font-size: 14.5px;
-    line-height: 1.65;
-    margin-bottom: 20px;
-    overflow-wrap: anywhere;
-    word-break: keep-all;
-  }
+  .top-intro { padding: 24px 16px 24px; }
+  .top-intro .lead { font-size: 15px; line-height: 1.75; margin-bottom: 16px; }
   .search-wrap { max-width: 100%; width: 100%; }
   .search {
     max-width: 100%;
@@ -2109,26 +1722,25 @@ details.formula .body {
     flex: 1 1 0;
     min-width: 0;
     padding: 13px 10px 13px 38px;
-    font-size: 14px;
+    font-size: 16px;
     background-position: 12px center;
     background-size: 16px 16px;
   }
   .search button {
     flex: 0 0 auto;
     padding: 0 14px;
-    font-size: 13.5px;
+    font-size: 15px;
     white-space: nowrap;
   }
-  .cat-grid { grid-template-columns: repeat(2, 1fr); }
-  .cat-grid-launch { grid-template-columns: repeat(2, 1fr); }
+  .cat-link img { width: 72px; height: 60px; }
   .tool-page { padding: 24px 16px; }
-  .tool-hero { padding: 24px 0 20px; margin-bottom: 24px; }
+  .tool-hero { padding: 16px 0 4px; margin-bottom: 20px; }
   .tool-hero h1 { font-size: 22px; }
   .tool-layout { grid-template-columns: 1fr; }
   .related-grid { grid-template-columns: 1fr; }
   .calc-grid { grid-template-columns: 1fr; }
-  .tool-list { grid-template-columns: 1fr; }
-  .calc-pane { padding: 20px 14px; min-width: 0; }
+  .tool-list-card-body { grid-template-columns: 1fr; row-gap: 4px; }
+  .calc-pane { padding: 14px 0 24px; min-width: 0; }
   .calc-input-pane { border-right: none; border-bottom: 1px solid var(--border); }
   .calc-card-stacked-input-grid .calc-input-pane { grid-template-columns: 1fr; }
   .calc-card-heat-duty .heat-mode-row,
@@ -2170,16 +1782,20 @@ details.formula .body {
   .input-group input { flex: 1 1 100%; min-width: 0; }
   .input-group select { flex: 1 1 100%; min-width: 0; width: 100%; }
   .input-group .unit-static { flex: 1 1 100%; min-width: 0; }
-  .input-group .unit-label, .unit-label { flex: 1 1 100%; min-width: 0; }
+  .input-group:has(> .unit-label) { flex-wrap: nowrap; }
+  .input-group:has(> .unit-label) input { flex: 1 1 0; }
+  .input-group .unit-label, .unit-label { flex: 0 0 auto; min-width: 3.5em; }
   .calc-card-distillation .distillation-constant-grid { grid-template-columns: 1fr; }
   .distillation-mini-grid { grid-template-columns: 1fr; }
   .btn-row { flex-wrap: wrap; }
   .btn { padding: 12px 14px; }
+  .btn-primary { flex: 1 1 100%; }
+  .btn-ghost { padding-left: 2px; padding-right: 2px; }
   .formula-block-large { font-size: 15px; padding: 14px 12px; overflow-x: auto; }
   .formula-block-small { font-size: 13px; }
   .regime-table { display: block; overflow-x: auto; }
   .symbol-list { grid-template-columns: 1fr; }
-  .breadcrumb { font-size: 12px; flex-wrap: wrap; }
+  .breadcrumb { font-size: 13px; flex-wrap: wrap; }
   .related-card { min-width: 0; }
   .reference-card { flex-wrap: wrap; }
   .contact-form-frame {
@@ -2187,12 +1803,13 @@ details.formula .body {
     margin-top: 28px;
   }
   .contact-form-frame iframe { height: 880px; }
-  .calc-card { overflow: hidden; }
+  .calc-card { overflow: clip; overflow-clip-margin: 4px; }
   .calc-card * { max-width: 100%; }
   .site-nav { display: none; }
   .footer-inner { grid-template-columns: 1fr; }
-  .section { padding: 40px 20px; }
-  .info-grid { padding: 0 20px; }
+  .section { padding: 24px 16px 40px; }
+  .profile-section, .info-section { padding-left: 16px; padding-right: 16px; }
+  .footer-inner { padding: 0 16px; }
 }
 
 /* ===== Share Buttons — Floating side bar ===== */
@@ -2207,7 +1824,7 @@ details.formula .body {
   z-index: 900;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.12s;
 }
 
 .share-buttons.visible {
@@ -2216,12 +1833,8 @@ details.formula .body {
 }
 
 .share-buttons__label {
-  font-family: "SF Mono", Consolas, monospace;
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #999;
+  font-size: 13px;
+  color: var(--text-sub);
   text-align: center;
   margin-bottom: 4px;
 }
@@ -2236,16 +1849,13 @@ details.formula .body {
   border-radius: 50%;
   background: #fff;
   border: 1px solid var(--border);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  transition: all 0.3s ease;
+  transition: background-color 0.12s, border-color 0.12s, color 0.12s;
   color: var(--text-sub);
   cursor: pointer;
   text-decoration: none;
 }
 
 .share-btn:hover {
-  transform: scale(1.15);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
   text-decoration: none;
 }
 
@@ -2308,14 +1918,14 @@ details.formula .body {
   background: var(--text);
   color: #fff;
   font-family: "Noto Sans JP", sans-serif;
-  font-size: 0.7rem;
+  font-size: 13px;
   font-weight: 500;
   padding: 4px 10px;
   border-radius: 4px;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s;
+  transition: opacity 0.12s;
 }
 
 .share-btn[data-tooltip]:hover::after {
@@ -2343,12 +1953,9 @@ details.formula .body {
     flex-direction: row;
     justify-content: center;
     gap: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: #fff;
     border-top: 1px solid var(--border);
     padding: 10px 16px;
-    box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.06);
   }
 
   .share-buttons__label { display: none; }
@@ -2362,11 +1969,6 @@ details.formula .body {
     background: transparent;
     flex: 1;
     max-width: 80px;
-  }
-
-  .share-btn:hover {
-    transform: none;
-    box-shadow: none;
   }
 
   .share-btn img { width: 22px; height: 22px; }
@@ -2387,11 +1989,11 @@ details.formula .body {
   gap: 16px;
   background: #fff;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 16px 18px;
   text-decoration: none;
   color: var(--text);
-  transition: border-color .15s, box-shadow .15s;
+  transition: border-color 0.12s;
   max-width: 720px;
 }
 .reference-block .reference-card + .reference-card {
@@ -2403,7 +2005,6 @@ details.formula .body {
 }
 .reference-card:hover {
   border-color: var(--brand);
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
   text-decoration: none;
 }
 .reference-card .ref-image {
@@ -2413,7 +2014,6 @@ details.formula .body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transition: width .15s ease;
 }
 .reference-card.has-image .ref-image {
   width: 100px;
@@ -2432,7 +2032,7 @@ details.formula .body {
 }
 .reference-card .ref-cover-credit {
   margin-top: 3px;
-  font-size: 8px;
+  font-size: 13px;
   line-height: 1.2;
   color: var(--text-sub);
   white-space: nowrap;
@@ -2519,33 +2119,31 @@ details.formula .body {
 .reference-card .ref-tag {
   display: inline-block;
   align-self: flex-start;
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-sub);
   border: 1px solid var(--border);
-  border-radius: 3px;
-  padding: 1px 6px;
+  border-radius: 2px;
+  padding: 0 6px;
   margin-bottom: 8px;
 }
 .reference-card .ref-title {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   line-height: 1.45;
   margin: 0 0 6px;
 }
 .reference-card .ref-meta {
-  font-size: 12.5px;
+  font-size: 14px;
   color: var(--text-sub);
   margin: 0 0 8px;
 }
 .reference-card .ref-cta {
-  font-size: 12.5px;
+  font-size: 14px;
   color: var(--brand);
   font-weight: 600;
 }
-.reference-card .ref-cta::after { content: " ›"; }
 .reference-card-static:hover {
   border-color: var(--border);
-  box-shadow: none;
 }
 .reference-block .paper-link-list {
   list-style: none;
@@ -2560,7 +2158,7 @@ details.formula .body {
   margin-bottom: 0;
 }
 .reference-note {
-  font-size: 11.5px;
+  font-size: 13px;
   color: var(--text-sub);
   margin-top: 8px;
   max-width: 720px;
@@ -2584,54 +2182,36 @@ input[type="number"] {
 .result-actions {
   display: none;
   margin-top: 14px;
-  gap: 8px;
+  gap: 4px 20px;
   flex-wrap: wrap;
 }
 .btn-small {
   padding: 8px 14px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
 }
+.btn-ghost.btn-small { padding: 8px 2px; }
 
 /* ===== Top page: tools-all link & pending category chips ===== */
 .cat-more {
-  margin-top: 28px;
-  text-align: center;
-}
-.btn-tools-all {
-  display: inline-block;
-  padding: 12px 36px;
-  border: 1px solid var(--brand);
-  border-radius: 999px;
-  color: var(--brand);
-  font-size: 14px;
-  font-weight: 600;
-  transition: all 0.15s;
-}
-.btn-tools-all:hover {
-  background: var(--brand);
-  color: #fff;
-}
-.cat-pending-row {
-  margin-top: 26px;
+  margin: 18px 0 0;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
+  align-items: baseline;
+  gap: 6px 28px;
 }
-.cat-pending-label {
-  font-size: 12px;
-  color: var(--text-sub);
-  margin-right: 4px;
+.btn-tools-all {
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
 }
-.pending-chip {
-  font-size: 12px;
+.btn-tools-all:hover { color: var(--brand-dark); }
+.cat-pending-note {
+  margin: 0;
+  font-size: 14px;
   color: var(--text-sub);
-  border: 1px dashed var(--border);
-  border-radius: 999px;
-  padding: 4px 12px;
-  background: #fbfcfb;
 }
 
 /* ===========================================================================
@@ -2661,10 +2241,9 @@ input[type="number"] {
   font-size: 30px;
   font-weight: 700;
   margin: 0 0 8px;
-  letter-spacing: 0.01em;
 }
 .ta-lead {
-  font-size: 14.5px;
+  font-size: 15px;
   color: var(--text-sub);
   margin: 0;
   /* 1文なのでデスクトップでは1行に収める（44em=638px だと 709px 必要な文が2行に割れる） */
@@ -2696,9 +2275,8 @@ input[type="number"] {
 .ta-rail-label,
 .ta-rail-head {
   display: block;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-size: 13px;
+  font-weight: 700;
   color: var(--text-sub);
   margin: 0 0 8px;
 }
@@ -2706,14 +2284,14 @@ input[type="number"] {
 .ta-rail-search input {
   width: 100%;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 4px;
   padding: 9px 11px 9px 32px;
-  font-size: 13.5px;
+  font-size: 15px;
   font-family: inherit;
   color: var(--text);
   background: #fff no-repeat 10px center;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='%23777777' stroke-width='2' stroke-linecap='round'><circle cx='11' cy='11' r='8'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>");
-  transition: border-color 0.15s ease;
+  transition: border-color 0.12s;
 }
 .ta-rail-search input:focus { border-color: var(--brand); }
 .ta-rail-search input:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
@@ -2724,24 +2302,26 @@ input[type="number"] {
   display: flex;
   align-items: baseline;
   gap: 8px;
-  padding: 5px 8px;
-  border-radius: 4px;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  padding: 4px 8px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  transition: border-color 0.12s, color 0.12s;
 }
-.ta-rail-g { font-size: 13.5px; font-weight: 600; color: var(--text); }
-.ta-rail-c { font-size: 12.5px; color: var(--text-sub); padding-left: 20px; }
+.ta-rail-g { font-size: 14px; font-weight: 700; color: var(--text); }
+.ta-rail-c { font-size: 13px; color: var(--text-sub); padding-left: 20px; }
 .ta-rail-g:hover,
-.ta-rail-c:hover { background: var(--brand-faint); color: var(--brand); text-decoration: none; }
+.ta-rail-c:hover { color: var(--brand); text-decoration: underline; }
 .ta-rail-g:focus-visible,
 .ta-rail-c:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
 .ta-n {
   margin-left: auto;
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-sub);
   font-variant-numeric: tabular-nums;
 }
+/* 選択中は緑の文字＋緑の枠 */
 .ta-rail-g[aria-current="true"],
-.ta-rail-c[aria-current="true"] { background: var(--brand-faint); color: var(--brand-dark); }
+.ta-rail-c[aria-current="true"] { border-color: var(--brand); color: var(--brand-dark); }
 .ta-rail-c[aria-current="true"] { font-weight: 600; }
 .ta-rail-g.is-here,
 .ta-rail-c.is-here { color: var(--brand-dark); }
@@ -2761,8 +2341,7 @@ input[type="number"] {
   position: sticky;
   top: var(--ta-header-h);
   z-index: 50;
-  background: rgba(255,255,255,0.97);
-  backdrop-filter: blur(8px);
+  background: #fff;
   border-bottom: 1px solid var(--border);
   min-height: var(--ta-bar-h);
   display: flex;
@@ -2772,7 +2351,7 @@ input[type="number"] {
   padding: 10px 0;
 }
 .ta-count,
-.ta-count-static { margin: 0; font-size: 13px; color: var(--text-sub); white-space: nowrap; }
+.ta-count-static { margin: 0; font-size: 14px; color: var(--text-sub); white-space: nowrap; }
 .ta-count b {
   font-size: 17px;
   font-weight: 700;
@@ -2786,12 +2365,12 @@ input[type="number"] {
   align-items: center;
   gap: 6px;
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: 2px;
   background: #fff;
   color: var(--text);
-  font-size: 12px;
-  padding: 3px 6px 3px 11px;
-  transition: border-color 0.15s ease, color 0.15s ease;
+  font-size: 13px;
+  padding: 3px 6px 3px 10px;
+  transition: border-color 0.12s, color 0.12s;
 }
 .ta-chip:hover { border-color: var(--brand); color: var(--brand); }
 .ta-chip:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
@@ -2810,7 +2389,7 @@ input[type="number"] {
   background: none;
   border: none;
   padding: 3px 2px;
-  font-size: 12.5px;
+  font-size: 14px;
   color: var(--brand);
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -2840,10 +2419,10 @@ html:not(.js) .ta-js-only { display: none; }
   color: var(--text-sub);
   font-variant-numeric: tabular-nums;
 }
-.ta-gn { font-size: 12px; }
+.ta-gn { font-size: 13px; }
 .ta-gn::after,
 .ta-cn::after { content: "本"; }
-.ta-group-lead { margin: 0; font-size: 13px; color: var(--text-sub); }
+.ta-group-lead { margin: 0; font-size: 14px; color: var(--text-sub); }
 
 .ta-cat { scroll-margin-top: calc(var(--ta-header-h) + var(--ta-bar-h) + 8px); }
 .ta-cat-head {
@@ -2852,17 +2431,16 @@ html:not(.js) .ta-js-only { display: none; }
   z-index: 20;
   margin: 22px 0 0;
   padding: 8px 0 7px;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   color: var(--text);
-  background: rgba(255,255,255,0.97);
-  backdrop-filter: blur(6px);
+  background: #fff;
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: baseline;
   gap: 9px;
 }
-.ta-cn { font-size: 11.5px; }
+.ta-cn { font-size: 13px; }
 
 /* --- 1行1ツール（名前と説明の開始位置を全行で揃える）
    説明は一覧の「探す手がかり」なので、デスクトップでも 2 行まで見せる。 --- */
@@ -2875,20 +2453,19 @@ html:not(.js) .ta-js-only { display: none; }
   grid-template-columns: minmax(0, 20em) minmax(0, 1fr);
   align-items: baseline;
   gap: 4px 20px;
-  padding: 9px 10px;
-  margin: 0 -10px;
-  border-radius: 4px;
+  padding: 9px 0;
+  margin: 0;
+  border-radius: 0;
   color: var(--text);
   font-size: 15px;
-  transition: background-color 0.15s ease;
 }
-.ta-row:hover { background: var(--brand-faint); text-decoration: none; }
+.ta-row:hover { text-decoration: none; }
 .ta-row:focus-visible { outline: 2px solid var(--brand); outline-offset: -2px; }
 /* h3（見出しアウトラインに載せる）だが、見た目は本文サイズの行名のまま */
-.ta-rname { font-size: 14.5px; font-weight: 500; line-height: 1.55; margin: 0; }
+.ta-rname { font-size: 15px; font-weight: 500; line-height: 1.55; margin: 0; color: var(--brand); transition: color 0.12s; }
 .ta-row:hover .ta-rname { color: var(--brand-dark); text-decoration: underline; text-underline-offset: 3px; }
 .ta-rdesc {
-  font-size: 12.5px;
+  font-size: 14px;
   color: var(--text-sub);
   line-height: 1.6;
   overflow: hidden;
@@ -2909,11 +2486,11 @@ html:not(.js) .ta-js-only { display: none; }
   border: 1px solid var(--border);
   border-radius: 4px;
   padding: 5px 12px;
-  font-size: 13px;
+  font-size: 14px;
   font-family: inherit;
   color: var(--brand);
   cursor: pointer;
-  transition: border-color .15s, color .15s;
+  transition: border-color 0.12s, color 0.12s;
 }
 .ta-clearfields:hover { border-color: var(--brand); color: var(--brand-dark); }
 .ta-clearfields:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
@@ -2950,9 +2527,9 @@ html:not(.js) .ta-js-only { display: none; }
   .ta-rail-head { width: 100%; margin-top: 20px; margin-bottom: 2px; }
   .ta-rail-g {
     border: 1px solid var(--border);
-    border-radius: 999px;
+    border-radius: 2px;
     padding: 5px 12px;
-    font-size: 12.5px;
+    font-size: 14px;
     font-weight: 500;
   }
   .ta-rail-g[aria-current="true"] { border-color: var(--brand); }
@@ -2962,7 +2539,7 @@ html:not(.js) .ta-js-only { display: none; }
      既定の calc(header + bar + 8px) のままにする。下げると見出しがバーに潜り込む。 */
 }
 @media (max-width: 768px) {
-  .ta-row { padding: 10px; }
+  .ta-row { padding: 10px 0; }
   .ta-cat-head { position: static; }
   .ta-group-head { padding-top: 34px; }
   /* この幅ではシェアボタンが下部固定バーになり左に張り出さないので、
