@@ -99,17 +99,26 @@
     <h2>計算式</h2>
     <p>熱伝達係数は、代表長さに基づくヌセルト数 $Nu$ から求めます。</p>
     <div class="math-block">$$ Re=\frac{\rho u D}{\mu}, \qquad Pr=\frac{C_p \mu}{k}, \qquad Nu=\frac{hD}{k} $$</div>
-    <p>円管内の発達した層流入口域では、壁温での粘度補正を含む次式を使います。</p>
+    <p>円管内の層流では、入口から管長 $L$ までの平均値を、壁温での粘度補正を含む次式（Sieder–Tate の式）で求めます。</p>
     <div class="math-block">$$ Nu = 1.86\left(Re\,Pr\,\frac{D}{L}\right)^{1/3}\left(\frac{\mu}{\mu_w}\right)^{0.14} $$</div>
     <p>円管内の乱流では、Dittus-Boelter型の相関式を使います。</p>
     <div class="math-block">$$ Nu = 0.023 Re^{0.8} Pr^n $$</div>
-    <p>平板上の発達した乱流強制対流と、垂直平板上の層流自然対流は次式で概算します。</p>
-    <div class="math-block">$$ Nu = 0.036 Re^{0.8} Pr^{1/3}, \qquad Nu = 0.555(Gr\,Pr)^{1/4} $$</div>
+    <p>平板上の乱流強制対流は、前縁から乱流の境界層とみなし、局所の式（気体は Lienhard 6版の式(6.112)、液体は式(6.113)）を前縁から長さ $L$ まで積分した平均値で求めます。$Pr$ が 1.58 以下では気体の式、1.58 を超えると液体の式を使います。1.58 は2つの局所の式が同じ値になる $Pr$ なので、切り替えても値は連続します。</p>
+    <div class="math-block">$$ Nu_L = 0.037\,Re_L^{0.8}Pr^{0.6} \quad (Pr \le 1.58) $$</div>
+    <div class="math-block">$$ Nu_L = 0.040\,Re_L^{0.8}Pr^{0.43} \quad (Pr > 1.58) $$</div>
+    <p>垂直平板上の自然対流は、Churchill と Chu の式で求めます。$Ra \le 10^9$ では層流の式（Lienhard 6版の式(8.13a)）を使います。</p>
+    <div class="math-block">$$ Nu_L = 0.68 + \frac{0.670\,Ra^{1/4}}{\psi^{4/9}} $$</div>
+    <p>$Ra > 10^9$ では乱流を含む式（同じく式(8.13b)）を使います。</p>
+    <div class="math-block">$$ Nu_L = \left(0.825 + \frac{0.387\,Ra^{1/6}}{\psi^{8/27}}\right)^2 $$</div>
+    <div class="math-block">$$ \psi = 1 + \left(\frac{0.492}{Pr}\right)^{9/16} $$</div>
+    <div class="math-block">$$ Ra = Gr\,Pr, \qquad Gr = \frac{g\beta\,\Delta T\,L^3}{\nu^2} $$</div>
     <div class="math-block">$$ h = \frac{Nu\,k}{L_c} $$</div>
     <ul class="symbol-list">
       <li>$Re$：レイノルズ数［-］</li>
       <li>$Pr$：プラントル数［-］</li>
       <li>$Gr$：グラスホフ数［-］</li>
+      <li>$Ra$：レイリー数［-］</li>
+      <li>$\psi$：Churchill と Chu の式の $Pr$ の補正項［-］</li>
       <li>$Nu$：ヌセルト数［-］</li>
       <li>$h$：熱伝達係数［W/(m²K)］</li>
       <li>$D$：管内径［m］</li>
@@ -121,6 +130,9 @@
       <li>$C_p$：比熱［J/(kg K)］</li>
       <li>$k$：熱伝導率［W/(m K)］</li>
       <li>$\beta$：体膨張係数［1/K］</li>
+      <li>$\Delta T$：壁面と流体の温度差［K］</li>
+      <li>$\nu = \mu/\rho$：動粘度［m²/s］</li>
+      <li>$g$：重力加速度（9.80665 m/s²）</li>
       <li>ここで扱う式は、単相流・代表的な形状に対する概算相関式です。沸騰・凝縮、複雑形状、非ニュートン流体、放射伝熱が無視できない場合は、対象装置に合った相関式を確認してください。</li>
     </ul>
   </section>
@@ -130,9 +142,10 @@
     <p>単相流体の強制対流・自然対流について、代表的な形状の平均熱伝達係数を相関式で概算するツールです。選んだタブごとに式の前提が異なります。</p>
     <ul>
       <li><strong>円管内・乱流</strong>：Dittus-Boelter型で、加熱側は $n=0.4$、冷却側は $n=0.3$ です。本ツールは $Re$ と $Pr$ が範囲を外れると警告を出します。このタブには管長の入力がなく、管の入口付近の影響（$L/D$）は考慮されません。また、壁温の粘度を補正する項がないため、壁と流体の温度差が大きく粘度が大きく変わる液体では、補正項を持つ式（Sieder-Tate型）を別に確認します。</li>
-      <li><strong>円管内・層流</strong>：熱的な入口域の平均値を求める式で、$Re \le 2100$ 程度が対象です。式は $Nu \propto L^{-1/3}$ なので、管が長いほど $h$ が小さくなり続ける形です。十分長く流れが発達した管では、$Nu$ が一定値に近づく別の扱いが必要です。壁温粘度を空欄にすると $\mu/\mu_w = 1$ として計算します。</li>
-      <li><strong>平板・乱流</strong>：前縁から全面が乱流の境界層として平均値を求める式です。$Re_L$ が $5\times10^5$ 未満では乱流境界層が十分に発達していない可能性があるため、ツールが警告します。$L$ は流れ方向の長さです。</li>
-      <li><strong>垂直平板・自然対流</strong>：$Gr\,Pr$ が $10^4$ 未満または $10^9$ 超のとき、本ツールは警告を出します。水平面・傾斜面・密閉空間は別の相関式を使います。気体の $\beta$ は $1/T$（$T$ は絶対温度）で近似できます。</li>
+      <li><strong>円管内・層流</strong>：入口から管長 $L$ までの平均値を求める式で、$Re \le 2100$ 程度が対象です。式は $Nu \propto L^{-1/3}$ なので、管が長いほど $h$ が小さくなり続ける形です。十分長く流れが発達した管では、$Nu$ が一定値に近づく別の扱いが必要です。壁温粘度を空欄にすると $\mu/\mu_w = 1$ として計算します。</li>
+      <li><strong>平板・乱流</strong>：前縁から全面が乱流の境界層とみなし、局所の式を前縁から $L$ まで積分した平均値です。局所の式は Lienhard 6版の式(6.112)（気体、空気の測定から、p.326）と式(6.113)（水と油の測定から、$Pr$ 85 まで、±15%程度、p.327）です。気体の式は、式(6.120)（p.334）で遷移域の始まりと終わりを前縁に置いた形と同じです。液体の式の積分は本書が「同じようにして作れる」と書くだけで、積分した形は本書に載っていません（係数 0.032 を 0.8 で割った 0.040 です）。気体か液体かを選ぶ入力がないため、$Pr$ で決めます（$Pr \le 1.58$ は気体の式）。液体でも $Pr$ が 1.58 以下になる高温の水（飽和水で約 110 °C 以上。IAPWS の値で 150 °C の $Pr$ は 1.16）などは、気体の式で計算されます。$Pr$ が 0.6 未満（液体金属など）または 85 超のとき、本ツールは警告を出します。$L$ は流れ方向の長さです。</li>
+      <li><strong>平板・乱流の前縁側</strong>：実際の平板では、前縁から層流の区間と遷移域があり、乱れの大きい流れ（主流の変動が3%ほど以上）では遷移が $Re \approx 4\times10^4〜10^5$ で始まることもあります（p.332）。その分だけ、実際の平均値はこのツールの値と違います。本書の例題6.9（空気、$Re_L = 1.27\times10^6$、遷移域 $Re = 4.0\times10^5〜8.7\times10^5$）では、遷移を考えた値が $Nu_L = 1433$、このツールの値は 2297 で約1.6倍です。$Re_L$ が $5\times10^5$ 未満では本ツールが警告を出します。壁と流体の温度差が大きいときの物性の補正（液体は $(Pr_\infty/Pr_w)^{1/4}$、気体は $(T_\infty/T_w)^{0.4}$ を掛ける、p.327）は入っていません。</li>
+      <li><strong>垂直平板・自然対流</strong>：Churchill と Chu の式です（Lienhard 6版の式(8.13a) p.419、式(8.13b) p.420）。$Ra \le 10^9$ では層流の式(8.13a)、$10^9$ を超えると乱流を含む式(8.13b)に切り替えます。本書は、層流では (8.13a) の方が正確で、(8.13b) はすべての $Ra$ と $Pr$ に使える、としています。2つの式は $Ra = 10^9$ で値がつながらず、その前後で $h$ が大きく変わります（$Pr = 0.71$ で +33%、$Pr = 7$ で +39%、$Pr = 100$ で +42%。$Pr$ が小さいほど差は小さく、$Pr = 0.01$ では +13%）。どちらの式もすべての $Pr$ に使え、壁温一定・熱流束一定のどちらにも使えます。物性は膜温度 $(T_\infty + T_w)/2$ で評価します（p.420）。$Ra$ が式のもとになったデータの範囲（本書の図8.3の横軸で $10^{-1}$ 以上）より小さいと、本ツールは警告を出します。水平面・傾斜面・密閉空間は別の相関式を使います。気体の $\beta$ は $1/T$（$T$ は絶対温度）で近似できます。</li>
       <li><strong>共通</strong>：物性はバルク平均温度または膜温度で評価します。沸騰・凝縮などの相変化、非ニュートン流体、放射伝熱が無視できない条件は対象外です。</li>
       <li><strong>結果の読み方</strong>：求まるのは相関式による平均の $h$ で、局所値ではありません。各タブの警告（$Re$、$Pr$、$Gr\,Pr$ の範囲）が出たときは、その式が想定する範囲の外側にいます。</li>
     </ul>
@@ -144,6 +157,11 @@
       <div class="ref-image" aria-hidden="true"></div>
       <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">スッキリわかる 化学工学</p><p class="ref-meta">二井 晋・小林 敬幸・向井 康人・橋爪 進・衣笠 巧 著 / 裳華房</p><span class="ref-cta">Amazonで見る</span></div>
     </a>
+    <ul class="paper-link-list">
+      <li><a href="https://doi.org/10.1021/ie50324a027" target="_blank" rel="noopener">Heat Transfer and Pressure Drop of Liquids in Tubes</a><br><span class="paper-meta">E. N. Sieder, G. E. Tate, Industrial &amp; Engineering Chemistry, 28(12), 1429–1435, 1936（円管内・層流の式の出典）</span></li>
+      <li><a href="https://ahtt.mit.edu/" target="_blank" rel="noopener">A Heat Transfer Textbook, 6th ed.（Version 6.00）</a><br><span class="paper-meta">J. H. Lienhard V, J. H. Lienhard IV, Phlogiston Press, 2024。§7.3、p.368–369、式(7.39a)〜(7.40)：円管内乱流のべき乗則の式。Dittus と Boelter の元の式は加熱で係数 0.0243（$Pr^{0.4}$）。これらの式の誤差は $0.67 \le Pr \le 100$ で最大 +25%・−40%。§6.8〜6.9、p.326–327・334、式(6.112)・(6.113)・(6.119)・(6.120)：平板の乱流（このツールの平板・乱流の式）。§8.3、p.419–420、式(8.13a)・(8.13b)：垂直平板の自然対流（このツールの自然対流の式）</span></li>
+      <li><a href="https://doi.org/10.1016/0017-9310(75)90243-4" target="_blank" rel="noopener">Correlating equations for laminar and turbulent free convection from a vertical plate</a><br><span class="paper-meta">S. W. Churchill, H. H. S. Chu, International Journal of Heat and Mass Transfer, 18(11), 1323–1329, 1975（垂直平板・自然対流の式の原論文）</span></li>
+    </ul>
   </section>
 
   <section class="related">
@@ -156,7 +174,7 @@
   </section>
   <aside class="tool-provenance" aria-label="作成者と確認日">
     <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
-    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記し、参考資料に式の出典を加えた。同日、出典が確かめられなかった平板・乱流の式（$0.036\,Re^{0.8}Pr^{1/3}$）と垂直平板・自然対流の式（$0.555(Gr\,Pr)^{1/4}$）を、Lienhard『A Heat Transfer Textbook』6版の式に置き換えた（円管内の2つの式は変更なし）。</p>
   </aside>
 
 </main>

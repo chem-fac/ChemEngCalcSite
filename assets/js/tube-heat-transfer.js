@@ -131,16 +131,33 @@
     });
   }
 
+  // 平板・乱流（前縁から乱流と仮定した平均値）
+  // Lienhard & Lienhard, A Heat Transfer Textbook, 6th ed. (v6.00, 2024):
+  //   局所式 Nu_x = 0.0296 Re_x^0.8 Pr^0.6（気体, 式(6.112) p.326）
+  //          Nu_x = 0.032  Re_x^0.8 Pr^0.43（非金属液体, Pr ≦ 85, 式(6.113) p.327）
+  //   式(6.119)（p.334）で x = 0〜L を積分（遷移域なし）→ Nu_L = (係数/0.8) Re_L^0.8 Pr^n。
+  //   気体側は式(6.120)（p.334）で Re_l = Re_u = 0 とした形と同じ。
+  //   2式の Nu_x が等しくなる Pr（≈1.58）で切り替える（= 2式の小さい方、Nu は連続）。
+  const FLAT_PR_SWITCH = Math.pow(0.032 / 0.0296, 1 / (0.6 - 0.43));
+  function flatPlateTurbulentNu(Re, Pr) {
+    const liquid = Pr > FLAT_PR_SWITCH;
+    return liquid
+      ? { Nu: (0.032 / 0.8) * Math.pow(Re, 0.8) * Math.pow(Pr, 0.43), liquid }
+      : { Nu: (0.0296 / 0.8) * Math.pow(Re, 0.8) * Math.pow(Pr, 0.6), liquid };
+  }
+
   function calculateFlatTurbulent(props) {
     const u = val('velocity');
     const L = getSI('L');
     if (![u, L].every(positive)) return setError('平均流速・代表長さを正の数値で入力してください。');
     const Re = props.rho * u * L / props.mu;
-    const Nu = 0.036 * Math.pow(Re, 0.8) * Math.pow(props.Pr, 1 / 3);
+    const r = flatPlateTurbulentNu(Re, props.Pr);
+    const Nu = r.Nu;
     const h = Nu * props.k / L;
     const notes = [];
-    if (Re < 5e5) notes.push('平板上で乱流境界層が十分発達していない可能性があります。');
-    if (props.Pr < 0.6 || props.Pr > 400) notes.push('Pr数が代表的な適用範囲（0.6〜400）から外れています。');
+    if (Re < 5e5) notes.push('Re_L が小さく、前縁側の層流・遷移域の割合が大きい条件です。前縁から乱流とみなすこの式は合わない可能性があります。');
+    if (props.Pr < 0.6) notes.push('Pr < 0.6 です。液体金属などは式(6.112)・(6.113)の対象外です。');
+    if (props.Pr > 85) notes.push('Pr が 85 を超えています。式(6.113)のもとになった測定は Pr 85 までです。');
     renderResult({
       title: '平均熱伝達係数 h',
       h,
@@ -149,9 +166,25 @@
         ['Prandtl数 Pr', `${fmtNum(props.Pr)} ［-］`],
         ['Nusselt数 Nu<sub>L</sub>', `${fmtNum(Nu)} ［-］`],
       ],
-      formula: 'Nu = 0.036Re<sup>0.8</sup>Pr<sup>1/3</sup>',
+      formula: r.liquid
+        ? 'Nu = 0.040Re<sup>0.8</sup>Pr<sup>0.43</sup>（Pr &gt; 1.58、液体の式(6.113)を前縁から積分）'
+        : 'Nu = 0.037Re<sup>0.8</sup>Pr<sup>0.6</sup>（Pr ≦ 1.58、気体の式(6.112)を前縁から積分）',
       notes,
     });
+  }
+
+  // 垂直平板・自然対流（Churchill & Chu, IJHMT 18 (1975) 1323）
+  // Lienhard & Lienhard, A Heat Transfer Textbook, 6th ed. (v6.00, 2024):
+  //   Ra ≦ 10⁹：式(8.13a) p.419  Nu = 0.68 + 0.670 Ra^(1/4) / ψ^(4/9)
+  //   Ra > 10⁹：式(8.13b) p.420  Nu = {0.825 + 0.387 Ra^(1/6) / ψ^(8/27)}²
+  //   ψ = 1 + (0.492/Pr)^(9/16)。全 Pr に適用、等温壁・等熱流束壁のどちらにも可、物性は膜温度。
+  function churchillChuNu(Ra, Pr) {
+    const psi = 1 + Math.pow(0.492 / Pr, 9 / 16);
+    const turbulent = Ra > 1e9;
+    const Nu = turbulent
+      ? Math.pow(0.825 + 0.387 * Math.pow(Ra, 1 / 6) / Math.pow(psi, 8 / 27), 2)
+      : 0.68 + 0.670 * Math.pow(Ra, 1 / 4) / Math.pow(psi, 4 / 9);
+    return { Nu, psi, turbulent };
   }
 
   function calculateVerticalNatural(props) {
@@ -163,21 +196,27 @@
     const nu = props.mu / props.rho;
     const Gr = g * beta * dT * Math.pow(L, 3) / Math.pow(nu, 2);
     const GrPr = Gr * props.Pr;
-    const Nu = 0.555 * Math.pow(GrPr, 1 / 4);
+    const r = churchillChuNu(GrPr, props.Pr);
+    const Nu = r.Nu;
     const h = Nu * props.k / L;
     const notes = [];
-    if (GrPr < 1e4) notes.push('GrPr が代表的な適用下限（10⁴程度）を下回っています。');
-    if (GrPr > 1e9) notes.push('層流自然対流の範囲を超える可能性があります。乱流自然対流の相関式も確認してください。');
+    if (r.turbulent) {
+      const NuLam = 0.68 + 0.670 * Math.pow(GrPr, 1 / 4) / Math.pow(r.psi, 4 / 9);
+      notes.push(`Ra = Gr·Pr が 10⁹ を超えるため、乱流を含む式(8.13b)で計算しました。層流の式(8.13a)では Nu = ${fmtNum(NuLam)} です。Ra = 10⁹ で式を切り替えるため、その前後で h が変わります（Pr = 0.71 で約3割、Pr = 7 で約4割）。`);
+    }
+    if (GrPr / Math.pow(r.psi, 16 / 9) < 0.1) notes.push('Ra が Churchill と Chu の式のもとになったデータの範囲（Lienhard 図8.3、横軸 10⁻¹ 以上）より小さい条件です。');
     renderResult({
       title: '平均熱伝達係数 h',
       h,
       rows: [
         ['Grashof数 Gr', `${fmtNum(Gr)} ［-］`],
         ['Prandtl数 Pr', `${fmtNum(props.Pr)} ［-］`],
-        ['Gr・Pr', `${fmtNum(GrPr)} ［-］`],
+        ['Gr・Pr（= Ra）', `${fmtNum(GrPr)} ［-］`],
         ['Nusselt数 Nu', `${fmtNum(Nu)} ［-］`],
       ],
-      formula: 'Nu = 0.555(Gr Pr)<sup>1/4</sup>',
+      formula: r.turbulent
+        ? 'Nu = {0.825 + 0.387Ra<sup>1/6</sup>/[1 + (0.492/Pr)<sup>9/16</sup>]<sup>8/27</sup>}<sup>2</sup>（Churchill–Chu、式(8.13b)、Ra = Gr·Pr）'
+        : 'Nu = 0.68 + 0.670Ra<sup>1/4</sup>/[1 + (0.492/Pr)<sup>9/16</sup>]<sup>4/9</sup>（Churchill–Chu、式(8.13a)、Ra = Gr·Pr）',
       notes,
     });
   }
