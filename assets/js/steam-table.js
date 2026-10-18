@@ -193,16 +193,13 @@
 
   function showTable() {
     clearError();
-    // 全表は特定の入力の結果ではないので、結果のコピー操作は隠す（次に計算したときに calc-utils.js が再表示する）
-    const actions = document.querySelector('.result-actions');
-    if (actions) actions.style.display = 'none';
     const rows = TABLE.map(r => {
       const hfg = r[5] - r[4];
       return `<tr><td>${r[0]}</td><td>${r[1] >= 1 ? r[1].toFixed(3) : fmtNum(r[1])}</td><td>${fmtNum(r[2] * 1000)}</td><td>${fmtNum(r[3])}</td><td>${fmtNum(r[4])}</td><td>${fmtNum(r[5])}</td><td>${fmtNum(hfg)}</td></tr>`;
     }).join('');
     $('result-area').innerHTML = `
       <div class="result-target">飽和水蒸気表（全データ）</div>
-      <div class="st-table-wrap" tabindex="0" role="region" aria-label="飽和水蒸気表（横にスクロールできます）"><table class="st-table">
+      <div class="st-table-wrap" data-no-copy tabindex="0" role="region" aria-label="飽和水蒸気表（横にスクロールできます）"><table class="st-table">
         <thead><tr><th>T [°C]</th><th>P [MPa]</th><th>v_f [L/kg]</th><th>v_g [m³/kg]</th><th>h_f [kJ/kg]</th><th>h_g [kJ/kg]</th><th>h_fg [kJ/kg]</th></tr></thead>
         <tbody>${rows}</tbody>
       </table></div>

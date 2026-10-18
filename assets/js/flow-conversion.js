@@ -229,6 +229,8 @@
     document.querySelectorAll('.d-mode-pane').forEach(p => {
       p.hidden = p.dataset.dPane !== dInputMode;
     });
+    // 入力方法を隠し欄に写す（calc-utils.js のリンク・コピー・入力の変化の判定に入る）
+    if ($('d_method')) $('d_method').value = dInputMode;
     clearError();
   }
 
@@ -244,6 +246,11 @@
         dInputMode = t.dataset.dMode;
         applyDInputMode();
       });
+    });
+    // リンクから開いたとき（calc-utils.js が隠し欄に値を入れる）に入力方法を合わせる
+    if ($('d_method')) $('d_method').addEventListener('change', () => {
+      const v = $('d_method').value;
+      if (v === 'inner' || v === 'outer') { dInputMode = v; applyDInputMode(); }
     });
     $('calc-btn').addEventListener('click', calculate);
     $('reset-btn').addEventListener('click', reset);

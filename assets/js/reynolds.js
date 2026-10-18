@@ -296,7 +296,7 @@
     ['rho', 'u', 'Q', 'D', 'mu', 'nu'].forEach(id => {
       const el = $(id);
       if (el) el.addEventListener('keydown', e => {
-        if (e.key === 'Enter') { e.preventDefault(); calculate(); }
+        if (e.key === 'Enter') { e.preventDefault(); $('calc-btn').click(); }
       });
     });
     setMode('velocity');

@@ -2,7 +2,8 @@
  * 化学工学計算支援ツール — Calc Utils (全ツール共通)
  * =====================================================
  * 1. パーマリンク : 計算時に入力値をURLクエリへ反映。URLを開くと条件を復元して自動計算
- * 2. 結果コピー   : 入力条件＋計算結果を計算書テキストとしてクリップボードへコピー
+ * 2. 結果コピー   : 表示中の計算結果と、その計算をしたときの入力条件を一組で計算書テキストにしてコピー
+ *                  （計算後に入力・単位・モードを変えても、コピーには計算時の条件が入る。変わったことは画面に出す）
  * 3. 計算例       : placeholder の例値（「例：〜」）を一括入力して計算
  * 4. 設定記憶     : 前回の単位選択・計算モードを localStorage に保存して次回復元
  *                  （入力値そのものはセキュリティ配慮のため保存しない。URLクエリは
@@ -134,19 +135,107 @@
       linkBtn.className = 'btn btn-ghost btn-small';
       linkBtn.textContent = '計算条件のリンクをコピー';
       linkBtn.addEventListener('click', function () {
-        copyText(location.href, linkBtn);
+        copyText(lastCalc ? lastCalc.url : location.href, linkBtn);
         if (typeof window.gtag === 'function') window.gtag('event', 'link_copy');
       });
       actions.appendChild(copyBtn);
       actions.appendChild(linkBtn);
       resultArea.insertAdjacentElement('afterend', actions);
+      // 計算後に入力が変わったときの注意は、結果を読む前に目に入るよう結果の上に置く
+      // 読み上げ用に要素は常に置き、文は入力が変わっている間だけ入れる
+      staleNote = document.createElement('p');
+      staleNote.className = 'result-stale-note';
+      staleNote.setAttribute('role', 'status');
+      resultArea.insertAdjacentElement('beforebegin', staleNote);
+    }
+
+    // ---- 表示中の結果と、その計算をしたときの条件を一組で控える ----
+    var staleNote = null;
+    var STALE_TEXT = '注意：計算後に入力が変わっています。表示中の結果とコピーの内容は、前回計算したときの条件のものです。新しい条件で計算するには「' +
+      calcBtn.textContent.trim() + '」を押してください。';
+    var lastCalc = null; // { key: 入力欄の状態, mode: 計算モード名, inputs: 【入力】の行, url: 計算条件のリンク, html: 控えた時の結果表示 }
+
+    function hasResult() {
+      return resultArea.textContent.trim() !== '' && !resultArea.querySelector('.placeholder') &&
+        !resultArea.querySelector('[data-no-copy]'); // 全表など、特定の入力の結果ではない表示はコピー対象にしない
+    }
+
+    function modeLabel() {
+      var tab = root.querySelector('.mode-tab.active');
+      return tab ? tab.textContent.trim() : '';
+    }
+
+    function inputLines() {
+      var lines = [];
+      var shown = function (el) { return el.offsetParent !== null && !el.closest('table'); }; // 隠れた欄・表の中の欄は除く
+      var optText = function (s) { return (s && s.selectedOptions[0]) ? s.selectedOptions[0].textContent.trim() : ''; };
+      root.querySelectorAll('.input-row').forEach(function (row) {
+        if (row.offsetParent === null) return; // 非表示の行（別モード用）は除外
+        var label = row.querySelector('label');
+        var name = label ? label.textContent.trim().replace(/\s+/g, ' ') : '';
+        var inputs = Array.prototype.slice.call(row.querySelectorAll('input[id]'))
+          .filter(function (i) { return i.type !== 'checkbox' && i.type !== 'radio' && i.type !== 'hidden' && i.value !== '' && shown(i); });
+        var selects = Array.prototype.filter.call(row.querySelectorAll('select[id]'), shown);
+        if (inputs.length > 0) {
+          var vals = inputs.map(function (i) {
+            var g = i.closest('.input-group');
+            var sel = (g && g.querySelector('select[id]')) || (inputs.length === 1 ? selects[0] : null);
+            var unit = optText(sel);
+            var sub = (inputs.length > 1 && i.getAttribute('aria-label')) ? i.getAttribute('aria-label') + ' ' : '';
+            return sub + i.value + (unit ? ' ' + unit : '');
+          });
+          lines.push((name || inputs[0].id) + ': ' + vals.join(' / '));
+        } else if (selects[0] && name) {
+          lines.push(name + ': ' + optText(selects[0]));
+        }
+      });
+      // 表の行で入れる値（成分の表など、id のない入力欄）も、見出しを付けて1行ずつ入れる
+      root.querySelectorAll('table').forEach(function (tbl) {
+        if ((resultArea && resultArea.contains(tbl)) || tbl.offsetParent === null) return;
+        if (!tbl.querySelector('tbody input, tbody select')) return;
+        var heads = Array.prototype.map.call(tbl.querySelectorAll('thead th'), function (th) {
+          return th.textContent.trim().replace(/\s+/g, ' ');
+        });
+        tbl.querySelectorAll('tbody tr').forEach(function (tr, i) {
+          var parts = [];
+          Array.prototype.forEach.call(tr.children, function (cell, j) {
+            var c = cell.querySelector('input, select');
+            if (!c) return;
+            var v = c.tagName === 'SELECT' ? ((c.value !== '' && c.selectedOptions[0]) ? c.selectedOptions[0].textContent.trim() : '') : c.value.trim();
+            if (v === '') return;
+            parts.push((heads[j] ? heads[j] + ' ' : '') + v);
+          });
+          if (parts.length) lines.push('行' + (i + 1) + ': ' + parts.join(' / '));
+        });
+      });
+      return lines;
+    }
+
+    function permalink(snap) {
+      var qs = new URLSearchParams(snap).toString();
+      return location.origin + location.pathname + (qs ? '?' + qs : '');
+    }
+
+    // 変わったかどうかの判定用：結果欄の外にある全ての入力欄・選択欄（id のない表の行も含む）とモード
+    function stateKey() {
+      var vals = Array.prototype.slice.call(root.querySelectorAll('input, select, textarea'))
+        .filter(function (el) { return !(resultArea && resultArea.contains(el)) && el.type !== 'button' && el.type !== 'submit'; })
+        .map(function (el) { return (el.type === 'checkbox' || el.type === 'radio') ? (el.checked ? '1' : '0') : el.value; });
+      return JSON.stringify([activeMode(), vals]);
+    }
+
+    function recordCalc() {
+      var snap = snapshot();
+      lastCalc = { key: stateKey(), mode: modeLabel(), inputs: inputLines(), url: permalink(snap), html: resultArea.innerHTML };
     }
 
     function updateResultActions() {
       if (!resultArea) return;
       ensureActions();
-      var hasResult = resultArea.textContent.trim() !== '' && !resultArea.querySelector('.placeholder');
-      actions.style.display = hasResult ? 'flex' : 'none';
+      var show = hasResult();
+      actions.style.display = show ? 'flex' : 'none';
+      var stale = !!(show && lastCalc && stateKey() !== lastCalc.key);
+      if (staleNote.textContent !== (stale ? STALE_TEXT : '')) staleNote.textContent = stale ? STALE_TEXT : '';
     }
 
     // 結果エリアをテキスト化する。視覚専用の要素（判定ゲージ・図）は除外し、
@@ -174,27 +263,13 @@
     function buildReport() {
       var titleEl = document.querySelector('.tool-hero h1');
       var lines = [];
+      var rec = lastCalc || { mode: modeLabel(), inputs: inputLines(), url: location.href };
       lines.push('■ ' + (titleEl ? titleEl.textContent.trim() : document.title));
-      lines.push(location.href);
+      lines.push(rec.url);
       lines.push('');
-      var tab = root.querySelector('.mode-tab.active');
-      if (tab) lines.push('計算モード: ' + tab.textContent.trim());
+      if (rec.mode) lines.push('計算モード: ' + rec.mode);
       lines.push('【入力】');
-      root.querySelectorAll('.input-row').forEach(function (row) {
-        if (row.offsetParent === null) return; // 非表示の行（別モード用）は除外
-        var label = row.querySelector('label');
-        var name = label ? label.textContent.trim().replace(/\s+/g, ' ') : '';
-        var inputs = Array.prototype.slice.call(row.querySelectorAll('input[id]'))
-          .filter(function (i) { return i.type !== 'checkbox' && i.type !== 'radio' && i.value !== ''; });
-        var select = row.querySelector('select[id]');
-        var unit = (select && select.selectedOptions[0]) ? select.selectedOptions[0].textContent.trim() : '';
-        if (inputs.length > 0) {
-          var vals = inputs.map(function (i) { return i.value; }).join(' / ');
-          lines.push((name || inputs[0].id) + ': ' + vals + (unit ? ' ' + unit : ''));
-        } else if (select && name) {
-          lines.push(name + ': ' + unit);
-        }
-      });
+      rec.inputs.forEach(function (l) { lines.push(l); });
       lines.push('');
       lines.push('【結果】');
       lines.push(resultAreaText());
@@ -279,10 +354,15 @@
     // ============ 4. 入力記憶 ＋ 初期化 ============
     setupExampleButton();
 
-    // 計算時：単位・モードの保存＋URL更新＋コピー導線の表示
+    // 計算時：単位・モードの保存＋URL更新＋計算条件の控え＋コピー導線の表示
+    // 計算が通ったとき（エラー表示が出ていないとき）に条件を控える。エラーが出ていても結果表示が変わった
+    // ときは控え直す。入力エラーで前の結果が残る場合に、新しい入力と前の結果を組にしないため
     calcBtn.addEventListener('click', function () {
       savePrefs();
       updateUrl();
+      var errEl = document.getElementById('error');
+      var errShown = !!(errEl && errEl.offsetParent !== null && errEl.textContent.trim() !== '');
+      if (resultArea && hasResult() && (!errShown || !lastCalc || resultArea.innerHTML !== lastCalc.html)) recordCalc();
       updateResultActions();
       // GA4利用計測: どのツールで計算が実行されたか（ツールはページパスで識別）
       if (typeof window.gtag === 'function') window.gtag('event', 'calculate');
@@ -296,10 +376,48 @@
       t.addEventListener('click', savePrefs);
     });
 
+    // ツールが「計算する」ボタンを通さずに計算し直した場合（Enter キーなど）も、その時の条件を控える。
+    // そのキー操作の間に結果表示が変わったときだけ（数式の描画やグラフの描き直しでは控え直さない）
+    var htmlBeforeKey = null, clickedDuringKey = false;
+    root.addEventListener('keydown', function (e) {
+      var tag = e.target && e.target.tagName;
+      if (e.key !== 'Enter' || !resultArea || (tag !== 'INPUT' && tag !== 'SELECT') || resultArea.contains(e.target)) return;
+      htmlBeforeKey = resultArea.innerHTML;
+      clickedDuringKey = false;
+    }, true);
+    calcBtn.addEventListener('click', function () { clickedDuringKey = true; });
+    root.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' || htmlBeforeKey === null) return;
+      var changed = resultArea.innerHTML !== htmlBeforeKey;
+      htmlBeforeKey = null;
+      if (!changed || clickedDuringKey) return;
+      var errEl = document.getElementById('error');
+      var errShown = !!(errEl && errEl.offsetParent !== null && errEl.textContent.trim() !== '');
+      if (!hasResult() || errShown) { updateResultActions(); return; }
+      savePrefs();
+      updateUrl();
+      recordCalc();
+      updateResultActions();
+    });
+
+    // 計算後に入力・単位・モードが変わったら、その旨を出す（元の条件に戻れば消える）
+    root.addEventListener('click', function () { if (actions) updateResultActions(); }); // 例値ボタン等、イベントなしで値を書き換える操作
+    root.addEventListener('input', function () { if (actions) updateResultActions(); });
+    root.addEventListener('change', function () { if (actions) updateResultActions(); });
+    root.querySelectorAll('.mode-tab').forEach(function (t) {
+      t.addEventListener('click', function () { if (actions) updateResultActions(); });
+    });
+    // 結果表示が計算以外で変わったとき（モード切替で空になる、全表を出す等）もコピー導線を合わせる
+    if (resultArea && window.MutationObserver) {
+      new MutationObserver(function () { if (actions) updateResultActions(); })
+        .observe(resultArea, { childList: true, subtree: true, characterData: true });
+    }
+
     // リセット時：URLと結果導線をクリア（単位・モードの記憶は保持）
     if (resetBtn) {
       resetBtn.addEventListener('click', function () {
         history.replaceState(null, '', location.pathname);
+        lastCalc = null;
         if (actions) actions.style.display = 'none';
       });
     }

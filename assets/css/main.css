@@ -2206,6 +2206,13 @@ input[type="number"] {
   gap: 4px 20px;
   flex-wrap: wrap;
 }
+.result-stale-note {
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text);
+}
+.result-stale-note:empty { margin: 0; }
 .btn-small {
   padding: 8px 14px;
   font-size: 14px;
