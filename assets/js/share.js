@@ -2,7 +2,7 @@
  * 化学工学計算支援ツール — Share Buttons
  * ========================================
  * Floating share buttons (X, note, LINE, Facebook)
- * Desktop: left sidebar, Mobile: bottom fixed bar
+ * 本文の左に余白がある幅: 左の縦の列 / 余白がない幅（スマホ・タブレット・狭いPC）: 画面下の帯
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -93,6 +93,23 @@ function initShareButtons() {
   });
 
   document.body.appendChild(shareContainer);
+
+  // 本文の左に縦の列を置く余白がない幅では、画面下の帯にする（本文の文字とボタンを重ねない）。
+  // 余白は、ページの見出し（h1）の左端と、縦の列の右端との間で測る。
+  const heading = document.querySelector('h1');
+  const fitLayout = () => {
+    shareContainer.classList.remove('share-buttons--bottom');
+    document.body.classList.remove('has-share-bottom');
+    const narrow = window.matchMedia('(max-width: 768px)').matches;
+    const textLeft = heading ? heading.getBoundingClientRect().left : Infinity;
+    const barRight = shareContainer.getBoundingClientRect().right;
+    if (narrow || textLeft < barRight + 12) {
+      shareContainer.classList.add('share-buttons--bottom');
+      document.body.classList.add('has-share-bottom');
+    }
+  };
+  fitLayout();
+  window.addEventListener('resize', fitLayout, { passive: true });
 
   // Show/hide based on scroll position
   const showAfter = 300;

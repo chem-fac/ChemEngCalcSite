@@ -1941,10 +1941,47 @@ details.formula .body {
   .share-btn[data-tooltip]::after { display: none; }
 }
 
-/* Mobile: bottom fixed bar */
+/* Bottom fixed bar: share.js が、本文の左に縦の列を置く余白がない幅（スマホ・タブレット・狭いPC）で付ける */
+.share-buttons.share-buttons--bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: auto;
+  transform: none;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0;
+  background: #fff;
+  border-top: 1px solid var(--border);
+  padding: 10px 16px;
+}
+
+.share-buttons--bottom .share-buttons__label { display: none; }
+
+.share-buttons--bottom .share-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  box-shadow: none;
+  border-radius: 8px;
+  background: transparent;
+  flex: 1;
+  max-width: 80px;
+}
+
+.share-buttons--bottom .share-btn img { width: 22px; height: 22px; }
+
+.share-buttons--bottom .share-btn[data-tooltip]::after { display: none; }
+
+.share-buttons--bottom .share-btn:hover { background: var(--surface); }
+
+/* Add padding to footer so it's not hidden behind share bar */
+body.has-share-bottom .site-footer { padding-bottom: 64px; }
+
+/* 古い share.js（クラスを付けない版）がキャッシュに残っている間も、スマホ幅では下部バーにする */
 @media (max-width: 768px) {
   .share-buttons {
-    position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
@@ -1957,23 +1994,7 @@ details.formula .body {
     border-top: 1px solid var(--border);
     padding: 10px 16px;
   }
-
-  .share-buttons__label { display: none; }
-
-  .share-btn {
-    width: 44px;
-    height: 44px;
-    border: none;
-    box-shadow: none;
-    border-radius: 8px;
-    background: transparent;
-    flex: 1;
-    max-width: 80px;
-  }
-
-  .share-btn img { width: 22px; height: 22px; }
-
-  /* Add padding to footer so it's not hidden behind share bar */
+  .share-btn { width: 44px; height: 44px; border: none; border-radius: 8px; flex: 1; max-width: 80px; }
   .site-footer { padding-bottom: 64px; }
 }
 
@@ -2506,6 +2527,7 @@ html:not(.js) .ta-js-only { display: none; }
 @media (min-width: 769px) and (max-width: 1199px) {
   .ta-head,
   .ta-layout { padding-left: 64px; }
+  .page-tools-all .footer-inner { padding-left: 64px; }
 }
 @media (max-width: 1080px) {
   .ta-layout { grid-template-columns: 216px minmax(0, 1fr); gap: 28px; }

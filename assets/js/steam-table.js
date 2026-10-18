@@ -37,15 +37,29 @@
     [180,    1.00280,   1.1275e-3, 0.19386,   763.14,  2777.2, 2.1395, 6.5841],
     [190,    1.25520,   1.1415e-3, 0.15638,   807.49,  2785.3, 2.2358, 6.5060],
     [200,    1.55470,   1.1565e-3, 0.12721,   852.40,  2792.0, 2.3308, 6.4303],
-    [220,    2.31960,   1.1900e-3, 0.086094,  943.45,  2801.0, 2.5177, 6.2842],
+    [220,    2.31929,   1.1900e-3, 0.086094,  943.45,  2801.0, 2.5177, 6.2842],
     [240,    3.34670,   1.2291e-3, 0.059745,  1037.62, 2802.8, 2.7022, 6.1425],
     [260,    4.69210,   1.2755e-3, 0.042175,  1135.04, 2796.6, 2.8851, 6.0017],
-    [280,    6.41650,   1.3328e-3, 0.030154,  1236.84, 2779.8, 3.0681, 5.8578],
+    [280,    6.41646,   1.3328e-3, 0.030154,  1236.84, 2779.8, 3.0681, 5.8578],
     [300,    8.58790,   1.4036e-3, 0.021653,  1344.74, 2749.6, 3.2547, 5.7058],
     [320,    11.284,    1.4995e-3, 0.015476,  1462.05, 2700.2, 3.4488, 5.5373],
     [340,    14.600,    1.6375e-3, 0.010784,  1594.61, 2622.1, 3.6604, 5.3359],
-    [360,    18.666,    1.8945e-3, 0.0069490, 1761.46, 2480.99, 3.9165, 5.0527],
-    [373.95, 22.064,    3.1056e-3, 0.0031056, 2087.5,  2087.5, 4.4120, 4.4120],
+    [360,    18.666,    1.8945e-3, 0.0069449, 1761.49, 2480.99, 3.9164, 5.0527],
+    [362,    19.121,    1.9374e-3, 0.0065740, 1782.62, 2459.49, 3.9483, 5.0140],
+    [364,    19.586,    1.9873e-3, 0.0061969, 1805.41, 2435.34, 3.9827, 4.9714],
+    [366,    20.061,    2.0469e-3, 0.0058079, 1830.43, 2407.62, 4.0204, 4.9235],
+    [368,    20.546,    2.1215e-3, 0.0053976, 1858.77, 2374.76, 4.0631, 4.8679],
+    [370,    21.043,    2.2221e-3, 0.0049462, 1892.64, 2333.50, 4.1142, 4.7996],
+    [371,    21.296,    2.2902e-3, 0.0046914, 1913.25, 2307.45, 4.1453, 4.7573],
+    [372,    21.553,    2.3817e-3, 0.0043985, 1938.54, 2274.69, 4.1836, 4.7046],
+    [372.5,  21.682,    2.4435e-3, 0.0042263, 1954.32, 2253.90, 4.2076, 4.6716],
+    [373,    21.813,    2.5264e-3, 0.0040212, 1974.14, 2227.55, 4.2377, 4.6299],
+    [373.3,  21.892,    2.5955e-3, 0.0038691, 1989.65, 2206.85, 4.2614, 4.5974],
+    [373.5,  21.945,    2.6576e-3, 0.0037446, 2002.95, 2189.14, 4.2818, 4.5697],
+    [373.7,  21.998,    2.7466e-3, 0.0035830, 2021.17, 2165.15, 4.3097, 4.5323],
+    [373.8,  22.025,    2.8139e-3, 0.0034730, 2034.37, 2148.17, 4.3300, 4.5059],
+    [373.9,  22.052,    2.9281e-3, 0.0033085, 2055.86, 2121.78, 4.3631, 4.4650],
+    [373.946, 22.064,   3.1056e-3, 0.0031056, 2087.55, 2087.55, 4.4120, 4.4120],
   ];
 
   function fmtNum(v, sig = 4) {
@@ -128,11 +142,19 @@
   function showProps(p, sourceLabel) {
     const rho_f = 1 / p.vf, rho_g = 1 / p.vg;
     const hfg = p.hg - p.hf;
+    // 温度から求めたときは入力値をそのまま、圧力から求めたときも 360 °C を超えたら小数3桁まで示す（373 °C・373.8 °C の境目と見分けられるように）
+    const tFine = mode === 'T' || p.T > 360;
+    // 373 °C（21.81 MPaA）を超える臨界点の近くは、IF97 自体と IAPWS-95 の差が補間の誤差より大きい（適用範囲と注意事項を参照）
+    const noteHtml = p.T > 373.8
+      ? '<div class="result-note-warn">注意：373.8 °C（22.02 MPaA、21.92 MPaG）を超える、臨界点のすぐ近くです。もとにしている IAPWS-IF97 自体が、より精密な IAPWS-95 と比容積で最大2.7%、比エンタルピーで最大15 kJ/kg 違い、蒸発潜熱は IAPWS-95 より 373.9 °C で約29%、373.94 °C で約4割小さくなります。さらに臨界点の直前では、表の点の間を直線で結ぶ誤差で、蒸発潜熱が同じ向きに割合で最大ほぼ100%小さく出ます。値は目安です。</div>'
+      : p.T > 373
+        ? '<div class="result-note-warn">注意：373 °C（21.81 MPaA、21.71 MPaG）を超える、臨界点の近くです。もとにしている IAPWS-IF97 自体が、より精密な IAPWS-95 と比容積で最大2.7%、比エンタルピーで最大15 kJ/kg 違い、蒸発潜熱は IAPWS-95 より 373.8 °C で約17%小さくなるため、値は目安です。</div>'
+        : '<div class="result-note">※ IAPWS-IF97 の値の代表点を線形補間しています。精度は「適用範囲と注意事項」を参照してください。</div>';
     $('result-area').innerHTML = `
-      <div class="result-target">飽和蒸気物性（${sourceLabel}）</div>
+      <div class="result-target">飽和蒸気物性（${sourceLabel}）${p.T > 373 ? '<br>臨界点の近くのため目安の値' : ''}</div>
       <table class="unit-table"><tbody>
-        <tr><td>飽和温度 T_sat</td><td class="num">${fmtNum(p.T)} °C  /  ${fmtNum(p.T + 273.15)} K</td></tr>
-        <tr><td>飽和圧力 P_sat</td><td class="num">${fmtNum(p.P)} MPaA  /  ${fmtNum(p.P * 1000)} kPaA  /  ${fmtNum(p.P * 1000 - ATM_KPA)} kPaG</td></tr>
+        <tr><td>飽和温度 T_sat</td><td class="num">${tFine ? Number(p.T.toFixed(3)) : fmtNum(p.T)} °C  /  ${tFine ? Number((p.T + 273.15).toFixed(3)) : fmtNum(p.T + 273.15)} K</td></tr>
+        <tr><td>飽和圧力 P_sat</td><td class="num">${p.T > 360 ? p.P.toFixed(3) : fmtNum(p.P)} MPaA  /  ${p.T > 360 ? (p.P * 1000).toFixed(0) : fmtNum(p.P * 1000)} kPaA  /  ${p.T > 360 ? (p.P * 1000 - ATM_KPA).toFixed(0) : fmtNum(p.P * 1000 - ATM_KPA)} kPaG</td></tr>
         <tr><td>飽和液 比容積 v_f</td><td class="num">${fmtNum(p.vf)} m³/kg  /  ${fmtNum(p.vf * 1000)} L/kg</td></tr>
         <tr><td>飽和液 密度 ρ_f</td><td class="num">${fmtNum(rho_f)} kg/m³</td></tr>
         <tr><td>飽和蒸気 比容積 v_g</td><td class="num">${fmtNum(p.vg)} m³/kg</td></tr>
@@ -144,7 +166,7 @@
         <tr><td>飽和蒸気 比エントロピー s_g</td><td class="num">${fmtNum(p.sg)} kJ/(kg·K)</td></tr>
       </tbody></table>
       <div class="result-meta">
-        <div class="result-note">※ IAPWS-IF97 標準値の代表点を線形補間。臨界点（374 °C, 22.1 MPa）近傍では非線形性が強くなります。</div>
+        ${noteHtml}
       </div>
     `;
   }
@@ -155,7 +177,7 @@
       const T = parseFloat($('T').value);
       if (!isFinite(T)) return setError('温度を入力してください。');
       const p = lookupByT(T);
-      if (!p) return setError(`温度は 0 〜 373.95 °C の範囲で入力してください（入力：${T} °C）。`);
+      if (!p) return setError(`温度は 0 〜 373.946 °C の範囲で入力してください（入力：${T} °C）。`);
       showProps(p, `T = ${T} °C`);
     } else {
       const Pv = parseFloat($('P').value);
@@ -164,24 +186,27 @@
       const PMPa = presToMPaA(Pv, unit);
       if (!(PMPa > 0)) return setError('絶対圧として正の値になるように入力してください。');
       const p = lookupByP(PMPa);
-      if (!p) return setError(`圧力は 0.0006117 〜 22.064 MPaA の範囲で入力してください（入力：${fmtNum(PMPa)} MPaA）。`);
+      if (!p) return setError(`圧力は 0.0006117 〜 22.064 MPaA の範囲で入力してください（入力：${PMPa >= 1e-3 ? Number(PMPa.toFixed(6)) : Number(PMPa.toPrecision(6))} MPaA）。`);
       showProps(p, `P = ${Pv} ${unit}`);
     }
   }
 
   function showTable() {
     clearError();
+    // 全表は特定の入力の結果ではないので、結果のコピー操作は隠す（次に計算したときに calc-utils.js が再表示する）
+    const actions = document.querySelector('.result-actions');
+    if (actions) actions.style.display = 'none';
     const rows = TABLE.map(r => {
       const hfg = r[5] - r[4];
-      return `<tr><td>${r[0]}</td><td>${fmtNum(r[1])}</td><td>${fmtNum(r[2] * 1000)}</td><td>${fmtNum(r[3])}</td><td>${fmtNum(r[4])}</td><td>${fmtNum(r[5])}</td><td>${fmtNum(hfg)}</td></tr>`;
+      return `<tr><td>${r[0]}</td><td>${r[1] >= 1 ? r[1].toFixed(3) : fmtNum(r[1])}</td><td>${fmtNum(r[2] * 1000)}</td><td>${fmtNum(r[3])}</td><td>${fmtNum(r[4])}</td><td>${fmtNum(r[5])}</td><td>${fmtNum(hfg)}</td></tr>`;
     }).join('');
     $('result-area').innerHTML = `
       <div class="result-target">飽和水蒸気表（全データ）</div>
-      <table class="st-table">
+      <div class="st-table-wrap" tabindex="0" role="region" aria-label="飽和水蒸気表（横にスクロールできます）"><table class="st-table">
         <thead><tr><th>T [°C]</th><th>P [MPa]</th><th>v_f [L/kg]</th><th>v_g [m³/kg]</th><th>h_f [kJ/kg]</th><th>h_g [kJ/kg]</th><th>h_fg [kJ/kg]</th></tr></thead>
         <tbody>${rows}</tbody>
-      </table>
-      <div class="result-meta"><div class="result-note">※ 任意の T・P 値を入力すると、隣接2点で線形補間して物性値を返します。</div></div>
+      </table></div>
+      <div class="result-meta"><div class="result-note">※ 任意の T・P 値を入力すると、隣接2点で線形補間して物性値を返します。</div><div class="result-note">※ 373 °C を超える行は、もとにしている IAPWS-IF97 自体と、より精密な IAPWS-95 との差が大きいため目安です（適用範囲と注意事項を参照）。</div></div>
     `;
   }
 

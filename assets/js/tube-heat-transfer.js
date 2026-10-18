@@ -113,10 +113,26 @@
     const Nu = 0.023 * Math.pow(Re, 0.8) * Math.pow(props.Pr, n);
     const h = Nu * props.k / D;
     const notes = [];
+    // 適用範囲の目安：0.6 ≦ Pr ≦ 160、Re_D ≧ 10⁴、L/D ≧ 10（ht ライブラリの turbulent_Dittus_Boelter の説明。
+    //   出典に Rohsenow ら『Handbook of Heat Transfer』3版を挙げる。Re の上限は書かれていない）。
+    // 高い Re では Gnielinski の式（Lienhard 6版 式(7.41)、摩擦係数は Filonenko の式(7.42)、2300 ≦ Re ≦ 5×10⁶、0.6 ≦ Pr ≦ 10⁵、p.369）
+    //   との差がある。向きと大きさは Pr による（加熱 n=0.4 で、Pr 7 なら Re が大きいほど差が開き Re 10⁶ で約29%小さい。
+    //   Pr 0.7 なら Re 10⁴〜5×10⁶ で6〜13%大きい）。Gnielinski の式の範囲外（Re > 5×10⁶、Pr < 0.6）はその旨も示す。
+    //   Re > 10⁶ では Gnielinski の式の値と、この式との差（符号つき）を結果に示す。
+    // Lienhard 6版 p.368：Re ≧ 10⁴ の摩擦係数の近似式(7.38)から Colburn の式(7.39a)を導き、Dittus–Boelter の式(7.39b、加熱で係数0.0243)は
+    //   それに近い先行の式として紹介。p.369：これらの初期の式の誤差は 0.67 ≦ Pr ≦ 100 で最大 +25%・−40%。
     if (Re < 2300) notes.push('層流域です。層流入口域の相関式などを検討してください。');
     else if (Re < 10000) notes.push('遷移域です。Dittus-Boelter式の誤差が大きくなる可能性があります。');
-    if (Re > 1.2e5) notes.push('Re が代表的な適用範囲（10⁴〜1.2×10⁵）を超えています。');
-    if (props.Pr < 0.7 || props.Pr > 120) notes.push('Pr数が代表的な適用範囲（0.7〜120）から外れています。');
+    if (Re > 1e6) {
+      const fG = 1 / Math.pow(1.82 * Math.log10(Re) - 1.64, 2);
+      const NuG = (fG / 8) * (Re - 1000) * props.Pr / (1 + 12.7 * Math.sqrt(fG / 8) * (Math.pow(props.Pr, 2 / 3) - 1));
+      const diff = (Nu / NuG - 1) * 100;
+      notes.push(`Re が 10⁶ を超えています。より精度の高い Gnielinski の式（Lienhard 6版の式(7.41)、物性一定）では Nu = ${fmtNum(NuG)}、h = ${fmtNum(NuG * props.k / D)} W/(m²K) で、この式の値はそれより ${fmtNum(Math.abs(diff), 2)}% ${diff >= 0 ? '大きい' : '小さい'}値です。`
+        + (n === 0.3 && props.Pr > 1 ? '冷却の指数 n = 0.3 は、液体では壁の近くの粘度の変化を見込んだもので、物性一定の Gnielinski の式とは前提が違います。' : '')
+        + (Re > 5e6 ? 'Re が 5×10⁶ を超えるため、Gnielinski の式も適用範囲（2300〜5×10⁶）の外です。' : '')
+        + (props.Pr < 0.6 ? 'Pr が 0.6 未満のため、Gnielinski の式も適用範囲（0.6 ≦ Pr ≦ 10⁵）の外です。' : ''));
+    }
+    if (props.Pr < 0.6 || props.Pr > 160) notes.push('Pr数が代表的な適用範囲（0.6〜160）から外れています。');
     renderResult({
       title: '管内熱伝達係数 h',
       h,
@@ -155,6 +171,7 @@
     const Nu = r.Nu;
     const h = Nu * props.k / L;
     const notes = [];
+    // 実験室の風洞のような条件では、遷移は多くの場合 Re_x = 2×10⁵〜5×10⁵ で始まる（Lienhard 6版 §6.1 p.276）
     if (Re < 5e5) notes.push('Re_L が小さく、前縁側の層流・遷移域の割合が大きい条件です。前縁から乱流とみなすこの式は合わない可能性があります。');
     if (props.Pr < 0.6) notes.push('Pr < 0.6 です。液体金属などは式(6.112)・(6.113)の対象外です。');
     if (props.Pr > 85) notes.push('Pr が 85 を超えています。式(6.113)のもとになった測定は Pr 85 までです。');
