@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"混合時間","url":"https://tools.chem-fac.com/tools/mixing/time/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"撹拌槽の混合時間 θM を計算します。乱流域・乱流域（液深さ加味）・層流域の3パターンに対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"混合時間, mixing time, θM, Np, Nqd, バッフル, 邪魔板, 液深さ, 層流, 乱流","about":"撹拌混合"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"混合時間","url":"https://tools.chem-fac.com/tools/mixing/time/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"撹拌槽の混合時間 θM を計算します。乱流域・乱流域（液深さ加味）・層流域の3パターンに対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"混合時間, mixing time, θM, Np, Nqd, バッフル, 邪魔板, 液深さ, 層流, 乱流","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -164,6 +164,18 @@
     </ul>
   </section>
 
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>3つのモードは、それぞれ別の相関式です。どのモードを使うかはレイノルズ数を見て利用者が選ぶ形で、ツールがレイノルズ数から自動で切り替えることはありません。</p>
+    <ul>
+      <li><strong>使える条件</strong>：互いに混ざり合う単一の液体で、乱流域なら「乱流」の2モード、層流域なら「層流域」モードを使う場合。乱流の2式には $Re$ が入らず、$N_p$ と $N_{qd}$ だけで翼の違いを表します。</li>
+      <li><strong>$N_p$ と $N_{qd}$ の入力</strong>：入力欄の代表値は目安で、実機の翼・バッフル条件の値に置き換える必要があります。乱流の基本式では $(N_p/N_{qd})^{0.5}$、液深さ加味の式では $(N_p/N_{qd})^{-0.25}$ で効きます。どちらも $N_{qd}$ が一定なら $N_p$ が大きいほど混合時間は短くなりますが、効き方の大きさが異なるため、同じ $N_p$ のずれでも結果への影響はモードで違います。</li>
+      <li><strong>層流域モード</strong>：式の $N_p\cdot Re$ の積が $1/(n\theta_M)$ に比例します。層流域では $N_p$ が $Re$ に反比例して大きくなるため、$N_p$ は運転条件の $Re$ に対応した値を入れます。乱流域の $N_p$ を入れると積が過大になり、混合時間は短く出ます。</li>
+      <li><strong>液深さの扱い</strong>：乱流の基本式には液深さ $H$ が入っていません。$H/D$ が 1 から離れた槽では、液深さを加味した式の結果と見比べてください。</li>
+      <li><strong>結果の読み方</strong>：3つの式は別々の実験相関なので、モード間で同じ条件を入れても値は一致しません。気体の吹き込みや固体粒子を含む系、粘度が混合の途中で変わる系は式に入っていません。</li>
+    </ul>
+  </section>
+
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
     <a href="https://amzn.to/4ts1HHl" class="reference-card" data-asin="4883616568" target="_blank" rel="noopener nofollow sponsored" style="margin-bottom:12px;">
@@ -186,6 +198,11 @@
       <a href="../kamei-hiraoka/" class="related-card"><span class="small">撹拌混合</span>亀井・平岡の式（バッフル無し撹拌所要動力）</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

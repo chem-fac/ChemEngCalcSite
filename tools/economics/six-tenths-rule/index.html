@@ -19,7 +19,7 @@
   <meta property="og:locale" content="ja_JP">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"0.6乗則・0.7乗則による設備費の換算","url":"https://tools.chem-fac.com/tools/economics/six-tenths-rule/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"容量の違う機器やプラントの費用を、容量比のn乗（0.6乗則・0.7乗則）とコスト指数の比で換算するツール。n＝0.6と0.7の結果を並べて表示し、指数nの目安も示します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"0.6乗則, 0.7乗則, スケールファクター, 容量指数, 設備費, 建設費, コストインデックス","about":"経済性"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"0.6乗則・0.7乗則による設備費の換算","url":"https://tools.chem-fac.com/tools/economics/six-tenths-rule/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"容量の違う機器やプラントの費用を、容量比のn乗（0.6乗則・0.7乗則）とコスト指数の比で換算するツール。n＝0.6と0.7の結果を並べて表示し、指数nの目安も示します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"0.6乗則, 0.7乗則, スケールファクター, 容量指数, 設備費, 建設費, コストインデックス","about":"経済性","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -188,6 +188,18 @@
       </ul>
     </section>
 
+    <section class="explain-block notes-block">
+      <h2>適用範囲と注意事項</h2>
+      <p>容量が違うだけで、型式・仕様・材質・費用の範囲が同じ設備の費用を、容量比の累乗で換算する計算です。指数 $n$ は対象ごとの代表値で、個別の設備の値ではありません。</p>
+      <ul>
+        <li><strong>使える条件</strong>：基準にする費用 $C_1$ と換算先の設備が、同じ種類で、容量の定義（容積、伝熱面積、処理量など）と単位が同じ場合。$C_1$ に含まれる費用の範囲（機器費のみか、据付や配管を含むか）も、求めたい $C_2$ と合わせます。</li>
+        <li><strong>使えない条件</strong>：種類や方式が違う設備、材質や圧力条件が大きく違う設備、容量に対して費用が決まらない設備（容量以外の仕様で価格が決まるもの）。この場合は容量比だけで換算できません。</li>
+        <li><strong>外れやすい場合</strong>：容量比が大きいほど、指数の差が結果に大きく効きます。0.6乗と0.7乗の結果の差は、$n$ の不確かさによる幅の目安で、実際の費用がその範囲に収まることを保証するものではありません。</li>
+        <li><strong>コスト指数</strong>：$I_1$ と $I_2$ は同じ種類の指数（同じ系列・同じ基準年）から取ります。別の系列の値を比べると、換算の比が意味を持ちません。</li>
+        <li><strong>結果の読み方</strong>：結果は、同種設備の実績から作った経験則による概算です。設計の初期段階での比較や、概略の見積の位置づけに限られ、メーカーの見積に代わるものではありません。</li>
+      </ul>
+    </section>
+
     <!-- ===== Reference ===== -->
     <section class="explain-block reference-block">
       <h2>参考資料</h2>
@@ -209,7 +221,12 @@
       </div>
     </section>
 
-  </main>
+    <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
+</main>
 
   <footer class="site-footer">
     <div class="footer-inner">

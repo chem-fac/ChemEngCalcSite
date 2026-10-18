@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ポンプ計算（全揚程・NPSH・軸動力）","url":"https://tools.chem-fac.com/tools/fluid/pump/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"ポンプ系統の全揚程・利用可能NPSH・水動力・軸動力・モーター入力動力をまとめて計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"ポンプ計算, 全揚程, NPSH, NPSHa, NPSHr, キャビテーション, 軸動力, 水動力, モーター動力","about":"流動"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ポンプ計算（全揚程・NPSH・軸動力）","url":"https://tools.chem-fac.com/tools/fluid/pump/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"ポンプ系統の全揚程・利用可能NPSH・水動力・軸動力・モーター入力動力をまとめて計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"ポンプ計算, 全揚程, NPSH, NPSHa, NPSHr, キャビテーション, 軸動力, 水動力, モーター動力","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -225,11 +225,16 @@
     </div>
 
     <div>
-      <h2>実務上の注意点</h2>
+      <h2>適用範囲と注意事項</h2>
       <ul class="symbol-list">
         <li>圧力の基準：全揚程は $P_{2} - P_{1}$ の差圧なのでゲージ圧のままで構いませんが、NPSH<sub>a</sub> は絶対圧基準のため、ゲージ圧 $P_{1}$ に大気圧 $P_{a}$ を足して評価します。</li>
         <li>ポンプ効率 $\eta_{p}$ は型式・容量・運転点で変わります。正確にはメーカーの性能曲線の値を用います。</li>
         <li>NPSH<sub>a</sub> ≧ NPSH<sub>r</sub> ＋ 余裕（目安1 m）を確保します。</li>
+        <li>対象は非圧縮性の単相液体を一定流量で送る場合です。全揚程は速度ヘッド差を無視した式で、吸込側と吐出側で配管径が大きく違う場合や、流速が大きい場合はその差の分だけずれます。気体、気液二相、スラリーは対象外です。</li>
+        <li>摩擦損失 $\Delta P_s$、$\Delta P_d$ は、入力した流量 $Q$ での値を使います。流量を変えたら損失も計算し直します。流量が増えると $\Delta P_s$ が増えるため、NPSH<sub>a</sub> は下がります。</li>
+        <li>飽和蒸気圧 $P_v$ は、ポンプ入口の液温での値を入力します。液温が上がると $P_v$ が上がり、NPSH<sub>a</sub> は下がります。沸点近くの液や、減圧タンクからの吸込では、この差が結果を左右します。</li>
+        <li>NPSH<sub>r</sub> と効率 $\eta_{p}$ はポンプの機種と運転点（流量・回転数）で決まる値で、このツールでは計算しません。粘度の高い液体では、水で測った性能曲線の効率や揚程がそのまま当てはまらないため、メーカーの値を使います。</li>
+        <li>全揚程が0以下になる条件では、動力は計算されません。</li>
       </ul>
     </div>
   </section>
@@ -250,6 +255,11 @@
       <a href="../flow-conversion/" class="related-card"><span class="small">流動</span>流量・流速・配管径換算</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

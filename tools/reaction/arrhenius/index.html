@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"アレニウスの式（反応速度定数・活性化エネルギー）","url":"https://tools.chem-fac.com/tools/reaction/arrhenius/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"アレニウスの式 k = A·exp(−Ea/RT) で反応速度定数 k を計算するツール。2点の温度と速度定数から活性化エネルギー Ea と頻度因子 A を逆算する2点法、アレニウスプロットの考え方と単位も掲載。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"アレニウス, Arrhenius, 活性化エネルギー, Ea, 頻度因子, 前指数因子, 反応速度定数, 速度定数, k, アレニウスプロット, kinetics","about":"反応"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"アレニウスの式（反応速度定数・活性化エネルギー）","url":"https://tools.chem-fac.com/tools/reaction/arrhenius/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"アレニウスの式 k = A·exp(−Ea/RT) で反応速度定数 k を計算するツール。2点の温度と速度定数から活性化エネルギー Ea と頻度因子 A を逆算する2点法、アレニウスプロットの考え方と単位も掲載。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"アレニウス, Arrhenius, 活性化エネルギー, Ea, 頻度因子, 前指数因子, 反応速度定数, 速度定数, k, アレニウスプロット, kinetics","about":"反応","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -142,6 +142,18 @@
     </ul>
   </section>
 
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>$A$ と $E_a$ が温度によらず一定で、$\ln k$ が $1/T$ に対して直線になる範囲を前提にした計算です。</p>
+    <ul>
+      <li><strong>使える条件</strong>：同じ反応機構のまま進む温度範囲で、与えた $k$ または $A$・$E_a$ が測定された範囲の内側かその近傍。$k$ の単位は反応次数で決まり、$A$ と同じ単位系になります。</li>
+      <li><strong>外れやすい条件</strong>：アレニウスプロットが直線にならない場合は、$E_a$ が温度によらず一定という前提が成り立っていません。測定した温度範囲の値を、その外側の温度に当てはめるとずれます。</li>
+      <li><strong>2点法の限界</strong>：2点から求めた $E_a$・$A$ は、その2点の測定誤差を直接受けます。2点の温度が近いほど $1/T_1-1/T_2$ が小さくなり、$E_a$ の誤差が拡大します。重要な値は3点以上の $\ln k$ 対 $1/T$ の直線あてはめで評価します。</li>
+      <li><strong>結果の読み方</strong>：$E_a$ が大きい反応ほど、同じ温度変化で $k$ が大きく変わります。2点法で逆算した $A$ は、$k_1$ と $T_1$ から $E_a$ を介して決まる値で、$E_a$ の誤差が大きいと $A$ は指数的に大きくずれます（$A=k_1\exp(E_a/RT_1)$）。</li>
+      <li><strong>温度の単位</strong>：入力は℃または K で、計算には K を使います。2点法では $T_1$・$T_2$ に同じ単位が適用されます。</li>
+    </ul>
+  </section>
+
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
     <a href="https://amzn.to/3QUZV3W" class="reference-card" data-asin="4563046345" target="_blank" rel="noopener nofollow sponsored">
@@ -158,6 +170,11 @@
       <a href="../pfr/" class="related-card"><span class="small">反応</span>PFR設計</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

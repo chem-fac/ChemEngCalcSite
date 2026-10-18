@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"アントワン式（蒸気圧・沸点）","url":"https://tools.chem-fac.com/tools/distillation/antoine/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"アントワン式 log P = A − B/(T+C) で純物質の蒸気圧・沸点を計算します。係数の温度単位・圧力単位・対数の底を指定できます。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"アントワン, Antoine, 蒸気圧, 沸点, 純物質, 気液平衡, log P, 水, エタノール, メタノール, ベンゼン, トルエン, アセトン, vapor pressure","about":"蒸留"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"アントワン式（蒸気圧・沸点）","url":"https://tools.chem-fac.com/tools/distillation/antoine/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"アントワン式 log P = A − B/(T+C) で純物質の蒸気圧・沸点を計算します。係数の温度単位・圧力単位・対数の底を指定できます。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"アントワン, Antoine, 蒸気圧, 沸点, 純物質, 気液平衡, log P, 水, エタノール, メタノール, ベンゼン, トルエン, アセトン, vapor pressure","about":"蒸留","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -148,6 +148,18 @@
     </ul>
   </section>
 
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>$\log_{10} P = A - B/(T + C)$ に、利用者が与えた係数 A・B・C をそのまま代入する計算です。物質の判定や係数の妥当性の検査は行いません。</p>
+    <ul>
+      <li><strong>使える条件</strong>：係数を求めた温度範囲の内側で、係数の出典と同じ形式（常用対数、圧力と温度の単位）で入力する場合。</li>
+      <li><strong>係数の単位系</strong>：A・B・C は、式の対数の種類（常用対数か自然対数か）、圧力の単位（mmHg・kPa・bar）、温度の単位（°C か K）の組み合わせごとに別の値になります。出典の単位系と画面の単位選択が一致していないと、式は計算できても結果は桁違いになります。</li>
+      <li><strong>温度範囲</strong>：係数は出典ごとに有効な温度範囲が付いており、同じ物質でも範囲別に複数の係数組が示されることがあります（NIST Chemistry WebBook のベンゼンでは範囲の異なる 4 組が掲載）。入力温度が範囲外でも式は値を返しますが、その値は保証されません。範囲外では沸点（逆算した $T_{sat}$）にも同じことが言えます。</li>
+      <li><strong>計算できない領域</strong>：$T + C = 0$ 付近では蒸気圧が発散し、逆算では $A - \log_{10} P = 0$ で解けません。逆算した温度が絶対零度以下になる圧力は、式の適用範囲外として弾きます（ツールの入力検査どおり）。</li>
+      <li><strong>外れやすい場合</strong>：広い温度範囲を 1 組の係数で通した場合（広い範囲ではワグナー式などを検討）、係数の出典の温度範囲が不明な場合。純物質の蒸気圧であり、混合物の泡点・露点は活量係数などを含む別の計算になります。</li>
+    </ul>
+  </section>
+
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
     <a href="https://www.amazon.co.jp/dp/4621311832?tag=chemengcalc-22" class="reference-card" data-asin="4621311832" target="_blank" rel="noopener nofollow sponsored" style="margin-bottom:12px;">
@@ -172,6 +184,11 @@
       <a href="../../reaction/arrhenius/" class="related-card"><span class="small">反応</span>アレニウスの式</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

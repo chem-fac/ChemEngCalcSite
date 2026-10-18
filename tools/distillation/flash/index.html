@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"フラッシュ蒸留の設計計算","url":"https://tools.chem-fac.com/tools/distillation/flash/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"飽和蒸気圧と供給組成から、二成分理想系のフラッシュ蒸留における蒸気率、気相・液相流量、気液組成を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"フラッシュ蒸留, 蒸気率, Rachford-Rice, 気液平衡, K値, 相対揮発度, 蒸留, 設計計算","about":"蒸留"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"フラッシュ蒸留の設計計算","url":"https://tools.chem-fac.com/tools/distillation/flash/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"飽和蒸気圧と供給組成から、二成分理想系のフラッシュ蒸留における蒸気率、気相・液相流量、気液組成を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"フラッシュ蒸留, 蒸気率, Rachford-Rice, 気液平衡, K値, 相対揮発度, 蒸留, 設計計算","about":"蒸留","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -116,6 +116,9 @@
       <li>気相は理想気体、液相は理想溶液として扱います。</li>
       <li>飽和蒸気圧はフラッシュ後の温度における値を入力してください。</li>
       <li>熱収支、潜熱、供給のエンタルピー、活量係数は考慮していません。</li>
+      <li>フラッシュ温度は計算されません。入力した飽和蒸気圧が対応する温度を、利用者が先に決めて与える形（等温フラッシュ）です。実際の温度は供給の予熱量と蒸発に要する熱で決まるため、想定温度と実際の運転温度がずれると $K_i$ と蒸気率がそのままずれます。</li>
+      <li>二相になるのは、系圧力が供給組成の泡点圧と露点圧の間にあるときです（$\sum z_iK_i>1$ かつ $\sum z_i/K_i>1$、Rachford-Rice 式が $0<\beta<1$ に根を持つ条件）。この範囲外では全液相または全気相と判定し、表示される他方の相の組成は仮想値です。</li>
+      <li>共沸組成を持つ系や、液相が大きく非理想な系では、$K_i=P_i^{sat}/P$ が成り立たず、蒸気率も組成も実際とは別の値になります。</li>
     </ul>
   </section>
 
@@ -135,6 +138,11 @@
       <a href="../antoine/" class="related-card"><span class="small">蒸留</span>アントワン式（蒸気圧・沸点）</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

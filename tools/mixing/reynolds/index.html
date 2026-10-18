@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"撹拌レイノルズ数","url":"https://tools.chem-fac.com/tools/mixing/reynolds/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"撹拌レイノルズ数 Re = ρnd²/μ を計算し、層流／遷移流／乱流の判定を行います。撹拌槽設計の基本指標。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"撹拌レイノルズ数, Reynolds, Re, 層流, 遷移流, 乱流, 撹拌槽, 翼径, 回転数, agitation, impeller","about":"撹拌混合"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"撹拌レイノルズ数","url":"https://tools.chem-fac.com/tools/mixing/reynolds/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"撹拌レイノルズ数 Re = ρnd²/μ を計算し、層流／遷移流／乱流の判定を行います。撹拌槽設計の基本指標。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"撹拌レイノルズ数, Reynolds, Re, 層流, 遷移流, 乱流, 撹拌槽, 翼径, 回転数, agitation, impeller","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -157,6 +157,18 @@
     <p>配管内流れの基準（Re=2,300）とは異なる値ですのでご注意ください。多くの撹拌相関式は乱流域を前提としています。</p>
   </section>
 
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>$Re=\rho nd^2/\mu$ は、翼径 $d$ と回転数 $n$ から作る撹拌専用の定義で、粘度 $\mu$ を1つの値で入力します。判定は上の表の境界値による区分で、流れの状態を厳密に決めるものではありません。</p>
+    <ul>
+      <li><strong>使える条件</strong>：運転温度での密度と粘度が1つの値で決まる流体（粘度が一定のニュートン流体）。温度が変わると粘度が大きく変わる液では、運転温度の粘度を入力します。</li>
+      <li><strong>使えない条件</strong>：せん断速度で粘度が変わる流体。1つの $\mu$ では代表できないため、得られる $Re$ は見かけの粘度の選び方に左右されます。</li>
+      <li><strong>代表長さ</strong>：式の長さは翼径 $d$ です。槽径 $D$ や翼の先端速度ではないので、$D$ を入れると $d^2$ の比だけ $Re$ がずれます。</li>
+      <li><strong>判定の境界</strong>：層流・遷移・乱流の境界は翼の種類や槽径と翼径の比で変わり、文献ごとにも異なる値が使われます。表の値は目安として読み、$Re$ が境界の近くにあるときは、その翼の動力数や混合時間の相関がどの領域で成り立つかを確認してください。</li>
+      <li><strong>外れやすい場合</strong>：乱流域では動力数 $N_p$ が $Re$ に依存しなくなりますが、この性質は乱流域の範囲に限られます。</li>
+    </ul>
+  </section>
+
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
     <a href="https://amzn.to/4ts1HHl" class="reference-card" data-asin="4883616568" target="_blank" rel="noopener nofollow sponsored" style="margin-bottom:12px;">
@@ -180,6 +192,11 @@
       <a href="../kamei-hiraoka/" class="related-card"><span class="small">撹拌混合</span>亀井・平岡の式（バッフル無し撹拌所要動力）</a>
     </div>
   </section>
+
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
 
 </main>
 

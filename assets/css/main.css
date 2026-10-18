@@ -2552,3 +2552,15 @@ html:not(.js) .ta-js-only { display: none; }
   .ta-head h1 { font-size: 24px; }
   .ta-layout { padding: 0 16px 40px; }
 }
+
+/* 作成者・確認日・改訂（ツールページ末尾） */
+.tool-provenance {
+  margin-top: 40px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-sub);
+}
+.tool-provenance p { margin: 0; max-width: 40em; }
+.tool-provenance time { font-variant-numeric: tabular-nums; }

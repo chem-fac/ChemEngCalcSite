@@ -18,7 +18,7 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@chem_fac">
   <script
-    type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"充填塔の理論段数と充填高さの換算","url":"https://tools.chem-fac.com/tools/distillation/packed-column/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"蒸留の充填塔で、理論段数とHETPから必要な充填高さを、充填高さから相当する理論段数を計算します。濃縮部と回収部でHETPを分けられ、全還流データからのHETP逆算にも対応します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"充填塔, 蒸留, 理論段数, 充填高さ, HETP, 全還流, Fenske","about":"蒸留"}</script>
+    type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"充填塔の理論段数と充填高さの換算","url":"https://tools.chem-fac.com/tools/distillation/packed-column/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"蒸留の充填塔で、理論段数とHETPから必要な充填高さを、充填高さから相当する理論段数を計算します。濃縮部と回収部でHETPを分けられ、全還流データからのHETP逆算にも対応します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"充填塔, 蒸留, 理論段数, 充填高さ, HETP, 全還流, Fenske","about":"蒸留","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -189,11 +189,15 @@
     </section>
 
     <section class="explain-block">
-      <h2>前提条件</h2>
+      <h2>適用範囲と注意事項</h2>
       <ul>
         <li>理論段数は、リボイラーを除いた充填部の段数を入力します。全縮器は段に数えません。</li>
         <li>計算する高さは充填層だけで、液分散器や支持板などの空間は含みません。</li>
         <li>全還流データの逆算は二成分系で相対揮発度一定とし、リボイラーを1理論段とします。</li>
+        <li>本ツールは理論段数と充填高さを HETP で換算するだけで、理論段数そのもの（還流比や組成からの段数計算）は別に求めた値を入力します。段数の根拠が概算（簡易法）なら、充填高さも同程度の精度になります。</li>
+        <li>HETP は濃縮部と回収部で別の値を入力できますが、1 つの区間では一定として掛けています。HETP は物性や気液の負荷で変わるため（上の表の注記）、運転負荷が設計時の想定から離れると、同じ充填高さでも得られる段数が変わります。</li>
+        <li>全還流データから求めた HETP は、その試験を行った塔・充填物・系・負荷での値です。別の系や負荷にそのまま当てはめられる保証はありません。測定した塔頂・塔底組成の誤差は、$S_\mathrm{min}$ の対数の差に効くため、純度が高い（$x_D$ が 1 に近い、$x_B$ が 0 に近い）ほど HETP の誤差が大きくなります。</li>
+        <li>上の HETP の目安は炭化水素系など標準的な系の値で、幅のある概略値です。設計の確定には、充填物メーカーの値か同じ系の実測値を使います。</li>
       </ul>
     </section>
 
@@ -223,7 +227,12 @@
         <a href="../antoine/" class="related-card"><span class="small">蒸留</span>アントワン式（蒸気圧・沸点）</a>
       </div>
     </section>
-  </main>
+    <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
+</main>
 
   <footer class="site-footer">
     <div class="footer-inner">

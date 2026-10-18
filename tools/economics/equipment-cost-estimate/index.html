@@ -19,7 +19,7 @@
   <meta property="og:locale" content="ja_JP">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"設備新設費の概算（モジュール係数法）","url":"https://tools.chem-fac.com/tools/economics/equipment-cost-estimate/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"機器の購入価格から、配管・計装・電気・基礎などの工事費と間接費を機器の種類ごとの設置係数で見込み、予備費を加えて設備新設費の総額と精度の幅を概算するツール。ラング係数法の値も並べて表示します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"設備費, 設備新設費, 建設費, プラントコスト, 概算見積, 工事費, モジュール係数, ベアモジュール係数, ラング係数, 予備費, 見積精度","about":"経済性"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"設備新設費の概算（モジュール係数法）","url":"https://tools.chem-fac.com/tools/economics/equipment-cost-estimate/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"機器の購入価格から、配管・計装・電気・基礎などの工事費と間接費を機器の種類ごとの設置係数で見込み、予備費を加えて設備新設費の総額と精度の幅を概算するツール。ラング係数法の値も並べて表示します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"設備費, 設備新設費, 建設費, プラントコスト, 概算見積, 工事費, モジュール係数, ベアモジュール係数, ラング係数, 予備費, 見積精度","about":"経済性","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -332,8 +332,8 @@
       <p>出典：Lang（1948）。ラング係数法は主要機器費の合計に係数を掛けて、建屋・ユーティリティを含むプラント全体の総建設費を出す方法です。既設の工場に機器を加える工事では大きめに出ます。</p>
     </section>
 
-    <section class="explain-block">
-      <h2>精度の目安と係数の前提</h2>
+    <section class="explain-block notes-block">
+      <h2>適用範囲と注意事項</h2>
       <table class="regime-table">
         <thead>
           <tr><th>見積の段階</th><th>精度の幅</th></tr>
@@ -348,6 +348,9 @@
       <ul>
         <li>係数は米国の化学プラント（1960年代、エンジニアリング会社の施工）の平均的な値です。自社の実績があれば、総額÷機器費を実績と比べて確かめてください。</li>
         <li>既設設備とのつなぎ込み、撤去、建屋、運転中の工事による割増しは係数に入っていません。分かる分は「係数に入らない費用」に入れます。</li>
+        <li>入力する機器費の価格は、すべて同じ時期・同じ通貨の値にそろえます。設置係数は倍率なので、価格の時期が古ければ総額もその時期の水準になります。時期の換算は、このツールではなく0.6乗則のツールのコスト指数で行います。</li>
+        <li>材質の倍率は、設置係数が炭素鋼基準であることを前提に、機器費だけを倍率ぶん増やして工事費は増やさない扱いです。倍率の入力範囲は0より大きく20以下で、特殊な材質や機器費の大半が材質以外の要因で決まる場合は、この扱いが当てはまりません。</li>
+        <li>総額に含まれるのは、機器費、設置係数の分、係数に入らない費用、予備費、業者のフィーです。ラング係数法の値は建屋・ユーティリティを含むプラント全体を対象とするため、総額との比は、対象範囲の違いを含んだ比較になります。</li>
       </ul>
     </section>
 
@@ -372,7 +375,12 @@
       </div>
     </section>
 
-  </main>
+    <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
+</main>
 
   <footer class="site-footer">
     <div class="footer-inner">

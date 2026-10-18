@@ -18,7 +18,7 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@chem_fac">
   <script
-    type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"マッケーブ・シール法（二成分連続蒸留）","url":"https://tools.chem-fac.com/tools/distillation/mccabe-thiele/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"マッケーブ・シール法（McCabe-Thiele法）で二成分連続蒸留の理論段数を求める計算ツール。平衡曲線・操作線・q線を描いて段数を図上でカウントし、最小還流比と供給段位置も計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"McCabe-Thiele, マッケーブ・シール, マッケーブシール, 蒸留, 二成分連続蒸留, 二成分蒸留, 理論段数, 供給段, 還流比, q線, 操作線, 相対揮発度","about":"蒸留"}</script>
+    type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"マッケーブ・シール法（二成分連続蒸留）","url":"https://tools.chem-fac.com/tools/distillation/mccabe-thiele/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"マッケーブ・シール法（McCabe-Thiele法）で二成分連続蒸留の理論段数を求める計算ツール。平衡曲線・操作線・q線を描いて段数を図上でカウントし、最小還流比と供給段位置も計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"McCabe-Thiele, マッケーブ・シール, マッケーブシール, 蒸留, 二成分連続蒸留, 二成分蒸留, 理論段数, 供給段, 還流比, q線, 操作線, 相対揮発度","about":"蒸留","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -142,6 +142,9 @@
         <li>相対揮発度は塔内で一定、等モル流れ（constant molar overflow）を仮定します。</li>
         <li>圧力損失、熱損失、非理想性、Murphree効率分布は考慮していません。</li>
         <li>共沸系、強非理想系、多成分系には直接適用しないでください。</li>
+        <li>相対揮発度は塔頂から塔底までの平均の 1 つの値です。圧力や組成による変化が大きい系では、$\alpha$ を塔内の代表値で固定した平衡曲線から段数がずれます。</li>
+        <li>入力した還流比が最小還流比以下のとき、ツールは警告を出します（有限段数にならない、または段数が非常に大きくなる）。段数の大きな増加は最小還流比付近で起きるので、結果は還流比の入力に敏感です。</li>
+        <li>総合段効率による実段数は、理論段数を 1 つの効率で割る概算です。段ごとの効率の違いは反映しません。</li>
         <li>段数カウントは図上概算です。理論段数 N（リボイラー込み）= 階段ステップ数（部分段は端数化）とし、塔内の棚段数 = 理論段数 N − 1（リボイラーを除く）とします。全凝縮コンデンサーは段数に含めません。</li>
       </ul>
     </section>
@@ -168,7 +171,12 @@
         <a href="../" class="related-card"><span class="small">蒸留</span>蒸留カテゴリへ戻る</a>
       </div>
     </section>
-  </main>
+    <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
+</main>
 
   <footer class="site-footer">
     <div class="footer-inner">

@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"理想気体の状態方程式・標準状態換算","url":"https://tools.chem-fac.com/tools/properties/ideal-gas-law/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"PV=nRT によるガス密度・モル体積計算と Nm³/h ⇄ 実 m³/h ⇄ kg/h の換算。","inLanguage":"ja","isAccessibleForFree":true,"about":"物性・熱力学"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"理想気体の状態方程式・標準状態換算","url":"https://tools.chem-fac.com/tools/properties/ideal-gas-law/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"PV=nRT によるガス密度・モル体積計算と Nm³/h ⇄ 実 m³/h ⇄ kg/h の換算。","inLanguage":"ja","isAccessibleForFree":true,"about":"物性・熱力学","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -155,6 +155,18 @@
 
   </section>
 
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>気体を理想気体（圧縮係数 $Z=1$）として扱う計算です。結果は $PV=nRT$ から出る値で、実在気体の挙動は含みません。</p>
+    <ul>
+      <li><strong>使える条件</strong>：大気圧付近から低圧で、温度が沸点より十分高い気体。この範囲では分子間力と分子の大きさの影響が小さく、$Z\approx1$ とみなせます。</li>
+      <li><strong>外れやすい条件</strong>：高圧・低温の気体、凝縮に近い蒸気、極性が強い気体では $Z$ が1から離れ、密度やモル体積が理想気体の値からずれます。ツールの結果欄にも、高圧・低温では $Z$ を考慮するよう注記しています。</li>
+      <li><strong>圧力は絶対圧</strong>：入力欄の圧力はすべて絶対圧です。ゲージ圧をそのまま入れると、特に低圧で密度や流量換算が大きくずれます。温度も絶対温度（K）に直して計算されます。</li>
+      <li><strong>「標準状態」の定義</strong>：本ツールの Nm³ は 0℃・101.325 kPaA（モル体積 22.414 L/mol）、Sm³ は 15℃・101.325 kPaA です。他者の Nm³/h や Sm³/h を換算に使うときは、先方がどの温度・圧力を基準にしているかを確かめてください。</li>
+      <li><strong>質量流量の読み方</strong>：質量流量は Nm³/h を 22.414 L/mol で割ったモル流量に $M$ を掛けた値で、運転条件の $Z$ には依存しません。実体積流量 $Q_A$ だけが $T$・$P$ の理想気体換算に依存します。</li>
+    </ul>
+  </section>
+
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
     <a href="https://link.amazon/B034YtjaA" class="reference-card" data-asin="4621083880" target="_blank" rel="noopener nofollow sponsored">
@@ -175,6 +187,11 @@
       <a href="../../distillation/antoine/" class="related-card"><span class="small">蒸留</span>アントワン式</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

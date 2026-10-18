@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"冷却水・蒸気・熱媒油の必要量","url":"https://tools.chem-fac.com/tools/heat-transfer/utility/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"既知の熱量から、冷却水・加熱蒸気・熱媒油の必要流量を概算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"冷却水, 蒸気, 熱媒油, 必要量, ユーティリティ, 流量, 潜熱, 比熱, utility, steam, hot oil","about":"伝熱"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"冷却水・蒸気・熱媒油の必要量","url":"https://tools.chem-fac.com/tools/heat-transfer/utility/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"既知の熱量から、冷却水・加熱蒸気・熱媒油の必要流量を概算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"冷却水, 蒸気, 熱媒油, 必要量, ユーティリティ, 流量, 潜熱, 比熱, utility, steam, hot oil","about":"伝熱","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -142,6 +142,19 @@
     </ul>
   </section>
 
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>既知の熱量 $Q$ を、顕熱（冷却水・熱媒油）または凝縮潜熱（蒸気）だけで受け持たせる場合の必要流量です。熱量そのものは別に求めた値を入力します。</p>
+    <ul>
+      <li><strong>冷却水・熱媒油</strong>：比熱は入口〜出口で一定とし、液体のまま使う条件です。冷却水は昇温（出口＞入口）、熱媒油は降温（入口＞出口）の向きで入力します。沸騰や蒸発を伴う場合は成り立ちません。</li>
+      <li><strong>蒸気</strong>：凝縮潜熱だけを使う計算で、$\dot{m}_{steam} = Q/\lambda$ に過熱度やドレンの顕熱は入っていません。ドレンが飽和温度より下まで冷えて熱を放出する場合は、その分だけ実際の必要量が少なくなります。</li>
+      <li><strong>蒸気圧力のプリセット</strong>：絶対圧（MPaA）で、飽和蒸気の凝縮潜熱です。ゲージ圧で運転値を扱うときは約 0.1 MPa を加えて選びます。プリセットにない圧力は、潜熱を直接入力します。</li>
+      <li><strong>温度差の目安</strong>：ツールは $\Delta T$ が 1 K 未満のとき警告します。小さい $\Delta T$ では入力の小さな誤差が流量に大きく効くためです。目安として冷却水は 5〜10 K、熱媒油は 10〜30 K がツール内に示されています。</li>
+      <li><strong>余裕率</strong>：入力すると $Q$ に $(1+\text{余裕率})$ を掛けて流量を求めます。100% を超えると警告し、500% を超える値は受け付けません。</li>
+      <li><strong>外れやすい場合</strong>：熱損失、汚れ、夏季の冷却水温上昇などは式に含まれず、余裕率で見込む項目です。物性は運転温度での値を入れます。</li>
+    </ul>
+  </section>
+
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
     <a href="https://link.amazon/B034YtjaA" class="reference-card" data-asin="4621083880" target="_blank" rel="noopener nofollow sponsored">
@@ -160,6 +173,11 @@
       <a href="../steam-table/" class="related-card"><span class="small">伝熱</span>飽和蒸気表（温度⇔圧力・物性値）</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

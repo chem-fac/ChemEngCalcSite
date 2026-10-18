@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"レイノルズ数（配管）","url":"https://tools.chem-fac.com/tools/fluid/reynolds/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"密度・流速・管内径・粘度からレイノルズ数 Re = ρuD/μ を計算するツール。円管内流れの層流・遷移域・乱流の目安を判定し、計算式と求め方も掲載。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"レイノルズ, Reynolds, Re, 配管, 層流, 乱流, 流速, 流量, 管内径, 粘度, 動粘度, 円管","about":"流動"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"レイノルズ数（配管）","url":"https://tools.chem-fac.com/tools/fluid/reynolds/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"密度・流速・管内径・粘度からレイノルズ数 Re = ρuD/μ を計算するツール。円管内流れの層流・遷移域・乱流の目安を判定し、計算式と求め方も掲載。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"レイノルズ, Reynolds, Re, 配管, 層流, 乱流, 流速, 流量, 管内径, 粘度, 動粘度, 円管","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -231,7 +231,9 @@
       <li>極端に短い配管、入口・出口近傍</li>
       <li>エルボ、バルブ、ポンプ直後など乱れの強い場所</li>
       <li>充填塔、撹拌槽、粒子周りの流れ</li>
+      <li>円形でない断面（角ダクト、環状流路、部分的に満たされた管）：代表長さが管内径ではなくなるため、$D$ に内径を入れた値は上の判定目安に当てはまりません</li>
     </ul>
+    <p>密度と粘度は、流れている温度での値を入力します。温度で粘度が大きく変わる液体では、入口と出口で $Re$ が変わることがあります。</p>
     <p>このような場合、レイノルズ数の定義や代表長さの取り方が変わります。対象装置に応じた専門的な式を別途確認してください。</p>
   </section>
 
@@ -271,6 +273,11 @@
       </a>
     </div>
   </section>
+
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
 
 </main>
 

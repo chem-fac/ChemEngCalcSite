@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"LMTD・伝熱面積","url":"https://tools.chem-fac.com/tools/heat-transfer/lmtd-area/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"並流・向流の端温度差からLMTDを求め、Q = U A ΔTlm F によって必要伝熱面積を概算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"LMTD, 対数平均温度差, 伝熱面積, 熱交換器, 総括伝熱係数, 補正係数, 並流, 向流, heat exchanger, area","about":"伝熱"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"LMTD・伝熱面積","url":"https://tools.chem-fac.com/tools/heat-transfer/lmtd-area/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"並流・向流の端温度差からLMTDを求め、Q = U A ΔTlm F によって必要伝熱面積を概算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"LMTD, 対数平均温度差, 伝熱面積, 熱交換器, 総括伝熱係数, 補正係数, 並流, 向流, heat exchanger, area","about":"伝熱","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -113,6 +113,19 @@
     </ul>
   </section>
 
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>$Q = U A \Delta T_{lm} F$ は、$U$ が一定で、流体の比熱が温度によって変わらず、定常な熱交換を仮定した式です。熱交換量 $Q$、総括伝熱係数 $U$、補正係数 $F$ はそれぞれ入力値で、このツールは相互の整合を確かめません。</p>
+    <ul>
+      <li><strong>使える条件</strong>：向流または並流の熱交換器で、$U$ を伝熱面全体で一定とみなせ、比熱が温度範囲内でほぼ一定の流体。片側が凝縮や沸騰で等温の場合も、この式の特別な場合として扱えます。</li>
+      <li><strong>$Q$ は別に求める</strong>：$Q$ と4つの温度は独立に入力する欄です。$Q = \dot{m} C_p \Delta T$ との一致は確認されないので、「熱量・熱収支」ページなどで先に出した値を入れます。</li>
+      <li><strong>$F$ の扱い</strong>：このツールは $F$ を計算せず、入力された値を掛けます。多管式・多パス・直交流の場合は、配置に応じた $F$ を別の資料から求めて入力します。$F$ は 0 より大きく 1 以下で、小さいほど向流に比べて不利な条件です。</li>
+      <li><strong>外れやすい場合</strong>：比熱や $U$ が温度で大きく変わる場合、脱過熱・凝縮・過冷却のように1台の中で伝熱の様子が変わる場合は、区間ごとに分けて計算する必要があります。</li>
+      <li><strong>温度条件</strong>：$\Delta T_1$、$\Delta T_2$ のどちらかが 0 以下になる条件（温度交差）は計算できません。両端の温度差が近い場合は、算術平均とほぼ同じ値になります。</li>
+      <li><strong>結果の読み方</strong>：$A$ は入力した $U$ と $F$ のもとでの必要面積です。汚れ・余裕は $U$（汚れ係数を含めた値）や設計上の余裕として別に見込みます。</li>
+    </ul>
+  </section>
+
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
     <a href="https://amzn.to/48Hi37k" class="reference-card" data-asin="4254250339" target="_blank" rel="noopener nofollow sponsored">
@@ -142,6 +155,11 @@
       <a href="../tube-heat-transfer/" class="related-card"><span class="small">伝熱</span>管内流の熱伝達係数</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

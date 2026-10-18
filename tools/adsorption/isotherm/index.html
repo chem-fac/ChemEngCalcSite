@@ -107,6 +107,18 @@
     </ul>
   </section>
 
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>入力データを、同一温度で測定した平衡濃度 c と吸着量 q の組とみなし、Langmuir 式と Freundlich 式を線形化した直線回帰でフィットする計算です。</p>
+    <ul>
+      <li><strong>使える条件</strong>：温度一定で測った平衡データ（吸着平衡に達した後の c と q）。c と q はともに正の値、3 点以上、c に十分なばらつきが必要です（ツールの入力検査どおり）。</li>
+      <li><strong>使えない条件</strong>：温度が異なるデータの混在、平衡に達していない測定値、c または q が 0 以下の点（対数・c/q が取れない）。温度依存は $b$、$K_F$ が温度ごとに別の値になるため、温度ごとに別々にフィットします。</li>
+      <li><strong>パラメータの求め方</strong>：パラメータは c/q–c、log q–log c の直線回帰から出します。線形化で各点の重みと誤差の構造が変わるため、q を直接当てはめる非線形回帰とは、同じデータでも異なるパラメータになることがあります。表示する $R^2$ には q 残差ベースと線形プロットのものがあり、モデルの優劣は q 残差ベースで見ます。</li>
+      <li><strong>外挿</strong>：Freundlich 式は飽和がなく、c を上げると q が際限なく増えます。測定した濃度範囲の外（特に高濃度側）への外挿には使えません。Langmuir 式の $q_\mathrm{max}$ も、測定点が飽和域に届いていないと、直線の切片と傾きから外挿した値になります。</li>
+      <li><strong>外れやすい場合</strong>：多層吸着や吸着サイトの不均一性が強い系、1 種類の成分だけを想定できない混合吸着質、孔内拡散などで平衡に達していない系では、どちらのモデルも物理的な意味を持ちにくく、$R^2$ が高くても機構の裏付けにはなりません。データ点が 3〜4 点ではパラメータの不確かさが大きくなります。</li>
+    </ul>
+  </section>
+
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
     <a href="https://link.amazon/B034YtjaA" class="reference-card" data-asin="4621083880" target="_blank" rel="noopener nofollow sponsored">
@@ -123,6 +135,11 @@
       <a href="../../properties/vant-hoff/" class="related-card"><span class="small">物性・熱力学</span>ファントホッフの式</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

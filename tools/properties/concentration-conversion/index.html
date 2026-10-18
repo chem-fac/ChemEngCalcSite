@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"溶液濃度の単位換算","url":"https://tools.chem-fac.com/tools/properties/concentration-conversion/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"質量%・mol/L・モル分率・ppm・mol/kg・g/L の相互換算。","inLanguage":"ja","isAccessibleForFree":true,"about":"物性・熱力学"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"溶液濃度の単位換算","url":"https://tools.chem-fac.com/tools/properties/concentration-conversion/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"質量%・mol/L・モル分率・ppm・mol/kg・g/L の相互換算。","inLanguage":"ja","isAccessibleForFree":true,"about":"物性・熱力学","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -124,6 +124,18 @@
       <li>$C$：モル濃度［mol/L］、$b$：質量モル濃度［mol/kg-溶媒］、$x_A$：溶質のモル分率</li>
     </ul>
   </section>
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>溶質A・溶媒Bの2成分溶液を、質量分率を経由して各濃度単位へ換算する計算です。熱力学的な近似は含まず、結果の精度は入力したモル質量と溶液密度で決まります。</p>
+    <ul>
+      <li><strong>使える条件</strong>：溶質1種と溶媒1種からなる溶液。$M_A$ は実際に秤量・溶解した化学種のモル質量を使います（水和物で量った場合は水和水を含む式量）。</li>
+      <li><strong>密度の与え方</strong>：mol/L・g/L・mg/L への換算（および逆算）には、その濃度・その温度における<strong>溶液</strong>の密度が必要です。純溶媒の密度で代用すると、濃度が高いほど $w\rho$ の $\rho$ がずれ、これらの値が同じ割合でずれます。</li>
+      <li><strong>温度による違い</strong>：質量パーセント・質量モル濃度・モル分率・質量ppmは質量とモル質量だけで決まり、温度に依存しません。mol/L・g/L・mg/L は体積基準のため、溶液密度が変わる温度では同じ溶液でも値が変わります。</li>
+      <li><strong>使えない条件</strong>：溶質が複数ある溶液、溶媒が混合物の溶液（$M_B$ は1つしか入力できません）。モル分率 $x_A$ は電離・会合を考えず、入力した化学式単位で数えた値です。純溶質（質量100%）は対象外で、計算するとエラーになります。</li>
+      <li><strong>ppmとmg/Lの違い</strong>：ppmは質量基準（$10^6 w$）、mg/Lは体積基準（$1000\,w\rho$）で、両者が一致するのは溶液密度が1000 g/Lのとき（希薄な水溶液）に限られます。</li>
+    </ul>
+  </section>
+
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
     <a href="https://amzn.to/4dcboU3" class="reference-card" data-asin="4563041653" target="_blank" rel="noopener nofollow sponsored">
@@ -141,6 +153,11 @@
       <a href="../../heat-transfer/cp-mixing/" class="related-card"><span class="small">伝熱</span>混合物の比熱</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

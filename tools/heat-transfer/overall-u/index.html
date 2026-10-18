@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"総括伝熱係数 U","url":"https://tools.chem-fac.com/tools/heat-transfer/overall-u/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"内外面の熱伝達係数、壁の熱伝導抵抗、汚れ係数から総括伝熱係数 U を平板近似で計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"総括伝熱係数, U, 熱抵抗, 境膜抵抗, 汚れ係数, ファウリング, 管壁, overall heat transfer coefficient","about":"伝熱"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"総括伝熱係数 U","url":"https://tools.chem-fac.com/tools/heat-transfer/overall-u/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"内外面の熱伝達係数、壁の熱伝導抵抗、汚れ係数から総括伝熱係数 U を平板近似で計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"総括伝熱係数, U, 熱抵抗, 境膜抵抗, 汚れ係数, ファウリング, 管壁, overall heat transfer coefficient","about":"伝熱","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -95,6 +95,18 @@
     </ul>
   </section>
 
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>各抵抗を同じ面積基準で直列に足す平板近似です。入力する $h_i$、$h_o$、$R_f$、$k$ の精度が、そのまま $U$ の精度になります。</p>
+    <ul>
+      <li><strong>使える条件</strong>：壁厚が管径に比べて十分小さく、内外の伝熱面積の差を無視できる管や平板。壁抵抗を無視する場合は壁厚に 0 を入力します。</li>
+      <li><strong>使えない条件</strong>：厚肉の管や小径管など内外の面積比が1から離れる場合は、$U$ が内面基準か外面基準かで値が変わります。円筒壁の熱抵抗を面積比つきで組み直してください。フィン付き管のように伝熱面積が拡大している場合は、面積比とフィン効率が必要で、この式には含まれません。</li>
+      <li><strong>$h$ の与え方</strong>：$h_i$、$h_o$ は他の相関式や実測から求めた値を入れます。流速や温度、相変化の有無で変わるため、運転条件に対応した値を使います。</li>
+      <li><strong>汚れ係数</strong>：$R_f$ は内側・外側それぞれの面基準の値です。0 にすると清浄時の $U$ になります。</li>
+      <li><strong>結果の読み方</strong>：「律速寄りの抵抗」は5つの項目のうち最大の熱抵抗で、$U$ を大きくしたいときに最も効く項目を示します。内訳の割合は、入力した値の比率です。</li>
+    </ul>
+  </section>
+
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
     <a href="https://link.amazon/B034YtjaA" class="reference-card" data-asin="4621083880" target="_blank" rel="noopener nofollow sponsored">
@@ -112,6 +124,11 @@
       <a href="../heat-duty/" class="related-card"><span class="small">伝熱</span>熱量・熱収支</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

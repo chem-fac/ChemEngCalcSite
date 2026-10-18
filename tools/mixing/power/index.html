@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"撹拌所要動力／動力数／トルク変換","url":"https://tools.chem-fac.com/tools/mixing/power/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"撹拌所要動力 P、動力数 Np、トルク T を相互変換します。P = Np·ρ·n³·d⁵ と P = 2πnT に対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"撹拌所要動力, 所要動力, 動力数, Np, power, トルク, torque, 変換, kW, HP, 馬力, モーター, 選定","about":"撹拌混合"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"撹拌所要動力／動力数／トルク変換","url":"https://tools.chem-fac.com/tools/mixing/power/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"撹拌所要動力 P、動力数 Np、トルク T を相互変換します。P = Np·ρ·n³·d⁵ と P = 2πnT に対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"撹拌所要動力, 所要動力, 動力数, Np, power, トルク, torque, 変換, kW, HP, 馬力, モーター, 選定","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -148,6 +148,17 @@
     </ul>
   </section>
 
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>$P=N_p\rho n^3d^5$ と $P=2\pi nT$ による換算だけを行うツールです。$N_p$ を推算する機能はなく、$N_p$ は入力値（または $P$・$T$ から逆算する値）として扱います。</p>
+    <ul>
+      <li><strong>使える条件</strong>：$\rho$・$n$・$d$ を同じ運転条件で揃えた換算。式は動力数と動力の定義式なので、翼種や槽の形に制限はありません。</li>
+      <li><strong>動力数の取り扱い</strong>：$N_p$ は翼種・バッフル条件・撹拌レイノルズ数で変わります。乱流域ではレイノルズ数に依存しない一定値になり、層流域ではレイノルズ数に反比例して大きくなるため、$N_p$ は運転する領域の値を使います。</li>
+      <li><strong>測定値を入れるとき</strong>：$P$ は翼が液に与える動力です。電動機の定格出力や電力計の値には、減速機・軸受・軸封部の損失が含まれます。これらをそのまま $P$ に入れて $N_p$ を逆算すると、動力数は大きく出ます。電動機を選ぶ側の計算では、$P$ にこれらの損失分を見込む必要があります。</li>
+      <li><strong>単位の換算</strong>：HP は 745.7 W（英馬力）で換算しています。日本の馬力表示で使われる 735.5 W とは約 1.4% 違います。トルクの kgf·m は 9.80665 N·m で換算しています。</li>
+    </ul>
+  </section>
+
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
     <a href="https://amzn.to/4ts1HHl" class="reference-card" data-asin="4883616568" target="_blank" rel="noopener nofollow sponsored" style="margin-bottom:12px;">
@@ -167,6 +178,11 @@
       <a href="../baffled-power/" class="related-card"><span class="small">撹拌混合</span>バッフルあり撹拌所要動力</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"熱伝達係数（代表相関式）","url":"https://tools.chem-fac.com/tools/heat-transfer/tube-heat-transfer/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"円管内層流・円管内乱流・平板上乱流・垂直平板自然対流の代表相関式（Dittus-Boelter、Sieder-Tate など）から、ヌセルト数 Nu と熱伝達係数 h を概算するツール。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"熱伝達係数, 管内流, 平板, 自然対流, 強制対流, Dittus, Boelter, Sieder, Tate, Re, Pr, Gr, Nu, Nusselt","about":"伝熱"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"熱伝達係数（代表相関式）","url":"https://tools.chem-fac.com/tools/heat-transfer/tube-heat-transfer/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"円管内層流・円管内乱流・平板上乱流・垂直平板自然対流の代表相関式（Dittus-Boelter、Sieder-Tate など）から、ヌセルト数 Nu と熱伝達係数 h を概算するツール。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"熱伝達係数, 管内流, 平板, 自然対流, 強制対流, Dittus, Boelter, Sieder, Tate, Re, Pr, Gr, Nu, Nusselt","about":"伝熱","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -125,6 +125,19 @@
     </ul>
   </section>
 
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>単相流体の強制対流・自然対流について、代表的な形状の平均熱伝達係数を相関式で概算するツールです。選んだタブごとに式の前提が異なります。</p>
+    <ul>
+      <li><strong>円管内・乱流</strong>：Dittus-Boelter型で、加熱側は $n=0.4$、冷却側は $n=0.3$ です。本ツールは $Re$ と $Pr$ が範囲を外れると警告を出します。このタブには管長の入力がなく、管の入口付近の影響（$L/D$）は考慮されません。また、壁温の粘度を補正する項がないため、壁と流体の温度差が大きく粘度が大きく変わる液体では、補正項を持つ式（Sieder-Tate型）を別に確認します。</li>
+      <li><strong>円管内・層流</strong>：熱的な入口域の平均値を求める式で、$Re \le 2100$ 程度が対象です。式は $Nu \propto L^{-1/3}$ なので、管が長いほど $h$ が小さくなり続ける形です。十分長く流れが発達した管では、$Nu$ が一定値に近づく別の扱いが必要です。壁温粘度を空欄にすると $\mu/\mu_w = 1$ として計算します。</li>
+      <li><strong>平板・乱流</strong>：前縁から全面が乱流の境界層として平均値を求める式です。$Re_L$ が $5\times10^5$ 未満では乱流境界層が十分に発達していない可能性があるため、ツールが警告します。$L$ は流れ方向の長さです。</li>
+      <li><strong>垂直平板・自然対流</strong>：$Gr\,Pr$ が $10^4$ 未満または $10^9$ 超のとき、本ツールは警告を出します。水平面・傾斜面・密閉空間は別の相関式を使います。気体の $\beta$ は $1/T$（$T$ は絶対温度）で近似できます。</li>
+      <li><strong>共通</strong>：物性はバルク平均温度または膜温度で評価します。沸騰・凝縮などの相変化、非ニュートン流体、放射伝熱が無視できない条件は対象外です。</li>
+      <li><strong>結果の読み方</strong>：求まるのは相関式による平均の $h$ で、局所値ではありません。各タブの警告（$Re$、$Pr$、$Gr\,Pr$ の範囲）が出たときは、その式が想定する範囲の外側にいます。</li>
+    </ul>
+  </section>
+
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
     <a href="https://link.amazon/B08Ohi4pn" class="reference-card" data-asin="B0DZ1QFVKD" target="_blank" rel="noopener nofollow sponsored">
@@ -141,6 +154,11 @@
       <a href="../lmtd-area/" class="related-card"><span class="small">伝熱</span>LMTD・伝熱面積</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

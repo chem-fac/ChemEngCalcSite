@@ -176,6 +176,19 @@
     </ul>
   </section>
 
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>4-20 mA を、設定したレンジ（LRV〜URV）の 0〜100% に対応させる理想的な換算です。伝送器の校正レンジと、ここに入れるレンジが一致している必要があります。</p>
+    <ul>
+      <li><strong>使える条件</strong>：電流が測定値に比例する出力（リニア）、または差圧に比例して受信側で開平する構成。どちらで開平しているかは計装仕様書やループ図で確認します。</li>
+      <li><strong>二重開平に注意</strong>：伝送器が開平演算を内蔵している場合に開平を選ぶと、流量を二重に開平することになります。電流が流量に比例する信号にはリニアを使います。</li>
+      <li><strong>開平のゼロ付近</strong>：$x_{flow}=\sqrt{x}$ なので、流量が小さいほど電流のわずかな誤差が流量に大きく出ます。たとえば流量 10% は差圧スパンの 1% ですが、電流に差圧スパンの 1% 分（0.16 mA）の誤差があると、流量は約 14% と読めます。4 mA 未満は開平できないため、ツールは換算せずエラーにします。</li>
+      <li><strong>レンジ外の値</strong>：リニア特性ではレンジ外を外挿して計算します。計算上の電流が 3.8〜20.5 mA を外れる場合、実機の伝送器はその値をそのまま出力しません。</li>
+      <li><strong>電圧換算</strong>：表示される電圧は受信抵抗 250 Ω（1-5 V）の場合の値です。別の抵抗を使う回路には当てはまりません。</li>
+      <li><strong>結果の読み方</strong>：信号とレンジの関係を計算した理想値です。伝送器の精度、A/D 変換の精度、経年やドリフトによる誤差は含みません。</li>
+    </ul>
+  </section>
+
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
     <a href="https://link.amazon/B0iqWQ5e7" class="reference-card" data-asin="4905957206" target="_blank" rel="noopener nofollow sponsored">
@@ -192,6 +205,11 @@
       <a href="../../reaction/cstr/" class="related-card"><span class="small">反応</span>CSTR 設計</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"熱量・熱収支","url":"https://tools.chem-fac.com/tools/heat-transfer/heat-duty/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"顕熱・潜熱・顕熱＋潜熱から、連続操作の熱負荷やバッチ操作の必要熱量を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"熱量, 熱収支, 顕熱, 潜熱, 熱負荷, 加熱, 冷却, 比熱, 蒸発, 凝縮, heat duty, energy balance","about":"伝熱"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"熱量・熱収支","url":"https://tools.chem-fac.com/tools/heat-transfer/heat-duty/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"顕熱・潜熱・顕熱＋潜熱から、連続操作の熱負荷やバッチ操作の必要熱量を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"熱量, 熱収支, 顕熱, 潜熱, 熱負荷, 加熱, 冷却, 比熱, 蒸発, 凝縮, heat duty, energy balance","about":"伝熱","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -192,6 +192,19 @@
     </ul>
   </section>
 
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>入口から出口まで比熱 $C_p$ が一定の顕熱と、単一の潜熱 $\lambda$ を足し合わせるエンタルピー変化の計算です。入力する物性は1組だけで、区間ごとの変化は扱いません。</p>
+    <ul>
+      <li><strong>使える条件</strong>：単相のまま温度が変わる顕熱だけの場合、または一定温度での蒸発・凝縮・融解など潜熱だけの場合。比熱は入口〜出口の平均温度付近の値を1つ入れます。</li>
+      <li><strong>顕熱＋潜熱の限界</strong>：液体の加熱から蒸発、さらに蒸気の過熱へと進む場合、液と蒸気の比熱は異なります。入力できる $C_p$ は1つで、温度差全体にそのまま掛かります。相ごとに区間を分けて、顕熱と潜熱を別々に求めてから合計してください。</li>
+      <li><strong>向きの指定</strong>：潜熱を含む場合は、加熱・蒸発か除熱・凝縮かを選ばないと計算できません。温度差の符号だけでは潜熱の向きが決まらないためです。</li>
+      <li><strong>含まれない項目</strong>：熱損失、反応熱、混合熱、溶解熱、ポンプや撹拌の仕事は式に入っていません。流体のエンタルピー変化だけが求まります。</li>
+      <li><strong>流量の入力</strong>：質量流量があればそれを使い、空欄のときだけ体積流量×密度から質量流量を作ります。体積流量を測った状態での密度を入れます。</li>
+      <li><strong>バッチの平均熱負荷</strong>：処理時間を入れると表示されるのは熱量÷時間の平均値です。時間内の最大負荷ではありません。</li>
+    </ul>
+  </section>
+
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
     <a href="https://amzn.to/4dcboU3" class="reference-card" data-asin="4563041653" target="_blank" rel="noopener nofollow sponsored">
@@ -208,6 +221,11 @@
       <a href="../overall-u/" class="related-card"><span class="small">伝熱</span>総括伝熱係数</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

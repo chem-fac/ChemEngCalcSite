@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"FUG法（Fenske・Underwood・Gilliland）","url":"https://tools.chem-fac.com/tools/distillation/fug/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"二成分連続蒸留の理論段数を、Fenske式の最小段数・Underwood式の最小還流比・Gilliland相関から求めるFUG法の計算ツールです。還流比は倍率でも直接でも指定できます。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"FUG法, Fenske, Underwood, Gilliland, 最小還流比, 理論段数","about":"蒸留"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"FUG法（Fenske・Underwood・Gilliland）","url":"https://tools.chem-fac.com/tools/distillation/fug/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"二成分連続蒸留の理論段数を、Fenske式の最小段数・Underwood式の最小還流比・Gilliland相関から求めるFUG法の計算ツールです。還流比は倍率でも直接でも指定できます。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"FUG法, Fenske, Underwood, Gilliland, 最小還流比, 理論段数","about":"蒸留","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -122,11 +122,13 @@
   </section>
 
   <section class="explain-block">
-    <h2>前提条件</h2>
+    <h2>適用範囲と注意事項</h2>
     <ul>
       <li>二成分系で、相対揮発度は塔内で一定とします。</li>
       <li>凝縮器は全縮器として段に数えず、リボイラーを1理論段とします。</li>
       <li>Gilliland相関は経験式のため、段数は概算値です。供給段の位置と各段の組成は、マッケーブ・シール法のページで確認できます。</li>
+      <li>Fenske式（最小段数）とUnderwood式（最小還流比）の結果がそのままGilliland相関の入力になります。相対揮発度や供給状態の誤差は、$S_\mathrm{min}$ と $R_\mathrm{min}$ を通じて段数に伝わります。</li>
+      <li>最小還流比は、q線と平衡曲線の交点が $x_B$ と $x_D$ の間にあることが前提です。この範囲にないと最小還流比は求まらず、ツールはエラーを返します。入力する還流比は $R_\mathrm{min}$ より大きい値（倍率では 1 より大）が必要で、$R_\mathrm{min}$ に近いほど段数は急に増えます。</li>
     </ul>
   </section>
 
@@ -150,6 +152,11 @@
       <a href="../vle/" class="related-card"><span class="small">蒸留</span>気液平衡・相対揮発度計算</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

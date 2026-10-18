@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"亀井・平岡の式(バッフル無し撹拌所要動力)","url":"https://tools.chem-fac.com/tools/mixing/kamei-hiraoka/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"亀井・平岡の式により、バッフル無し撹拌槽の動力数 Np0 と撹拌所要動力を計算します。パドル翼、傾斜パドル翼、タービン翼、プロペラ翼、アンカー翼、ヘリカルリボン翼、大型翼に対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"亀井, 平岡, Kamei, Hiraoka, Np0, Np, 動力数, 所要動力, パドル翼, 傾斜パドル, タービン, プロペラ, アンカー, ヘリカルリボン, 大型翼, 邪魔板なし, バッフル無し","about":"撹拌混合"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"亀井・平岡の式(バッフル無し撹拌所要動力)","url":"https://tools.chem-fac.com/tools/mixing/kamei-hiraoka/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"亀井・平岡の式により、バッフル無し撹拌槽の動力数 Np0 と撹拌所要動力を計算します。パドル翼、傾斜パドル翼、タービン翼、プロペラ翼、アンカー翼、ヘリカルリボン翼、大型翼に対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"亀井, 平岡, Kamei, Hiraoka, Np0, Np, 動力数, 所要動力, パドル翼, 傾斜パドル, タービン, プロペラ, アンカー, ヘリカルリボン, 大型翼, 邪魔板なし, バッフル無し","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -159,6 +159,18 @@
     </ul>
   </section>
 
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>バッフル無しの槽で、層流項・遷移項・乱流項を1つの式 $f$ につないだ相関式です。レイノルズ数が変わると $N_{p0}$ が変わる前提で、$Re_d$ から $Re_G$ を経て $N_{p0}$ を求めます。</p>
+    <ul>
+      <li><strong>使える条件</strong>：バッフル無しの単一液体で、翼が選択肢にある13種のプリセット（翼種・大型翼は槽底が皿底か平底かで区別）のいずれかに当たる場合。レイノルズ数は層流域から乱流域まで同じ式で扱えます。</li>
+      <li><strong>使えない条件</strong>：バッフル付きの槽（「バッフルあり撹拌所要動力」を使います）。羽根取り付け角度 $\theta$ は 0 超 90° 以下に限られ、超えるとエラーになります。</li>
+      <li><strong>レイノルズ数による変化</strong>：$Re_G$ が小さい層流域では $f$ の第1項（$C_L/Re_G$）が支配して $N_{p0}$ が $Re$ にほぼ反比例し、大きい乱流域では $N_{p0}$ が翼と槽の形状で決まる一定値に近づきます。この値をバッフルあり計算の $N_{p0}$ に使うときは、運転条件の $Re$ で求めた値を使ってください。</li>
+      <li><strong>ヘリカルリボン翼</strong>：固定の係数と $Re_d$ だけで計算し、槽径・液深さ・翼幅・羽根枚数・角度は結果に反映されません（粘度・密度・回転数・翼径が効きます）。</li>
+      <li><strong>外れやすい場合</strong>：翼幅 $b$ は、プリセット選択時に翼径の一定割合（パドル翼 0.20$d$、アンカー翼 0.12$d$ など）が自動入力される代表値です。実機の $b$ と違う値のまま計算すると $N_{p0}$ が外れます。式にはフルード数の項がなく、液面の渦の影響は含まれません。</li>
+    </ul>
+  </section>
+
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
     <a href="https://amzn.to/4ts1HHl" class="reference-card" data-asin="4883616568" target="_blank" rel="noopener nofollow sponsored" style="margin-bottom:12px;">
@@ -183,6 +195,11 @@
       <a href="../vortex/" class="related-card"><span class="small">撹拌混合</span>撹拌液面変化（バッフルなし）</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

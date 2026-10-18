@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"CSTR設計","url":"https://tools.chem-fac.com/tools/reaction/cstr/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"完全混合槽型反応器（CSTR）の容積と空間時間を、0次・1次・2次不可逆反応で概算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"CSTR, 完全混合槽, 連続槽型反応器, 反応器設計, 容積, 空間時間, 滞留時間, 転化率","about":"反応"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"CSTR設計","url":"https://tools.chem-fac.com/tools/reaction/cstr/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"完全混合槽型反応器（CSTR）の容積と空間時間を、0次・1次・2次不可逆反応で概算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"CSTR, 完全混合槽, 連続槽型反応器, 反応器設計, 容積, 空間時間, 滞留時間, 転化率","about":"反応","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -46,8 +46,25 @@
     <div class="btn-row"><button class="btn btn-primary" id="calc-btn">計算する</button><button class="btn btn-ghost" id="reset-btn">リセット</button></div><div id="error" class="error-msg" style="display:none;"></div>
   </div><div class="calc-pane calc-result-pane"><h2>計算結果</h2><div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div></div></div></section>
   <section class="explain-block"><h2>計算式</h2><p>不可逆、等温、定密度、体積流量一定の理想的なCSTRを仮定して、槽内が完全混合とみなされるため、反応速度は出口濃度で評価します。</p><div class="math-block">$$ V = \frac{F_{A0}X}{(-r_A)_{out}}, \qquad \tau=\frac{V}{q_0}=\frac{C_{A0}X}{kC_A^n} $$</div><div class="math-block">$$ C_A=C_{A0}(1-X) $$</div><ul class="symbol-list"><li>$V$：反応器容積［L］</li><li>$\tau$：空間時間［s］</li><li>$q_0$：入口体積流量［L/s］</li><li>$F_{A0}$：入口Aモル流量［mol/s］</li><li>$C_A$：出口A濃度［mol/L］</li><li>$X$：転化率［-］</li><li>$k$：速度定数（0次：mol/(L s)、1次：1/s、2次：L/(mol s)）</li></ul></section>
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>定常運転・等温・定密度（体積流量一定）の理想的な完全混合槽で、反応速度 $-r_A=kC_A^{\,n}$（$n$ = 0, 1, 2）を出口濃度で評価して容積を求める計算です。</p>
+    <ul>
+      <li><strong>使える条件</strong>：液相反応など、反応で体積流量がほぼ変わらず、撹拌によって槽内の濃度と温度を均一とみなせる場合。入口体積流量 $q_0$ と出口体積流量が等しいことが前提です。</li>
+      <li><strong>使えない／外れやすい条件</strong>：撹拌が不十分で槽内に濃度分布やデッドゾーン、短絡流がある場合は、出口濃度で全体の速度を代表させる仮定が崩れ、必要容積が計算値からずれます。気相で総モル数が変わる反応や、可逆反応で平衡転化率に近い転化率も対象外です。</li>
+      <li><strong>PFRとの比較</strong>：正の次数（1次・2次）では、同じ転化率に対して CSTR は出口の低い濃度で全体が反応するため、PFR より大きい容積が必要です。0次反応では速度が濃度に依存しないので、両者の容積は等しくなります。</li>
+      <li><strong>高転化率での感度</strong>：1次反応では $\tau=X/\{k(1-X)\}$ となり、転化率が100%に近づくと容積が急増します。目標転化率を上げる前に、容積の増え方を確認してください。</li>
+      <li><strong>結果の読み方</strong>：定常状態の値で、起動・停止・負荷変動中の過渡は含まれません。入力の $k$ は、槽の運転温度での値を使います。</li>
+    </ul>
+  </section>
+
   <section class="explain-block reference-block"><h2>参考資料</h2><a href="https://amzn.to/3QUZV3W" class="reference-card" data-asin="4563046345" target="_blank" rel="noopener nofollow sponsored"><div class="ref-image" aria-hidden="true"></div><div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">反応工学</p><p class="ref-meta">橋本 健治 著 / 培風館</p><span class="ref-cta">Amazonで見る</span></div></a></section>
   <section class="related"><h3>関連ツール</h3><div class="related-grid"><a href="../arrhenius/" class="related-card"><span class="small">反応</span>アレニウスの式</a><a href="../pfr/" class="related-card"><span class="small">反応</span>PFR設計</a><a href="../batch-time/" class="related-card"><span class="small">反応</span>回分反応器の反応時間</a></div></section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 <footer class="site-footer"><div class="footer-inner"><div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div><div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div><div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div><div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div></div></div></footer>
 <script src="../../../assets/js/reaction-cstr.js"></script><script src="../../../assets/js/share.js"></script>

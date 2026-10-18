@@ -15,7 +15,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"飽和蒸気表（温度⇔圧力・物性値）","url":"https://tools.chem-fac.com/tools/heat-transfer/steam-table/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"飽和水蒸気の温度・圧力・比容積・比エンタルピー・蒸発潜熱・比エントロピーを相互換算します。蒸気ライン・コンデンサ・リボイラ設計の参照に。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"蒸気表, 飽和蒸気, 飽和水, 比容積, 比エンタルピー, 蒸発潜熱, 比エントロピー, h_fg, IAPWS, スチームテーブル, 蒸気物性, ボイラ","about":"伝熱"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"飽和蒸気表（温度⇔圧力・物性値）","url":"https://tools.chem-fac.com/tools/heat-transfer/steam-table/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"飽和水蒸気の温度・圧力・比容積・比エンタルピー・蒸発潜熱・比エントロピーを相互換算します。蒸気ライン・コンデンサ・リボイラ設計の参照に。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"蒸気表, 飽和蒸気, 飽和水, 比容積, 比エンタルピー, 蒸発潜熱, 比エントロピー, h_fg, IAPWS, スチームテーブル, 蒸気物性, ボイラ","about":"伝熱","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -127,8 +127,18 @@
       <li>スチームトレース・ジャケット加熱：温度仕様から飽和圧力を逆算し、減圧弁・トラップ仕様を決定。</li>
     </ul>
 
-    <h2>精度</h2>
+  </section>
+
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
     <p>表の代表点（0〜373.95 °C）を補間しています。0.05〜3 MPaG の範囲で IAPWS-IF97 の値と比べた差は、飽和温度 0.2 K 以内、蒸発潜熱 0.1% 以内、飽和蒸気の比容積 1.5% 以内です。臨界点（373.95 °C, 22.064 MPa）に近づくほど物性の変化が急になり、補間の誤差が大きくなります。</p>
+    <ul>
+      <li><strong>対象</strong>：純水の飽和液と飽和蒸気（気液平衡の線上）の値です。過熱蒸気、圧縮水（飽和温度未満の液体）の物性は出ません。湿り蒸気のエンタルピーは、乾き度 $x$ を用いて $h_f + x\,h_{fg}$ と別に計算します。</li>
+      <li><strong>水以外・不純物</strong>：IAPWS-IF97 の純水の値なので、溶質を含む水溶液や他の物質の蒸気には使えません。</li>
+      <li><strong>ゲージ圧の換算</strong>：大気圧は 101.325 kPa で固定して絶対圧にします。実際の大気圧との差はそのまま誤差になり、低圧側ほど相対的に大きく効きます。真空側は絶対圧で入力するか、ゲージ圧に負の値を入れます。</li>
+      <li><strong>補間の誤差</strong>：上記の比較範囲より高い圧力側や、真空側では、誤差を評価していません。表の温度間隔は 100 °C まで 5 °C、200 °C まで 10 °C、360 °C まで 20 °C と広がるため、高温・高圧側ほど線形補間の影響が大きくなります。</li>
+      <li><strong>蒸発潜熱の計算</strong>：潜熱は補間した $h_g$ と $h_f$ の差から求めています。表にない温度の値は、表の値そのものではなく補間値です。</li>
+    </ul>
 
   </section>
   <section class="explain-block reference-block">
@@ -148,6 +158,11 @@
       <a href="../lmtd-area/" class="related-card"><span class="small">伝熱</span>LMTD・伝熱面積</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

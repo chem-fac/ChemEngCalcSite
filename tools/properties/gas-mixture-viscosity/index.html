@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"混合気体の粘度（Wilke式）","url":"https://tools.chem-fac.com/tools/properties/gas-mixture-viscosity/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"Wilke式による混合気体の粘度計算。","inLanguage":"ja","isAccessibleForFree":true,"about":"物性・熱力学"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"混合気体の粘度（Wilke式）","url":"https://tools.chem-fac.com/tools/properties/gas-mixture-viscosity/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"Wilke式による混合気体の粘度計算。","inLanguage":"ja","isAccessibleForFree":true,"about":"物性・熱力学","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -123,6 +123,18 @@
 
     <p>低密度の気体混合物を対象とする推算式です。各成分の粘度を別の温度から補正する機能は含みません。</p>
   </section>
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>気体分子運動論に基づくWilke式で、純気体の粘度 $\mu_i$ からそれらの混合物の粘度を推算します。入力した $\mu_i$ の温度・圧力がそのまま混合物の温度・圧力になります。</p>
+    <ul>
+      <li><strong>使える条件</strong>：低密度（常圧付近）の気体混合物で、全成分の $\mu_i$ を同じ温度・同じ圧力で用意できる場合。</li>
+      <li><strong>使えない／外れやすい条件</strong>：低密度を前提とするため、高圧の混合気体と液体混合物には使えません。</li>
+      <li><strong>組成の入れ方</strong>：式のモル分率 $x_i$ は mol 基準です。質量分率や体積分率を入れると結果が変わります（ツールは合計で正規化するだけで、質量基準から変換はしません）。</li>
+      <li><strong>入力する粘度</strong>：$\mu_i$ は実測値または信頼できる物性値を、計算したい温度・圧力で入れてください。温度の異なる値を混ぜても警告は出ず、混合粘度の誤差は入力した $\mu_i$ の誤差をそのまま引き継ぎます。</li>
+      <li><strong>結果の読み方</strong>：推算値であり、実測の混合粘度が手元にあるときはそちらを優先します。成分が2つしかなく物性が近い場合は、単純なモル分率平均との差が小さくなります。</li>
+    </ul>
+  </section>
+
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
     <a href="https://link.amazon/B034YtjaA" class="reference-card" data-asin="4621083880" target="_blank" rel="noopener nofollow sponsored">
@@ -139,6 +151,11 @@
       <a href="../../fluid/reynolds/" class="related-card"><span class="small">流動</span>レイノルズ数</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"吐出流量・循環流量","url":"https://tools.chem-fac.com/tools/mixing/flow/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"動力数 Np と翼寸法から吐出流量数 Nqd を推算し、吐出流量 qd と循環流量 qc を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"撹拌流量, 吐出流量, 循環流量, 動力数, Np, Nqd, Nqc, 同伴流量, 循環時間, flow, discharge","about":"撹拌混合"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"吐出流量・循環流量","url":"https://tools.chem-fac.com/tools/mixing/flow/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"動力数 Np と翼寸法から吐出流量数 Nqd を推算し、吐出流量 qd と循環流量 qc を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"撹拌流量, 吐出流量, 循環流量, 動力数, Np, Nqd, Nqc, 同伴流量, 循環時間, flow, discharge","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -162,6 +162,18 @@
     </div>
   </section>
 
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>動力数 $N_p$ と寸法比から吐出流量数 $N_{qd}$ を経験式で見積もり、循環流量は同伴流量を加えた形で求める概算です。翼ごとの流量数の実測値を使う計算ではありません。</p>
+    <ul>
+      <li><strong>使える条件</strong>：乱流域で、入力する $N_p$ が運転条件の翼・バッフル条件に対応した値である場合。層流・遷移域や特殊翼は、上の式の説明にあるとおり対象外です。</li>
+      <li><strong>寸法比の目安</strong>：$d/D$ が 0.2〜0.6、$b/d$ が 0.05〜0.4 の範囲から外れると、結果欄に注記が出ます。この範囲は一般的な撹拌槽の寸法比の目安として組み込まれたもので、式の保証範囲として確認したものではありません。</li>
+      <li><strong>$N_p$ の誤差の効き方</strong>：$N_{qd}\propto N_p^{0.5}$ なので、$N_p$ が 20% ずれると吐出流量はおよそ 10% ずれます。バッフルの有無で $N_p$ が変わる翼では、条件に合う $N_p$ を前段のツールで求めて入力してください。</li>
+      <li><strong>循環流量の読み方</strong>：$q_c$ は翼から直接吐き出される $q_d$ に槽内の同伴流量を加えた量です。同伴の係数 $1+0.16\{(D/d)^2-1\}$ は $D/d$ の2乗で増え、$D/d=3$ で 2.28、$D/d=5$ で 4.84 になります。$d/D$ が小さい槽ほど、$q_c$ の値は同伴の項に左右されます。</li>
+      <li><strong>循環時間</strong>：$t_c=V/q_c$ の $V$ は $\pi D^2H/4$ の円筒容積で、底の形状や槽内構造物の容積は含みません。$t_c$ は槽内を液が一巡する目安で、混合が完了するまでの混合時間 $\theta_M$ とは別の量です。</li>
+    </ul>
+  </section>
+
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
     <a href="https://amzn.to/4ts1HHl" class="reference-card" data-asin="4883616568" target="_blank" rel="noopener nofollow sponsored" style="margin-bottom:12px;">
@@ -181,6 +193,11 @@
       <a href="../kamei-hiraoka/" class="related-card"><span class="small">撹拌混合</span>亀井・平岡の式（バッフル無し撹拌所要動力）</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">

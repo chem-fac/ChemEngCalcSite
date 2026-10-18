@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ガス吸収の最小溶媒流量・液ガス比","url":"https://tools.chem-fac.com/tools/absorption/minimum-solvent-flow/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"向流ガス吸収の最小液ガス比と溶媒流量を計算。","inLanguage":"ja","isAccessibleForFree":true,"about":"吸収"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ガス吸収の最小溶媒流量・液ガス比","url":"https://tools.chem-fac.com/tools/absorption/minimum-solvent-flow/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"向流ガス吸収の最小液ガス比と溶媒流量を計算。","inLanguage":"ja","isAccessibleForFree":true,"about":"吸収","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -174,12 +174,15 @@
       <li>$f$：実際の溶媒流量を最小溶媒流量で割った運転倍率［-］</li>
     </ul>
 
-    <h2>前提条件</h2>
+    <h2>適用範囲と注意事項</h2>
     <ul>
       <li>定常状態の向流ガス吸収で、溶質を除いたガス・液のモル流量は塔内で一定とします。</li>
       <li>入口ガスと平衡になる液組成 $x^*_{A1}$ は、対象温度・圧力の気液平衡データから設定します。</li>
       <li>運転倍率が1では塔底で出口液が入口ガスと平衡になり、物質移動推進力がゼロとなるため、1より大きい値を使用します。</li>
       <li>化学反応、吸収熱による温度変化、溶媒蒸発が大きい系は対象外です。</li>
+      <li>最小液ガス比は、塔底で出口液が入口ガスと平衡になる（操作線が平衡線に塔底端で接する）場合の値です。</li>
+      <li>平衡線は原点と入力した平衡点を結ぶ直線で近似します。実際の平衡曲線が直線から外れる系（高濃度域、ヘンリー則が成り立たない系）では、$X^*_{A1}$ を入口ガス組成に対する実際の平衡値として与えても、塔内の推進力や作図上の平衡線は実際と異なります。</li>
+      <li>求まる量は、塔底で推進力がゼロになる極限の液量と、その倍率の運転液量です。必要な塔高（理論段数・移動単位数）は別の計算で、運転倍率が1に近いほど大きくなります。</li>
     </ul>
   </section>
 
@@ -199,6 +202,11 @@
       <a href="../../fluid/flow-conversion/" class="related-card"><span class="small">流動</span>流量・流速・配管径換算</a>
     </div>
   </section>
+  <aside class="tool-provenance" aria-label="作成者と確認日">
+    <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+  </aside>
+
 </main>
 
 <footer class="site-footer">
