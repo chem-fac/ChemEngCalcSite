@@ -64,21 +64,21 @@
 
         <!-- ===== density ===== -->
         <div class="input-row" data-show-when="density">
-          <label>温度 <span class="sym">T</span></label>
+          <label for="Td">温度 <span class="sym">T</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="Td" step="any" placeholder="例：25">
-            <select id="Td_unit"><option value="C">℃</option><option value="K">K</option></select>
+            <select aria-label="温度の単位" id="Td_unit"><option value="C">℃</option><option value="K">K</option></select>
           </div>
         </div>
         <div class="input-row" data-show-when="density">
-          <label>圧力 <span class="sym">P</span>（絶対圧）</label>
+          <label for="Pd">圧力 <span class="sym">P</span>（絶対圧）</label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="Pd" step="any" placeholder="例：101.325">
-            <select id="Pd_unit"><option value="kPaA">kPaA</option><option value="MPaA">MPaA</option><option value="barA">barA</option><option value="atm">atm</option></select>
+            <select aria-label="圧力の単位" id="Pd_unit"><option value="kPaA">kPaA</option><option value="MPaA">MPaA</option><option value="barA">barA</option><option value="atm">atm</option></select>
           </div>
         </div>
         <div class="input-row" data-show-when="density">
-          <label>モル質量 <span class="sym">M</span></label>
+          <label for="Md">モル質量 <span class="sym">M</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="Md" step="any" placeholder="例：29">
             <span class="unit-label">g/mol</span>
@@ -88,10 +88,10 @@
 
         <!-- ===== flow ===== -->
         <div class="input-row" data-show-when="flow">
-          <label>流量 <span class="sym">Q</span></label>
+          <label for="Qf">流量 <span class="sym">Q</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="Qf" step="any" placeholder="例：1000">
-            <select id="Qf_type">
+            <select aria-label="流量の単位" id="Qf_type">
               <option value="Nm3h">Nm³/h（0℃, 101.325 kPaA）</option>
               <option value="Sm3h">Sm³/h（15℃, 101.325 kPaA）</option>
               <option value="Am3h">実 m³/h（運転条件）</option>
@@ -99,21 +99,21 @@
           </div>
         </div>
         <div class="input-row" data-show-when="flow">
-          <label>運転温度 <span class="sym">T</span></label>
+          <label for="Tf">運転温度 <span class="sym">T</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="Tf" step="any" placeholder="例：80">
-            <select id="Tf_unit"><option value="C">℃</option><option value="K">K</option></select>
+            <select aria-label="運転温度の単位" id="Tf_unit"><option value="C">℃</option><option value="K">K</option></select>
           </div>
         </div>
         <div class="input-row" data-show-when="flow">
-          <label>運転圧力 <span class="sym">P</span>（絶対圧）</label>
+          <label for="Pf">運転圧力 <span class="sym">P</span>（絶対圧）</label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="Pf" step="any" placeholder="例：300">
-            <select id="Pf_unit"><option value="kPaA">kPaA</option><option value="MPaA">MPaA</option><option value="barA">barA</option><option value="atm">atm</option></select>
+            <select aria-label="運転圧力の単位" id="Pf_unit"><option value="kPaA">kPaA</option><option value="MPaA">MPaA</option><option value="barA">barA</option><option value="atm">atm</option></select>
           </div>
         </div>
         <div class="input-row" data-show-when="flow">
-          <label>モル質量 <span class="sym">M</span>（任意）</label>
+          <label for="Mf">モル質量 <span class="sym">M</span>（任意）</label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="Mf" step="any" placeholder="例：29">
             <span class="unit-label">g/mol</span>

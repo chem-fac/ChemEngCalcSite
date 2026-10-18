@@ -61,32 +61,32 @@
         <h2>入力</h2>
 
         <div class="input-row" data-show-when="mu-to-nu">
-          <label>粘度 <span class="sym">μ</span></label>
+          <label for="mu">粘度 <span class="sym">μ</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="mu" step="any" min="0" placeholder="例：1">
-            <select id="mu-unit"><option value="mPa-s">mPa·s</option><option value="Pa-s">Pa·s</option><option value="cP">cP</option><option value="P">P</option></select>
+            <select aria-label="粘度の単位" id="mu-unit"><option value="mPa-s">mPa·s</option><option value="Pa-s">Pa·s</option><option value="cP">cP</option><option value="P">P</option></select>
           </div>
         </div>
         <div class="input-row" data-show-when="mu-to-nu">
-          <label>密度 <span class="sym">ρ</span></label>
+          <label for="rho-mu">密度 <span class="sym">ρ</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="rho-mu" step="any" min="0" placeholder="例：1000">
-            <select id="rho-mu-unit"><option value="kg-m3">kg/m³</option><option value="g-cm3">g/cm³</option><option value="kg-L">kg/L</option></select>
+            <select aria-label="密度の単位" id="rho-mu-unit"><option value="kg-m3">kg/m³</option><option value="g-cm3">g/cm³</option><option value="kg-L">kg/L</option></select>
           </div>
         </div>
 
         <div class="input-row" data-show-when="nu-to-mu">
-          <label>動粘度 <span class="sym">ν</span></label>
+          <label for="nu">動粘度 <span class="sym">ν</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="nu" step="any" min="0" placeholder="例：1">
-            <select id="nu-unit"><option value="cSt">cSt</option><option value="mm2-s">mm²/s</option><option value="m2-s">m²/s</option><option value="St">St</option></select>
+            <select aria-label="動粘度の単位" id="nu-unit"><option value="cSt">cSt</option><option value="mm2-s">mm²/s</option><option value="m2-s">m²/s</option><option value="St">St</option></select>
           </div>
         </div>
         <div class="input-row" data-show-when="nu-to-mu">
-          <label>密度 <span class="sym">ρ</span></label>
+          <label for="rho-nu">密度 <span class="sym">ρ</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="rho-nu" step="any" min="0" placeholder="例：1000">
-            <select id="rho-nu-unit"><option value="kg-m3">kg/m³</option><option value="g-cm3">g/cm³</option><option value="kg-L">kg/L</option></select>
+            <select aria-label="密度の単位" id="rho-nu-unit"><option value="kg-m3">kg/m³</option><option value="g-cm3">g/cm³</option><option value="kg-L">kg/L</option></select>
           </div>
         </div>
 

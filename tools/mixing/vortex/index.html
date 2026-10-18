@@ -58,55 +58,55 @@
         <h2>入力</h2>
 
         <div class="input-row">
-          <label>回転数 <span class="sym">n</span></label>
+          <label for="n">回転数 <span class="sym">n</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="n" step="any" placeholder="例：100">
-            <select id="n_unit"><option value="rpm">rpm</option><option value="rps">1/s</option></select>
+            <select aria-label="回転数の単位" id="n_unit"><option value="rpm">rpm</option><option value="rps">1/s</option></select>
           </div>
         </div>
 
         <div class="input-row">
-          <label>翼径 <span class="sym">d</span></label>
+          <label for="d">翼径 <span class="sym">d</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="d" step="any" placeholder="例：300">
-            <select id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+            <select aria-label="翼径の単位" id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
           </div>
         </div>
 
         <div class="input-row">
-          <label>槽径 <span class="sym">D</span></label>
+          <label for="D">槽径 <span class="sym">D</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="D" step="any" placeholder="例：900">
-            <select id="D_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+            <select aria-label="槽径の単位" id="D_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
           </div>
         </div>
 
         <div class="input-row">
-          <label>固体的回転半径 <span class="sym">r<sub>c</sub></span>（任意）</label>
+          <label for="rc">固体的回転半径 <span class="sym">r<sub>c</sub></span>（任意）</label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="rc" step="any" placeholder="例：150">
-            <select id="rc_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+            <select aria-label="固体的回転半径の単位" id="rc_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
           </div>
           <p class="hint">直接入力した場合はこの値を使います。未入力なら下の羽根幅・羽根枚数・撹拌レイノルズ数から推算します。</p>
         </div>
 
         <div class="input-row">
-          <label>羽根幅 <span class="sym">b</span>（r<sub>c</sub>推算用）</label>
+          <label for="b">羽根幅 <span class="sym">b</span>（r<sub>c</sub>推算用）</label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="b" step="any" placeholder="例：60">
-            <select id="b_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+            <select aria-label="羽根幅の単位" id="b_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
           </div>
         </div>
 
         <div class="input-row">
-          <label>羽根枚数 <span class="sym">n<sub>p</sub></span>（r<sub>c</sub>推算用）</label>
+          <label for="np">羽根枚数 <span class="sym">n<sub>p</sub></span>（r<sub>c</sub>推算用）</label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="np" step="1" placeholder="例：4">
           </div>
         </div>
 
         <div class="input-row">
-          <label>撹拌レイノルズ数 <span class="sym">Re</span>（r<sub>c</sub>推算用）</label>
+          <label for="Re">撹拌レイノルズ数 <span class="sym">Re</span>（r<sub>c</sub>推算用）</label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="Re" step="any" placeholder="例：10000">
           </div>

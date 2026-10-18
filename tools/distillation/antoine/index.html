@@ -63,20 +63,20 @@
         <h2>入力</h2>
 
         <div class="input-row">
-          <label>係数 A</label>
+          <label for="A">係数 A</label>
           <div class="input-group"><input type="number" inputmode="decimal" id="A" step="any" placeholder="例：8.07131"></div>
         </div>
         <div class="input-row">
-          <label>係数 B</label>
+          <label for="B">係数 B</label>
           <div class="input-group"><input type="number" inputmode="decimal" id="B" step="any" placeholder="例：1730.63"></div>
         </div>
         <div class="input-row">
-          <label>係数 C</label>
+          <label for="C">係数 C</label>
           <div class="input-group"><input type="number" inputmode="decimal" id="C" step="any" placeholder="例：233.426"></div>
         </div>
 
         <div class="input-row">
-          <label>対数の底</label>
+          <label for="base">対数の底</label>
           <div class="input-group">
             <select id="base" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;background:#fff;">
               <option value="log10">log<sub>10</sub>（一般的なAntoine式）</option>
@@ -86,7 +86,7 @@
         </div>
 
         <div class="input-row">
-          <label>係数定義の温度単位</label>
+          <label for="Tunit">係数定義の温度単位</label>
           <div class="input-group">
             <select id="Tunit" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;background:#fff;">
               <option value="C">°C</option>
@@ -96,7 +96,7 @@
         </div>
 
         <div class="input-row">
-          <label>係数定義の圧力単位</label>
+          <label for="Punit">係数定義の圧力単位</label>
           <div class="input-group">
             <select id="Punit" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;background:#fff;">
               <option value="mmHg">mmHg (Torr)</option>
@@ -110,12 +110,12 @@
         </div>
 
         <div class="input-row" data-show-when="PfromT">
-          <label>温度 <span class="sym">T</span>（係数定義の温度単位で入力）</label>
+          <label for="T">温度 <span class="sym">T</span>（係数定義の温度単位で入力）</label>
           <div class="input-group"><input type="number" inputmode="decimal" id="T" step="any" placeholder="例：25"></div>
         </div>
 
         <div class="input-row" data-show-when="TfromP">
-          <label>圧力 <span class="sym">P</span>（係数定義の圧力単位で入力）</label>
+          <label for="P">圧力 <span class="sym">P</span>（係数定義の圧力単位で入力）</label>
           <div class="input-group"><input type="number" inputmode="decimal" id="P" step="any" placeholder="例：760"></div>
         </div>
 

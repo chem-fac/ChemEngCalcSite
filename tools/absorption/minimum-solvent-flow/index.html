@@ -57,7 +57,7 @@
         <h2>入力</h2>
 
         <div class="input-row">
-          <label>組成の入力単位</label>
+          <label for="composition-unit">組成の入力単位</label>
           <select id="composition-unit">
             <option value="percent">mol%</option>
             <option value="fraction">モル分率</option>
@@ -65,7 +65,7 @@
         </div>
 
         <div class="input-row">
-          <label>入口ガス流量の基準</label>
+          <label for="gas-flow-basis">入口ガス流量の基準</label>
           <select id="gas-flow-basis">
             <option value="total">溶質を含む全ガス流量</option>
             <option value="solute-free">溶質を除いたガス流量 G′M</option>
@@ -73,15 +73,15 @@
         </div>
 
         <div class="input-row">
-          <label>入口ガスモル流量</label>
+          <label for="gas-flow">入口ガスモル流量</label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="gas-flow" step="any" min="0" placeholder="例：100">
-            <select id="gas-flow-unit"><option value="kmol-h">kmol/h</option><option value="mol-h">mol/h</option><option value="mol-s">mol/s</option></select>
+            <select aria-label="入口ガスモル流量の単位" id="gas-flow-unit"><option value="kmol-h">kmol/h</option><option value="mol-h">mol/h</option><option value="mol-s">mol/s</option></select>
           </div>
         </div>
 
         <div class="input-row">
-          <label>入口ガス中の溶質組成 <span class="sym">y<sub>A1</sub></span></label>
+          <label for="y-in">入口ガス中の溶質組成 <span class="sym">y<sub>A1</sub></span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="y-in" step="any" min="0" placeholder="例：10">
             <span class="unit-label" data-composition-unit-label>mol%</span>
@@ -89,7 +89,7 @@
         </div>
 
         <div class="input-row">
-          <label>出口ガス中の溶質組成 <span class="sym">y<sub>AT</sub></span></label>
+          <label for="y-out">出口ガス中の溶質組成 <span class="sym">y<sub>AT</sub></span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="y-out" step="any" min="0" placeholder="例：1">
             <span class="unit-label" data-composition-unit-label>mol%</span>
@@ -97,7 +97,7 @@
         </div>
 
         <div class="input-row">
-          <label>入口吸収液中の溶質組成 <span class="sym">x<sub>AT</sub></span></label>
+          <label for="x-in">入口吸収液中の溶質組成 <span class="sym">x<sub>AT</sub></span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="x-in" step="any" min="0" placeholder="例：0">
             <span class="unit-label" data-composition-unit-label>mol%</span>
@@ -106,7 +106,7 @@
         </div>
 
         <div class="input-row">
-          <label>入口ガス組成 <span class="sym">y<sub>A1</sub></span> に対する平衡液組成 <span class="sym">x<sup>*</sup><sub>A1</sub></span></label>
+          <label for="x-equilibrium">入口ガス組成 <span class="sym">y<sub>A1</sub></span> に対する平衡液組成 <span class="sym">x<sup>*</sup><sub>A1</sub></span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="x-equilibrium" step="any" min="0" placeholder="例：2">
             <span class="unit-label" data-composition-unit-label>mol%</span>
@@ -115,7 +115,7 @@
         </div>
 
         <div class="input-row">
-          <label>最小液量に対する運転倍率 <span class="sym">f=L′<sub>M</sub>/L′<sub>M,min</sub></span></label>
+          <label for="operating-factor">最小液量に対する運転倍率 <span class="sym">f=L′<sub>M</sub>/L′<sub>M,min</sub></span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="operating-factor" step="any" min="1" placeholder="例：1.5">
             <span class="unit-label">倍</span>

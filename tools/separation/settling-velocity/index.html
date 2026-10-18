@@ -55,34 +55,34 @@
       <div class="calc-pane calc-input-pane">
         <h2>入力</h2>
         <div class="input-row">
-          <label>粒子径 <span class="sym">d</span></label>
+          <label for="d">粒子径 <span class="sym">d</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="d" step="any" placeholder="例：100">
-            <select id="d_unit"><option value="um">μm</option><option value="mm">mm</option><option value="m">m</option></select>
+            <select aria-label="粒子径の単位" id="d_unit"><option value="um">μm</option><option value="mm">mm</option><option value="m">m</option></select>
           </div>
           <p class="hint">球相当径。撹拌・凝集の状態で変わります。ストークス域では速度は径の2乗に比例します。</p>
         </div>
         <div class="input-row">
-          <label>粒子密度 <span class="sym">ρ<sub>p</sub></span></label>
+          <label for="rho_p">粒子密度 <span class="sym">ρ<sub>p</sub></span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="rho_p" step="any" placeholder="例：2500">
-            <select id="rho_p_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
+            <select aria-label="粒子密度の単位" id="rho_p_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
           </div>
           <p class="hint">無機粒子（砂・シリカ等）で約 2500、金属酸化物でより大きくなります。</p>
         </div>
         <div class="input-row">
-          <label>流体密度 <span class="sym">ρ<sub>f</sub></span></label>
+          <label for="rho_f">流体密度 <span class="sym">ρ<sub>f</sub></span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="rho_f" step="any" placeholder="例：1000">
-            <select id="rho_f_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
+            <select aria-label="流体密度の単位" id="rho_f_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
           </div>
           <p class="hint">分散させている液（連続相）の運転温度での密度。水なら約 1000。</p>
         </div>
         <div class="input-row">
-          <label>流体粘度 <span class="sym">μ</span></label>
+          <label for="mu">流体粘度 <span class="sym">μ</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="mu" step="any" placeholder="例：1.0">
-            <select id="mu_unit"><option value="mPas">mPa·s</option><option value="cP">cP</option><option value="Pas">Pa·s</option></select>
+            <select aria-label="流体粘度の単位" id="mu_unit"><option value="mPas">mPa·s</option><option value="cP">cP</option><option value="Pas">Pa·s</option></select>
           </div>
           <p class="hint">液の運転温度での粘度。水20℃なら約 1.0 mPa·s（= 1.0 cP）。</p>
         </div>

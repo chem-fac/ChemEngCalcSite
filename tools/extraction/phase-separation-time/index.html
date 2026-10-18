@@ -33,7 +33,7 @@
       <div class="calc-pane calc-input-pane">
         <h2>入力</h2>
         <div class="input-row">
-          <label>分散相（液滴になっている相）</label>
+          <label for="disp">分散相（液滴になっている相）</label>
           <div class="input-group"><select id="disp" aria-label="分散相" style="flex:1">
             <option value="light" selected>軽液（上へ浮上）</option>
             <option value="heavy">重液（下へ沈降）</option>
@@ -41,25 +41,25 @@
           <p class="hint">撹拌を止めたあと、どちらの相が液滴として分散しているかを選びます。</p>
         </div>
         <div class="input-row">
-          <label>重液密度 <span class="sym">ρ<sub>h</sub></span></label>
+          <label for="rhoH">重液密度 <span class="sym">ρ<sub>h</sub></span></label>
           <div class="input-group"><input type="number" inputmode="decimal" step="any" id="rhoH" placeholder="例：1000"><span class="unit-static">kg/m³</span></div>
         </div>
         <div class="input-row">
-          <label>軽液密度 <span class="sym">ρ<sub>l</sub></span></label>
+          <label for="rhoL">軽液密度 <span class="sym">ρ<sub>l</sub></span></label>
           <div class="input-group"><input type="number" inputmode="decimal" step="any" id="rhoL" placeholder="例：850"><span class="unit-static">kg/m³</span></div>
         </div>
         <div class="input-row">
-          <label>連続相粘度 <span class="sym">μ<sub>c</sub></span></label>
+          <label for="mu">連続相粘度 <span class="sym">μ<sub>c</sub></span></label>
           <div class="input-group"><input type="number" inputmode="decimal" step="any" id="mu" placeholder="例：1.0"><span class="unit-static">mPa·s</span></div>
           <p class="hint">液滴が通り抜ける相（連続相）の運転温度での粘度。水20℃なら約1.0 mPa·s。</p>
         </div>
         <div class="input-row">
-          <label>液滴径 <span class="sym">d</span></label>
+          <label for="d">液滴径 <span class="sym">d</span></label>
           <div class="input-group"><input type="number" inputmode="decimal" step="any" id="d" placeholder="例：100"><span class="unit-static">µm</span></div>
           <p class="hint">撹拌の強さで決まります。小さいほど分離は急に難しくなります（ストークス域では速度は $d^2$ に比例）。</p>
         </div>
         <div class="input-row">
-          <label>移動距離（分散帯の厚み） <span class="sym">H</span></label>
+          <label for="H">移動距離（分散帯の厚み） <span class="sym">H</span></label>
           <div class="input-group"><input type="number" inputmode="decimal" step="any" id="H" placeholder="例：0.1"><span class="unit-static">m</span></div>
           <p class="hint">液滴が界面まで移動する距離。静置容器の液深や分散帯の厚みを目安にします。</p>
         </div>

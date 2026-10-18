@@ -70,49 +70,49 @@
         <h2>入力</h2>
 
         <div class="input-row mix-power-primary-row" data-show-when="fromNp">
-          <label>動力数 <span class="sym">N<sub>p</sub></span></label>
+          <label for="Np">動力数 <span class="sym">N<sub>p</sub></span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="Np" step="any" placeholder="例：5.0">
           </div>
         </div>
 
         <div class="input-row mix-power-primary-row" data-show-when="fromPower">
-          <label>撹拌所要動力 <span class="sym">P</span></label>
+          <label for="P">撹拌所要動力 <span class="sym">P</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="P" step="any" placeholder="例：1.5">
-            <select id="P_unit"><option value="kW">kW</option><option value="W">W</option><option value="HP">HP</option></select>
+            <select aria-label="撹拌所要動力の単位" id="P_unit"><option value="kW">kW</option><option value="W">W</option><option value="HP">HP</option></select>
           </div>
         </div>
 
         <div class="input-row mix-power-primary-row" data-show-when="fromTorque">
-          <label>トルク <span class="sym">T</span></label>
+          <label for="T">トルク <span class="sym">T</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="T" step="any" placeholder="例：25">
-            <select id="T_unit"><option value="Nm">N·m</option><option value="kgfm">kgf·m</option></select>
+            <select aria-label="トルクの単位" id="T_unit"><option value="Nm">N·m</option><option value="kgfm">kgf·m</option></select>
           </div>
         </div>
 
         <div class="input-row mix-power-rho-row">
-          <label>密度 <span class="sym">ρ</span></label>
+          <label for="rho">密度 <span class="sym">ρ</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000">
-            <select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
+            <select aria-label="密度の単位" id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
           </div>
         </div>
 
         <div class="input-row mix-power-n-row">
-          <label>回転数 <span class="sym">n</span></label>
+          <label for="n">回転数 <span class="sym">n</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="n" step="any" placeholder="例：300">
-            <select id="n_unit"><option value="rpm">rpm</option><option value="rps">1/s</option></select>
+            <select aria-label="回転数の単位" id="n_unit"><option value="rpm">rpm</option><option value="rps">1/s</option></select>
           </div>
         </div>
 
         <div class="input-row mix-power-d-row">
-          <label>翼径 <span class="sym">d</span></label>
+          <label for="d">翼径 <span class="sym">d</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="d" step="any" placeholder="例：300">
-            <select id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+            <select aria-label="翼径の単位" id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
           </div>
         </div>
 

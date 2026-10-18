@@ -66,7 +66,7 @@
         <h2>入力</h2>
 
         <div class="input-row" data-show-when="toval toma">
-          <label>信号特性</label>
+          <label for="char">信号特性</label>
           <div class="input-group">
             <select id="char">
               <option value="linear" selected>リニア（温度・圧力・液位など）</option>
@@ -77,14 +77,14 @@
         </div>
 
         <div class="input-row" data-show-when="toval">
-          <label>電流 <span class="sym">I</span></label>
+          <label for="I">電流 <span class="sym">I</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="I" step="any" placeholder="例：12">
             <span class="unit-label">mA</span>
           </div>
         </div>
         <div class="input-row" data-show-when="toma">
-          <label>測定値 <span class="sym">PV</span></label>
+          <label for="PV">測定値 <span class="sym">PV</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="PV" step="any" placeholder="例：150">
             <span class="unit-label">レンジ単位</span>
@@ -93,14 +93,14 @@
         </div>
 
         <div class="input-row" data-show-when="toval toma">
-          <label>レンジ下限 <span class="sym">LRV</span>（0%値）</label>
+          <label for="LRV">レンジ下限 <span class="sym">LRV</span>（0%値）</label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="LRV" step="any" placeholder="例：0">
             <span class="unit-label">レンジ単位</span>
           </div>
         </div>
         <div class="input-row" data-show-when="toval toma">
-          <label>レンジ上限 <span class="sym">URV</span>（100%値）</label>
+          <label for="URV">レンジ上限 <span class="sym">URV</span>（100%値）</label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="URV" step="any" placeholder="例：200">
             <span class="unit-label">レンジ単位</span>

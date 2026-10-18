@@ -56,65 +56,65 @@
       <div class="calc-pane calc-input-pane">
         <h2>入力</h2>
         <div class="input-row">
-          <label>管内径 <span class="sym">d</span></label>
+          <label for="d">管内径 <span class="sym">d</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="d" step="any" placeholder="例：50">
-            <select id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+            <select aria-label="管内径の単位" id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
           </div>
           <p class="hint">円管の内径 d（半径 R = d/2）。</p>
         </div>
         <div class="input-row">
-          <label>基準量</label>
+          <label for="basis">基準量</label>
           <div class="input-group">
             <select id="basis"><option value="U">平均流速 U で指定</option><option value="Q">体積流量 Q で指定</option></select>
           </div>
           <p class="hint">平均流速 U と体積流量 Q は Q = U·A の関係。どちらで指定しても残りは自動換算します。</p>
         </div>
         <div class="input-row" id="row-U">
-          <label>断面平均流速 <span class="sym">U</span></label>
+          <label for="U">断面平均流速 <span class="sym">U</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="U" step="any" placeholder="例：0.5">
-            <select id="U_unit"><option value="ms">m/s</option><option value="cms">cm/s</option><option value="mmin">m/min</option></select>
+            <select aria-label="断面平均流速の単位" id="U_unit"><option value="ms">m/s</option><option value="cms">cm/s</option><option value="mmin">m/min</option></select>
           </div>
           <p class="hint">断面平均流速。最大流速はこの 2 倍（u<sub>max</sub> = 2U）になります。</p>
         </div>
         <div class="input-row" id="row-Q">
-          <label>体積流量 <span class="sym">Q</span></label>
+          <label for="Q">体積流量 <span class="sym">Q</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="Q" step="any" placeholder="例：1.0">
-            <select id="Q_unit"><option value="m3h">m³/h</option><option value="Lmin">L/min</option><option value="Ls">L/s</option><option value="m3s">m³/s</option></select>
+            <select aria-label="体積流量の単位" id="Q_unit"><option value="m3h">m³/h</option><option value="Lmin">L/min</option><option value="Ls">L/s</option><option value="m3s">m³/s</option></select>
           </div>
           <p class="hint">体積流量。平均流速 U = Q/A に換算して計算します。</p>
         </div>
         <div class="input-row">
-          <label>半径位置 <span class="sym">r</span><span class="opt">任意</span></label>
+          <label for="r">半径位置 <span class="sym">r</span><span class="opt">任意</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="r" step="any" placeholder="例：10">
-            <select id="r_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="ratio">×R（比）</option></select>
+            <select aria-label="半径位置の単位" id="r_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="ratio">×R（比）</option></select>
           </div>
           <p class="hint">指定すると、その位置の流速 u(r) を求めます（r = 0 が中心、r = R が管壁）。「×R」を選ぶと r/R の比で入力できます。</p>
         </div>
         <div class="input-row">
-          <label>流体粘度 <span class="sym">μ</span><span class="opt">任意</span></label>
+          <label for="mu">流体粘度 <span class="sym">μ</span><span class="opt">任意</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="mu" step="any" placeholder="例：1.0">
-            <select id="mu_unit"><option value="mPas">mPa·s</option><option value="cP">cP</option><option value="Pas">Pa·s</option></select>
+            <select aria-label="流体粘度の単位" id="mu_unit"><option value="mPas">mPa·s</option><option value="cP">cP</option><option value="Pas">Pa·s</option></select>
           </div>
           <p class="hint">入力すると壁面せん断応力 τ<sub>w</sub> を、管長 L も入れると圧力損失 ΔP を計算します。水20℃なら約 1.0 mPa·s。</p>
         </div>
         <div class="input-row">
-          <label>管長 <span class="sym">L</span><span class="opt">任意</span></label>
+          <label for="L">管長 <span class="sym">L</span><span class="opt">任意</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="L" step="any" placeholder="例：10">
-            <select id="L_unit"><option value="m">m</option><option value="cm">cm</option><option value="mm">mm</option></select>
+            <select aria-label="管長の単位" id="L_unit"><option value="m">m</option><option value="cm">cm</option><option value="mm">mm</option></select>
           </div>
           <p class="hint">粘度 μ と合わせて、ハーゲン・ポアズイユの式から圧力損失 ΔP を計算します。</p>
         </div>
         <div class="input-row">
-          <label>流体密度 <span class="sym">ρ</span><span class="opt">任意</span></label>
+          <label for="rho">流体密度 <span class="sym">ρ</span><span class="opt">任意</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000">
-            <select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
+            <select aria-label="流体密度の単位" id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
           </div>
           <p class="hint">粘度 μ と合わせてレイノルズ数 Re を計算し、層流かどうかを確認します。水なら約 1000。</p>
         </div>

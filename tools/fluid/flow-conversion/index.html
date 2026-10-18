@@ -89,7 +89,7 @@
         <h2>入力</h2>
 
         <div class="input-row" data-field="Q" data-show-when="velocity diameter">
-          <label>体積流量 <span class="sym">Q</span></label>
+          <label for="Q">体積流量 <span class="sym">Q</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="Q" step="any" placeholder="例：10">
             <select id="Q_unit" aria-label="体積流量の単位">
@@ -103,7 +103,7 @@
         </div>
 
         <div class="input-row" data-field="u" data-show-when="flowrate diameter">
-          <label>平均流速 <span class="sym">u</span></label>
+          <label for="u">平均流速 <span class="sym">u</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="u" step="any" placeholder="例：1.0">
             <select id="u_unit" aria-label="平均流速の単位">
@@ -115,7 +115,7 @@
         </div>
 
         <div class="input-row input-row-full flow-diameter-row" data-field="D" data-show-when="flowrate velocity">
-          <label>管内径 <span class="sym">D</span></label>
+          <label for="D">管内径 <span class="sym">D</span></label>
           <div class="d-mode-switch" role="tablist" aria-label="管内径の入力方法">
             <button type="button" class="d-mode-tab active" data-d-mode="inner">実内径を入力</button>
             <button type="button" class="d-mode-tab" data-d-mode="outer">外径＋肉厚から計算</button>
@@ -139,7 +139,7 @@
               <div>
                 <div class="sub-label">外径 <span class="sym">D<sub>o</sub></span></div>
                 <div class="input-group">
-                  <input type="number" inputmode="decimal" id="Do" step="any" placeholder="例：60.5">
+                  <input aria-label="外径" type="number" inputmode="decimal" id="Do" step="any" placeholder="例：60.5">
                   <select id="Do_unit" aria-label="外径の単位">
                     <option value="mm">mm</option>
                     <option value="cm">cm</option>
@@ -151,7 +151,7 @@
               <div>
                 <div class="sub-label">肉厚 <span class="sym">t</span></div>
                 <div class="input-group">
-                  <input type="number" inputmode="decimal" id="t" step="any" placeholder="例：3.9">
+                  <input aria-label="肉厚" type="number" inputmode="decimal" id="t" step="any" placeholder="例：3.9">
                   <select id="t_unit" aria-label="肉厚の単位">
                     <option value="mm">mm</option>
                     <option value="cm">cm</option>

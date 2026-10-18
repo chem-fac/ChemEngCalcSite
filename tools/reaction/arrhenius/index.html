@@ -63,7 +63,7 @@
         <h2>入力</h2>
 
         <div class="input-row">
-          <label>温度の単位</label>
+          <label for="T_unit">温度の単位</label>
           <div class="input-group">
             <select id="T_unit" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;background:#fff;">
               <option value="K">K（絶対温度）</option>
@@ -73,41 +73,41 @@
         </div>
 
         <div class="input-row" data-show-when="kCalc">
-          <label>頻度因子（前指数因子） <span class="sym">A</span></label>
+          <label for="A">頻度因子（前指数因子） <span class="sym">A</span></label>
           <div class="input-group"><input type="number" inputmode="decimal" id="A" step="any" placeholder="例：1.0e10"></div>
           <p class="hint">k と同じ単位系の値を入力してください（1次反応なら 1/s）。</p>
         </div>
 
         <div class="input-row" data-show-when="kCalc">
-          <label>活性化エネルギー <span class="sym">E<sub>a</sub></span></label>
+          <label for="Ea">活性化エネルギー <span class="sym">E<sub>a</sub></span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="Ea" step="any" placeholder="例：80">
-            <select id="Ea_unit"><option value="kJmol">kJ/mol</option><option value="Jmol">J/mol</option><option value="kcalmol">kcal/mol</option><option value="calmol">cal/mol</option></select>
+            <select aria-label="活性化エネルギーの単位" id="Ea_unit"><option value="kJmol">kJ/mol</option><option value="Jmol">J/mol</option><option value="kcalmol">kcal/mol</option><option value="calmol">cal/mol</option></select>
           </div>
         </div>
 
         <div class="input-row" data-show-when="kCalc">
-          <label>温度 <span class="sym">T</span></label>
+          <label for="T">温度 <span class="sym">T</span></label>
           <div class="input-group"><input type="number" inputmode="decimal" id="T" step="any" placeholder="例：298"></div>
         </div>
 
         <div class="input-row" data-show-when="EaCalc">
-          <label>温度 <span class="sym">T<sub>1</sub></span></label>
+          <label for="T1">温度 <span class="sym">T<sub>1</sub></span></label>
           <div class="input-group"><input type="number" inputmode="decimal" id="T1" step="any" placeholder="例：298"></div>
         </div>
 
         <div class="input-row" data-show-when="EaCalc">
-          <label>速度定数 <span class="sym">k<sub>1</sub></span>（T<sub>1</sub> での値）</label>
+          <label for="k1">速度定数 <span class="sym">k<sub>1</sub></span>（T<sub>1</sub> での値）</label>
           <div class="input-group"><input type="number" inputmode="decimal" id="k1" step="any" placeholder="例：1.0e-3"></div>
         </div>
 
         <div class="input-row" data-show-when="EaCalc">
-          <label>温度 <span class="sym">T<sub>2</sub></span></label>
+          <label for="T2">温度 <span class="sym">T<sub>2</sub></span></label>
           <div class="input-group"><input type="number" inputmode="decimal" id="T2" step="any" placeholder="例：348"></div>
         </div>
 
         <div class="input-row" data-show-when="EaCalc">
-          <label>速度定数 <span class="sym">k<sub>2</sub></span>（T<sub>2</sub> での値）</label>
+          <label for="k2">速度定数 <span class="sym">k<sub>2</sub></span>（T<sub>2</sub> での値）</label>
           <div class="input-group"><input type="number" inputmode="decimal" id="k2" step="any" placeholder="例：5.0e-2"></div>
         </div>
 

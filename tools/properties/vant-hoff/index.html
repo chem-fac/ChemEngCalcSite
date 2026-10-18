@@ -64,39 +64,39 @@
 
         <!-- two-point -->
         <div class="input-row" data-show-when="two">
-          <label>温度 <span class="sym">T₁</span></label>
-          <div class="input-group"><input type="number" inputmode="decimal" id="T1" step="any" placeholder="例：298"><select id="T1_unit"><option value="K">K</option><option value="C">℃</option></select></div>
+          <label for="T1">温度 <span class="sym">T₁</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="T1" step="any" placeholder="例：298"><select aria-label="温度の単位" id="T1_unit"><option value="K">K</option><option value="C">℃</option></select></div>
         </div>
         <div class="input-row" data-show-when="two">
-          <label>平衡定数 <span class="sym">K₁</span></label>
+          <label for="K1">平衡定数 <span class="sym">K₁</span></label>
           <div class="input-group"><input type="number" inputmode="decimal" id="K1" step="any" placeholder="例：50"><span class="unit-label">［-］</span></div>
         </div>
         <div class="input-row" data-show-when="two">
-          <label>温度 <span class="sym">T₂</span></label>
-          <div class="input-group"><input type="number" inputmode="decimal" id="T2" step="any" placeholder="例：350"><select id="T2_unit"><option value="K">K</option><option value="C">℃</option></select></div>
+          <label for="T2">温度 <span class="sym">T₂</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="T2" step="any" placeholder="例：350"><select aria-label="温度の単位" id="T2_unit"><option value="K">K</option><option value="C">℃</option></select></div>
         </div>
         <div class="input-row" data-show-when="two">
-          <label>平衡定数 <span class="sym">K₂</span></label>
+          <label for="K2">平衡定数 <span class="sym">K₂</span></label>
           <div class="input-group"><input type="number" inputmode="decimal" id="K2" step="any" placeholder="例：10"><span class="unit-label">［-］</span></div>
         </div>
 
         <!-- predict -->
         <div class="input-row" data-show-when="predict">
-          <label>基準温度 <span class="sym">T₁</span></label>
-          <div class="input-group"><input type="number" inputmode="decimal" id="pT1" step="any" placeholder="例：298"><select id="pT1_unit"><option value="K">K</option><option value="C">℃</option></select></div>
+          <label for="pT1">基準温度 <span class="sym">T₁</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="pT1" step="any" placeholder="例：298"><select aria-label="基準温度の単位" id="pT1_unit"><option value="K">K</option><option value="C">℃</option></select></div>
         </div>
         <div class="input-row" data-show-when="predict">
-          <label>基準平衡定数 <span class="sym">K₁</span></label>
+          <label for="pK1">基準平衡定数 <span class="sym">K₁</span></label>
           <div class="input-group"><input type="number" inputmode="decimal" id="pK1" step="any" placeholder="例：50"><span class="unit-label">［-］</span></div>
         </div>
         <div class="input-row" data-show-when="predict">
-          <label>反応エンタルピー <span class="sym">ΔH°</span></label>
+          <label for="pdH">反応エンタルピー <span class="sym">ΔH°</span></label>
           <div class="input-group"><input type="number" inputmode="decimal" id="pdH" step="any" placeholder="例：-26.8"><span class="unit-label">kJ/mol</span></div>
           <p class="hint">発熱反応は負、吸熱反応は正。一定とみなせる温度範囲で使用します。</p>
         </div>
         <div class="input-row" data-show-when="predict">
-          <label>知りたい温度 <span class="sym">T₂</span></label>
-          <div class="input-group"><input type="number" inputmode="decimal" id="pT2" step="any" placeholder="例：350"><select id="pT2_unit"><option value="K">K</option><option value="C">℃</option></select></div>
+          <label for="pT2">知りたい温度 <span class="sym">T₂</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="pT2" step="any" placeholder="例：350"><select aria-label="知りたい温度の単位" id="pT2_unit"><option value="K">K</option><option value="C">℃</option></select></div>
         </div>
 
         <div class="btn-row">

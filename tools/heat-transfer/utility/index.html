@@ -62,41 +62,41 @@
       <div class="calc-pane calc-input-pane">
         <h2>入力</h2>
         <div class="input-row">
-          <label>熱量 <span class="sym">Q</span></label>
+          <label for="Q">熱量 <span class="sym">Q</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="Q" step="any" placeholder="例：500">
-            <select id="Q_unit"><option value="kW">kW</option><option value="W">W</option><option value="MJh">MJ/h</option><option value="kcalh">kcal/h</option></select>
+            <select aria-label="熱量の単位" id="Q_unit"><option value="kW">kW</option><option value="W">W</option><option value="MJh">MJ/h</option><option value="kcalh">kcal/h</option></select>
           </div>
         </div>
         <div class="input-row">
-          <label>余裕率（任意）</label>
+          <label for="allowance">余裕率（任意）</label>
           <div class="input-group"><input type="number" inputmode="decimal" id="allowance" step="any" min="0" placeholder="例：10"><span class="unit-label">%</span></div>
         </div>
         <div class="input-row" data-show-when="cooling oil">
-          <label>入口温度 <span class="sym">T<sub>in</sub></span></label>
+          <label for="Tin">入口温度 <span class="sym">T<sub>in</sub></span></label>
           <div class="input-group"><input type="number" inputmode="decimal" id="Tin" step="any" placeholder="例：25"><span class="unit-label">°C</span></div>
         </div>
         <div class="input-row" data-show-when="cooling oil">
-          <label>出口温度 <span class="sym">T<sub>out</sub></span></label>
+          <label for="Tout">出口温度 <span class="sym">T<sub>out</sub></span></label>
           <div class="input-group"><input type="number" inputmode="decimal" id="Tout" step="any" placeholder="例：35"><span class="unit-label">°C</span></div>
         </div>
         <div class="input-row" data-show-when="cooling oil">
-          <label>比熱 <span class="sym">C<sub>p</sub></span></label>
+          <label for="cp">比熱 <span class="sym">C<sub>p</sub></span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="cp" step="any" placeholder="例：4.18">
-            <select id="cp_unit"><option value="kJkgK">kJ/(kg K)</option><option value="JkgK">J/(kg K)</option><option value="kcalkgK">kcal/(kg °C)</option></select>
+            <select aria-label="比熱の単位" id="cp_unit"><option value="kJkgK">kJ/(kg K)</option><option value="JkgK">J/(kg K)</option><option value="kcalkgK">kcal/(kg °C)</option></select>
           </div>
         </div>
         <div class="input-row" data-show-when="cooling oil">
-          <label>密度（任意） <span class="sym">ρ</span></label>
+          <label for="rho">密度（任意） <span class="sym">ρ</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000">
-            <select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
+            <select aria-label="密度（任意）の単位" id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
           </div>
           <p class="hint">入力すると m³/h と L/min も表示します。</p>
         </div>
         <div class="input-row" data-show-when="steam">
-          <label>蒸気圧力プリセット</label>
+          <label for="steam_pressure_preset">蒸気圧力プリセット</label>
           <div class="input-group">
             <select id="steam_pressure_preset" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;background:#fff;">
               <option value="">カスタム（蒸気潜熱を直接入力）</option>
@@ -110,10 +110,10 @@
           </div>
         </div>
         <div class="input-row" data-show-when="steam">
-          <label>蒸気潜熱 <span class="sym">λ</span></label>
+          <label for="latent">蒸気潜熱 <span class="sym">λ</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="latent" step="any" placeholder="例：2200">
-            <select id="latent_unit"><option value="kJkg">kJ/kg</option><option value="Jkg">J/kg</option><option value="kcalkg">kcal/kg</option></select>
+            <select aria-label="蒸気潜熱の単位" id="latent_unit"><option value="kJkg">kJ/kg</option><option value="Jkg">J/kg</option><option value="kcalkg">kcal/kg</option></select>
           </div>
           <p class="hint">蒸気圧力に応じた凝縮潜熱を入力してください。プリセットの圧力は絶対圧（MPaA）です。ゲージ圧（MPaG）で運転値を扱う場合は +0.1 MPa して選んでください。</p>
         </div>

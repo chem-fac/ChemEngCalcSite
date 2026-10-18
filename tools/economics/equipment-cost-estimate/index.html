@@ -102,7 +102,7 @@
           <h2>入力</h2>
 
           <div class="input-row input-row-full">
-            <label>機器（価格は1台あたり、据付工事を含まない購入価格）</label>
+            <label for="t1">機器（価格は1台あたり、据付工事を含まない購入価格）</label>
             <div class="stage-composition-wrap">
               <table class="unit-table stage-table eq-table">
                 <thead>
@@ -218,7 +218,7 @@
           </div>
 
           <div class="input-row">
-            <label>係数に入らない費用 <span class="opt">（任意）</span></label>
+            <label for="extra">係数に入らない費用 <span class="opt">（任意）</span></label>
             <div class="input-group">
               <input type="number" inputmode="decimal" id="extra" step="any" placeholder="例：2000000">
               <span class="unit-static">円</span>
@@ -227,7 +227,7 @@
           </div>
 
           <div class="input-row">
-            <label>見積の段階</label>
+            <label for="stage">見積の段階</label>
             <div class="input-group">
               <select id="stage" aria-label="見積の段階" data-example="c4">
                 <option value="c4">概略：機器の一覧と係数で出す</option>
@@ -239,7 +239,7 @@
           </div>
 
           <div class="input-row">
-            <label>予備費率 <span class="sym">r</span><sub>c</sub></label>
+            <label for="cont">予備費率 <span class="sym">r</span><sub>c</sub></label>
             <div class="input-group">
               <input type="number" inputmode="decimal" id="cont" step="any" placeholder="例：15">
               <span class="unit-static">%</span>
@@ -248,7 +248,7 @@
           </div>
 
           <div class="input-row">
-            <label>業者のフィー率 <span class="sym">r</span><sub>f</sub></label>
+            <label for="fee">業者のフィー率 <span class="sym">r</span><sub>f</sub></label>
             <div class="input-group">
               <input type="number" inputmode="decimal" id="fee" step="any" placeholder="例：3">
               <span class="unit-static">%</span>
@@ -257,7 +257,7 @@
           </div>
 
           <div class="input-row">
-            <label>プラントの種類（ラング係数法の比較用）</label>
+            <label for="plant">プラントの種類（ラング係数法の比較用）</label>
             <div class="input-group">
               <select id="plant" aria-label="プラントの種類" data-example="fluid">
                 <option value="fluid">流体（液・ガス）を扱うプラント</option>

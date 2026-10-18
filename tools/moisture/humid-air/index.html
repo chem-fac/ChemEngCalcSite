@@ -55,14 +55,14 @@
       <div class="calc-pane calc-input-pane">
         <h2>入力</h2>
         <div class="input-row">
-          <label>気温（乾球温度） <span class="sym">T<sub>db</sub></span></label>
+          <label for="Tdb">気温（乾球温度） <span class="sym">T<sub>db</sub></span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="Tdb" step="any" placeholder="例：25">
             <span class="unit-label">°C</span>
           </div>
         </div>
         <div class="input-row">
-          <label>もう1つの状態量</label>
+          <label for="second_kind">もう1つの状態量</label>
           <div class="input-group">
             <select id="second_kind" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;background:#fff;">
               <option value="RH">相対湿度 [%]</option>
@@ -73,14 +73,14 @@
           </div>
         </div>
         <div class="input-row">
-          <label id="second_value_label">相対湿度</label>
+          <label for="second_val" id="second_value_label">相対湿度</label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="second_val" step="any" placeholder="例：60">
             <span class="unit-label" id="second_unit_label">%</span>
           </div>
         </div>
         <div class="input-row">
-          <label>大気圧</label>
+          <label for="Patm">大気圧</label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="Patm" step="any" placeholder="例：101.325">
             <span class="unit-label">kPa</span>

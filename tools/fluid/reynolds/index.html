@@ -88,7 +88,7 @@
         <h2>入力</h2>
 
         <div class="input-row reynolds-rho-row" data-field="rho" data-show-when="velocity flowrate">
-          <label>密度 <span class="sym">ρ</span></label>
+          <label for="rho">密度 <span class="sym">ρ</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000">
             <select id="rho_unit" aria-label="密度の単位">
@@ -100,7 +100,7 @@
         </div>
 
         <div class="input-row reynolds-u-row" data-field="u" data-show-when="velocity kinematic">
-          <label>平均流速 <span class="sym">u</span></label>
+          <label for="u">平均流速 <span class="sym">u</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="u" step="any" placeholder="例：1.0">
             <select id="u_unit" aria-label="流速の単位">
@@ -112,7 +112,7 @@
         </div>
 
         <div class="input-row reynolds-q-row" data-field="Q" data-show-when="flowrate">
-          <label>体積流量 <span class="sym">Q</span></label>
+          <label for="Q">体積流量 <span class="sym">Q</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="Q" step="any" placeholder="例：10">
             <select id="Q_unit" aria-label="流量の単位">
@@ -126,7 +126,7 @@
         </div>
 
         <div class="input-row reynolds-d-row" data-field="D" data-show-when="velocity flowrate kinematic">
-          <label>管内径 <span class="sym">D</span></label>
+          <label for="D">管内径 <span class="sym">D</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="D" step="any" placeholder="例：50">
             <select id="D_unit" aria-label="管内径の単位">
@@ -140,7 +140,7 @@
         </div>
 
         <div class="input-row reynolds-mu-row" data-field="mu" data-show-when="velocity flowrate">
-          <label>粘度 <span class="sym">μ</span></label>
+          <label for="mu">粘度 <span class="sym">μ</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="mu" step="any" placeholder="例：1.0">
             <select id="mu_unit" aria-label="粘度の単位">
@@ -153,7 +153,7 @@
         </div>
 
         <div class="input-row reynolds-nu-row" data-field="nu" data-show-when="kinematic">
-          <label>動粘度 <span class="sym">ν</span></label>
+          <label for="nu">動粘度 <span class="sym">ν</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="nu" step="any" placeholder="例：1.0">
             <select id="nu_unit" aria-label="動粘度の単位">

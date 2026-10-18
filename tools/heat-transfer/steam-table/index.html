@@ -65,7 +65,7 @@
       <div class="calc-pane calc-input-pane">
         <h2>入力</h2>
         <div class="input-row" data-show-when="T">
-          <label>飽和温度 <span class="sym">T_sat</span></label>
+          <label for="T">飽和温度 <span class="sym">T_sat</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="T" step="any" placeholder="例：150">
             <span class="unit-label">°C</span>
@@ -73,10 +73,10 @@
           <p class="hint">0 〜 373.95 °C（臨界点）の範囲で入力してください。</p>
         </div>
         <div class="input-row" data-show-when="P">
-          <label>飽和圧力 <span class="sym">P_sat</span></label>
+          <label for="P">飽和圧力 <span class="sym">P_sat</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="P" step="any" placeholder="例：0.476">
-            <select id="P_unit"><option value="MPaA">MPaA</option><option value="kPaA">kPaA</option><option value="MPaG">MPaG</option><option value="kPaG">kPaG</option><option value="barA">barA</option><option value="barG">barG</option></select>
+            <select aria-label="飽和圧力の単位" id="P_unit"><option value="MPaA">MPaA</option><option value="kPaA">kPaA</option><option value="MPaG">MPaG</option><option value="kPaG">kPaG</option><option value="barA">barA</option><option value="barG">barG</option></select>
           </div>
           <p class="hint">0.0006117 〜 22.064 MPaA の範囲。「G」を選んだ場合は大気圧 101.325 kPa を加えて絶対圧として処理します。</p>
         </div>

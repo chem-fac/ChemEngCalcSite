@@ -80,37 +80,37 @@
         <h2>入力</h2>
 
         <div class="input-row">
-          <label>密度 <span class="sym">ρ</span></label>
+          <label for="rho">密度 <span class="sym">ρ</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000">
-            <select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
+            <select aria-label="密度の単位" id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
           </div>
           <p class="hint">運転温度・圧力での液密度を入力してください。</p>
         </div>
 
         <div class="input-row">
-          <label>回転数 <span class="sym">n</span></label>
+          <label for="n">回転数 <span class="sym">n</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="n" step="any" placeholder="例：100">
-            <select id="n_unit"><option value="rpm">rpm</option><option value="rps">1/s</option></select>
+            <select aria-label="回転数の単位" id="n_unit"><option value="rpm">rpm</option><option value="rps">1/s</option></select>
           </div>
           <p class="hint">撹拌翼の回転速度を入力してください。</p>
         </div>
 
         <div class="input-row">
-          <label>翼径 <span class="sym">d</span></label>
+          <label for="d">翼径 <span class="sym">d</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="d" step="any" placeholder="例：300">
-            <select id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+            <select aria-label="翼径の単位" id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
           </div>
           <p class="hint">撹拌翼の外径を入力してください。</p>
         </div>
 
         <div class="input-row">
-          <label>粘度 <span class="sym">μ</span></label>
+          <label for="mu">粘度 <span class="sym">μ</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="mu" step="any" placeholder="例：1.0">
-            <select id="mu_unit"><option value="mPas">mPa·s</option><option value="cP">cP</option><option value="Pas">Pa·s</option></select>
+            <select aria-label="粘度の単位" id="mu_unit"><option value="mPas">mPa·s</option><option value="cP">cP</option><option value="Pas">Pa·s</option></select>
           </div>
           <p class="hint">運転温度での粘度を入力してください。1 mPa·s = 1 cP。</p>
         </div>

@@ -64,44 +64,44 @@
 
         <!-- two-point -->
         <div class="input-row" data-show-when="two">
-          <label>温度 <span class="sym">T₁</span></label>
-          <div class="input-group"><input type="number" inputmode="decimal" id="T1" step="any" placeholder="例：100"><select id="T1_unit"><option value="C">℃</option><option value="K">K</option></select></div>
+          <label for="T1">温度 <span class="sym">T₁</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="T1" step="any" placeholder="例：100"><select aria-label="温度の単位" id="T1_unit"><option value="C">℃</option><option value="K">K</option></select></div>
         </div>
         <div class="input-row" data-show-when="two">
-          <label>蒸気圧 <span class="sym">P₁</span></label>
-          <div class="input-group"><input type="number" inputmode="decimal" id="P1" step="any" placeholder="例：101.325"><select id="P1_unit"><option value="kPa">kPa</option><option value="MPa">MPa</option><option value="bar">bar</option><option value="atm">atm</option><option value="mmHg">mmHg</option><option value="Pa">Pa</option></select></div>
+          <label for="P1">蒸気圧 <span class="sym">P₁</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="P1" step="any" placeholder="例：101.325"><select aria-label="蒸気圧の単位" id="P1_unit"><option value="kPa">kPa</option><option value="MPa">MPa</option><option value="bar">bar</option><option value="atm">atm</option><option value="mmHg">mmHg</option><option value="Pa">Pa</option></select></div>
         </div>
         <div class="input-row" data-show-when="two">
-          <label>温度 <span class="sym">T₂</span></label>
-          <div class="input-group"><input type="number" inputmode="decimal" id="T2" step="any" placeholder="例：80"><select id="T2_unit"><option value="C">℃</option><option value="K">K</option></select></div>
+          <label for="T2">温度 <span class="sym">T₂</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="T2" step="any" placeholder="例：80"><select aria-label="温度の単位" id="T2_unit"><option value="C">℃</option><option value="K">K</option></select></div>
         </div>
         <div class="input-row" data-show-when="two">
-          <label>蒸気圧 <span class="sym">P₂</span></label>
-          <div class="input-group"><input type="number" inputmode="decimal" id="P2" step="any" placeholder="例：47.4"><select id="P2_unit"><option value="kPa">kPa</option><option value="MPa">MPa</option><option value="bar">bar</option><option value="atm">atm</option><option value="mmHg">mmHg</option><option value="Pa">Pa</option></select></div>
+          <label for="P2">蒸気圧 <span class="sym">P₂</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="P2" step="any" placeholder="例：47.4"><select aria-label="蒸気圧の単位" id="P2_unit"><option value="kPa">kPa</option><option value="MPa">MPa</option><option value="bar">bar</option><option value="atm">atm</option><option value="mmHg">mmHg</option><option value="Pa">Pa</option></select></div>
         </div>
         <div class="input-row" data-show-when="two">
-          <label>知りたい温度 <span class="sym">T₃</span>（任意）</label>
-          <div class="input-group"><input type="number" inputmode="decimal" id="T3" step="any" placeholder="例：120"><select id="T3_unit"><option value="C">℃</option><option value="K">K</option></select></div>
+          <label for="T3">知りたい温度 <span class="sym">T₃</span>（任意）</label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="T3" step="any" placeholder="例：120"><select aria-label="知りたい温度の単位" id="T3_unit"><option value="C">℃</option><option value="K">K</option></select></div>
           <p class="hint">入力すると、求めた蒸発熱を使って T₃ での蒸気圧を外挿します。</p>
         </div>
 
         <!-- predict -->
         <div class="input-row" data-show-when="predict">
-          <label>基準温度 <span class="sym">T₁</span></label>
-          <div class="input-group"><input type="number" inputmode="decimal" id="pT1" step="any" placeholder="例：100"><select id="pT1_unit"><option value="C">℃</option><option value="K">K</option></select></div>
+          <label for="pT1">基準温度 <span class="sym">T₁</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="pT1" step="any" placeholder="例：100"><select aria-label="基準温度の単位" id="pT1_unit"><option value="C">℃</option><option value="K">K</option></select></div>
         </div>
         <div class="input-row" data-show-when="predict">
-          <label>基準蒸気圧 <span class="sym">P₁</span></label>
-          <div class="input-group"><input type="number" inputmode="decimal" id="pP1" step="any" placeholder="例：101.325"><select id="pP1_unit"><option value="kPa">kPa</option><option value="MPa">MPa</option><option value="bar">bar</option><option value="atm">atm</option><option value="mmHg">mmHg</option><option value="Pa">Pa</option></select></div>
+          <label for="pP1">基準蒸気圧 <span class="sym">P₁</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="pP1" step="any" placeholder="例：101.325"><select aria-label="基準蒸気圧の単位" id="pP1_unit"><option value="kPa">kPa</option><option value="MPa">MPa</option><option value="bar">bar</option><option value="atm">atm</option><option value="mmHg">mmHg</option><option value="Pa">Pa</option></select></div>
         </div>
         <div class="input-row" data-show-when="predict">
-          <label>蒸発潜熱 <span class="sym">ΔH<sub>vap</sub></span></label>
+          <label for="pdH">蒸発潜熱 <span class="sym">ΔH<sub>vap</sub></span></label>
           <div class="input-group"><input type="number" inputmode="decimal" id="pdH" step="any" placeholder="例：40.7"><span class="unit-label">kJ/mol</span></div>
           <p class="hint">水=40.7、エタノール=38.6、ベンゼン=30.7、アンモニア=23.4（標準沸点付近の値）。</p>
         </div>
         <div class="input-row" data-show-when="predict">
-          <label>知りたい温度 <span class="sym">T₂</span></label>
-          <div class="input-group"><input type="number" inputmode="decimal" id="pT2" step="any" placeholder="例：120"><select id="pT2_unit"><option value="C">℃</option><option value="K">K</option></select></div>
+          <label for="pT2">知りたい温度 <span class="sym">T₂</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="pT2" step="any" placeholder="例：120"><select aria-label="知りたい温度の単位" id="pT2_unit"><option value="C">℃</option><option value="K">K</option></select></div>
         </div>
 
         <div class="btn-row">

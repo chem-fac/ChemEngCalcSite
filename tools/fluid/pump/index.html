@@ -60,22 +60,22 @@
         <p class="input-row-full" style="margin:4px 0 10px;padding-bottom:6px;border-bottom:1px solid #e4e4e7;font-weight:600;font-size:.95rem;color:#374151">基本条件</p>
 
         <div class="input-row">
-          <label>液体密度 <span class="sym">ρ</span></label>
+          <label for="rho">液体密度 <span class="sym">ρ</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000">
-            <select id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
+            <select aria-label="液体密度の単位" id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
           </div>
         </div>
         <div class="input-row">
-          <label>体積流量 <span class="sym">Q</span></label>
+          <label for="Q">体積流量 <span class="sym">Q</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="Q" step="any" placeholder="例：10">
-            <select id="Q_unit"><option value="m3h">m³/h</option><option value="m3min">m³/min</option><option value="Lmin">L/min</option></select>
+            <select aria-label="体積流量の単位" id="Q_unit"><option value="m3h">m³/h</option><option value="m3min">m³/min</option><option value="Lmin">L/min</option></select>
           </div>
           <p class="hint">水動力・軸動力・モーター入力の計算に使用。</p>
         </div>
         <div class="input-row">
-          <label>吸込側 液面高さ <span class="sym">z₁</span></label>
+          <label for="z1">吸込側 液面高さ <span class="sym">z₁</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="z1" step="any" placeholder="例：-2">
             <span class="unit-label">m</span>
@@ -83,7 +83,7 @@
           <p class="hint">ポンプ中心線基準。低い液面（吸い上げ）は負。全揚程・NPSH<sub>a</sub> で使用。</p>
         </div>
         <div class="input-row">
-          <label>吐出側 液面高さ <span class="sym">z₂</span></label>
+          <label for="z2">吐出側 液面高さ <span class="sym">z₂</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="z2" step="any" placeholder="例：15">
             <span class="unit-label">m</span>
@@ -91,18 +91,18 @@
           <p class="hint">ポンプ中心線基準（上向きが正）。全揚程で使用。</p>
         </div>
         <div class="input-row">
-          <label>吸込側 タンク圧 <span class="sym">P₁</span></label>
+          <label for="P1">吸込側 タンク圧 <span class="sym">P₁</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="P1" step="any" placeholder="例：0">
-            <select id="P1_unit"><option value="kPaG">kPaG</option><option value="MPaG">MPaG</option><option value="barG">barG</option></select>
+            <select aria-label="吸込側 タンク圧の単位" id="P1_unit"><option value="kPaG">kPaG</option><option value="MPaG">MPaG</option><option value="barG">barG</option></select>
           </div>
           <p class="hint">ゲージ圧。大気圧解放なら 0 kPaG。全揚程・NPSH<sub>a</sub> で使用。</p>
         </div>
         <div class="input-row">
-          <label>吐出側 タンク圧 <span class="sym">P₂</span></label>
+          <label for="P2">吐出側 タンク圧 <span class="sym">P₂</span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="P2" step="any" placeholder="例：0">
-            <select id="P2_unit"><option value="kPaG">kPaG</option><option value="MPaG">MPaG</option><option value="barG">barG</option></select>
+            <select aria-label="吐出側 タンク圧の単位" id="P2_unit"><option value="kPaG">kPaG</option><option value="MPaG">MPaG</option><option value="barG">barG</option></select>
           </div>
           <p class="hint">ゲージ圧。大気圧解放なら 0 kPaG。全揚程で使用。</p>
         </div>
@@ -110,18 +110,18 @@
         <p class="input-row-full" style="margin:22px 0 10px;padding-bottom:6px;border-bottom:1px solid #e4e4e7;font-weight:600;font-size:.95rem;color:#374151">配管損失</p>
 
         <div class="input-row">
-          <label>吸込配管 摩擦損失 <span class="sym">ΔP<sub>s</sub></span></label>
+          <label for="dPs">吸込配管 摩擦損失 <span class="sym">ΔP<sub>s</sub></span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="dPs" step="any" placeholder="例：8">
-            <select id="dPs_unit"><option value="kPa">kPa</option><option value="MPa">MPa</option><option value="bar">bar</option><option value="m">m（揚程換算）</option></select>
+            <select aria-label="吸込配管 摩擦損失の単位" id="dPs_unit"><option value="kPa">kPa</option><option value="MPa">MPa</option><option value="bar">bar</option><option value="m">m（揚程換算）</option></select>
           </div>
           <p class="hint">全揚程・NPSH<sub>a</sub> で使用。</p>
         </div>
         <div class="input-row">
-          <label>吐出配管 摩擦損失 <span class="sym">ΔP<sub>d</sub></span></label>
+          <label for="dPd">吐出配管 摩擦損失 <span class="sym">ΔP<sub>d</sub></span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="dPd" step="any" placeholder="例：80">
-            <select id="dPd_unit"><option value="kPa">kPa</option><option value="MPa">MPa</option><option value="bar">bar</option><option value="m">m（揚程換算）</option></select>
+            <select aria-label="吐出配管 摩擦損失の単位" id="dPd_unit"><option value="kPa">kPa</option><option value="MPa">MPa</option><option value="bar">bar</option><option value="m">m（揚程換算）</option></select>
           </div>
           <p class="hint">エルボ・バルブの相当長を含めた合計。全揚程で使用。</p>
         </div>
@@ -129,15 +129,15 @@
         <p class="input-row-full" style="margin:22px 0 10px;padding-bottom:6px;border-bottom:1px solid #e4e4e7;font-weight:600;font-size:.95rem;color:#374151">NPSH条件</p>
 
         <div class="input-row">
-          <label>飽和蒸気圧 <span class="sym">P<sub>v</sub></span></label>
+          <label for="Pv">飽和蒸気圧 <span class="sym">P<sub>v</sub></span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="Pv" step="any" placeholder="例：2.34">
-            <select id="Pv_unit"><option value="kPaA">kPa abs</option><option value="MPaA">MPa abs</option><option value="barA">bar abs</option><option value="mmHgA">mmHg abs</option></select>
+            <select aria-label="飽和蒸気圧の単位" id="Pv_unit"><option value="kPaA">kPa abs</option><option value="MPaA">MPa abs</option><option value="barA">bar abs</option><option value="mmHgA">mmHg abs</option></select>
           </div>
           <p class="hint">運転温度での飽和蒸気圧（絶対圧）。水20℃で約2.34 kPa abs。</p>
         </div>
         <div class="input-row">
-          <label>大気圧 <span class="sym">P<sub>a</sub></span></label>
+          <label for="Pa">大気圧 <span class="sym">P<sub>a</sub></span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="Pa" step="any" value="101.325" placeholder="101.325">
             <span class="unit-label">kPa abs</span>
@@ -145,7 +145,7 @@
           <p class="hint">ゲージ圧→絶対圧の換算に使用。通常は 101.325 kPa。</p>
         </div>
         <div class="input-row">
-          <label>必要NPSH（任意） <span class="sym">NPSH<sub>r</sub></span></label>
+          <label for="NPSHr">必要NPSH（任意） <span class="sym">NPSH<sub>r</sub></span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="NPSHr" step="any" placeholder="例：3">
             <span class="unit-label">m</span>
@@ -156,7 +156,7 @@
         <p class="input-row-full" style="margin:22px 0 10px;padding-bottom:6px;border-bottom:1px solid #e4e4e7;font-weight:600;font-size:.95rem;color:#374151">動力条件</p>
 
         <div class="input-row">
-          <label>ポンプ効率 <span class="sym">η<sub>p</sub></span></label>
+          <label for="eta_p">ポンプ効率 <span class="sym">η<sub>p</sub></span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="eta_p" step="any" value="0.70" placeholder="例：0.70">
             <span class="unit-label">［-］</span>
@@ -164,7 +164,7 @@
           <p class="hint">遠心ポンプは概ね 0.5〜0.8。軸動力の計算に使用。</p>
         </div>
         <div class="input-row">
-          <label>モーター効率 <span class="sym">η<sub>m</sub></span></label>
+          <label for="eta_m">モーター効率 <span class="sym">η<sub>m</sub></span></label>
           <div class="input-group">
             <input type="number" inputmode="decimal" id="eta_m" step="any" value="0.90" placeholder="例：0.90">
             <span class="unit-label">［-］</span>
