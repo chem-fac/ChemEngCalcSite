@@ -210,14 +210,16 @@ textarea:focus-visible {
   border-top: 2px solid var(--ink);
 }
 
-/* ===== Category index (top)：分野の目録。箱にせず細い罫線で区切る ===== */
+/* ===== Category index (top)：分野の目録。箱にせず細い罫線で区切る =====
+   アイコンを名前の横に小さく置き、幅に応じて列数を決める（PCで5〜6列・スマホで2列）。
+   本人「空間を無駄に使い過ぎ」（2026-10-18）を受けて、縦に積む大きいアイコンをやめた */
 .cat-index {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: 32px;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  column-gap: 24px;
   border-top: 1px solid var(--border);
 }
 .cat-index li {
@@ -226,26 +228,27 @@ textarea:focus-visible {
 }
 .cat-link {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 20px 0 18px;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
   color: var(--text);
 }
 .cat-link:hover { text-decoration: none; }
-/* 自作の装置線画は、このサイトだけの資産なので図として読める大きさで置く */
+/* 自作の装置線画（このサイトだけの資産）は、名前の目印として小さく添える */
 .cat-link img {
   flex: 0 0 auto;
-  width: 96px;
-  height: 80px;
+  width: 52px;
+  height: 44px;
   object-fit: contain;
-  object-position: left bottom;
+  object-position: center;
   display: block;
 }
 .cat-link-body { min-width: 0; }
 .cat-link-name {
   display: block;
-  font-size: 17px;
+  word-break: auto-phrase;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1.5;
   color: var(--brand);
@@ -1696,19 +1699,15 @@ details.formula .body {
 
 /* ===== Responsive ===== */
 @media (max-width: 1080px) {
-  .cat-index { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .info-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
   .footer-brand { align-items: flex-start; }
 }
-@media (max-width: 900px) {
-  .cat-index { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
 @media (max-width: 560px) {
-  /* 説明文を出さないので、スマホでも2列（アイコンの下に名前）で一覧できるようにする */
+  /* スマホは2列（アイコンは名前の横） */
   .cat-index { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
-  .cat-index .cat-link { gap: 8px; padding: 14px 0; }
-  .cat-index .cat-link img { width: 64px; height: 56px; }
+  .cat-index .cat-link img { width: 44px; height: 38px; }
+  .cat-link-name { font-size: 15px; }
 }
 @media (max-width: 768px) {
   html, body { overflow-x: hidden; max-width: 100vw; }
@@ -1736,7 +1735,6 @@ details.formula .body {
     font-size: 15px;
     white-space: nowrap;
   }
-  .cat-link img { width: 72px; height: 60px; }
   .tool-page { padding: 24px 16px; }
   .tool-hero { padding: 16px 0 4px; margin-bottom: 20px; }
   .tool-hero h1 { font-size: 22px; }
