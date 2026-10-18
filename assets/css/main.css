@@ -2564,3 +2564,25 @@ html:not(.js) .ta-js-only { display: none; }
 }
 .tool-provenance p { margin: 0; max-width: 40em; }
 .tool-provenance time { font-variant-numeric: tabular-nums; }
+
+/* 入力欄を対象ごとの組にする（高温側／低温側／装置条件） */
+.calc-card-stacked-input-grid .input-set {
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+  margin-bottom: 8px;
+}
+.input-set-title {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+.input-set-body {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 24px;
+  align-items: start;
+}
+@media (max-width: 400px) {
+  .input-set-body { grid-template-columns: 1fr; }
+}
