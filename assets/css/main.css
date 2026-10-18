@@ -2617,3 +2617,20 @@ html:not(.js) .ta-js-only { display: none; }
 @media (max-width: 400px) {
   .input-set-body { grid-template-columns: 1fr; }
 }
+
+/* ===== 分類の差し色（デザインの決まり §3） ===== */
+:root{--accent-ai:#315d84;--accent-nando:#0f6a75;--accent-odo:#8a5a12;--accent-kon:#283c87;--accent-murasaki:#7958a7;--accent-akamurasaki:#692963;--accent-enji:#a44b61;--accent-bengara:#752b11}
+[data-cat="fluid"],[data-c="fluid"],[data-cat="compressor"],[data-c="compressor"]{--cat:var(--accent-ai)}
+[data-cat="heat-transfer"],[data-c="heat-transfer"],[data-cat="moisture"],[data-c="moisture"],[data-cat="combustion"],[data-c="combustion"],[data-cat="energy-saving"],[data-c="energy-saving"]{--cat:var(--accent-bengara)}
+[data-cat="properties"],[data-c="properties"],[data-cat="material-balance"],[data-c="material-balance"],[data-cat="economics"],[data-c="economics"]{--cat:var(--accent-kon)}
+[data-cat="reaction"],[data-c="reaction"]{--cat:var(--accent-murasaki)}
+[data-cat="distillation"],[data-c="distillation"],[data-cat="absorption"],[data-c="absorption"],[data-cat="extraction"],[data-c="extraction"],[data-cat="adsorption"],[data-c="adsorption"],[data-cat="membrane"],[data-c="membrane"],[data-cat="environment"],[data-c="environment"]{--cat:var(--accent-odo)}
+[data-cat="mixing"],[data-c="mixing"],[data-cat="crystallization"],[data-c="crystallization"],[data-cat="separation"],[data-c="separation"],[data-cat="dust-collection"],[data-c="dust-collection"],[data-cat="powder"],[data-c="powder"],[data-cat="fluidized-bed"],[data-c="fluidized-bed"]{--cat:var(--accent-nando)}
+[data-cat="instrumentation-control"],[data-c="instrumentation-control"]{--cat:var(--accent-akamurasaki)}
+[data-cat="safety"],[data-c="safety"]{--cat:var(--accent-enji)}
+/* ツールのページ：見出しの上に分野名（■＋名前）を分野の色で。安全は三角 */
+.tool-hero .cat-tag[data-cat]{display:inline-flex;align-items:center;gap:.45em;margin:0 0 .4rem;font-size:.8125rem;font-weight:700;line-height:1.4;color:var(--cat,var(--text-sub));letter-spacing:.02em}
+.tool-hero .cat-tag[data-cat]::before{content:"";flex:none;width:.62em;height:.62em;background:var(--cat,var(--text-sub))}
+.tool-hero .cat-tag[data-cat="safety"]::before{width:.8em;height:.72em;clip-path:polygon(50% 0,100% 100%,0 100%)}
+/* 全ツール一覧：分野の見出しの前に■ */
+.ta-cat[data-c] .ta-cat-head::before{content:"";display:inline-block;width:.6em;height:.6em;margin-right:.5em;vertical-align:.08em;background:var(--cat,var(--text-sub))}
