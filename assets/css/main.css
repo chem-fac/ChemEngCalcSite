@@ -761,7 +761,6 @@ details.formula .body {
   margin: 0 0 14px;
   line-height: 1.7;
 }
-.tool-subcopy, .tool-desc { max-width: 45em; }
 .tool-desc {
   font-size: 15px;
   color: var(--text-sub);
@@ -1302,21 +1301,18 @@ details.formula .body {
   color: var(--text);
   margin: 24px 0 8px;
 }
-/* 本文・箇条書き・式を同じ幅（45字前後）の1本の段にそろえる。表と入力欄は全幅のまま */
+/* 本文・箇条書き・式は本文幅いっぱいに使う。45字前後の幅の上限は、途中で変に折り返すので付けない（2026-10-21 本人の指摘） */
 .explain-block p {
   font-size: 16px;
   line-height: 1.85;
   margin: 0 0 12px;
   color: var(--text);
-  max-width: 45em;
   line-break: strict;
 }
 .explain-block ul, .explain-block ol {
   padding-left: 22px;
   margin: 0 0 14px;
-  max-width: 45em;
 }
-.explain-block > .math-block { max-width: 45em; }
 /* PC幅では文中の式を途中で折り返さない（スマホは折り返しを許してはみ出しを防ぐ） */
 @media (min-width: 769px) {
   .explain-block p .katex { white-space: nowrap; }
@@ -1326,7 +1322,6 @@ details.formula .body {
   line-height: 1.8;
   margin-bottom: 6px;
 }
-.explain-block .symbol-list { max-width: 45em; }
 .explain-block .symbol-list li { font-size: 15px; }
 /* 長い式はスマホで横にはみ出すので、式の中だけ横スクロールにする */
 .math-block, .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
