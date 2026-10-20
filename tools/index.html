@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>全ツール一覧 | 化学工学計算支援ツール</title>
-<meta name="description" content="公開中の化学工学計算ツール45本の一覧です。分野・カテゴリ・キーワードで絞り込んで探せます。">
+<meta name="description" content="公開中の化学工学計算ツール46本の一覧です。分野・カテゴリ・キーワードで絞り込んで探せます。">
 <link rel="canonical" href="https://tools.chem-fac.com/tools/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="化学工学計算支援ツール">
 <meta property="og:title" content="全ツール一覧 | 化学工学計算支援ツール">
-<meta property="og:description" content="公開中の化学工学計算ツール45本の一覧です。分野・カテゴリ・キーワードで絞り込んで探せます。">
+<meta property="og:description" content="公開中の化学工学計算ツール46本の一覧です。分野・カテゴリ・キーワードで絞り込んで探せます。">
 <meta property="og:url" content="https://tools.chem-fac.com/tools/">
 <meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools.png">
 <meta property="og:image:width" content="1200">
@@ -60,7 +60,7 @@
     <span class="current">ツール一覧</span>
   </nav>
   <h1>全ツール一覧</h1>
-  <p class="ta-lead">公開中の計算ツール45本を、分野・カテゴリ別にまとめています。キーワードと組み合わせて絞り込めます。</p>
+  <p class="ta-lead">公開中の計算ツール46本を、分野・カテゴリ別にまとめています。キーワードと組み合わせて絞り込めます。</p>
 </div>
 
 <main class="ta-layout">
@@ -99,8 +99,9 @@
           <a class="ta-rail-c" href="#c-mixing" data-c="mixing">撹拌混合<span class="ta-n" data-n-c="mixing">7</span></a>
         </div>
         <div class="ta-rail-block">
-          <a class="ta-rail-g" href="#g-mechanical" data-g="mechanical">機械的分離・粉体<span class="ta-n" data-n-g="mechanical">1</span></a>
+          <a class="ta-rail-g" href="#g-mechanical" data-g="mechanical">機械的分離・粉体<span class="ta-n" data-n-g="mechanical">2</span></a>
           <a class="ta-rail-c" href="#c-separation" data-c="separation">固液分離<span class="ta-n" data-n-c="separation">1</span></a>
+          <a class="ta-rail-c" href="#c-dust-collection" data-c="dust-collection">集塵<span class="ta-n" data-n-c="dust-collection">1</span></a>
         </div>
         <div class="ta-rail-block">
           <a class="ta-rail-g" href="#g-instrument" data-g="instrument">計装・制御<span class="ta-n" data-n-g="instrument">1</span></a>
@@ -115,8 +116,8 @@
   <div class="ta-main">
 
     <div class="ta-statusbar">
-      <p class="ta-count ta-js-only" role="status"><span class="ta-of">全45本中</span><b id="taShown">45</b>本を表示</p>
-      <p class="ta-count-static">全45本</p>
+      <p class="ta-count ta-js-only" role="status"><span class="ta-of">全46本中</span><b id="taShown">46</b>本を表示</p>
+      <p class="ta-count-static">全46本</p>
       <div class="ta-chips ta-js-only" id="taChips"></div>
       <button type="button" class="ta-reset ta-js-only" id="taReset" hidden>絞り込みを解除</button>
     </div>
@@ -245,13 +246,19 @@
       </section>
       <section class="ta-group" id="g-mechanical" data-g="mechanical">
         <div class="ta-group-head">
-          <h2>機械的分離・粉体<span class="ta-gn" data-n-g="mechanical">1</span></h2>
+          <h2>機械的分離・粉体<span class="ta-gn" data-n-g="mechanical">2</span></h2>
           <p class="ta-group-lead">力学的に分ける。固液分離・集塵と粉体の取り扱い。</p>
         </div>
         <section class="ta-cat" id="c-separation" data-c="separation">
           <h3 class="ta-cat-head">固液分離<span class="ta-cn" data-n-c="separation">1</span></h3>
           <ul class="ta-tools">
             <li><a class="ta-row" href="separation/settling-velocity/" data-kw="沈降速度 終末速度 terminal velocity ストークス Stokes アレン Allen ニュートン Newton 抗力係数 Cd 粒子レイノルズ数 固液分離 重力沈降 沈降分離 スラリー 粒子径"><h4 class="ta-rname">球形粒子の終末沈降速度</h4><span class="ta-rdesc">固液分離で、固体粒子が液中を沈むときの終末沈降速度を、ストークス・アレン・ニュートンの式から計算します。粒子レイノルズ数で領域を自動判定し、粒子径による沈降速度の変化を早見表で示します。</span></a></li>
+          </ul>
+        </section>
+        <section class="ta-cat" id="c-dust-collection" data-c="dust-collection">
+          <h3 class="ta-cat-head">集塵<span class="ta-cn" data-n-c="dust-collection">1</span></h3>
+          <ul class="ta-tools">
+            <li><a class="ta-row" href="dust-collection/cyclone/" data-kw="サイクロン カット径 50%分離径 分離効率 分級曲線 集塵 粉塵 ダスト 圧損 圧力損失 有効旋回回数 入口流速 Lapple cyclone cut size d50 dust collector"><h4 class="ta-rname">サイクロン分離効率（Lapple）</h4><span class="ta-rdesc">サイクロンの 50% 分離径（カット径 d_pc）、粒径ごとの分離効率、概略圧損を Lapple モデルで計算します。集塵装置の概略選定に。</span></a></li>
           </ul>
         </section>
       </section>
@@ -324,8 +331,8 @@
 
 <script>
 (function () {
-  var CATNAME = {"properties": "物性・熱力学", "fluid": "流動", "heat-transfer": "伝熱", "distillation": "蒸留", "absorption": "吸収", "extraction": "抽出", "adsorption": "吸着", "moisture": "調湿・乾燥", "reaction": "反応", "mixing": "撹拌混合", "separation": "固液分離", "instrumentation-control": "計装・制御", "economics": "経済性"};
-  var GROUPCAT = {"basis": ["properties"], "transport": ["fluid"], "heat": ["heat-transfer"], "masstransfer": ["distillation", "absorption", "extraction", "adsorption", "moisture"], "reaction": ["reaction", "mixing"], "mechanical": ["separation"], "instrument": ["instrumentation-control"], "economics": ["economics"]};
+  var CATNAME = {"properties": "物性・熱力学", "fluid": "流動", "heat-transfer": "伝熱", "distillation": "蒸留", "absorption": "吸収", "extraction": "抽出", "adsorption": "吸着", "moisture": "調湿・乾燥", "reaction": "反応", "mixing": "撹拌混合", "separation": "固液分離", "dust-collection": "集塵", "instrumentation-control": "計装・制御", "economics": "経済性"};
+  var GROUPCAT = {"basis": ["properties"], "transport": ["fluid"], "heat": ["heat-transfer"], "masstransfer": ["distillation", "absorption", "extraction", "adsorption", "moisture"], "reaction": ["reaction", "mixing"], "mechanical": ["separation", "dust-collection"], "instrument": ["instrumentation-control"], "economics": ["economics"]};
 
   var q = document.getElementById('taQuery');
   var list = document.getElementById('taList');

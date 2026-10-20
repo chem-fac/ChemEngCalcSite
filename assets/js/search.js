@@ -289,6 +289,12 @@
       keywords: ["集塵", "粉塵", "ダスト", "サイクロン", "バグフィルタ", "電気集塵", "粒子", "dust", "cyclone", "bag filter", "particle"]
     },
     {
+      title: "サイクロン分離効率（Lapple）",
+      url: "tools/dust-collection/cyclone/",
+      category: "集塵",
+      keywords: ["サイクロン", "カット径", "50%分離径", "分離効率", "分級曲線", "集塵", "粉塵", "ダスト", "圧損", "圧力損失", "有効旋回回数", "入口流速", "Lapple", "cyclone", "cut size", "d50", "dust collector"]
+    },
+    {
       title: "ガス吸収の最小溶媒流量・液ガス比",
       url: "tools/absorption/minimum-solvent-flow/",
       category: "吸収",
