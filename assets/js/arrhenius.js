@@ -86,7 +86,7 @@
       const Ea = R * Math.log(k2 / k1) / (1/T1 - 1/T2);
       // A = k1 · exp(Ea / (R T1))
       const A = k1 * Math.exp(Ea / (R * T1));
-      if(![Ea,A].every(v => isFinite(v))) return setError('入力値の組み合わせで計算結果が数値範囲を超えました。');
+      if(!isFinite(Ea) || !isFinite(A) || A <= 0) return setError('入力値の組み合わせで計算結果が数値範囲を超えました。');
       const Ea_kJ = Ea / 1000;
       const Ea_kcal = Ea / 4184;
       $('result-area').innerHTML = `
