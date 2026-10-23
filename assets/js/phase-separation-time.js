@@ -55,6 +55,7 @@
     const res = terminalVelocity(dRho, d, mu, rhoC);
     const ut = res.u, Re = res.Re, regime = res.regime;
     const t = H / ut;
+    if (![ut, Re, t, ut * 3600].every(isFinite) || !(ut > 0) || !(t > 0)) return setError('入力値の組み合わせで数値範囲を超えました。値の桁を見直してください。');
     const moveWord = (disp === 'light') ? '浮上' : '沈降';
 
     // 液滴径による感度（同じ Δρ・μ_c・H）。入力した液滴径も必ず表に差し込んでハイライトする
@@ -74,6 +75,7 @@
     }).join('');
 
     const warns = [];
+    if (Re >= 1e5) warns.push('粒子レイノルズ数がニュートン域の目安（10⁵未満）を超えています。抗力係数一定の近似は適用範囲外です。');
     warns.push('この値は液滴が界面まで移動する「沈降律速」の概算です。実際に澄むまでの時間は液滴どうしの合体（合一）にも依存し、界面活性物質・微粒子・エマルジョン化があると大幅に延びます。');
     warns.push('設計・トラブル検討では、分液ロートやメスシリンダーでの静置試験で分散層の消失時間・乳化層の有無を確認してください。');
 
