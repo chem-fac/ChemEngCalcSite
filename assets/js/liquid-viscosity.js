@@ -57,6 +57,7 @@
         const mu = muInput * MU_TO_SI[$('mu-unit').value];
         const rho = rhoInput * RHO_TO_SI[$('rho-mu-unit').value];
         const nu = mu / rho;
+        if (![mu, rho, nu, nu * 1e6].every((v) => Number.isFinite(v) && v > 0)) throw new Error('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
         $('result-area').innerHTML =
           '<div class="result-target">動粘度 ν</div>' +
           '<div class="result-value-big">' + formatNumber(nu * 1e6) + ' <span class="unit">mm²/s（cSt）</span></div>' +
@@ -72,6 +73,7 @@
         const nu = nuInput * NU_TO_SI[$('nu-unit').value];
         const rho = rhoInput * RHO_TO_SI[$('rho-nu-unit').value];
         const mu = rho * nu;
+        if (![nu, rho, mu, mu * 1000].every((v) => Number.isFinite(v) && v > 0)) throw new Error('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
         $('result-area').innerHTML =
           '<div class="result-target">粘度 μ</div>' +
           '<div class="result-value-big">' + formatNumber(mu * 1000) + ' <span class="unit">mPa·s（cP）</span></div>' +
