@@ -439,7 +439,7 @@
       <table class="unit-table"><tbody>
         ${renderRows([
           ['階段ステップ数（平衡線往復回数）', stages.ok ? fmtNum(stages.fullSteps) : '-'],
-          ['平衡段数の切り上げ（リボイラー込み）', actualStages !== null ? `${actualStages} 段` : '-'],
+          ['ステップ数の切り上げ（リボイラー込み・効率換算の前）', actualStages !== null ? `${actualStages} 段` : '-'],
           ['フィード段', stages.feedStage ? `第${stages.feedStage}段付近` : '-'],
           ['最小還流比 R<sub>min</sub>', fmtNum(rminData.Rmin)],
           ['R/R<sub>min</sub>', isFinite(rminData.Rmin) ? fmtNum(R / rminData.Rmin) : '-'],
