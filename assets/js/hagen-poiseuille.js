@@ -65,6 +65,7 @@
       U = Q / A;
     }
     const uMax = 2 * U; // 円管中央の最大流速
+    if (![R, A, U, Q, uMax, Q * 60000, A * 10000, d * 1000].every(positive)) return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
 
     // 任意：半径位置 r での流速
     let rEval = NaN, uEval = NaN, rOut = false;
@@ -81,6 +82,9 @@
     const mu = getSI('mu');
     const L = getSI('L');
     const rho = getSI('rho');
+    for (const [id, value, label] of [['mu', mu, '粘度'], ['L', L, '管長'], ['rho', rho, '密度']]) {
+      if ($(id).value !== '' && !positive(value)) return setError(`${label}は正の数値で入力してください。省略する場合は空欄にしてください。`);
+    }
     let dP = NaN, dpdx = NaN, tauW = NaN, Re = NaN;
     if (positive(mu) && positive(L)) {
       dP = 8 * mu * L * Q / (Math.PI * Math.pow(R, 4)); // ΔP = 8μLQ/(πR^4)
@@ -92,6 +96,11 @@
     }
     if (positive(rho) && positive(mu)) {
       Re = rho * U * d / mu;
+    }
+    if ((positive(mu) && ![dpdx, tauW].every(positive)) ||
+        (positive(mu) && positive(L) && !positive(dP)) ||
+        (positive(rho) && positive(mu) && !positive(Re))) {
+      return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
     }
 
     drawProfile({ uMax, U, R, rEval: rOut ? NaN : rEval, uEval });
