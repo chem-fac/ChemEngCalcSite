@@ -275,11 +275,15 @@
     const removal = (1 - yRatioOut / yRatioIn) * 100;
     const inletTotalLiquid = operatingSolvent / (1 - xIn);
     const equilibriumApproach = (xRatioOut - xRatioIn) / deltaXEq * 100;
+    if (![gasInputKmolH, minRatio, operatingRatio, operatingSolvent, absorbed, removal, inletTotalLiquid, equilibriumApproach].every(Number.isFinite)) {
+      return setError('入力値の組み合わせで数値範囲を超えました。流量と倍率の桁を見直してください。');
+    }
 
     if (!(xOut < xEq)) return setError('計算された出口液組成が平衡液組成以上です。運転倍率を大きくしてください。');
 
     const outputFactor = FLOW_FROM_KMOL_H[flowUnit];
     const outputUnit = FLOW_LABEL[flowUnit];
+    if (![operatingSolvent, minSolvent, gasSoluteFree, inletTotalLiquid, absorbed].every(v => Number.isFinite(v * outputFactor))) return setError('流量の単位換算で数値範囲を超えました。値の桁を見直してください。');
     const warnings = [];
     if (factor < 1.25) warnings.push('運転液量が最小液量に近く、必要塔高が大きくなりやすい条件です。');
     if (equilibriumApproach > 80) warnings.push('出口液組成が平衡組成に近いため、塔底側の物質移動推進力が小さくなります。');
