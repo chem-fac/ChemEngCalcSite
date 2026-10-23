@@ -413,7 +413,7 @@
     if (!(xB < zF && zF < xD)) return setError('組成は xB < zF < xD となるように入力してください。');
     if (!isFinite(R) || R <= 0) return setError('還流比 R は正の数値で入力してください。');
     if (!isFinite(q)) return setError('供給状態 q を入力してください。');
-    if (isFinite(eff) && (eff <= 0 || eff > 100)) return setError('総合段効率は 0〜100 % の範囲で入力してください。');
+    if ($('eff').value !== '' && (!isFinite(eff) || eff <= 0 || eff > 100)) return setError('総合段効率は 0 より大きく 100 % 以下で入力してください。');
 
     const feed = feedIntersection(R, xD, q, zF);
     if (!feed || !isFinite(feed.x) || !isFinite(feed.y)) return setError('濃縮部操作線と q線の交点を計算できません。q と R を確認してください。');
@@ -428,7 +428,7 @@
     const rminData = calculateRmin(alpha, q, zF, xD);
     const stages = buildStages({ alpha, xD, xB, xFeed: feed.x, R, strip });
     const actualStages = stages.ok ? stages.actualStages : null;
-    const efficiencyStages = isFinite(eff) && stages.ok ? Math.ceil(stages.theoreticalStages / (eff / 100)) : null;
+    const efficiencyStages = isFinite(eff) && stages.ok ? Math.ceil(Math.max(0, stages.theoreticalStages - 1) / (eff / 100)) : null;
     const warn = [];
     if (isFinite(rminData.Rmin) && R <= rminData.Rmin) warn.push('入力還流比が最小還流比以下です。有限段数にならない、または段数が非常に大きくなる可能性があります。');
     if (!stages.ok) warn.push(stages.reason);
@@ -439,17 +439,17 @@
       <table class="unit-table"><tbody>
         ${renderRows([
           ['階段ステップ数（平衡線往復回数）', stages.ok ? fmtNum(stages.fullSteps) : '-'],
-          ['実際の段数（部分段切り上げ）', actualStages ? `${actualStages} 段` : '-'],
+          ['平衡段数の切り上げ（リボイラー込み）', actualStages !== null ? `${actualStages} 段` : '-'],
           ['フィード段', stages.feedStage ? `第${stages.feedStage}段付近` : '-'],
           ['最小還流比 R<sub>min</sub>', fmtNum(rminData.Rmin)],
           ['R/R<sub>min</sub>', isFinite(rminData.Rmin) ? fmtNum(R / rminData.Rmin) : '-'],
           ['濃縮部/q線交点 x', fmtNum(feed.x)],
           ['濃縮部/q線交点 y', fmtNum(feed.y)],
           ['回収部操作線', `y = ${fmtNum(strip.m)} x ${strip.b >= 0 ? '+' : '-'} ${fmtNum(Math.abs(strip.b))}`],
-          ['総合段効率換算', efficiencyStages ? `${efficiencyStages} 段` : '未入力'],
+          ['総合段効率換算（塔内の実段数）', efficiencyStages !== null ? `${efficiencyStages} 段` : '未入力'],
         ])}
       </tbody></table>
-      <div class="result-note">段数の定義：<br>・<b>理論段数 N</b> = リボイラーを 1 段としてカウントした合計段数。表示値は部分段（端数）を含む小数値。<br>・<b>階段ステップ数</b> = McCabe-Thiele 図で平衡線と操作線の間を往復した回数（=塔頂から缶出まで描いた階段の段数）。リボイラーを 1 段とすると、塔内段数 = 階段ステップ数 − 1 になります。<br>・全凝縮コンデンサーは平衡段に含めません。部分段がある場合は切り上げて「実際の段数」としています。</div>
+      <div class="result-note">段数の定義：<br>・<b>理論段数 N</b> = リボイラーを 1 段としてカウントした合計段数。表示値は部分段（端数）を含む小数値。<br>・<b>階段ステップ数</b> = McCabe-Thiele 図で平衡線と操作線の間を往復した回数（=塔頂から缶出まで描いた階段の段数）。リボイラーを 1 段とすると、塔内段数 = 階段ステップ数 − 1 になります。<br>・全凝縮コンデンサーは平衡段に含めません。総合段効率 E（入力した % 値を100で割った値）は塔内の棚段に適用し、塔内の実段数 = ceil{max(0, N − 1)/E} とします。リボイラーは効率換算から除きます。</div>
       ${warn.length ? `<div class="result-note">${warn.join('<br>')}</div>` : ''}
       <div class="result-detail-label">各段の組成</div>
       <div class="stage-composition-wrap">
