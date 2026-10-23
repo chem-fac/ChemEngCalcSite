@@ -42,7 +42,7 @@
       const hasW = document.querySelector(`[data-w="${i}"]`).value !== '';
       const hasCp = document.querySelector(`[data-cp="${i}"]`).value !== '';
       if (hasW !== hasCp) return setError(`${i + 1}行目は「分率／量」と「比熱」の両方を入力してください。`);
-      if (hasW && (!(w > 0) || !(cp > 0))) return setError(`${i + 1}行目の「分率／量」と「比熱」は正の値で入力してください。`);
+      if (hasW && (!isFinite(w) || !isFinite(cp) || !(w > 0) || !(cp > 0))) return setError(`${i + 1}行目の「分率／量」と「比熱」は正の値で入力してください。`);
       if (isFinite(w) && w > 0 && isFinite(cp) && cp > 0) {
         components.push({ name, w, cp });
       }
@@ -54,6 +54,7 @@
     const sumCpW = components.reduce((s, c) => s + c.w * c.cp * factor, 0);
     const cp_mix_SI = sumCpW / sumW;  // J/(kg·K) or J/(mol·K)
     const cp_mix_disp = cp_mix_SI / factor;  // back to user unit
+    if (![sumW, sumCpW, cp_mix_SI, cp_mix_disp].every(v => isFinite(v) && v > 0)) return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
 
     const isMolarMode = isMolar();
     const unitLabel = $('cp_unit').selectedOptions[0].text;
