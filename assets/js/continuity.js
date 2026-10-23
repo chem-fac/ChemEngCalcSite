@@ -69,7 +69,7 @@
     const u2 = u1 * (A1 / A2);
     const Q = u1 * A1;
 
-    for (const [k, v] of Object.entries({ A1, A2, u2, Q })) {
+    for (const [k, v] of Object.entries({ A1, A2, u2, Q, outputU: u2 * 100, outputQ: Q * 60000, outputA1: A1 * 10000, outputA2: A2 * 10000, outputD1: D1 * 1000, outputD2: D2 * 1000 })) {
       if (!isFinite(v) || v <= 0) {
         return setError('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
       }
