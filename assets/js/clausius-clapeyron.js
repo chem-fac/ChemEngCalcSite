@@ -29,8 +29,8 @@
     if (!positive(P1) || !positive(P2)) return setError('蒸気圧は正の値で入力してください。');
     if (Math.abs(T1 - T2) < 1e-9) return setError('T₁ と T₂ は別の温度にしてください（同じ温度では蒸発熱が求まりません）。');
 
-    const dH = R * Math.log(P2 / P1) / (1 / T1 - 1 / T2);   // J/mol
-    if (!(dH > 0)) {
+    const dH = R * (Math.log(P2) - Math.log(P1)) / (1 / T1 - 1 / T2);   // J/mol
+    if (!positive(dH)) {
       return setError('求めた蒸発熱が正になりません。高温側ほど蒸気圧が高くなる関係（温度↑で P↑）になっているか、データを確認してください。');
     }
     const rows2 = [['蒸発潜熱 ΔH_vap', `${fmtNum(dH / 1000)} kJ/mol（${fmtNum(dH)} J/mol）`]];
@@ -40,6 +40,7 @@
     if (isFinite(T3)) {
       if (!positive(T3)) return setError('T₃ は正の絶対温度で入力してください。');
       const P3 = P1 * Math.exp(-dH / R * (1 / T3 - 1 / T1));
+      if (!positive(P3)) return setError('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
       rows2.push(['T₃ での蒸気圧 P₃', pRow(P3)]);
       p3line = `T₃ = ${fmtNum(T3)} K での外挿蒸気圧を表示しています。`;
     }
@@ -60,9 +61,10 @@
     const T1 = tempK('pT1'), P1 = presPa('pP1'), dH = val('pdH') * 1000, T2 = tempK('pT2');
     if (!positive(T1) || !positive(T2)) return setError('温度は正の絶対温度で入力してください。');
     if (!positive(P1)) return setError('基準蒸気圧 P₁ を正の値で入力してください。');
-    if (!(dH > 0)) return setError('蒸発潜熱 ΔH_vap を正の値（kJ/mol）で入力してください。');
+    if (!positive(dH)) return setError('蒸発潜熱 ΔH_vap を正の値（kJ/mol）で入力してください。');
 
     const P2 = P1 * Math.exp(-dH / R * (1 / T2 - 1 / T1));
+    if (!positive(P2)) return setError('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
     $('result-area').innerHTML = `
       <div class="result-target">T₂ での蒸気圧 P₂</div>
       <div class="result-value-big">${fmtNum(P2 / 1000)} <span class="unit">kPa</span></div>
