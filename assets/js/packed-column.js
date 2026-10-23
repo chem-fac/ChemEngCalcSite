@@ -17,6 +17,7 @@
     const hS = given(hetpS) ? hetpS : hetpR;
     const NR = given(nR) ? nR : 0;
     const NS = given(nS) ? nS : 0;
+    if (![NR * hetpR, NS * hS, NR * hetpR + NS * hS].every(isFinite)) return { error: '充填高さが数値範囲を超えました。値の桁を見直してください。' };
     return { mode: 'height', NR, NS, hetpR, hetpS: hS, ZR: NR * hetpR, ZS: NS * hS };
   }
 
@@ -32,6 +33,7 @@
     const hS = given(hetpS) ? hetpS : hetpR;
     const ZR = given(zR) ? zR : 0;
     const ZS = given(zS) ? zS : 0;
+    if (![ZR / hetpR, ZS / hS, ZR / hetpR + ZS / hS].every(isFinite)) return { error: '理論段数が数値範囲を超えました。値の桁を見直してください。' };
     return { mode: 'stages', ZR, ZS, hetpR, hetpS: hS, NR: ZR / hetpR, NS: ZS / hS };
   }
 
@@ -44,6 +46,7 @@
     if (!pos(Z)) return { error: '充填高さ Z は正の値を入力してください。' };
     const Smin = Math.log((xTop / (1 - xTop)) * ((1 - xBot) / xBot)) / Math.log(a);
     const N = Smin - 1;
+    if (![Smin, Z / N].every(isFinite)) return { error: 'HETPが数値範囲を超えました。値の桁を見直してください。' };
     if (!(N > 0)) {
       return { error: `この組成差はステップ数 ${Smin.toFixed(2)}（リボイラー込み）で、リボイラー分の1段を引くと充填部の段数が 0 以下になります。α と組成を見直してください。` };
     }
