@@ -62,16 +62,19 @@
     const Q = getSI('Q');
     const allowance = val('allowance');
     if (!positive(Q)) return setError('熱量 Q を正の数値で入力してください。');
+    if ($('allowance').value !== '' && !isFinite(allowance)) return setError('余裕率は 0〜500% の数値で入力してください。');
     if (isFinite(allowance) && allowance < 0) return setError('余裕率は 0 以上の値で入力してください（マイナスは不可）。');
     if (isFinite(allowance) && allowance > 500) return setError('余裕率が極端に大きい値です（500%以下で入力してください）。');
     const factor = 1 + (isFinite(allowance) ? allowance : 0) / 100;
     const Qreq = Q * factor;
+    if (!positive(Qreq)) return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
     const warns = [];
     if (isFinite(allowance) && allowance > 100) warns.push(`余裕率 ${allowance}% は通常設計の目安（10〜30%程度）を大きく超えています。入力値を確認してください。`);
     if (mode === 'steam') {
       const latent = getSI('latent');
       if (!positive(latent)) return setError('蒸気潜熱を正の数値で入力してください。');
       const mdot = Qreq / latent;
+      if (![mdot, mdot * 3600].every(positive)) return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
       $('result-area').innerHTML = `
         <div class="result-target">必要蒸気量</div>
         <div class="result-value-big">${fmtNum(mdot * 3600)} <span class="unit">kg/h</span></div>
@@ -104,6 +107,8 @@
     const dT = mode === 'cooling' ? Tout - Tin : Tin - Tout;
     if (dT < 1) warns.push(`温度差 ΔT = ${fmtNum(dT)} K は小さく、わずかな入力誤差で流量が大きく変動します。一般に冷却水は ΔT = 5〜10 K、熱媒油は 10〜30 K を目安に設計します。`);
     const mdot = Qreq / (cp * dT);
+    if (![dT, mdot, mdot * 3600].every(positive) || (positive(rho) && !positive(mdot / rho * 60000))) return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
+    if ($('rho').value !== '' && !positive(rho)) return setError('密度は正の数値で入力してください。省略する場合は空欄にしてください。');
     const volumeRows = positive(rho)
       ? `<tr><td>体積流量</td><td class="num">${fmtNum(mdot / rho * 3600)} m³/h</td></tr><tr><td>体積流量</td><td class="num">${fmtNum(mdot / rho * 60000)} L/min</td></tr>`
       : '';
