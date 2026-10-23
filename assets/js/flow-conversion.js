@@ -126,7 +126,7 @@
       if (dInfo.error) return setError(dInfo.error);
       const A = calcArea(dInfo.D);
       const Q = u * A;
-      if (!validateOutputs({ A, Q })) return;
+      if (!validateOutputs({ A, Q, outputQ: Q * 3600000, outputA: A * 10000, outputD: dInfo.D * 1000 })) return;
       result = renderFlowrate(Q, A, u, dInfo);
     } else if (currentMode === 'velocity') {
       const Q = getSI('Q');
@@ -136,7 +136,7 @@
       if (dInfo.error) return setError(dInfo.error);
       const A = calcArea(dInfo.D);
       const u = Q / A;
-      if (!validateOutputs({ A, u })) return;
+      if (!validateOutputs({ A, u, outputU: u * 100, outputQ: Q * 3600, outputA: A * 10000, outputD: dInfo.D * 1000 })) return;
       result = renderVelocity(u, A, Q, dInfo);
     } else if (currentMode === 'diameter') {
       const Q = getSI('Q');
@@ -145,7 +145,7 @@
       if (Q <= 0 || u <= 0) return setError('体積流量と平均流速は正の値で入力してください。');
       const A = Q / u;
       const D = Math.sqrt(4 * A / Math.PI);
-      if (!validateOutputs({ A, D })) return;
+      if (!validateOutputs({ A, D, outputD: D * 1000, outputA: A * 10000, outputQ: Q * 3600 })) return;
       result = renderDiameter(D, A, Q, u);
     }
 
