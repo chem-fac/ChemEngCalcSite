@@ -75,6 +75,7 @@
 
     // 抗力係数を逆算（つり合い式から）。3 領域いずれでも C_D = 4 g Δρ d / (3 ρ_f v_t²)
     const Cd = 4 * G * dRho * d / (3 * rhoF * v * v);
+    if (![Re, Cd, v * 3600].every(isFinite) || !(Cd > 0)) return setError('入力値の組み合わせで数値範囲を超えました。値の桁を見直してください。');
 
     // 粒子径による感度（同じ Δρ・μ・流体）。入力した粒子径も必ず表に差し込んでハイライト
     const thL = 'style="text-align:left;padding:8px 12px;background:var(--brand-faint);font-size:12px;font-weight:700;color:var(--text-sub);border-bottom:1px solid var(--border)"';
@@ -107,6 +108,7 @@
         ${rows}
       </tbody></table>
       <div class="result-meta">
+        ${Re >= 1e5 ? '<div class="result-note">※ 粒子レイノルズ数がニュートン域の目安（10⁵未満）を超えています。抗力係数一定の近似は適用範囲外です。</div>' : ''}
         <div class="result-note">※ ストークス域では v_t ∝ d²。粒子径が 1/10 になると沈降速度は 1/100 になります。</div>
         <div class="result-note">※ 球形・単一粒子・希薄分散の前提値です。濃厚スラリーでは干渉沈降（Richardson-Zaki 等）の補正が必要です。</div>
       </div>
