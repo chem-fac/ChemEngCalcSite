@@ -114,11 +114,11 @@
     <div class="math-block">$$ \mathrm{RH} = \dfrac{P_v}{P_\mathrm{sat}(T_{db})}\times 100\,[\%] $$</div>
 
     <h3>露点温度</h3>
-    <p>次の式を満たす温度 $T_{dp}$ を、本ツールでは二分法で求めています。</p>
+    <p>次の式を満たす温度 $T_{dp}$ を、本ツールでは二分法で求めています。水蒸気分圧が0の場合に有限の露点はありません。露点が −80 °C未満の場合は計算範囲外として表示します。</p>
     <div class="math-block">$$ P_\mathrm{sat}(T_{dp}) = P_v $$</div>
 
     <h3>湿球温度</h3>
-    <p>断熱飽和過程のエネルギー収支から、$T_{wb}$ は次の式を満たす値として反復で求めます。</p>
+    <p>断熱飽和過程のエネルギー収支から、$T_{wb}$ は次の式を満たす値として反復で求めます。探索範囲は −80 °Cから乾球温度までとし、収支を満たす解がない場合はエラーにします。</p>
     <div class="math-block">$$ (W_s(T_{wb}) - W)\,h_{fg}(T_{wb}) = (c_{p,a} + W\,c_{p,v})(T_{db} - T_{wb}) $$</div>
 
     <h3>Stull近似式</h3>
@@ -136,7 +136,7 @@
     <div class="math-block">$$ h = 1.006\,T_{db} + W\,(2501 + 1.86\,T_{db})\quad [\text{kJ/kg 乾}] $$</div>
 
     <h3>比容積</h3>
-    <div class="math-block">$$ v = \dfrac{R_a(T_{db}+273.15)(1 + 1.6078\,W)}{P_\mathrm{atm}}\quad [\text{m}^3/\text{kg 乾}] $$</div>
+    <div class="math-block">$$ v = \dfrac{1000R_a(T_{db}+273.15)(1 + 1.6078\,W)}{P_\mathrm{atm}}\quad [\text{m}^3/\text{kg 乾}] $$</div>
     <ul class="symbol-list">
       <li>$T_{db}$：乾球温度［°C］</li>
       <li>$T_{wb}$：湿球温度［°C］</li>
@@ -146,7 +146,7 @@
       <li>$P_v$：水蒸気分圧［Pa］</li>
       <li>$P_\mathrm{atm}$：大気圧［Pa］</li>
       <li>$h_{fg}$：水の蒸発潜熱［kJ/kg］</li>
-      <li>$R_a$：乾燥空気の気体定数（0.287 kJ/(kg·K)）</li>
+      <li>$R_a$：乾燥空気の気体定数（0.287 kJ/(kg·K)）。比容積の式では $P_\mathrm{atm}$ をPaで使い、係数1000でkJをJに換算します</li>
     </ul>
 
     <p>本ツールは飽和蒸気圧にBuck式を採用しています。乾球温度 −40〜50 °Cの範囲で使用し、高温域や大きな減圧条件では蒸気表やより厳密な湿り空気計算で再評価してください。混合比 $W$ が負になる入力や過飽和となる入力はエラーにします。</p>
@@ -185,7 +185,7 @@
   </section>
   <aside class="tool-provenance" aria-label="作成者と確認日">
     <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
-    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-23">2026年10月23日</time>。</p>
   </aside>
 
 </main>

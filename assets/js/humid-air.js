@@ -19,7 +19,8 @@
 
   // dewpoint via bisection: solve Psat(Tdp) = Pv
   function dewpoint(Pv) {
-    if (Pv <= 0) return -100;
+    // No finite dew point for dry air; do not return a fabricated search limit.
+    if (!(Pv > 0) || Pv < Psat(-80) || Pv > Psat(200)) return NaN;
     let lo = -80, hi = 200;
     for (let i = 0; i < 100; i++) {
       const mid = (lo + hi) / 2;
@@ -51,29 +52,18 @@
 
   // Iterate wet bulb temp
   function wetBulb(Tdb, W, Patm) {
-    let Twb = Tdb - 5;
-    for (let i = 0; i < 200; i++) {
-      const Pv_s = Psat(Twb);
-      const Ws = W_from_Pv(Pv_s, Patm);
-      const hfg = h_fg(Twb);
-      const cpm = 1.006 + W * 1.86;  // moist air specific heat per kg dry air
-      // Adiabatic sat: Ws - W = (cpm/hfg)·(Tdb - Twb)
-      const f = (Ws - W) * hfg - cpm * (Tdb - Twb);
-      // numerical derivative
-      const eps = 1e-3;
-      const Pv_s2 = Psat(Twb + eps);
-      const Ws2 = W_from_Pv(Pv_s2, Patm);
-      const hfg2 = h_fg(Twb + eps);
-      const f2 = (Ws2 - W) * hfg2 - cpm * (Tdb - (Twb + eps));
-      const df = (f2 - f) / eps;
-      if (Math.abs(df) < 1e-12) break;
-      const TwbNew = Twb - f / df;
-      if (Math.abs(TwbNew - Twb) < 1e-6) { Twb = TwbNew; break; }
-      Twb = TwbNew;
-      if (Twb > Tdb) Twb = Tdb - 0.001;
-      if (Twb < -50) Twb = -50;
+    const residual = T => (W_from_Pv(Psat(T), Patm) - W) * h_fg(T)
+      - (1.006 + W * 1.86) * (Tdb - T);
+    let lo = -80, hi = Tdb;
+    const fLo = residual(lo), fHi = residual(hi);
+    if (![fLo, fHi].every(isFinite) || fLo > 0 || fHi < -1e-9) return NaN;
+    if (Math.abs(fHi) < 1e-9) return hi;
+    for (let i = 0; i < 100; i++) {
+      const mid = (lo + hi) / 2;
+      if (residual(mid) > 0) hi = mid; else lo = mid;
     }
-    return Twb;
+    const Twb = (lo + hi) / 2;
+    return Math.abs(residual(Twb)) < 1e-7 ? Twb : NaN;
   }
 
   // Given Twb and Tdb, find W (inverse): iterate
@@ -125,13 +115,15 @@
     const kind = $('second_kind').value;
     const v2 = val('second_val');
     const PatmInput = val('Patm');
-    const Patm_kPa = isFinite(PatmInput) ? PatmInput : 101.325;
+    if ($('Patm').value !== '' && !isFinite(PatmInput)) return setError('大気圧を有限の数値で入力してください。');
+    const Patm_kPa = $('Patm').value === '' ? 101.325 : PatmInput;
     if (!isFinite(Tdb)) return setError('乾球温度を入力してください。');
     if (!isFinite(v2)) return setError('2番目の状態量の値を入力してください。');
     if (!(Patm_kPa > 0)) return setError('大気圧を正の値で入力してください。');
     if (!(Tdb > -273.15)) return setError('乾球温度は絶対零度（−273.15 °C）より高い値で入力してください。');
     if (Tdb < -40 || Tdb > 50) return setError('本ツールの乾球温度は、飽和蒸気圧式の適用範囲である −40〜50 °Cにしてください。');
     const Patm = Patm_kPa * 1000;  // Pa
+    if (!isFinite(Patm)) return setError('大気圧の単位換算で数値範囲を超えました。値の桁を見直してください。');
 
     const Pvs_db = Psat(Tdb);
 
@@ -150,6 +142,7 @@
       W = W_from_Pv(Pv, Patm);
     } else if (kind === 'Tdp') {
       if (v2 > Tdb + 1e-6) return setError('露点温度は乾球温度以下にしてください。');
+      if (v2 < -80) return setError('露点温度が計算範囲（−80 °C以上）の外です。');
       Tdp = v2;
       Pv = Psat(Tdp);
       if (Pv >= Patm) return setError(`露点 ${Tdp} °C の飽和蒸気圧（${fmtNum(Pv / 1000)} kPa）が大気圧（${Patm_kPa} kPa）以上です。露点を下げてください。`);
@@ -165,6 +158,7 @@
       RH = Pv / Pvs_db * 100;
     } else { // Twb
       if (v2 > Tdb + 1e-6) return setError('湿球温度は乾球温度以下にしてください。');
+      if (v2 < -80) return setError('湿球温度が計算範囲（−80 °C以上）の外です。');
       Twb = v2;
       W = W_from_Twb(Tdb, Twb, Patm);
       if (!(W >= 0)) return setError('入力条件から物理的に正しい絶対湿度を導出できませんでした。値を見直してください。');
@@ -184,6 +178,8 @@
     const h = 1.006 * Tdb + W * (2501 + 1.86 * Tdb);  // kJ/kg dry
     const v_m3kg = Ra * (Tdb + 273.15) * (1 + 1.6078 * W) / Patm_kPa;
     const rho_moist = (1 + W) / v_m3kg;  // kg moist air / m³
+    if (![h, v_m3kg, rho_moist].every(isFinite) || !(v_m3kg > 0) || !(rho_moist > 0)) return setError('状態量が数値範囲を超えました。大気圧の桁を見直してください。');
+    const dewpointText = isFinite(Tdp) ? `${fmtNum(Tdp)} °C` : (Pv === 0 ? '定義なし（水蒸気分圧が0）' : '計算範囲外（−80 °C未満）');
     const dewMarginRaw = Tdb - Tdp;
     const dewMargin = Math.abs(dewMarginRaw) < 1e-5 ? 0 : dewMarginRaw;
     const wetBulbDepression = Tdb - Twb;
@@ -208,8 +204,8 @@
         <tr><td>乾湿差 T<sub>db</sub> − T<sub>wb</sub></td><td class="num">${fmtNum(wetBulbDepression)} K</td></tr>
         <tr><td>Stull式による湿球温度</td><td class="num">${stullValue}</td></tr>
         ${stullDifferenceRow}
-        <tr><td>露点温度 T<sub>dp</sub></td><td class="num">${fmtNum(Tdp)} °C</td></tr>
-        <tr><td>露点までの余裕（T<sub>db</sub> − T<sub>dp</sub>）</td><td class="num">${fmtNum(dewMargin)} K</td></tr>
+        <tr><td>露点温度 T<sub>dp</sub></td><td class="num">${dewpointText}</td></tr>
+        <tr><td>露点までの余裕（T<sub>db</sub> − T<sub>dp</sub>）</td><td class="num">${isFinite(dewMargin) ? `${fmtNum(dewMargin)} K` : '算出対象外'}</td></tr>
         <tr><td>相対湿度 RH</td><td class="num">${fmtNum(RH)} %</td></tr>
         <tr><td>絶対湿度（混合比）W</td><td class="num">${fmtNum(W)} kg/kg乾  /  ${fmtNum(W * 1000)} g/kg乾</td></tr>
         <tr><td>水蒸気分圧 P<sub>v</sub></td><td class="num">${fmtNum(Pv / 1000)} kPa  /  ${fmtNum(Pv)} Pa</td></tr>
