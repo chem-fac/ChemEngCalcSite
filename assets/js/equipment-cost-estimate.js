@@ -121,7 +121,7 @@
     const total = sub + cont + fee;
     const langTotal = sumE * lang.f;
 
-    const vals = [sumE, sumInst, sub, total, langTotal];
+    const vals = [sumE, sumInst, sub, total, langTotal, total * (1 + stage.lo), total * (1 + stage.hi)];
     if (vals.some((v) => !isFinite(v) || v <= 0)) {
       return setError('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
     }
