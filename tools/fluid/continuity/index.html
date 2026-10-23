@@ -83,6 +83,9 @@
 
       <div class="calc-pane calc-input-pane">
         <h2>入力</h2>
+        <!-- value-figure -->
+        <figure class="value-figure input-row-full" data-cat="fluid"><div class="vf-panels"><div class="vf-panel"><svg class="vf-svg" width="400" height="176" viewBox="0 0 400 176" role="img" aria-label="配管の断面変化：入口の管内径 D₁、出口の管内径 D₂、平均流速 u₁・u₂" xmlns="http://www.w3.org/2000/svg"><polygon points="16,52 176,52 226,74 384,74 384,110 226,110 176,132 16,132" class="vf-bore"/><polygon points="16,46 176,46 226,68 384,68 384,74 226,74 176,52 16,52" class="vf-wallh"/><polygon points="16,138 176,138 226,116 384,116 384,110 226,110 176,132 16,132" class="vf-wallh"/><line x1="16" y1="92" x2="384" y2="92" class="vf-cl"/><line x1="60" y1="34" x2="60" y2="150" class="vf-section"/><text x="60" y="30" class="vf-note" text-anchor="middle">① 入口</text><line x1="340" y1="56" x2="340" y2="128" class="vf-section"/><text x="340" y="52" class="vf-note" text-anchor="middle">② 出口</text><g class="vf-g" data-for="D1"><line x1="60" y1="52" x2="60" y2="132" class="vf-dim"/><polygon points="60,52 62.6,59 57.4,59" class="vf-arrow"/><polygon points="60,132 57.4,125 62.6,125" class="vf-arrow"/><text x="67" y="84" class="vf-sym" text-anchor="start"><tspan>D</tspan><tspan class="vf-sub" dy="0.32em">1</tspan></text></g><g class="vf-g" data-for="D2"><line x1="340" y1="74" x2="340" y2="110" class="vf-dim"/><polygon points="340,74 342.6,81 337.4,81" class="vf-arrow"/><polygon points="340,110 337.4,103 342.6,103" class="vf-arrow"/><text x="348" y="99" class="vf-sym" text-anchor="start"><tspan>D</tspan><tspan class="vf-sub" dy="0.32em">2</tspan></text></g><polyline points="104,112 160,112" class="vf-flow"/><polygon points="160,112 152,115.2 152,108.8" class="vf-flowhead"/><g class="vf-g" data-for="u1"><text x="118" y="106" class="vf-sym" text-anchor="start"><tspan>u</tspan><tspan class="vf-sub" dy="0.32em">1</tspan></text></g><polyline points="240,102 292,102" class="vf-flow"/><polygon points="292,102 284,105.2 284,98.8" class="vf-flowhead"/><g class="vf-g"><text x="298" y="108" class="vf-sym vf-sym-ink" text-anchor="start"><tspan>u</tspan><tspan class="vf-sub" dy="0.32em">2</tspan></text></g></svg></div></div><figcaption><span class="sym">D₁</span>・<span class="sym">D₂</span> は各断面の内面から内面までの実内径（呼び径ではない）、<span class="sym">u₁</span>・<span class="sym">u₂</span> はその断面で平均した流速です。</figcaption></figure>
+        <!-- /value-figure -->
 
         <div class="input-row">
           <label for="D1">入口の管内径 <span class="sym">D<sub>1</sub></span></label>
@@ -242,6 +245,7 @@
 </footer>
 
 <script src="../../../assets/js/continuity.js"></script>
+<script src="../../../assets/js/value-figure.js"></script>
 <script src="../../../assets/js/share.js"></script>
 <script src="../../../assets/js/calc-utils.js"></script>
 <script src="../../../assets/js/references.js"></script>

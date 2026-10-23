@@ -64,6 +64,9 @@
     <div class="calc-grid">
       <div class="calc-pane calc-input-pane">
         <h2>入力</h2>
+        <!-- value-figure -->
+        <figure class="value-figure input-row-full" data-cat="mixing"><div class="vf-panels"><div class="vf-panel"><svg class="vf-svg" width="400" height="322" viewBox="0 0 400 322" role="img" aria-label="撹拌槽の寸法：槽径 D、液深さ H、翼径 d" xmlns="http://www.w3.org/2000/svg"><rect x="58" y="70" width="260" height="234" class="vf-liq"/><polygon points="53,40 53,309 323,309 323,40 318,40 318,304 58,304 58,40" class="vf-wall"/><line x1="58" y1="70" x2="318" y2="70" class="vf-surf"/><polygon points="285,61.2 299,61.2 292,70" class="vf-level"/><line x1="286.4" y1="73.5" x2="297.6" y2="73.5" class="vf-levelline"/><line x1="288.9" y1="76.5" x2="295.1" y2="76.5" class="vf-levelline"/><line x1="188" y1="18" x2="188" y2="227" class="vf-cl"/><rect x="185.5" y="20" width="5" height="163" class="vf-shaft"/><rect x="123" y="187" width="130" height="26" class="vf-imp"/><rect x="182" y="183" width="12" height="34" class="vf-imp"/><g class="vf-g" data-for="D"><line x1="58" y1="36" x2="58" y2="19" class="vf-ext"/></g><g class="vf-g" data-for="D"><line x1="318" y1="36" x2="318" y2="19" class="vf-ext"/></g><g class="vf-g" data-for="D"><line x1="58" y1="24" x2="318" y2="24" class="vf-dim"/><polygon points="58,24 65,21.4 65,26.6" class="vf-arrow"/><polygon points="318,24 311,26.6 311,21.4" class="vf-arrow"/><text x="76" y="19" class="vf-sym" text-anchor="middle"><tspan>D</tspan></text><text x="87" y="19" class="vf-name" text-anchor="start">槽径（内径）</text></g><g class="vf-g" data-for="H"><line x1="326" y1="70" x2="350" y2="70" class="vf-ext"/></g><g class="vf-g" data-for="H"><line x1="326" y1="304" x2="350" y2="304" class="vf-ext"/></g><g class="vf-g" data-for="H"><line x1="345" y1="70" x2="345" y2="304" class="vf-dim"/><polygon points="345,70 347.6,77 342.4,77" class="vf-arrow"/><polygon points="345,304 342.4,297 347.6,297" class="vf-arrow"/><text x="354" y="192" class="vf-sym" text-anchor="start"><tspan>H</tspan></text></g><g class="vf-g" data-for="H"><text x="354" y="211" class="vf-name">液深さ</text></g><g class="vf-g" data-for="d"><line x1="123" y1="216" x2="123" y2="240" class="vf-ext"/></g><g class="vf-g" data-for="d"><line x1="253" y1="216" x2="253" y2="240" class="vf-ext"/></g><g class="vf-g" data-for="d"><line x1="123" y1="235" x2="253" y2="235" class="vf-dim"/><polygon points="123,235 130,232.4 130,237.6" class="vf-arrow"/><polygon points="253,235 246,237.6 246,232.4" class="vf-arrow"/><text x="155.5" y="252" class="vf-sym" text-anchor="middle"><tspan>d</tspan></text><text x="164.5" y="252" class="vf-name" text-anchor="start">翼径（先端から先端）</text></g></svg></div></div><figcaption><span class="sym">d</span> は翼の先端から先端まで（翼が回って描く円の直径）、<span class="sym">D</span> は槽の内径、<span class="sym">H</span> は槽底から静止時の液面までです。</figcaption></figure>
+        <!-- /value-figure -->
 
         <div class="input-row">
           <label for="n">回転数 <span class="sym">n</span></label>
@@ -217,6 +220,7 @@
 </footer>
 
 <script src="../../../assets/js/mix-time.js"></script>
+<script src="../../../assets/js/value-figure.js"></script>
 <script src="../../../assets/js/share.js"></script>
 <script src="../../../assets/js/calc-utils.js"></script>
 <script src="../../../assets/js/references.js"></script>

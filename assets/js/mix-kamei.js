@@ -55,12 +55,13 @@
     retreat: { label: '三枚後退翼', model: 'propeller', np: 3, theta: 45, bRatio: 0.18 },
     hr320: { label: 'スーパーミックスHR320', model: 'hr320', np: 2, theta: 45, bRatio: 0.20 },
     hr320s: { label: 'スーパーミックスHR320S', model: 'hr320s', np: 2, theta: 45, bRatio: 0.20 },
-    anchor: { label: 'アンカー翼', model: 'standard', np: 2, theta: 90, bRatio: 0.12 },
+    // アンカー翼・大型翼の b は翼の下端から上端までの高さ（Furukawa et al. 2012 Fig.2(f)、加藤ほか 2012）なので翼径の割合では入れない
+    anchor: { label: 'アンカー翼', model: 'standard', np: 2, theta: 90, bTall: true },
     helical: { label: 'ヘリカルリボン翼', model: 'helical', np: 2, theta: 90, bRatio: 0.10 },
-    maxblend_dished: { label: 'マックスブレンド／MR205（皿底槽）', model: 'large', np: 2, theta: 90, bRatio: 0.12, ctA: 0.27, ctExp: 0.4 },
-    maxblend_flat: { label: 'マックスブレンド／MR205（平底槽）', model: 'large', np: 2, theta: 90, bRatio: 0.12, ctA: 0.30, ctExp: 0.4 },
-    fullzone_dished: { label: 'フルゾーン（皿底槽）', model: 'large', np: 2, theta: 90, bRatio: 0.12, ctA: 0.22, ctExp: 0.4 },
-    fullzone_flat: { label: 'フルゾーン（平底槽）', model: 'large', np: 2, theta: 90, bRatio: 0.12, ctA: 0.30, ctExp: 0.5 },
+    maxblend_dished: { label: 'マックスブレンド／MR205（皿底槽）', model: 'large', np: 2, theta: 90, bTall: true, ctA: 0.27, ctExp: 0.4 },
+    maxblend_flat: { label: 'マックスブレンド／MR205（平底槽）', model: 'large', np: 2, theta: 90, bTall: true, ctA: 0.30, ctExp: 0.4 },
+    fullzone_dished: { label: 'フルゾーン（皿底槽）', model: 'large', np: 2, theta: 90, bTall: true, ctA: 0.22, ctExp: 0.4 },
+    fullzone_flat: { label: 'フルゾーン（平底槽）', model: 'large', np: 2, theta: 90, bTall: true, ctA: 0.30, ctExp: 0.5 },
   };
 
   function applyPreset(key) {
@@ -74,9 +75,12 @@
       const factor = TO_SI.b[unit] || 1;
       setValue('b', fmtNum((d * p.bRatio) / factor, 4));
     }
+    if (p.bTall) setValue('b', '');
     const hint = $('preset-note');
     if (hint) {
-      hint.textContent = `${p.label}用の代表的な羽根枚数・角度を入力しました。翼幅 b は必要に応じて実機値に合わせてください。`;
+      hint.textContent = p.bTall
+        ? `${p.label}用の羽根枚数・角度を入力しました。翼幅 b は翼の下端から上端までの高さを実機の値で入力してください。`
+        : `${p.label}用の代表的な羽根枚数・角度を入力しました。翼幅 b は必要に応じて実機値に合わせてください。`;
     }
   }
 

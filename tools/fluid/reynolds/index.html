@@ -88,6 +88,9 @@
 
       <div class="calc-pane calc-input-pane">
         <h2>入力</h2>
+        <!-- value-figure -->
+        <figure class="value-figure input-row-full" data-cat="fluid"><div class="vf-panels"><div class="vf-panel"><svg class="vf-svg" width="400" height="190" viewBox="0 0 400 190" role="img" aria-label="配管の断面：管内径 D、平均流速 u" xmlns="http://www.w3.org/2000/svg"><circle cx="104" cy="92" r="70" class="vf-wallring"/><circle cx="104" cy="92" r="58" class="vf-liqcircle"/><line x1="26" y1="92" x2="182" y2="92" class="vf-cl"/><line x1="104" y1="14" x2="104" y2="170" class="vf-cl"/><g class="vf-g" data-for="D"><line x1="46" y1="92" x2="162" y2="92" class="vf-dim"/><polygon points="46,92 53,89.4 53,94.6" class="vf-arrow"/><polygon points="162,92 155,94.6 155,89.4" class="vf-arrow"/><text x="75" y="85" class="vf-sym" text-anchor="middle"><tspan>D</tspan></text></g><g class="vf-g" data-for="D"><text x="112" y="83" class="vf-name">管内径</text></g><rect x="226" y="70" width="166" height="48" class="vf-bore"/><rect x="226" y="65" width="166" height="5" class="vf-wallh"/><rect x="226" y="118" width="166" height="5" class="vf-wallh"/><line x1="226" y1="94" x2="392" y2="94" class="vf-cl"/><polyline points="244,86 374,86" class="vf-flow"/><polygon points="374,86 366,89.2 366,82.8" class="vf-flowhead"/><text x="244" y="58" class="vf-sym" text-anchor="start"><tspan>u</tspan></text><g class="vf-g" data-for="u"><text x="258" y="58" class="vf-name">断面平均流速</text></g><text x="226" y="146" class="vf-note" text-anchor="start">流量 Q から求めるときは</text><text x="226" y="166" class="vf-note" text-anchor="start">u = Q ÷ 断面積（内径 D）</text></svg></div></div><figcaption><span class="sym">D</span> は呼び径ではなく実内径、<span class="sym">u</span> は断面で平均した流速です（管中心の最大流速ではない）。</figcaption></figure>
+        <!-- /value-figure -->
 
         <div class="input-row reynolds-rho-row" data-field="rho" data-show-when="velocity flowrate">
           <label for="rho">密度 <span class="sym">ρ</span></label>
@@ -317,6 +320,7 @@
 </footer>
 
 <script src="../../../assets/js/reynolds.js"></script>
+<script src="../../../assets/js/value-figure.js"></script>
 <script src="../../../assets/js/share.js"></script>
 <script src="../../../assets/js/calc-utils.js"></script>
 <script src="../../../assets/js/references.js"></script>

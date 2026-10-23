@@ -2629,3 +2629,70 @@ html:not(.js) .ta-js-only { display: none; }
 .tool-hero .cat-tag[data-cat="safety"]::before{width:.8em;height:.72em;clip-path:polygon(50% 0,100% 100%,0 100%)}
 /* 全ツール一覧：分野の見出しの前に■ */
 .ta-cat[data-c] .ta-cat-head::before{content:"";display:inline-block;width:.6em;height:.6em;margin-right:.5em;vertical-align:.08em;background:var(--cat,var(--text-sub))}
+/* 入力値の位置の図（value-figure）：式に入れる値が装置のどこを指すかを示す。
+   装置は墨の線、寸法線と記号は分類の差し色。入力欄を選んでいる間は、その値の寸法線と記号を緑にする（value-figure.js） */
+.value-figure { margin: 2px 0 20px; display: flex; flex-wrap: wrap; gap: 8px 32px; align-items: flex-start; }
+.value-figure .vf-panels { display: flex; flex-wrap: wrap; gap: 8px 32px; align-items: flex-start; }
+.value-figure .vf-panel { flex: 0 1 auto; min-width: 0; max-width: 100%; }
+.value-figure .vf-panel[hidden] { display: none; }
+.value-figure .vf-svg { display: block; max-width: 100%; height: auto; overflow: visible; }
+.value-figure figcaption { flex: 1 1 260px; font-size: 14px; line-height: 1.75; color: var(--text-sub); max-width: 40em; }
+.value-figure .vf-panel-note { font-size: 14px; line-height: 1.75; color: var(--text-sub); margin: 6px 0 0; max-width: 400px; }
+.value-figure .vf-panel-note .sym, .value-figure figcaption .sym { font-family: "Times New Roman", "Noto Serif JP", serif; font-style: italic; color: var(--text); }
+.vf-svg text { font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic UI", sans-serif; }
+.vf-eq { fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linejoin: round; }
+.vf-wall { fill: var(--rule); stroke: var(--ink); stroke-width: 1.2; stroke-linejoin: round; }
+.vf-wallring { fill: var(--rule); stroke: var(--ink); stroke-width: 1.2; }
+.vf-liq { fill: var(--surface); stroke: none; }
+.vf-liqcircle { fill: var(--surface); stroke: var(--ink); stroke-width: 1.2; }
+.vf-surf { fill: none; stroke: var(--ink); stroke-width: 1.3; }
+.vf-static { fill: none; stroke: var(--ink-sub); stroke-width: 1; stroke-dasharray: 6 4; }
+.vf-level { fill: #fff; stroke: var(--ink); stroke-width: 1; }
+.vf-levelline { stroke: var(--ink); stroke-width: 1; }
+.vf-cl { stroke: var(--ink-sub); stroke-width: 0.8; stroke-dasharray: 12 3 2 3; fill: none; }
+.vf-shaft { fill: #fff; stroke: var(--ink); stroke-width: 1.2; }
+.vf-imp { fill: #fff; stroke: var(--ink); stroke-width: 1.6; stroke-linejoin: round; }
+.vf-baffle { fill: #fff; stroke: var(--ink); stroke-width: 1.2; }
+.vf-flow { fill: none; stroke: var(--ink); stroke-width: 1.4; stroke-linejoin: round; }
+.vf-flowhead { fill: var(--ink); }
+.vf-pipe { fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-linejoin: round; }
+.vf-axis { stroke: var(--ink-sub); stroke-width: 1; }
+.vf-pumpbody { fill: #fff; stroke: var(--ink); stroke-width: 1.6; }
+.vf-bore { fill: var(--surface); stroke: none; }
+.vf-wallh { fill: var(--rule); stroke: var(--ink); stroke-width: 1.1; stroke-linejoin: round; }
+.vf-section { stroke: var(--ink-sub); stroke-width: 1; stroke-dasharray: 4 3; }
+.vf-zoom { fill: none; stroke: var(--ink-sub); stroke-width: 1; }
+.vf-zoomline { stroke: var(--ink-sub); stroke-width: 0.8; }
+.vf-zoombox { fill: #fff; stroke: var(--ink-sub); stroke-width: 1; }
+.vf-profilebase { stroke: var(--ink-sub); stroke-width: 1; }
+.vf-profile { fill: none; stroke: var(--ink); stroke-width: 1.4; }
+.vf-flowthin { fill: none; stroke: var(--ink); stroke-width: 1; }
+.vf-sym.vf-sym-ink { fill: var(--ink); }
+.vf-hx { fill: #fff; stroke: var(--ink); stroke-width: 1.4; }
+.vf-hxwall { stroke: var(--ink); stroke-width: 1.4; }
+.vf-sym.vf-eqn { font-size: 15.5px; fill: var(--ink); }
+.vf-fluid { fill: var(--surface); stroke: none; }
+.vf-film { fill: none; stroke: var(--ink-sub); stroke-width: 0.8; stroke-dasharray: 3 3; }
+.vf-foul { fill: var(--ink-sub); fill-opacity: 0.4; stroke: var(--ink); stroke-width: 0.8; }
+.vf-bl { fill: none; stroke: var(--ink-sub); stroke-width: 1; stroke-dasharray: 5 3; }
+.vf-column { fill: #fff; stroke: var(--ink); stroke-width: 1.6; stroke-linejoin: round; }
+.vf-pack { stroke: var(--ink-sub); stroke-width: 0.8; }
+.vf-packbox { fill: none; stroke: var(--ink-sub); stroke-width: 0.8; }
+.vf-valve { fill: #fff; stroke: var(--ink); stroke-width: 1.2; stroke-linejoin: round; }
+.vf-tray { stroke: var(--ink); stroke-width: 1.4; }
+.vf-distrib { stroke: var(--ink); stroke-width: 1.2; stroke-dasharray: 6 3; }
+.vf-support { stroke: var(--ink); stroke-width: 2.2; }
+.vf-light { fill: #fff; stroke: none; }
+.vf-heavy { fill: var(--rule); stroke: none; }
+.vf-drop, .vf-drop-light { fill: #fff; stroke: var(--ink); stroke-width: 0.9; }
+.vf-drop-heavy { fill: var(--rule); stroke: var(--ink); stroke-width: 0.9; }
+.vf-dim { fill: none; stroke: var(--cat, var(--ink)); stroke-width: 1.1; }
+.vf-ext { stroke: var(--cat, var(--ink)); stroke-width: 0.75; fill: none; }
+.vf-arrow, .vf-dot { fill: var(--cat, var(--ink)); }
+.vf-sym { fill: var(--cat, var(--ink)); font-family: "Times New Roman", "Noto Serif JP", serif !important; font-style: italic; font-size: 19px; }
+.vf-sub { font-size: 72%; }
+.vf-name { fill: var(--cat, var(--ink)); font-size: 13.5px; }
+.vf-note { fill: var(--text-sub); font-size: 14px; }
+.vf-title { fill: var(--text); font-size: 14.5px; font-weight: 600; }
+.vf-g.is-active .vf-dim, .vf-g.is-active .vf-ext { stroke: var(--brand); stroke-width: 2; }
+.vf-g.is-active .vf-arrow, .vf-g.is-active .vf-dot, .vf-g.is-active .vf-sym, .vf-g.is-active .vf-name, .vf-g.is-active .vf-note { fill: var(--brand); }

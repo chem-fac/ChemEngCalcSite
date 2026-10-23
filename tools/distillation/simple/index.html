@@ -58,6 +58,9 @@
     <div class="calc-grid">
       <div class="calc-pane calc-input-pane">
         <h2>入力</h2>
+        <!-- value-figure -->
+        <figure class="value-figure input-row-full" data-cat="distillation"><div class="vf-panels"><div class="vf-panel"><svg class="vf-svg" width="400" height="240" viewBox="0 0 400 240" role="img" aria-label="単蒸留：釜液量 W・釜液組成 x、留出液 D" xmlns="http://www.w3.org/2000/svg"><path d="M36.0,92.0 L36.0,170.0 Q36.0,200.0 96.0,200.0 Q156.0,200.0 156.0,170.0 L156.0,92.0 Q156.0,68.0 96.0,68.0 Q36.0,68.0 36.0,92.0 Z" class="vf-column"/><path d="M36.0,128.0 L156.0,128.0 L156.0,170.0 Q156.0,200.0 96.0,200.0 Q36.0,200.0 36.0,170.0 Z" class="vf-liq"/><line x1="36" y1="128" x2="156" y2="128" class="vf-surf"/><polygon points="133,119.2 147,119.2 140,128" class="vf-level"/><line x1="134.4" y1="131.5" x2="145.6" y2="131.5" class="vf-levelline"/><line x1="136.8" y1="134.5" x2="143.2" y2="134.5" class="vf-levelline"/><polyline points="74,228 74,206" class="vf-flowthin"/><polygon points="74,206 77.2,214 70.8,214" class="vf-flowhead"/><polyline points="118,228 118,206" class="vf-flowthin"/><polygon points="118,206 121.2,214 114.8,214" class="vf-flowhead"/><text x="96" y="224" class="vf-note" text-anchor="middle">加熱</text><g class="vf-g" data-for="W0 x0 xW"><text x="54" y="160" class="vf-sym" text-anchor="start"><tspan>W, x</tspan></text><text x="54" y="182" class="vf-name">釜液</text></g><polyline points="96,68 96,30 230,30 300,92" class="vf-pipe"/><polygon points="212,22 232,22 316,96 296,96" class="vf-hx"/><text x="246" y="22" class="vf-note" text-anchor="start">凝縮器</text><line x1="306" y1="96" x2="306" y2="136" class="vf-pipe"/><polygon points="306,136 302.5,128 309.5,128" class="vf-flowhead"/><rect x="270" y="140" width="72" height="74" class="vf-column"/><rect x="270" y="178" width="72" height="36" class="vf-liq"/><line x1="270" y1="178" x2="342" y2="178" class="vf-surf"/><text x="348" y="172" class="vf-note" text-anchor="start">留出液</text><text x="348" y="196" class="vf-sym vf-sym-ink" text-anchor="start"><tspan>D, x̄</tspan><tspan class="vf-sub" dy="0.32em">D</tspan></text><text x="166" y="60" class="vf-note" text-anchor="start">蒸気</text></svg></div></div><figcaption><span class="sym">W</span>・<span class="sym">x</span> は釜に残っている液の量と組成で、はじめが <span class="sym">W<sub>0</sub></span>・<span class="sym">x<sub>0</sub></span>、終わりの組成が <span class="sym">x<sub>W</sub></span> です。留出液の量 <span class="sym">D</span> と平均組成 <span class="sym">x̄<sub>D</sub></span> は結果として求まります。</figcaption></figure>
+        <!-- /value-figure -->
         <div class="input-row">
           <label for="psatA">成分Aの飽和蒸気圧 <span class="sym">P<sub>A</sub><sup>sat</sup></span></label>
           <div class="input-group"><input type="number" inputmode="decimal" id="psatA" step="any" placeholder="例：180"><span class="unit-label">kPa</span></div>
@@ -156,6 +159,7 @@
 </footer>
 
 <script src="../../../assets/js/simple-distillation.js"></script>
+<script src="../../../assets/js/value-figure.js"></script>
 <script src="../../../assets/js/share.js"></script>
 <script src="../../../assets/js/calc-utils.js"></script>
 <script src="../../../assets/js/references.js"></script>
