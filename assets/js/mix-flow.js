@@ -48,16 +48,17 @@
       return setError('動力数 Np・羽根枚数・回転数・翼幅・翼径・槽径を正の数値で入力してください。');
     }
     if (D <= d) return setError('槽径 D は翼径 d より大きい必要があります。');
+    if ($('H').value !== '' && !positive(H)) return setError('液深さ H は正の数値で入力してください。省略する場合は空欄にしてください。');
 
     const Dd = D / d;
     const bd = b / d;
     const dD = d / D;
-    const bladeTerm = np * bd;
+    const bladeTerm = Math.pow(np, 0.7) * bd;
     const Nqd = 0.32 * Math.pow(bladeTerm, 0.25) * Math.pow(Dd, 0.34) * Math.pow(Np, 0.5);
     const Nqc = Nqd * (1 + 0.16 * (Math.pow(Dd, 2) - 1));
     const qd = Nqd * n * Math.pow(d, 3);
     const qc = Nqc * n * Math.pow(d, 3);
-    if (![Nqd, Nqc, qd, qc].every(positive)) {
+    if (![Nqd, Nqc, qd, qc, qd * 60000, qc * 60000].every(positive)) {
       return setError('入力値の組み合わせで計算結果が数値範囲を超えました。');
     }
 
@@ -65,6 +66,7 @@
     if (positive(H)) {
       const V = Math.PI * D * D * H / 4;
       const tc = V / qc;
+      if (![V, tc].every(positive)) return setError('液深さと寸法の組み合わせで液量・循環時間が数値範囲を超えました。');
       circulationTime = `
         <div class="result-detail-label">槽内循環の目安</div>
         <table class="unit-table"><tbody>
@@ -97,7 +99,7 @@
       </tbody></table>
       ${circulationTime}
       <div class="result-meta">
-        <div>吐出流量数：<span class="sym">N<sub>qd</sub></span> = 0.32(n<sub>p</sub>b/d)<sup>0.25</sup>(D/d)<sup>0.34</sup><span class="sym">N<sub>p</sub></span><sup>0.5</sup></div>
+        <div>吐出流量数：<span class="sym">N<sub>qd</sub></span> = 0.32(n<sub>p</sub><sup>0.7</sup>b/d)<sup>0.25</sup>(D/d)<sup>0.34</sup><span class="sym">N<sub>p</sub></span><sup>0.5</sup></div>
         <div>循環流量数：<span class="sym">N<sub>qc</sub></span> = <span class="sym">N<sub>qd</sub></span>[1 + 0.16{(D/d)<sup>2</sup> - 1}]</div>
         <div>流量：<span class="sym">q<sub>d</sub></span> = <span class="sym">N<sub>qd</sub></span>nd³, <span class="sym">q<sub>c</sub></span> = <span class="sym">N<sub>qc</sub></span>nd³</div>
         <div>入力 <span class="sym">N<sub>p</sub></span> = ${fmtNum(Np)}, <span class="sym">n<sub>p</sub></span> = ${fmtNum(np)}, <span class="sym">b/d</span> = ${fmtNum(bd)}, <span class="sym">D/d</span> = ${fmtNum(Dd)}, <span class="sym">n</span> = ${fmtNum(n)} 1/s</div>

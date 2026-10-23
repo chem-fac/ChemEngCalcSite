@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"吐出流量・循環流量","url":"https://tools.chem-fac.com/tools/mixing/flow/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"動力数 Np と翼寸法から吐出流量数 Nqd を推算し、吐出流量 qd と循環流量 qc を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"撹拌流量, 吐出流量, 循環流量, 動力数, Np, Nqd, Nqc, 同伴流量, 循環時間, flow, discharge","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"吐出流量・循環流量","url":"https://tools.chem-fac.com/tools/mixing/flow/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"動力数 Np と翼寸法から吐出流量数 Nqd を推算し、吐出流量 qd と循環流量 qc を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"撹拌流量, 吐出流量, 循環流量, 動力数, Np, Nqd, Nqc, 同伴流量, 循環時間, flow, discharge","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-23"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -134,8 +134,9 @@
 
   <section class="explain-block">
     <h2>計算式</h2>
+    <p>吐出流量数は『最新ミキシング技術の基礎と応用』p.9 式(1.17)によります。</p>
     <p>乱流条件では、動力数 $N_p$ から吐出流量数 $N_{qd}$ を概算できます。吐出流量数が分かれば、吐出流量 $q_d$ と循環流量 $q_c$ はそれぞれ $n d^3$ を掛けて求めます。</p>
-    <div class="math-block">$$ N_{qd}=0.32\left(n_p\dfrac{b}{d}\right)^{0.25}\left(\dfrac{D}{d}\right)^{0.34}N_p^{0.5} $$</div>
+    <div class="math-block">$$ N_{qd}=0.32\left(n_p^{0.7}\dfrac{b}{d}\right)^{0.25}\left(\dfrac{D}{d}\right)^{0.34}N_p^{0.5} $$</div>
     <div class="math-block">$$ q_d = N_{qd} n d^{3}, \qquad N_{qd} = \dfrac{q_d}{n d^{3}} $$</div>
     <p>循環流量数 $N_{qc}$ は、吐出流量数に槽内での同伴流量を加えた形で整理します。</p>
     <div class="math-block">$$ N_{qc}=N_{qd}\left[1+0.16\left\{\left(\dfrac{D}{d}\right)^2-1\right\}\right] $$</div>
@@ -200,7 +201,7 @@
   </section>
   <aside class="tool-provenance" aria-label="作成者と確認日">
     <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
-    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。</p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-23">2026年10月23日</time>。改訂：吐出流量数の羽根枚数の指数と液深さの入力検証を修正。</p>
   </aside>
 
 </main>
