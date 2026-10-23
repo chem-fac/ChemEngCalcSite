@@ -49,6 +49,9 @@
     const ppm = 1e6 * w;
     const molkg = (1000 * w) / (MA * (1 - w));
     const xA = (w / MA) / (w / MA + (1 - w) / MB);
+    const outputs = [massPct, ppm, molkg, xA];
+    if (hasRho) outputs.push(w * rhoGL, w * rhoGL * 1000, w * rhoGL / MA);
+    if (!outputs.every(Number.isFinite)) return setError('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
     // 密度に依存する出力（密度未入力なら計算しない）
     const NO_RHO = '密度未入力のため計算しません';
     const gLCell = hasRho ? `${fmtNum(w * rhoGL)} g/L` : NO_RHO;
