@@ -48,6 +48,7 @@
   };
 
   function renderResult(opts) {
+    if (!positive(opts.h)) return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
     const notes = opts.notes || [];
     $('result-area').innerHTML = `
       <div class="result-target">${opts.title}</div>
@@ -72,7 +73,12 @@
       setError('密度・粘度・比熱・熱伝導率を正の数値で入力してください。');
       return null;
     }
-    return { rho, mu, cp, k, Pr: cp * mu / k };
+    const Pr = cp * mu / k;
+    if (!positive(Pr)) {
+      setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
+      return null;
+    }
+    return { rho, mu, cp, k, Pr };
   }
 
   function calculateTubeLaminar(props) {
@@ -81,11 +87,13 @@
     const L = getSI('L');
     const muWallRaw = getSI('mu_wall');
     if (![u, D, L].every(positive)) return setError('平均流速・管内径・管長を正の数値で入力してください。');
+    if ($('mu_wall').value !== '' && !positive(muWallRaw)) return setError('壁温粘度は正の数値で入力してください。省略する場合は空欄にしてください。');
     const muWall = positive(muWallRaw) ? muWallRaw : props.mu;
     const Re = props.rho * u * D / props.mu;
     const muRatio = props.mu / muWall;
     const Nu = 1.86 * Math.pow(Re * props.Pr * D / L, 1 / 3) * Math.pow(muRatio, 0.14);
     const h = Nu * props.k / D;
+    if (![Re, muRatio, Nu, h, L / D].every(positive)) return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
     const notes = [];
     if (Re > 2100) notes.push('Re が代表的な適用範囲（Re ≦ 2.1×10³）を超えています。乱流の相関式を検討してください。');
     if (!positive(muWallRaw)) notes.push('壁温粘度 μw が未入力のため、μ/μw = 1 として計算しました。');
@@ -112,6 +120,7 @@
     const Re = props.rho * u * D / props.mu;
     const Nu = 0.023 * Math.pow(Re, 0.8) * Math.pow(props.Pr, n);
     const h = Nu * props.k / D;
+    if (![Re, Nu, h].every(positive)) return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
     const notes = [];
     // 適用範囲の目安：0.6 ≦ Pr ≦ 160、Re_D ≧ 10⁴、L/D ≧ 10（ht ライブラリの turbulent_Dittus_Boelter の説明。
     //   出典に Rohsenow ら『Handbook of Heat Transfer』3版を挙げる。Re の上限は書かれていない）。
@@ -170,6 +179,7 @@
     const r = flatPlateTurbulentNu(Re, props.Pr);
     const Nu = r.Nu;
     const h = Nu * props.k / L;
+    if (![Re, Nu, h].every(positive)) return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
     const notes = [];
     // 実験室の風洞のような条件では、遷移は多くの場合 Re_x = 2×10⁵〜5×10⁵ で始まる（Lienhard 6版 §6.1 p.276）
     if (Re < 5e5) notes.push('Re_L が小さく、前縁側の層流・遷移域の割合が大きい条件です。前縁から乱流とみなすこの式は合わない可能性があります。');
@@ -216,6 +226,7 @@
     const r = churchillChuNu(GrPr, props.Pr);
     const Nu = r.Nu;
     const h = Nu * props.k / L;
+    if (![nu, Gr, GrPr, Nu, h].every(positive)) return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
     const notes = [];
     if (r.turbulent) {
       const NuLam = 0.68 + 0.670 * Math.pow(GrPr, 1 / 4) / Math.pow(r.psi, 4 / 9);

@@ -1,0 +1,11 @@
+const {load,assert}=require('./tool-check-fluid-heat-helper');const t=load('tube-heat-transfer','heat-transfer');t.capture();
+t.set({rho:1000,rho_unit:'kgm3',mu:.001,mu_unit:'Pas',cp:4200,cp_unit:'JkgK',k_fluid:.6,velocity:1,D:.05,D_unit:'m',L:1,L_unit:'m',thermal_mode:'heating'}).good();t.near(t.captured().h,.023*50000**.8*7**.4*.6/.05);
+t.set({thermal_mode:'cooling'}).good();t.near(t.captured().h,.023*50000**.8*7**.3*.6/.05);
+t.eval('mode="tube-laminar"');t.set({velocity:.01,mu_wall:'',mu_wall_unit:'Pas'}).good();t.near(t.captured().h,1.86*(500*7*.05)**(1/3)*.6/.05);
+t.set({mu_wall:-1}).bad();t.set({mu_wall:''});
+t.eval('mode="flat-turbulent"');t.set({velocity:1}).good();t.near(t.captured().h,.04*1e6**.8*7**.43*.6);
+t.eval('mode="vertical-natural"');t.set({beta:.0002,deltaT:10}).good();assert.ok(t.captured().h>0);
+t.near(t.eval('churchillChuNu(1e9,7).Nu'),.68+.67*1e9**.25/(1+(.492/7)**(9/16))**(4/9));
+t.set({mu:1,mu_unit:'mPas',cp:4.2,cp_unit:'kJkgK',D:50,D_unit:'mm'}).good();
+for(const v of ['',0,-1,'1e308']) t.set({L:v}).bad();
+console.log('tube-heat-transfer: four correlations, heat/cool exponent, units and boundaries OK');
