@@ -25,10 +25,11 @@
     if (!positive(K1) || !positive(K2)) return setError('平衡定数 K は正の値で入力してください（K ≦ 0 は対数が取れません）。');
     if (Math.abs(T1 - T2) < 1e-9) return setError('T₁ と T₂ は別の温度にしてください。');
 
-    const dH = R * Math.log(K2 / K1) / (1 / T1 - 1 / T2);   // J/mol
+    const dH = R * (Math.log(K2) - Math.log(K1)) / (1 / T1 - 1 / T2);   // J/mol
     const dG1 = -R * T1 * Math.log(K1);
     const dS = (dH - dG1) / T1;                             // ΔS° は T によらず一定（ΔH,ΔG ともに同近似）
     const dG2 = -R * T2 * Math.log(K2);
+    if (![dH, dG1, dS, dG2].every(Number.isFinite)) return setError('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
     const kind = dH > 0 ? '吸熱反応（温度↑で K↑）' : (dH < 0 ? '発熱反応（温度↑で K↓）' : '熱中性');
 
     $('result-area').innerHTML = `
@@ -54,6 +55,7 @@
 
     const K2 = K1 * Math.exp(-dH / R * (1 / T2 - 1 / T1));
     const dG2 = -R * T2 * Math.log(K2);
+    if (!positive(K2) || !Number.isFinite(dG2)) return setError('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
     $('result-area').innerHTML = `
       <div class="result-target">T₂ での平衡定数 K₂</div>
       <div class="result-value-big">${fmtNum(K2)}</div>
