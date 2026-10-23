@@ -34,8 +34,11 @@
   const clearError = () => { const e = $('error'); e.textContent = ''; e.style.display = 'none'; };
   const clearResult = () => { $('result-area').innerHTML = '<div class="placeholder">入力値を入れて「計算する」を押してください</div>'; };
   function lmtd(dt1, dt2) {
-    if (Math.abs(dt1 - dt2) < 1e-9) return dt1;
-    return (dt1 - dt2) / Math.log(dt1 / dt2);
+    if (dt1 === dt2) return dt1;
+    const hi = Math.max(dt1, dt2), lo = Math.min(dt1, dt2);
+    const ratioMinusOne = (hi - lo) / lo;
+    const logRatio = isFinite(ratioMinusOne) ? Math.log1p(ratioMinusOne) : Math.log(hi) - Math.log(lo);
+    return (hi - lo) / logRatio;
   }
   function calculate() {
     clearError();
@@ -59,6 +62,7 @@
     const dtEff = dtlm * F;
     const A = Q / (U * dtEff);
     const UA = U * A;
+    if (![dt1, dt2, dtlm, dtEff, A, UA].every(positive)) return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
     const notes = [];
     if (F < 0.75) notes.push('補正係数 F が小さいため、多パス構成や温度条件の見直しが必要な可能性があります。');
     if (Math.min(dt1, dt2) / Math.max(dt1, dt2) > 0.95) notes.push('2つの端温度差が近いため、算術平均温度差でも近い値になります。');

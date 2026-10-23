@@ -1,0 +1,10 @@
+const {load,assert}=require('./tool-check-fluid-heat-helper');const t=load('lmtd-area','heat-transfer');
+t.near(t.eval('lmtd(100,50)'),50/Math.log(2));t.near(t.eval('lmtd(50,50)'),50);
+t.near(t.eval('lmtd(9e-10,1e-10)'),8e-10/Math.log(9),1e-18);
+t.near(t.eval('lmtd(1e100,1.000000000000001e100)'),1.0000000000000005e100);
+t.set({flow_type:'counter',Th_in:150,Th_out:100,Tc_in:20,Tc_out:50,Q:100,Q_unit:'kW',U:500,U_unit:'Wm2K',F:1});assert.match(t.good(),/>2.231 <span/);
+t.set({flow_type:'parallel'});assert.match(t.good(),/>2.389 <span/);
+t.set({Q:100000,Q_unit:'W'}).good();
+for(const v of ['',0,-1,'1e308']) t.set({U:v}).bad();
+t.set({U:500,Tc_out:160}).bad();
+console.log('lmtd-area: both arrangements/equal-temperature limit, units and boundaries OK');
