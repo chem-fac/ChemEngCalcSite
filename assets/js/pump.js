@@ -68,6 +68,7 @@
     clearError();
     const rho = rhoToSI(val('rho'), unitOf('rho'));
     if (!positive(rho)) return setError('液体密度 ρ を正の値で入力してください。');
+    if (!positive(rho * G)) return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
 
     const z1 = val('z1'), z2 = val('z2');
     const P1g = gaugeToPa(val('P1'), unitOf('P1'));
@@ -91,6 +92,7 @@
       const Hp = (P2g - P1g) / (rho * G);
       const Hf = (dPs + dPd) / (rho * G);
       H = Hs + Hp + Hf;
+      if (![Hs, Hp, Hf, H].every(finite)) return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
       c1 = cardOK('① ポンプ全揚程 H', `H = ${fmtNum(H)} <span class="unit">m</span>`, [
         ['実揚程 (z₂ − z₁)', `${fmtNum(Hs)} m`],
         ['静圧差 (P₂ − P₁)/ρg', `${fmtNum(Hp)} m`],
@@ -108,6 +110,7 @@
     } else if (finite(P1g) && finite(z1) && dPsOK && finite(Pv) && Pv >= 0) {
       const P1abs = P1g + Pa;
       const NPSHa = (P1abs - Pv) / (rho * G) + z1 - dPs / (rho * G);
+      if (![P1abs, NPSHa, rho * G].every(finite)) return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
       const rows = [
         ['吸込絶対圧 (P₁ + P<sub>a</sub>)', `${fmtNum(P1abs / 1000)} kPa abs`],
         ['(P₁ + P<sub>a</sub> − P<sub>v</sub>)/ρg', `${fmtNum((P1abs - Pv) / (rho * G))} m`],
@@ -142,6 +145,7 @@
       c3 = cardPending('③ 水動力 P<sub>w</sub>', `全揚程 H = ${fmtNum(H)} m（0 以下）のため動力は計算しません。`);
     } else {
       Pw = rho * G * Q * H;
+      if (!positive(Pw)) return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
       c3 = cardOK('③ 水動力 P<sub>w</sub>', `${fmtNum(Pw / 1000)} <span class="unit">kW</span>`,
         [['P<sub>w</sub> = ρgQH', `${fmtNum(Pw / 1000)} kW`]],
         ['全揚程 H = ' + fmtNum(H) + ' m（①の値）を使用しています。']);
@@ -154,6 +158,7 @@
       c4 = cardPending('④ 軸動力 P<sub>s</sub>', 'ポンプ効率 η<sub>p</sub> を 0〜1 で入力すると計算します。');
     } else {
       Ps = Pw / etaP;
+      if (!positive(Ps)) return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
       c4 = cardOK('④ 軸動力 P<sub>s</sub>', `${fmtNum(Ps / 1000)} <span class="unit">kW</span>`,
         [['P<sub>s</sub> = P<sub>w</sub> / η<sub>p</sub>', `${fmtNum(Ps / 1000)} kW`]], null);
     }
@@ -165,6 +170,7 @@
       c5 = cardPending('⑤ モーター入力 P<sub>m</sub>', 'モーター効率 η<sub>m</sub> を 0〜1 で入力すると計算します。');
     } else {
       const Pm = Ps / etaM;
+      if (!positive(Pm)) return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
       c5 = cardOK('⑤ モーター入力 P<sub>m</sub>', `${fmtNum(Pm / 1000)} <span class="unit">kW</span>`,
         [['P<sub>m</sub> = P<sub>s</sub> / η<sub>m</sub>', `${fmtNum(Pm / 1000)} kW`]], null);
     }
