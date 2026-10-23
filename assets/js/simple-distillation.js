@@ -70,6 +70,7 @@
     if (xW >= x0) return setError('単蒸留では軽沸点成分が減るため、最終釜液組成 xW は初期組成 x0 より小さくしてください。');
 
     const alpha = pSatA / pSatB;
+    if (!positive(alpha)) return setError('相対揮発度が数値範囲を超えました。飽和蒸気圧の桁を見直してください。');
     if (alpha <= 1) return setError('相対揮発度 α が 1 以下です。軽沸点成分をAにするか、飽和蒸気圧を確認してください。');
 
     const integral = rayleighIntegral(x0, xW, alpha);
@@ -79,6 +80,9 @@
     const xDavg = D > 0 ? (W0 * x0 - W * xW) / D : NaN;
     const yStart = equilibriumY(x0, alpha);
     const yEnd = equilibriumY(xW, alpha);
+    if (![integral, W, D, recovery, xDavg, yStart, yEnd].every(isFinite) || !(W > 0) || !(D > 0)) {
+      return setError('入力値の組み合わせで計算精度または数値範囲を超えました。値の桁と組成差を見直してください。');
+    }
     const notes = [];
     if (D <= 0) notes.push('留出量がほぼ0です。目標釜液組成を確認してください。');
     if (xDavg < xW || xDavg > 1) notes.push('平均留出組成が通常範囲から外れています。入力値を確認してください。');
