@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"撹拌液面変化(バッフルなし槽の渦)","url":"https://tools.chem-fac.com/tools/mixing/vortex/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"バッフルなしの撹拌槽における中心部の液面低下量 ΔH1 と槽壁部の液面上昇量 ΔH2 を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"液面変化, 渦, vortex, バッフルなし, 邪魔板なし, 中心, 低下, 槽壁, 上昇, フルード, Fr","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"撹拌液面変化(バッフルなし槽の渦)","url":"https://tools.chem-fac.com/tools/mixing/vortex/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"バッフルなしの撹拌槽における中心部の液面低下量 ΔH1 と槽壁部の液面上昇量 ΔH2 を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"液面変化, 渦, vortex, バッフルなし, 邪魔板なし, 中心, 低下, 槽壁, 上昇, フルード, Fr","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-23"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -138,7 +138,7 @@
     <p>固体的回転半径 $r_c$ を直接入力しない場合は、翼寸法と撹拌レイノルズ数から次式で推算します。</p>
     <div class="math-block">$$ \dfrac{2r_c}{d}=1.23\left\{0.57+0.35\left(\dfrac{d}{D}\right)\right\}\left(\dfrac{b}{D}\right)^{0.036}\left(\dfrac{n_p^{0.116}Re}{10^{3}+1.43Re}\right) $$</div>
     <div class="math-block">$$ \Delta H_1 = \pi^{2} d\, Fr \left( \dfrac{2 r_c}{d} \right)^{2} \left[ 1 - \left( \dfrac{2 r_c}{D} \right)^{2} \left\{ \ln \left( \dfrac{D}{2 r_c} \right) + \dfrac{3}{4} \right\} \right] $$</div>
-    <div class="math-block">$$ \Delta H_2 = \pi^{2} d\, Fr \left( \dfrac{2 r_c}{d} \right)^{4} \left( \dfrac{d}{D} \right)^{2} \left\{ \ln \left( \dfrac{D}{2 r_c} \right) + \dfrac{1}{4} \right\} $$</div>
+    <div class="math-block">$$ \Delta H_2 = \pi^{2} d\, Fr \left( \dfrac{2 r_c}{d} \right)^{2} \left( \dfrac{2 r_c}{D} \right)^{2} \left\{ \ln \left( \dfrac{D}{2 r_c} \right) + \dfrac{1}{4} \right\} $$</div>
     <p>ここで $Fr = n^{2} d / g$ はフルード数です。</p>
     <ul class="symbol-list">
       <li>$\Delta H_1$：中心部の液面低下量［m］</li>
@@ -160,7 +160,8 @@
     <ul>
       <li><strong>使える条件</strong>：バッフルのない槽。バッフル付き槽の液面形状を求める式ではありません。</li>
       <li><strong>液深さと比べる</strong>：液深さ $H$ や翼の位置は入力に含まれないため、$\Delta H_1$ が液深さや翼の浸漬深さに達するかどうか（空気を巻き込む状態かどうか）は判定されません。結果の mm 値を、実機の液深さと翼の位置に照らして読む必要があります。</li>
-      <li><strong>$r_c$ の与え方</strong>：$r_c$ を推算で求める場合は、$b$・$n_p$・$Re$ から出す経験式の値です。$\Delta H_1$ は $r_c$ のほぼ2乗、$\Delta H_2$ はほぼ4乗に比例するので、$r_c$ の誤差は結果に大きく効きます。実測の $r_c$ があれば直接入力できます。</li>
+      <li><strong>$r_c$ の与え方</strong>：$r_c$ を推算で求める場合は、$b$・$n_p$・$Re$ から出す経験式の値です。$n$・$d$・$D$ が一定なら、$\Delta H_1$ は $r_c^2$ に補正項、$\Delta H_2$ は $r_c^4$ に対数項が掛かります。$r_c$ の誤差は両者に大きく効きます。実測の $r_c$ があれば直接入力できます。</li>
+      <li><strong>静止液面の基準</strong>：液量が変わらない条件で、槽断面全体の液面高さの平均を静止液面とします。上の $\Delta H_2$ は、この条件を満たすよう旋回流速度から求めた式です。『最新ミキシング技術の基礎と応用』p.8 式(1.10)の $(d/D)^2$ と異なり、体積保存から $(2r_c/D)^2$ を用います。</li>
       <li><strong>回転数の効き方</strong>：$r_c$ が同じなら $\Delta H\propto Fr\propto n^2$ です。回転数を2倍にすると、落差は約4倍になります。</li>
       <li><strong>入力の制限</strong>：$2r_c$ が槽径 $D$ 以上になる値や、翼径 $d$ が槽径 $D$ 以上になる値はエラーになります。</li>
     </ul>
@@ -189,7 +190,7 @@
   </section>
   <aside class="tool-provenance" aria-label="作成者と確認日">
     <p>作成：かねまる（<a href="https://chem-fac.com/about-chemfac/">ケムファク</a>）。化学メーカーの製造技術者。<a href="../../../about/">運営者とこのサイトの方針</a></p>
-    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-18">2026年10月18日</time>。改訂：2026年10月18日に「適用範囲と注意事項」を追記（計算式・係数は変更なし）。2026年10月21日に、槽壁の液面上昇 ΔH<sub>2</sub> の式の誤り（(2r<sub>c</sub>/d) の指数を 2 としていた）を 4 に訂正しました。ΔH<sub>2</sub> の結果が変わります。</p>
+    <p>適用範囲・出典の最終確認日：<time datetime="2026-10-23">2026年10月23日</time>。2026年10月21日に槽壁の液面上昇式を訂正。今回は体積保存からの導出を追記し、同値な式に整理して数値範囲の検証を追加。</p>
   </aside>
 
 </main>

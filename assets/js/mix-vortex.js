@@ -49,10 +49,10 @@
 
     // 中心の液面降下：ΔH1 = π² d Fr (2rc/d)² [ 1 - (2rc/D)² { ln(D/(2rc)) + 3/4 } ]
     const dH1 = Math.PI*Math.PI * d * Fr * r2d*r2d * (1 - r2D*r2D * (ln + 3/4));
-    // 槽壁の液面上昇：ΔH2 = π² d Fr (2rc/d)⁴ (d/D)² { ln(D/(2rc)) + 1/4 }（静止液面からの上昇。液量一定の条件から導く）
-    const dH2 = Math.PI*Math.PI * d * Fr * Math.pow(r2d, 4) * Math.pow(d/D, 2) * (ln + 1/4);
+    // 槽壁の液面上昇：ΔH2 = π² d Fr (2rc/d)² (2rc/D)² { ln(D/(2rc)) + 1/4 }
+    const dH2 = Math.PI*Math.PI * d * Fr * r2d*r2d * r2D*r2D * (ln + 1/4);
 
-    if(![dH1,dH2].every(v=>isFinite(v)))
+    if(![dH1*1000,dH2*1000,(dH1+dH2)*1000].every(v=>isFinite(v)))
       return setError('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
 
     $('result-area').innerHTML = `
@@ -67,7 +67,7 @@
       </tbody></table>
       <div class="result-meta">
         <div>計算式：<span class="sym">ΔH<sub>1</sub></span> = π²·<span class="sym">d</span>·Fr·(2<span class="sym">r<sub>c</sub></span>/<span class="sym">d</span>)²·[1 − (2<span class="sym">r<sub>c</sub></span>/<span class="sym">D</span>)²{ln(<span class="sym">D</span>/(2<span class="sym">r<sub>c</sub></span>)) + 3/4}]</div>
-        <div>　　　　　<span class="sym">ΔH<sub>2</sub></span> = π²·<span class="sym">d</span>·Fr·(2<span class="sym">r<sub>c</sub></span>/<span class="sym">d</span>)⁴·(<span class="sym">d</span>/<span class="sym">D</span>)²·{ln(<span class="sym">D</span>/(2<span class="sym">r<sub>c</sub></span>)) + 1/4}</div>
+        <div>　　　　　<span class="sym">ΔH<sub>2</sub></span> = π²·<span class="sym">d</span>·Fr·(2<span class="sym">r<sub>c</sub></span>/<span class="sym">d</span>)²·(2<span class="sym">r<sub>c</sub></span>/<span class="sym">D</span>)²·{ln(<span class="sym">D</span>/(2<span class="sym">r<sub>c</sub></span>)) + 1/4}</div>
         <div>入力 <span class="sym">n</span> = ${fmtNum(n)} 1/s (= ${fmtNum(n*60)} rpm), <span class="sym">d</span> = ${fmtNum(d*1000)} mm, <span class="sym">D</span> = ${fmtNum(D*1000)} mm, <span class="sym">r<sub>c</sub></span> = ${fmtNum(rc*1000)} mm ${rcNote}</div>
         <div class="result-note">※ この式は<strong>バッフルなしの撹拌槽</strong>での液面偏りを推算するものです。固体的回転半径 r<sub>c</sub> は流動条件に依存します。</div>
       </div>
