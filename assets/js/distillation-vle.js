@@ -74,6 +74,9 @@
     const yA = alpha * xA / (1 + (alpha - 1) * xA);
     const yB = 1 - yA;
     const yRawSum = KA * xA + KB * xB;
+    if (![KA, KB, alpha, yRawSum].every(positive) || ![yA, yB].every(fraction)) {
+      return setError('入力値の組み合わせで数値範囲を超えました。圧力の桁を見直してください。');
+    }
     const sumOffset = Math.abs(yRawSum - 1);
     const equilibriumOK = sumOffset <= 0.05;
     const notes = [];
