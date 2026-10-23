@@ -60,6 +60,7 @@
     const CA = CA0 * (1 - X);
     const rateIn = k * Math.pow(CA0, order);
     const rateOut = k * Math.pow(CA, order);
+    if (![q, k, tau, V, CA, rateIn, rateOut].every(positive)) return setError('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
     $('result-area').innerHTML = `
       <div class="result-target">PFR容積 <span class="sym">V</span></div>
       <div class="result-value-big">${fmtNum(V / 1000)} <span class="unit">m³</span></div>
