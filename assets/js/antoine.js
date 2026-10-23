@@ -54,6 +54,7 @@
       const P = base === 'log10' ? Math.pow(10, x) : Math.exp(x);
       if(!isFinite(P) || P <= 0) return setError('入力値の組み合わせで計算結果が数値範囲を超えました。');
       const P_Pa = P * P_TO_PA[Punit];
+      if (!isFinite(P_Pa) || P_Pa <= 0) return setError('圧力の単位換算で数値範囲を超えました。値の桁を見直してください。');
       $('result-area').innerHTML = `
         <div class="result-target">蒸気圧 <span class="sym">P</span>（${Punit} 単位）</div>
         <div class="result-value-big">${fmtNum(P)} <span class="unit">${Punit}</span></div>
