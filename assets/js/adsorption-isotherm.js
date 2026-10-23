@@ -23,7 +23,7 @@
     for (let i = 0; i < n; i++) { const dx = xs[i] - xbar, dy = ys[i] - ybar; Sxx += dx * dx; Sxy += dx * dy; Syy += dy * dy; }
     const slope = Sxy / Sxx;
     const intercept = ybar - slope * xbar;
-    const r2 = Syy === 0 ? 1 : (Sxy * Sxy) / (Sxx * Syy);
+    const r2 = Syy === 0 ? NaN : (Sxy * Sxy) / (Sxx * Syy);
     return { slope, intercept, r2 };
   }
 
@@ -150,7 +150,7 @@
       if (cRaw === '' && qRaw === '') continue;   // 未使用行
       const c = parseFloat(cRaw), q = parseFloat(qRaw);
       // 入力途中・負値の行を黙って除外すると、残った点だけで見かけ上良好な決定係数が出るため、明示エラーにする
-      if (!(c > 0) || !(q > 0)) return setError(`${i + 1} 行目：平衡濃度 c と吸着量 q はともに正の値で入力してください（c = ${cRaw === '' ? '未入力' : cRaw}, q = ${qRaw === '' ? '未入力' : qRaw}）。使わない行は両欄を空にしてください。`);
+      if (!isFinite(c) || !isFinite(q) || !(c > 0) || !(q > 0)) return setError(`${i + 1} 行目：平衡濃度 c と吸着量 q はともに正の値で入力してください（c = ${cRaw === '' ? '未入力' : cRaw}, q = ${qRaw === '' ? '未入力' : qRaw}）。使わない行は両欄を空にしてください。`);
       data.push({ c, q });
     }
     if (data.length < 3) return setError('最低 3 点のデータを入力してください（c > 0, q > 0）。');
@@ -172,24 +172,25 @@
     const logc = cs.map(Math.log10);
     const logq = qs.map(Math.log10);
     const freund = linReg(logc, logq);
+    if (![lang.slope, lang.intercept, freund.slope, freund.intercept].every(isFinite)) return setError('回帰計算が数値範囲を超えました。濃度と吸着量の桁を見直してください。');
     const Kf = Math.pow(10, freund.intercept);
     const inv_n = freund.slope;
+    const langValid = (isFinite(qmax) && isFinite(b) && qmax > 0 && b > 0);
+    const freundValid = (isFinite(Kf) && isFinite(inv_n) && Kf > 0 && inv_n > 0);
 
     // SSE calc on actual q values for both models
     let SSE_L = 0, SSE_F = 0, SST = 0;
     const qbar = qs.reduce((s, q) => s + q, 0) / qs.length;
     for (let i = 0; i < cs.length; i++) {
-      const qL = qmax * b * cs[i] / (1 + b * cs[i]);
+      const qL = qmax / (1 + 1 / (b * cs[i]));
       const qF = Kf * Math.pow(cs[i], inv_n);
-      SSE_L += Math.pow(qs[i] - qL, 2);
-      SSE_F += Math.pow(qs[i] - qF, 2);
+      if (langValid) SSE_L += Math.pow(qs[i] - qL, 2);
+      if (freundValid) SSE_F += Math.pow(qs[i] - qF, 2);
       SST += Math.pow(qs[i] - qbar, 2);
     }
-    const R2_L_q = SST > 0 ? 1 - SSE_L / SST : 1;
-    const R2_F_q = SST > 0 ? 1 - SSE_F / SST : 1;
-
-    const langValid = (qmax > 0 && b > 0);
-    const freundValid = (Kf > 0 && inv_n > 0);
+    if (![SST, SSE_L, SSE_F].every(isFinite)) return setError('残差の計算が数値範囲を超えました。濃度と吸着量の桁を見直してください。');
+    const R2_L_q = SST > 0 && langValid ? 1 - SSE_L / SST : NaN;
+    const R2_F_q = SST > 0 && freundValid ? 1 - SSE_F / SST : NaN;
 
     // 物理的に成立しないモデルは最良候補から除外（妥当チェック→選択 の順）
     let best, bestLabel;
@@ -209,6 +210,7 @@
     rowsTbl += `<tr${best === 'F' ? ' class="best"' : ''}><td>Freundlich</td><td class="num">${fmtNum(R2_F_q)}</td><td class="num">${fmtNum(freund.r2)}</td><td class="num">K_F = ${freundValid ? fmtNum(Kf) : 'N/A'}, 1/n = ${fmtNum(inv_n)}</td></tr>`;
 
     let warns = [];
+    if (SST === 0) warns.push('吸着量 q がすべて同じため、決定係数 R² は定義できません。');
     if (!langValid) warns.push('Langmuir パラメータが物理的に成立しません（q_max < 0 または b < 0）。データ確認、または Freundlich での評価を推奨。');
     if (!freundValid) warns.push('Freundlich パラメータが物理的に成立しません。');
     if (inv_n > 1) warns.push(`Freundlich 1/n = ${fmtNum(inv_n)} > 1：好ましくない吸着（凸型）の可能性。Langmuir 適用域外。`);
@@ -234,7 +236,7 @@
     `;
 
     drawChart(data, [
-      { name: 'Langmuir', color: '#007a4d', valid: langValid, best: best === 'L', f: (c) => qmax * b * c / (1 + b * c) },
+      { name: 'Langmuir', color: '#007a4d', valid: langValid, best: best === 'L', f: (c) => qmax / (1 + 1 / (b * c)) },
       { name: 'Freundlich', color: '#ff7a00', valid: freundValid, best: best === 'F', f: (c) => Kf * Math.pow(c, inv_n) },
     ]);
   }
