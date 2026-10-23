@@ -58,6 +58,7 @@
     const tau = CA0 * X / rate;
     const V = q * tau;
     const FA0 = q * CA0;
+    if (![q, k, CA, rate, tau, V, FA0].every(positive)) return setError('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
     $('result-area').innerHTML = `
       <div class="result-target">CSTR容積 <span class="sym">V</span></div>
       <div class="result-value-big">${fmtNum(V / 1000)} <span class="unit">m³</span></div>
