@@ -40,7 +40,7 @@
 
   const MODELS = {
     paddle: { label: 'パドル翼', np: 4, theta: 90, baffle: 'paddle' },
-    pitched: { label: '傾斜パドル翼／プロペラ翼', np: 4, theta: 45, baffle: 'pitched' },
+    pitched: { label: '傾斜パドル翼', np: 4, theta: 45, baffle: 'pitched' },
     large: { label: '大型翼', np: 2, theta: 90, baffle: 'large' },
     hr320: { label: 'スーパーミックスHR320', np: 2, theta: 45, baffle: 'hr', npmax: 0.46 },
     hr320s: { label: 'スーパーミックスHR320S', np: 2, theta: 45, baffle: 'hr', npmax: 0.67 },
@@ -116,7 +116,10 @@
       thetaRad: parseFloat($('theta').value) * Math.PI / 180,
       Np0: parseFloat($('Np0').value),
     };
-    if (!positive(vals.hB)) vals.hB = vals.H;
+    if ($('hB').value === '') vals.hB = vals.H;
+    if ((model.baffle === 'pitched') && (!positive(vals.hB) || vals.hB > vals.H)) {
+      return setError('バッフル長さ hB は 0 より大きく液深さ H 以下で入力してください。');
+    }
 
     for (const k of ['d','D','H','B','rho','n','nB','Np0']) {
       if (!positive(vals[k])) return setError('槽・バッフル・物性・Np0 の入力値を正の数値で入力してください。');
@@ -129,6 +132,7 @@
       return setError('羽根取り付け角度 θ は 0〜90 deg の範囲で入力してください。');
     }
 
+    if ($('Npmax').value !== '' && !positive(parseFloat($('Npmax').value))) return setError('完全邪魔板条件の動力数 Npmax は正の数値で入力してください。');
     const Npmax = autoNpmax(model, vals.np, vals.b, vals.d, vals.thetaRad);
     if (!positive(Npmax)) return setError('完全邪魔板条件の動力数 Npmax を入力してください。大型翼では手入力が必要です。');
 
