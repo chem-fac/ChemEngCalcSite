@@ -54,7 +54,7 @@
 
   function getMassRate() {
     const mf = getSI('mass_flow');
-    if (positive(mf)) return mf;
+    if ($('mass_flow').value !== '') return positive(mf) ? mf : NaN;
     const qv = getSI('vol_flow');
     const rho = getSI('rho');
     if (positive(qv) && positive(rho)) return qv * rho;
@@ -113,6 +113,7 @@
       const qLatent = useLatent ? heatSign.sign * mdot * latent : 0;
       const q = qSensible + qLatent;
       const qAbs = Math.abs(q);
+      if (![qSensible, qLatent, q, qAbs * 3600, mdot * 3600].every(isFinite)) return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
       const direction = q >= 0 ? '加熱側の熱量' : '冷却側の除去熱量';
       $('result-area').innerHTML = `
         <div class="result-target">${direction} <span class="sym">Q</span></div>
@@ -140,6 +141,8 @@
     const eAbs = Math.abs(e);
     const time = getSI('batch_time');
     const avgPower = positive(time) ? eAbs / time : NaN;
+    if (![eSensible, eLatent, e].every(isFinite) || (positive(time) && !isFinite(avgPower))) return setError('計算結果が数値範囲を超えました。入力値の桁数を見直してください。');
+    if ($('batch_time').value !== '' && !positive(time)) return setError('所要時間は正の数値で入力してください。省略する場合は空欄にしてください。');
     $('result-area').innerHTML = `
       <div class="result-target">${e >= 0 ? '加熱側のバッチ熱量' : '冷却側のバッチ除去熱量'} <span class="sym">Q</span></div>
       <div class="result-value-big">${fmtNum(eAbs)} <span class="unit">kJ</span></div>
