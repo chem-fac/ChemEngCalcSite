@@ -43,6 +43,7 @@
       return { error: 'この条件では、q線と平衡曲線の交点が 缶出組成〜留出組成 の範囲になく、最小還流比が求まりません。q と組成を見直してください。' };
     }
     const Rmin = (xD / pinch.x - a * (1 - xD) / (1 - pinch.x)) / (a - 1);
+    if (!isFinite(Rmin) || !(Rmin >= 0) || !isFinite(rVal)) return { error: '還流比の計算が数値範囲を超えました。入力値の桁を見直してください。' };
 
     let R;
     if (rMode === 'absolute') {
@@ -111,7 +112,8 @@
         <tr><td>Gilliland の Y = (S − S<sub>min</sub>)/(S + 1)</td><td class="num">${f4(r.Y)}</td></tr>
         <tr><td>ピンチ点の液組成 x′（q線と平衡曲線の交点）</td><td class="num">${f4(r.pinch.x)}</td></tr>
       </tbody></table>
-      <div class="result-meta">Gilliland 相関による概算値です。相対揮発度一定の二成分系として計算しています。</div>`;
+      <div class="result-meta">Gilliland 相関による概算値です。相対揮発度一定の二成分系として計算しています。
+      ${num('q') < 0.28 || num('q') > 1.42 || num('alpha') < 1.11 || num('alpha') > 4.05 || r.Rmin < 0.53 || r.Rmin > 9.09 || r.Smin < 3.4 || r.Smin > 60.3 ? '<div class="result-note">※ Molokanov式の検証範囲（q＝0.28〜1.42、α＝1.11〜4.05、Rmin＝0.53〜9.09、Smin＝3.4〜60.3）の外を含む外挿値です。</div>' : ''}</div>`;
   }
 
   function reset() {
