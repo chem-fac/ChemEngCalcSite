@@ -37,6 +37,8 @@
     const mu = getSI('mu');
     const rho_p = getSI('rho_p'), rho_g = getSI('rho_g');
     const K = val('K');
+    if ($('vi').value !== '' && !(isFinite(viInput) && viInput > 0)) return setError('入口流速 v_i は空欄か正の値にしてください。');
+    if ($('Q').value !== '' && !(isFinite(Q) && Q > 0)) return setError('処理ガス流量 Q は空欄か正の値にしてください。');
     if (!(B > 0)) return setError('入口幅 B を正の値で入力してください。');
     if (!(H > 0)) return setError('入口高さ H を正の値で入力してください。');
     if (!(vi > 0) && !(Q > 0)) return setError('入口流速 v_i または処理ガス流量 Q のどちらかを入力してください。');
@@ -54,6 +56,7 @@
     const dpc_um = dpc * 1e6;
     const dP = K * rho_g * vi * vi / 2;  // Pa
     const Qcalc = vi * B * H;  // 計算に使った入口流速と入口断面からの流量
+    if (![dpc_um, dP, Qcalc * 3600].every(isFinite) || !(dpc_um > 0) || !(Qcalc > 0)) return setError('入力値の組み合わせで数値範囲を超えました。値の桁を見直してください。');
     let qNote = '';
     if (viInput > 0 && Q > 0 && Math.abs(Q - Qcalc) / Qcalc > 0.01) {
       qNote = `※ 入力した処理ガス流量（${fmtNum(Q * 3600)} m³/h）は v_i·B·H（${fmtNum(Qcalc * 3600)} m³/h）と合いません。計算には入口流速 v_i を使っています。`;
