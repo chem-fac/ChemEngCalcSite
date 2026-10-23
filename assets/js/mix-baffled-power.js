@@ -73,7 +73,7 @@
     if (model.baffle === 'pitched') {
       const angleTerm = 2 * thetaRad / Math.PI;
       const sinTheta = Math.sin(thetaRad);
-      return 8.3 * Math.pow(angleTerm, 0.9) * (Math.pow(np, 0.3) * b * Math.pow(sinTheta, 1.6) / d);
+      return 8.3 * Math.pow(angleTerm, 0.9) * (Math.pow(np, 0.7) * b * Math.pow(sinTheta, 1.6) / d);
     }
     return NaN;
   }
@@ -85,7 +85,7 @@
     }
     if (model.baffle === 'pitched') {
       const angleTerm = Math.pow(2 * thetaRad / Math.PI, 0.72);
-      return 4.5 * (B / D) * Math.pow(nB, 0.8) * (hB / H) / Math.pow(angleTerm * Npmax, 0.2) + Np0 / Npmax;
+      return 4.5 * (B / D) * Math.pow(nB, 0.8) * (hB / H) / (angleTerm * Math.pow(Npmax, 0.2)) + Np0 / Npmax;
     }
     if (model.baffle === 'large') {
       return 3.8 * (B / D) * Math.pow(nB, 0.8) * ((H / D) / Math.pow(Npmax, 0.2));
