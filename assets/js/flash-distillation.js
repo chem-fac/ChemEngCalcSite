@@ -85,6 +85,7 @@
     const KA = pSatA / P;
     const KB = pSatB / P;
     const alpha = KA / KB;
+    if (![KA, KB, alpha].every(positive)) return setError('K値または相対揮発度が数値範囲を超えました。圧力の桁を見直してください。');
     const f0 = rr(0, zA, KA, KB);
     const f1 = rr(1, zA, KA, KB);
     let beta;
@@ -120,6 +121,9 @@
     const L = F - V;
     const xB = 1 - xA;
     const yB = 1 - yA;
+    if (![beta, xA, xB, yA, yB].every(fraction) || ![V, L].every(isFinite)) {
+      return setError('入力値の組み合わせで計算精度または数値範囲を超えました。圧力の桁を見直してください。');
+    }
     if (alpha < 1) notes.push('成分Aの方が成分Bより揮発しにくい条件です。軽沸点成分をAにしたい場合は成分A/Bを入れ替えてください。');
 
     const warns = [];
