@@ -46,6 +46,8 @@
     const v = 1 / rho;              // m³/kg
     const rhoN = PN * Mkg / (R * TN);
 
+    if (![rho, Vm, v, rhoN, rho / rhoN].every(positive)) return setError('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
+
     render({
       title: '密度 ρ',
       bigValue: `${fmtNum(rho)} <span class="unit">kg/m³</span>`,
@@ -77,6 +79,10 @@
     const nkmol = QN / VM_N;                                        // kmol/h
     const rhoOp = M ? (P * (M / 1000)) / (R * T) : NaN;             // 運転条件の密度
     const mdot = M ? nkmol * M : NaN;                               // kg/h
+
+    const results = [QN, QS, QA, nkmol];
+    if (positive(M)) results.push(rhoOp, mdot);
+    if (!results.every(positive)) return setError('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
 
     const rows = [
       ['標準流量 Q_N（0℃, 101.325 kPaA）', `${fmtNum(QN)} Nm³/h`],
