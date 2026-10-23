@@ -55,6 +55,7 @@
     else t = X / (k * CA0 * (1 - X));
     const CA = CA0 * (1 - X);
     const rateEnd = k * Math.pow(CA, order);
+    if (![k, t, CA, rateEnd].every(positive)) return setError('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
     $('result-area').innerHTML = `
       <div class="result-target">反応時間 <span class="sym">t</span></div>
       <div class="result-value-big">${fmtNum(t / 60)} <span class="unit">min</span></div>
