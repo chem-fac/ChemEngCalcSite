@@ -2,7 +2,7 @@
   'use strict';
   const $ = (id) => document.getElementById(id);
 
-  // 呼び径（A）→ [B 呼び, 外径 mm]。JIS G 3454・G 3459・G 3452 で共通
+  // 呼び径（A）→ [B 呼び, 外径 mm]。JIS G 3454・G 3459・G 3468・G 3452 で共通
   const SIZES = {
     6: ['1/8', 10.5],
     8: ['1/4', 13.8],
@@ -31,6 +31,12 @@
     550: ['22', 558.8],
     600: ['24', 609.6],
     650: ['26', 660.4],
+    700: ['28', 711.2],
+    750: ['30', 762.0],
+    800: ['32', 812.8],
+    850: ['34', 863.6],
+    900: ['36', 914.4],
+    1000: ['40', 1016.0],
   };
   // JIS G 3454（STPG）の呼び厚さ mm：Sch10, 20, 30, 40, 60, 80
   const STPG = {
@@ -90,20 +96,42 @@
     10: 2.3, 15: 2.8, 20: 2.8, 25: 3.2, 32: 3.5, 40: 3.5, 50: 3.8, 65: 4.2, 80: 4.2, 90: 4.2, 100: 4.5,
     125: 4.5, 150: 5.0, 175: 5.3, 200: 5.8, 225: 6.2, 250: 6.6, 300: 6.9, 350: 7.9, 400: 7.9, 450: 7.9, 500: 7.9,
   };
+  // JIS G 3468（配管用溶接大径ステンレス鋼鋼管）の呼び厚さ mm：Sch5S, 10S, 20S, 40
+  const SUS_LARGE = {
+    150: [2.8, 3.4, 5.0, 7.1],
+    200: [2.8, 4.0, 6.5, 8.2],
+    250: [3.4, 4.0, 6.5, 9.3],
+    300: [4.0, 4.5, 6.5, 10.3],
+    350: [4.0, 5.0, 8.0, 11.1],
+    400: [4.5, 5.0, 8.0, 12.7],
+    450: [4.5, 5.0, 8.0, 14.3],
+    500: [5.0, 5.5, 9.5, 15.1],
+    550: [5.0, 5.5, 9.5, 15.9],
+    600: [5.5, 6.5, 9.5, 17.5],
+    650: [5.5, 8.0, 12.7, null],
+    700: [5.5, 8.0, 12.7, null],
+    750: [6.5, 8.0, 12.7, null],
+    800: [null, 8.0, 12.7, null],
+    850: [null, 8.0, 12.7, null],
+    900: [null, 8.0, 12.7, null],
+    1000: [null, 9.5, 14.3, null],
+  };
 
   // tol：管の種類を選んだときの「製造時の厚さの誤差」の初期値（安全側の製法）
   const PIPES = {
     stpg: { schs: ['10', '20', '30', '40', '60', '80'], table: STPG, tol: 'hot' },
     sus: { schs: ['5S', '10S', '20S', '40', '80', '120', '160'], table: SUS, tol: 'hot' },
+    sus_large: { schs: ['5S', '10S', '20S', '40'], table: SUS_LARGE, tol: 'g3468' },
     sgp: { schs: null, table: SGP, tol: 'pct' },
     custom: { schs: null, table: null, tol: 'pct' },
   };
 
-  // 製造時の厚さの誤差（マイナス側）：呼び厚さが limit mm 未満なら mm、limit 以上なら pct %
+  // 製造時の厚さの誤差（マイナス側）：呼び厚さが limit mm 未満なら mm と lowPct %、limit 以上なら pct %
   const TOL = {
     hot: { limit: 4, mm: 0.5, pct: 12.5, text: '4 mm 未満は 0.5 mm、4 mm 以上は 12.5%' },
     stpg_cold: { limit: 3, mm: 0.3, pct: 10, text: '3 mm 未満は 0.3 mm、3 mm 以上は 10%' },
     sus_cold: { limit: 2, mm: 0.2, pct: 10, text: '2 mm 未満は 0.2 mm、2 mm 以上は 10%' },
+    g3468: { limit: 8, mm: 0, lowPct: 12.5, pct: 10, text: '8 mm 未満は 12.5%、8 mm 以上は 10%' },
     pct: { limit: 0, mm: 0, pct: 12.5, text: '12.5%' },
     none: { limit: 0, mm: 0, pct: 0, text: '見込まない' },
   };
@@ -138,12 +166,13 @@
   // 誤差を引いた最小の厚さ（呼び厚さ tn から）
   function minThickness(tn, tol) {
     const r = TOL[tol];
-    return tn < r.limit ? tn - r.mm : tn * (1 - r.pct / 100);
+    return tn < r.limit ? tn * (1 - (r.lowPct || 0) / 100) - r.mm : tn * (1 - r.pct / 100);
   }
   // 最小の厚さ tm を確保できる呼び厚さの下限（minThickness の逆）
   function nominalFor(tm, tol) {
     const r = TOL[tol];
-    return tm < r.limit - r.mm ? tm + r.mm : tm / (1 - r.pct / 100);
+    const low = (tm + r.mm) / (1 - (r.lowPct || 0) / 100);
+    return low < r.limit ? low : Math.max(r.limit, tm / (1 - r.pct / 100));
   }
   // 厚さ t で耐える圧力 MPa。s は許容引張応力×溶接効率
   function allowablePressure(Do, t, s) {

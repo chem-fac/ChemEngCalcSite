@@ -98,6 +98,7 @@
               <select id="pipe_type" data-example="stpg">
                 <option value="stpg">圧力配管用炭素鋼鋼管 STPG（JIS G 3454）</option>
                 <option value="sus">配管用ステンレス鋼鋼管（JIS G 3459）</option>
+                <option value="sus_large">配管用溶接大径ステンレス鋼鋼管（JIS G 3468）</option>
                 <option value="sgp">配管用炭素鋼鋼管 SGP（JIS G 3452）</option>
                 <option value="custom">外径と厚さを入力</option>
               </select>
@@ -184,11 +185,12 @@
                 <option value="hot">熱間仕上継目無（4 mm 未満 0.5 mm、以上 12.5%）</option>
                 <option value="stpg_cold">STPG の冷間仕上継目無・電気抵抗溶接（3 mm 未満 0.3 mm、以上 10%）</option>
                 <option value="sus_cold">ステンレス鋼管の冷間仕上継目無・溶接（2 mm 未満 0.2 mm、以上 10%）</option>
+                <option value="g3468">大径ステンレス鋼管（8 mm 未満 12.5%、以上 10%）</option>
                 <option value="pct">12.5%（SGP など）</option>
                 <option value="none">見込まない</option>
               </select>
             </div>
-            <p class="hint">管が呼び厚さより薄くできてもよい分（マイナス側の許容差）です。管の種類を選ぶと、厚さを薄く見込む側の値に切り替わります。製法が分かれば選び直してください。</p>
+            <p class="hint">管が呼び厚さより薄くできてもよい分（マイナス側の許容差）です。管の種類を選ぶと、その規格で厚さをいちばん薄く見込む値に切り替わります。製法が分かれば選び直してください。</p>
           </div>
 
           <div class="btn-row">
@@ -244,10 +246,11 @@
           <tr><td>STPG（JIS G 3454）</td><td>冷間仕上継目無・電気抵抗溶接</td><td>3 mm 未満は 0.3 mm、3 mm 以上は 10%</td></tr>
           <tr><td>ステンレス鋼管（JIS G 3459）</td><td>熱間仕上継目無</td><td>4 mm 未満は 0.5 mm、4 mm 以上は 12.5%</td></tr>
           <tr><td>ステンレス鋼管（JIS G 3459）</td><td>冷間仕上継目無・溶接</td><td>2 mm 未満は 0.2 mm、2 mm 以上は 10%</td></tr>
+          <tr><td>大径ステンレス鋼管（JIS G 3468）</td><td>溶接</td><td>8 mm 未満は 12.5%、8 mm 以上は 10%</td></tr>
           <tr><td>SGP（JIS G 3452）</td><td>－</td><td>12.5%</td></tr>
         </tbody>
       </table>
-      <p>出典：<a href="https://www.nipponsteel.com/product/pipe/pdf/nounyu_shinsei_Part19.pdf" target="_blank" rel="noopener">日本製鉄 圧力配管用炭素鋼鋼管の納入申請図</a>（JIS G 3454）、<a href="https://www.nipponsteel.com/product/construction/handbook/pdf/4-9.pdf" target="_blank" rel="noopener">日本製鉄 建設用資材ハンドブック 配管用炭素鋼鋼管</a>（JIS G 3452）、<a href="https://www.jisf.or.jp/business/standard/jis/documents/docs_kouzai004_jis05G3459_20201202.pdf" target="_blank" rel="noopener">JIS G 3459 改正原案</a>の表10</p>
+      <p>出典：<a href="https://www.nipponsteel.com/product/pipe/pdf/nounyu_shinsei_Part19.pdf" target="_blank" rel="noopener">日本製鉄 圧力配管用炭素鋼鋼管の納入申請図</a>（JIS G 3454）、<a href="https://www.nipponsteel.com/product/construction/handbook/pdf/4-9.pdf" target="_blank" rel="noopener">日本製鉄 建設用資材ハンドブック 配管用炭素鋼鋼管</a>（JIS G 3452）、<a href="https://www.jisf.or.jp/business/standard/jis/documents/docs_kouzai004_jis05G3459_20201202.pdf" target="_blank" rel="noopener">JIS G 3459 改正原案</a>の表10、<a href="https://www.jisf.or.jp/business/standard/jis/documents/docs_kouzai004_jis06G3468_20201202.pdf" target="_blank" rel="noopener">JIS G 3468 改正原案</a>の表8</p>
     </section>
 
     <section class="explain-block notes-block">
@@ -257,7 +260,7 @@
         <li><strong>使える条件</strong>：内圧を受ける直管。許容引張応力は設計温度での値を使います。</li>
         <li><strong>使えない条件</strong>：外圧や真空（管がつぶれる向きの力で厚さが決まる）、エルボ・分岐・フランジ、曲げ・熱膨張・振動による力。ASME B31.3 では、フェライト鋼で 482 °C、オーステナイト鋼で 566 °C を超えると係数 $Y$ が 0.4 より大きくなるので、この式をそのまま使えません。</li>
         <li><strong>法令の設計</strong>：高圧ガス保安法などの対象の設備は、適用する基準の式と許容引張応力で確かめてください。</li>
-        <li><strong>寸法の表の範囲</strong>：STPG は 10A〜600A の Sch10〜80、ステンレス鋼管は JIS G 3459 の表7 の 6A〜650A（Sch5S〜20S は 300A まで）、SGP は 10A〜500A です。表7 と厚さが違う溶接管の寸法（同じ規格の表8）や、ほかの管は「外径と厚さを入力」を選んでください。</li>
+        <li><strong>寸法の表の範囲</strong>：STPG は 10A〜600A の Sch10〜80、ステンレス鋼管は JIS G 3459 の表7 の 6A〜650A（Sch5S〜20S は 300A まで）、大径ステンレス鋼管は JIS G 3468 の 150A〜1000A（Sch40 は 600A まで）、SGP は 10A〜500A です。表7 と厚さが違う溶接管の寸法（同じ規格の表8）や、ほかの管は「外径と厚さを入力」を選んでください。</li>
       </ul>
     </section>
 
@@ -267,6 +270,8 @@
         <li><a href="https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/hipregas/files/ippan_reiji.pdf" target="_blank" rel="noopener">一般高圧ガス保安規則関係例示基準</a><br><span class="paper-meta">経済産業省, 2026。「8. 高圧ガス設備及び導管の強度」の配管及び導管の肉厚の算定式</span></li>
         <li><a href="https://www.asme.org/codes-standards/find-codes-standards/b31-3-process-piping" target="_blank" rel="noopener">ASME B31.3 Process Piping</a><br><span class="paper-meta">ASME。304.1.2 直管の内圧の式、表 304.1.1 の係数 Y</span></li>
         <li><a href="https://www.jisf.or.jp/business/standard/jis/documents/docs_kouzai004_jis05G3459_20201202.pdf" target="_blank" rel="noopener">JIS G 3459 配管用ステンレス鋼鋼管（改正原案）</a><br><span class="paper-meta">日本鉄鋼連盟, 2020。表7 の寸法、表10 の厚さの許容差</span></li>
+        <li><a href="https://www.jisf.or.jp/business/standard/jis/documents/docs_kouzai004_jis06G3468_20201202.pdf" target="_blank" rel="noopener">JIS G 3468 配管用溶接大径ステンレス鋼鋼管（改正原案）</a><br><span class="paper-meta">日本鉄鋼連盟, 2020。表6 の寸法、表8 の厚さの許容差</span></li>
+        <li><a href="https://www.nipponsteel.com/product/construction/handbook/pdf/4-30.pdf" target="_blank" rel="noopener">配管用ステンレス鋼鋼管・配管用溶接大径ステンレス鋼鋼管 JIS G 3459・G 3468</a><br><span class="paper-meta">日本製鉄, 建設用資材ハンドブック, 2025。寸法</span></li>
         <li><a href="https://www.nipponsteel.com/product/construction/handbook/pdf/4-10.pdf" target="_blank" rel="noopener">圧力配管用炭素鋼鋼管（STPG 370、STPG 410） JIS G 3454</a><br><span class="paper-meta">日本製鉄, 建設用資材ハンドブック, 2025。寸法</span></li>
         <li><a href="https://www.nipponsteel.com/product/pipe/pdf/nounyu_shinsei_Part19.pdf" target="_blank" rel="noopener">圧力配管用炭素鋼鋼管（JIS G 3454） 納入申請図</a><br><span class="paper-meta">日本製鉄, 2019。肉厚の許容差</span></li>
         <li><a href="https://www.nipponsteel.com/product/construction/handbook/pdf/4-9.pdf" target="_blank" rel="noopener">配管用炭素鋼鋼管（SGP） JIS G 3452</a><br><span class="paper-meta">日本製鉄, 建設用資材ハンドブック, 2025。寸法と厚さの許容差</span></li>
