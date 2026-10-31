@@ -2707,7 +2707,6 @@ html:not(.js) .ta-js-only { display: none; }
 }
 .data-table-wrap > .data-table { margin-top: 0; }
 .data-table-wide { min-width: 620px; }
-.data-table-readable { font-size: 16px; }
 .data-table th,
 .data-table td {
   padding: 6px 8px;

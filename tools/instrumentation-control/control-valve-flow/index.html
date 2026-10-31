@@ -23,10 +23,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../../assets/css/main.css">
-<style>
-.valve-conversions { font-size: 16px; }
-.valve-conversions .katex-display { margin: 0.5em 0 0.9em; }
-</style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
@@ -105,8 +101,7 @@
           <input type="number" inputmode="decimal" id="coef" step="any" placeholder="例：10">
           <select id="coef_type" aria-label="流量係数の種類"><option value="Cv">Cv</option><option value="Kv">Kv</option></select>
         </div>
-        <p class="hint">運転時の開度に対応するCvまたはKvを、メーカーの表や特性曲線で確認して入力してください。弁の特性によって変わるため、全開Cvと開度率だけで比例計算しないでください。</p>
-        <p class="hint"><a href="#coefficient-reference">全開時の流量係数の参考値を見る</a></p>
+        <p class="hint">運転時の開度に対応するCvまたはKvを、メーカーの表や特性曲線で確認して入力してください。カタログの定格Cv・Kvsは全開時の値で、開度の割合を掛けても運転時の値にはなりません。</p>
       </div>
 
       <div class="input-row">
@@ -146,14 +141,12 @@
   <div class="math-block">$$ Q \approx 0.0865\,C_v \sqrt{\frac{1000\,\Delta p}{\rho}} $$</div>
 
   <h3>係数と流量の換算</h3>
-  <div class="valve-conversions">
-    <p>CvとKvの換算</p>
-    <div class="math-block">$$ K_v = 0.865\,C_v $$</div>
-    <p>体積流量をL/minに換算</p>
-    <div class="math-block">$$ q = \frac{1000\,Q}{60} $$</div>
-    <p>質量流量をkg/hで計算</p>
-    <div class="math-block">$$ \dot{m} = \rho\,Q $$</div>
-  </div>
+  <p>CvとKvの換算</p>
+  <div class="math-block">$$ K_v = 0.865\,C_v $$</div>
+  <p>体積流量をL/minに換算</p>
+  <div class="math-block">$$ q = \frac{1000\,Q}{60} $$</div>
+  <p>質量流量をkg/hで計算</p>
+  <div class="math-block">$$ \dot{m} = \rho\,Q $$</div>
 
   <h3>記号と単位</h3>
   <ul class="symbol-list">
@@ -180,39 +173,11 @@
   </ul>
 </section>
 
-<section class="explain-block" id="coefficient-reference">
-  <h2 id="coefficient-reference-title">流量係数の参考値</h2>
-  <p>メーカー公表値から選んだ、特定製品の全開時の例です。同じ呼び径でも、弁形式やシート径で値が変わります。</p>
-  <p>表のKvsは全開時のKvです。入力する際は、Kvsの値なら「Kv」、Cvの値なら「Cv」を選んでください。</p>
-  <div class="data-table-wrap" role="region" aria-label="流量係数の参考値" tabindex="0">
-    <table class="data-table data-table-wide data-table-readable" aria-labelledby="coefficient-reference-title">
-      <thead>
-        <tr><th scope="col">製品例・弁形式</th><th scope="col">呼び径・仕様</th><th scope="col">全開時の係数</th><th scope="col">出典</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>SAMSON Type 3241（グローブ形）</td><td>DN25・シート径12mm</td><td>Kvs = <strong>4</strong></td><td><a href="https://www.samson.de/document/t80150en.pdf#page=6" target="_blank" rel="noopener">T 8015 EN p.6</a></td></tr>
-        <tr><td>SAMSON Type 3241（グローブ形）</td><td>DN25・シート径24mm</td><td>Kvs = <strong>10</strong></td><td><a href="https://www.samson.de/document/t80150en.pdf#page=6" target="_blank" rel="noopener">T 8015 EN p.6</a></td></tr>
-        <tr><td>SAMSON Type 3241（グローブ形）</td><td>DN50・シート径48mm</td><td>Kvs = <strong>40</strong></td><td><a href="https://www.samson.de/document/t80150en.pdf#page=6" target="_blank" rel="noopener">T 8015 EN p.6</a></td></tr>
-        <tr><td>SAMSON Type 3310（セグメントボール形）</td><td>DN25</td><td>Cv = <strong>40</strong></td><td><a href="https://canada.samsongroup.com/document/t82221en.pdf#page=4" target="_blank" rel="noopener">T 8222-1 EN p.4</a></td></tr>
-        <tr><td>SAMSON Type 3310（セグメントボール形）</td><td>DN50</td><td>Cv = <strong>160</strong></td><td><a href="https://canada.samsongroup.com/document/t82221en.pdf#page=4" target="_blank" rel="noopener">T 8222-1 EN p.4</a></td></tr>
-      </tbody>
-    </table>
-  </div>
-  <ul>
-    <li>Type 3241はフローディバイダなし、定格トラベル15mmの仕様です。</li>
-    <li>Type 3310は標準の修正イコールパーセント特性、流れ方向FTO、回転角90°の値です。</li>
-  </ul>
-  <p>実際の計算には、使用する弁の型式・トリム仕様・運転開度に対応した係数を使ってください。</p>
-  <p><a href="#coef">流量係数の入力欄に戻る</a></p>
-</section>
-
 <section class="explain-block reference-block">
   <h2>参考資料</h2>
   <ul class="paper-link-list">
     <li><a href="https://usa.samsongroup.com/document/t00050en.pdf" target="_blank" rel="noopener">SAMSON, Application Notes: Kv coefficient · Valve sizing</a><br><span class="paper-meta">SAMSON, AB 05 EN, 2012年3月。p.1。液体のKvと流量・差圧・密度の関係、適用制約。</span></li>
     <li><a href="https://www.emerson.com/is/content/emerson/en/final-control/flow-controls/documents/d103540x012.pdf" target="_blank" rel="noopener">Emerson, Control Valve Sourcebook: Pulp &amp; Paper</a><br><span class="paper-meta">Emerson。印刷p.3-7（PDF p.51）Table 3-2・式17、印刷p.4-4。Cv用の単位換算係数、液体流量式と乱流の前提。</span></li>
-    <li><a href="https://www.samson.de/document/t80150en.pdf" target="_blank" rel="noopener">SAMSON, Type 3241（T 8015 EN）</a><br><span class="paper-meta">2022年11月。p.6 Table 3・4。グローブ形調節弁の呼び径、シート径、定格トラベルと全開Kvs。</span></li>
-    <li><a href="https://canada.samsongroup.com/document/t82221en.pdf" target="_blank" rel="noopener">SAMSON, Type 3310（T 8222-1 EN）</a><br><span class="paper-meta">2026年4月。p.4 Table 3.3。標準の修正イコールパーセント特性における回転角90°のCv。流れ方向はp.2を参照。</span></li>
   </ul>
 </section>
 
