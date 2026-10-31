@@ -24,9 +24,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../../assets/css/main.css">
 <style>
-.valve-conversions li { font-size: 16px; }
-.valve-conversions .katex-display { margin: 0.5em 0 0.9em; text-align: left; }
-.valve-conversions .katex-display > .katex { text-align: left; }
+.valve-conversions { font-size: 16px; }
+.valve-conversions .katex-display { margin: 0.5em 0 0.9em; }
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
@@ -146,17 +145,14 @@
   <div class="math-block">$$ Q \approx 0.0865\,C_v \sqrt{\frac{1000\,\Delta p}{\rho}} $$</div>
 
   <h3>係数と流量の換算</h3>
-  <ul class="valve-conversions">
-    <li>CvとKvの換算
-      <div class="math-block">$$ K_v = 0.865\,C_v $$</div>
-    </li>
-    <li>体積流量をL/minに換算
-      <div class="math-block">$$ q = \frac{1000\,Q}{60} $$</div>
-    </li>
-    <li>質量流量をkg/hで計算
-      <div class="math-block">$$ \dot{m} = \rho\,Q $$</div>
-    </li>
-  </ul>
+  <div class="valve-conversions">
+    <p>CvとKvの換算</p>
+    <div class="math-block">$$ K_v = 0.865\,C_v $$</div>
+    <p>体積流量をL/minに換算</p>
+    <div class="math-block">$$ q = \frac{1000\,Q}{60} $$</div>
+    <p>質量流量をkg/hで計算</p>
+    <div class="math-block">$$ \dot{m} = \rho\,Q $$</div>
+  </div>
 
   <h3>記号と単位</h3>
   <ul class="symbol-list">
