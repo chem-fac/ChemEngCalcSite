@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>0.6乗則による設備費の換算（0.7乗則・コスト指数） | 化学工学計算支援ツール</title>
+  <meta name="description"
+    content="容量の違う機器やプラントの費用を、容量比のn乗（0.6乗則・0.7乗則）とコスト指数の比で換算するツール。n＝0.6と0.7の結果を並べて表示し、指数nの目安も示します。">
+  <meta name="keywords" content="0.6乗則, 0.7乗則, シックステンス, six-tenths rule, スケールファクター, 容量指数, 能力換算, 設備費, 建設費, プラントコスト, コストインデックス, プラントコストインデックス, 企業物価指数, 価格の換算, スケールアップ">
+  <link rel="canonical" href="https://tools.chem-fac.com/tools/economics/six-tenths-rule/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="化学工学計算支援ツール">
+  <meta property="og:title" content="0.6乗則による設備費の換算（0.7乗則・コスト指数） | 化学工学計算支援ツール">
+  <meta property="og:description" content="容量の違う機器やプラントの費用を、容量比のn乗（0.6乗則・0.7乗則）とコスト指数の比で換算するツール。n＝0.6と0.7の結果を並べて表示し、指数nの目安も示します。">
+  <meta property="og:url" content="https://tools.chem-fac.com/tools/economics/six-tenths-rule/">
+  <meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-economics-six-tenths-rule.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"0.6乗則・0.7乗則による設備費の換算","url":"https://tools.chem-fac.com/tools/economics/six-tenths-rule/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"容量の違う機器やプラントの費用を、容量比のn乗（0.6乗則・0.7乗則）とコスト指数の比で換算するツール。n＝0.6と0.7の結果を並べて表示し、指数nの目安も示します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"0.6乗則, 0.7乗則, シックステンス, six-tenths rule, スケールファクター, 容量指数, 能力換算, 設備費, 建設費, プラントコスト, コスト指数, コストインデックス, プラントコストインデックス, PCI, 企業物価指数, 価格換算, スケールメリット, 見積もり, 概算, cost scaling","about":"経済性","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/main.css">
+  <link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-7MQ7VEMWHY');
+  </script>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="inner">
+      <a href="../../../" class="logo">
+        <img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">
+        化学工学計算支援ツール
+      </a>
+      <nav class="site-nav">
+        <a href="../../../tools/">ツール一覧</a>
+        <a href="../../../updates/">更新情報</a>
+        <a href="../../../faq/">よくある質問</a>
+        <a href="../../../support/">支援する</a>
+        <a href="../../../contact/">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="tool-page tool-page-wide">
+
+    <nav class="breadcrumb">
+      <a href="../../../">ホーム</a>
+      <span class="sep">›</span>
+      <a href="../">経済性</a>
+      <span class="sep">›</span>
+      <span class="current">0.6乗則・0.7乗則による設備費の換算</span>
+    </nav>
+
+    <!-- ===== Hero ===== -->
+    <section class="tool-hero tool-hero-simple">
+      <div class="tool-hero-content">
+        <span class="cat-tag" data-cat="economics">経済性</span>
+        <h1>0.6乗則・0.7乗則による設備費の換算</h1>
+        <p class="tool-subcopy">$C_2 = C_1 \left( S_2 / S_1 \right)^{n} \cdot I_2 / I_1$ で、容量と時期の違う機器・プラントの費用を換算します。</p>
+      </div>
+    </section>
+
+    <!-- ===== Calculator ===== -->
+    <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+      <div class="calc-grid">
+
+        <div class="calc-pane calc-input-pane">
+          <h2>入力</h2>
+
+          <div class="input-row">
+            <label for="c1">分かっている費用 <span class="sym">C</span><sub>1</sub></label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="c1" step="any" placeholder="例：8000000">
+              <span class="unit-label">円</span>
+            </div>
+            <p class="hint">似た機器の購入価格や、似たプラントの建設費です。</p>
+          </div>
+
+          <div class="input-row">
+            <label for="s1">その容量 <span class="sym">S</span><sub>1</sub></label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="s1" step="any" placeholder="例：5">
+            </div>
+            <p class="hint">容積・伝熱面積・動力・生産能力など。新しい方と同じ量・同じ単位で入れます。</p>
+          </div>
+
+          <div class="input-row">
+            <label for="s2">新しい容量 <span class="sym">S</span><sub>2</sub></label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="s2" step="any" placeholder="例：10">
+            </div>
+          </div>
+
+          <div class="input-row">
+            <label for="n">指数 <span class="sym">n</span>（任意）</label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="n" step="any" placeholder="例：0.65">
+            </div>
+            <p class="hint">空欄なら0.6と0.7の結果だけを出します。熱交換器なら0.65が目安です（下の表）。</p>
+          </div>
+
+          <div class="input-row">
+            <label for="i1">費用の年のコスト指数 <span class="sym">I</span><sub>1</sub>（任意）</label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="i1" step="any" placeholder="例：93.1">
+            </div>
+            <p class="hint">同じ系列の指数を2つ入れます。例：日本銀行 企業物価指数「化学機械」の暦年平均は2016年93.1、2025年116.7（2020年＝100）。</p>
+          </div>
+
+          <div class="input-row">
+            <label for="i2">今のコスト指数 <span class="sym">I</span><sub>2</sub>（任意）</label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="i2" step="any" placeholder="例：116.7">
+            </div>
+            <p class="hint">両方空欄なら時期の補正はしません。</p>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn btn-primary" id="calc-btn">計算する</button>
+            <button class="btn btn-ghost" id="reset-btn">リセット</button>
+          </div>
+
+          <div id="error" class="error-msg" style="display:none;"></div>
+        </div>
+
+        <div class="calc-pane calc-result-pane">
+          <h2>計算結果</h2>
+          <div id="result-area">
+            <div class="placeholder">入力値を入れて「計算する」を押してください</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== Explanation sections ===== -->
+    <section class="explain-block">
+      <h2>計算式</h2>
+      <p>同じ種類の機器やプラントでは、容量と費用を両対数グラフにとるとほぼ直線になり、その傾き $n$ は0.6前後です。これを0.6乗則と呼び、時期の違いはコスト指数の比で補正します。</p>
+      <div class="math-block">$$ C_2 = C_1 \left( \dfrac{S_2}{S_1} \right)^{n} \dfrac{I_2}{I_1} $$</div>
+      <ul class="symbol-list">
+        <li>$C_1$：分かっている費用［円］</li>
+        <li>$C_2$：換算後の費用［円］</li>
+        <li>$S_1$, $S_2$：容量［任意の単位］</li>
+        <li>$n$：指数［-］</li>
+        <li>$I_1$, $I_2$：コスト指数［-］</li>
+      </ul>
+      <p>$n$ が大きいほど、容量を大きくしたときの割安分は小さくなります。0.6と0.7の結果の差は、指数の不確かさによる幅の目安です。</p>
+    </section>
+
+    <section class="explain-block">
+      <h2>指数 n の目安</h2>
+      <table class="regime-table">
+        <thead>
+          <tr><th>対象</th><th>指数 $n$</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>機器（一般）</td><td>0.6 〜 0.7</td></tr>
+          <tr><td>熱交換器</td><td>0.65</td></tr>
+          <tr><td>単純なプラント</td><td>0.75 〜 0.95</td></tr>
+          <tr><td>化学品・石油精製の54プロセス（プラント全体）</td><td>0.38 〜 0.90（中央値0.65）</td></tr>
+        </tbody>
+      </table>
+      <p>出典：化学工学協会 編（1975）。54プロセスの範囲と中央値は、Guthrie（1970）の値から求めたものです。</p>
+      <ul>
+        <li>小型のプラントや、圧力が非常に高いものには使えません。</li>
+        <li>機器が製作できる最大寸法を超えて台数を増やす範囲では、$n$ が1に近づきます。</li>
+        <li>コスト指数による補正の誤差は、4〜5年でも10%程度が限度です。10年を超えると精度が急に落ちます。</li>
+      </ul>
+    </section>
+
+    <section class="explain-block notes-block">
+      <h2>適用範囲と注意事項</h2>
+      <p>容量が違うだけで、型式・仕様・材質・費用の範囲が同じ設備の費用を、容量比の累乗で換算する計算です。指数 $n$ は対象ごとの代表値で、個別の設備の値ではありません。</p>
+      <ul>
+        <li><strong>使える条件</strong>：基準にする費用 $C_1$ と換算先の設備が、同じ種類で、容量の定義（容積、伝熱面積、処理量など）と単位が同じ場合。$C_1$ に含まれる費用の範囲（機器費のみか、据付や配管を含むか）も、求めたい $C_2$ と合わせます。</li>
+        <li><strong>使えない条件</strong>：種類や方式が違う設備、材質や圧力条件が大きく違う設備、容量に対して費用が決まらない設備（容量以外の仕様で価格が決まるもの）。この場合は容量比だけで換算できません。</li>
+        <li><strong>外れやすい場合</strong>：容量比が大きいほど、指数の差が結果に大きく効きます。0.6乗と0.7乗の結果の差は、$n$ の不確かさによる幅の目安で、実際の費用がその範囲に収まることを保証するものではありません。</li>
+        <li><strong>コスト指数</strong>：$I_1$ と $I_2$ は同じ種類の指数（同じ系列・同じ基準年）から取ります。別の系列の値を比べると、換算の比が意味を持ちません。</li>
+        <li><strong>結果の読み方</strong>：結果は、同種設備の実績から作った経験則による概算です。設計の初期段階での比較や、概略の見積の位置づけに限られ、メーカーの見積に代わるものではありません。</li>
+      </ul>
+    </section>
+
+    <!-- ===== Reference ===== -->
+    <section class="explain-block reference-block">
+      <h2>参考資料</h2>
+      <ul class="paper-link-list">
+        <li>化学工学協会関東支部 編『プロセス設計シリーズ6 経済評価とプラントコスト』<br><span class="paper-meta">丸善, 1975。第3章（3・1・2 プラントコストインデックス、3・4 0.6乗則法、図3・13〜3・14）</span></li>
+        <li><a href="https://www.scej.org/docs/publication/journal/backnumber/Bulletin090010013.pdf" target="_blank" rel="noopener">関山 隆彦「化学プラント建設費について」</a><br><span class="paper-meta">化学工学, 第90巻 第1号, pp.13–17, 2026</span></li>
+        <li><a href="https://www.stat-search.boj.or.jp/" target="_blank" rel="noopener">日本銀行「企業物価指数（2020年基準）」</a><br><span class="paper-meta">日本銀行, 時系列統計データ検索サイト。国内企業物価指数 品目「化学機械」。暦年平均は月次値の単純平均</span></li>
+        <li><a href="https://www.jmcti.org/planthomepage/" target="_blank" rel="noopener">日本機械輸出組合「プラントコストインデックス（PCI）」</a><br><span class="paper-meta">日本機械輸出組合, PCI/LF報告書</span></li>
+      </ul>
+    </section>
+
+    <section class="related">
+      <h3>関連ツール</h3>
+      <div class="related-grid">
+        <a href="../../heat-transfer/lmtd-area/" class="related-card"><span class="small">伝熱</span>LMTD・伝熱面積</a>
+        <a href="../../fluid/pump/" class="related-card"><span class="small">流動</span>ポンプ計算（全揚程・NPSH・軸動力）</a>
+        <a href="../equipment-cost-estimate/" class="related-card"><span class="small">経済性</span>設備新設費の概算（モジュール係数法）</a>
+      </div>
+    </section>
+
+
+
+</main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>サイトについて</h4>
+        <ul>
+          <li><a href="../../../about/">当サイトについて</a></li>
+          <li><a href="../../../privacy/">プライバシーポリシー</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>サポート</h4>
+        <ul>
+          <li><a href="../../../contact/">お問い合わせ</a></li>
+          <li><a href="../../../faq/">よくある質問</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>その他</h4>
+        <ul>
+          <li><a href="../../../terms/">利用規約</a></li>
+          <li><a href="../../../disclaimer/">免責事項</a></li>
+        </ul>
+      </div>
+      <div class="footer-brand">
+        <a href="../../../" class="logo">
+          <img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">
+          化学工学計算支援ツール
+        </a>
+        <div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../../assets/js/six-tenths-rule.js"></script>
+  <script src="../../../assets/js/share.js"></script>
+  <script src="../../../assets/js/calc-utils.js"></script>
+</body>
+
+</html>

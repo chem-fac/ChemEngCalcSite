@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アントワン式（蒸気圧・沸点） | 化学工学計算支援ツール</title>
+<meta name="description" content="アントワン式 log P = A − B/(T+C) で純物質の蒸気圧・沸点を計算します。係数の温度単位・圧力単位・対数の底を指定できます。">
+<meta name="keywords" content="アントワン, Antoine, 蒸気圧, 沸点, 純物質, 気液平衡, log P, 水, エタノール, メタノール, ベンゼン, トルエン, アセトン, vapor pressure">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/distillation/antoine/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="アントワン式（蒸気圧・沸点） | 化学工学計算支援ツール">
+<meta property="og:description" content="アントワン式 log P = A − B/(T+C) で純物質の蒸気圧・沸点を計算します。係数の温度単位・圧力単位・対数の底を指定できます。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/distillation/antoine/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-distillation-antoine.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"アントワン式（蒸気圧・沸点）","url":"https://tools.chem-fac.com/tools/distillation/antoine/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"アントワン式 log P = A − B/(T+C) で純物質の蒸気圧・沸点を計算します。係数の温度単位・圧力単位・対数の底を指定できます。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"アントワン, Antoine, 蒸気圧, 沸点, 純物質, 気液平衡, log P, 水, エタノール, メタノール, ベンゼン, トルエン, アセトン, vapor pressure","about":"蒸留","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">蒸留</a><span class="sep">›</span><span class="current">アントワン式</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag" data-cat="distillation">蒸留</span>
+      <h1>アントワン式（蒸気圧・沸点）</h1>
+      <p class="tool-subcopy">$\log_{10} P = A - \dfrac{B}{T + C}$ から、純物質の蒸気圧 $P$ または沸点 $T_{sat}$ を計算します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab active" data-mode="PfromT">温度 → 蒸気圧</button>
+      <button type="button" class="mode-tab" data-mode="TfromP">圧力 → 沸点</button>
+    </div>
+
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+
+        <div class="input-row">
+          <label for="A">係数 <span class="sym">A</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="A" step="any" placeholder="例：8.07131"></div>
+        </div>
+        <div class="input-row">
+          <label for="B">係数 <span class="sym">B</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="B" step="any" placeholder="例：1730.63"></div>
+        </div>
+        <div class="input-row">
+          <label for="C">係数 <span class="sym">C</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="C" step="any" placeholder="例：233.426"></div>
+        </div>
+
+        <div class="input-row">
+          <label for="base">対数の底</label>
+          <div class="input-group">
+            <select id="base">
+              <option value="log10">log<sub>10</sub>（一般的なAntoine式）</option>
+              <option value="ln">ln（自然対数を用いる文献）</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label for="Tunit">係数定義の温度単位</label>
+          <div class="input-group">
+            <select id="Tunit">
+              <option value="C">°C</option>
+              <option value="K">K</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label for="Punit">係数定義の圧力単位</label>
+          <div class="input-group">
+            <select id="Punit">
+              <option value="mmHg">mmHg (Torr)</option>
+              <option value="kPa">kPa</option>
+              <option value="bar">bar</option>
+              <option value="atm">atm</option>
+              <option value="Pa">Pa</option>
+            </select>
+          </div>
+          <p class="hint">係数 A・B・C は文献ごとに異なる単位系で定義されています。係数の出典に合わせた単位を選んでください。</p>
+        </div>
+
+        <div class="input-row" data-show-when="PfromT">
+          <label for="T">温度 <span class="sym">T</span>（係数定義の温度単位で入力）</label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="T" step="any" placeholder="例：25"></div>
+        </div>
+
+        <div class="input-row" data-show-when="TfromP">
+          <label for="P">圧力 <span class="sym">P</span>（係数定義の圧力単位で入力）</label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="P" step="any" placeholder="例：760"></div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>純物質の蒸気圧 $P$ と温度 $T$ の関係を表す代表的な経験式が<strong>アントワン (Antoine) 式</strong>です。</p>
+    <div class="math-block">$$ \log_{10} P = A - \dfrac{B}{T + C} $$</div>
+    <p>式を $T$ について解くと、与えられた圧力での飽和温度（沸点）$T_{sat}$ が得られます。</p>
+    <div class="math-block">$$ T_{sat} = \dfrac{B}{A - \log_{10} P} - C $$</div>
+    <ul class="symbol-list">
+      <li>$P$：蒸気圧［mmHg、kPa、bar など］</li>
+      <li>$T$：温度［°C または K］</li>
+      <li>$A, B, C$：物質ごとの定数［-］</li>
+      <li>$T_{sat}$：飽和温度（沸点）［°C または K］</li>
+    </ul>
+  </section>
+
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>$\log_{10} P = A - B/(T + C)$ に、利用者が与えた係数 A・B・C をそのまま代入する計算です。物質の判定や係数の妥当性の検査は行いません。</p>
+    <ul>
+      <li><strong>使える条件</strong>：係数を求めた温度範囲の内側で、係数の出典と同じ形式（常用対数、圧力と温度の単位）で入力する場合。</li>
+      <li><strong>係数の単位系</strong>：A・B・C は、式の対数の種類（常用対数か自然対数か）、圧力の単位（mmHg・kPa・bar）、温度の単位（°C か K）の組み合わせごとに別の値になります。出典の単位系と画面の単位選択が一致していないと、式は計算できても結果は桁違いになります。</li>
+      <li><strong>温度範囲</strong>：係数は出典ごとに有効な温度範囲が付いており、同じ物質でも範囲別に複数の係数組が示されることがあります（NIST Chemistry WebBook のベンゼンでは範囲の異なる 4 組が掲載）。入力温度が範囲外でも式は値を返しますが、その値は保証されません。範囲外では沸点（逆算した $T_{sat}$）にも同じことが言えます。</li>
+      <li><strong>計算できない領域</strong>：$T + C = 0$ 付近では蒸気圧が発散し、逆算では $A - \log_{10} P = 0$ で解けません。逆算した温度が絶対零度以下になる圧力は、式の適用範囲外として弾きます（ツールの入力検査どおり）。</li>
+      <li><strong>係数の調べ方</strong>：アントワン定数や物性定数を調べたい場合は、参考資料の『復刊 物性定数推算法』が参考になります。</li>
+      <li><strong>外れやすい場合</strong>：広い温度範囲を 1 組の係数で通した場合（広い範囲ではワグナー式などを検討）、係数の出典の温度範囲が不明な場合。純物質の蒸気圧であり、混合物の泡点・露点は活量係数などを含む別の計算になります。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://www.amazon.co.jp/dp/4621311832?tag=chemengcalc-22" class="reference-card" data-asin="4621311832" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">Excelで気軽に化学工学 第2版</p><p class="ref-meta">化学工学会 編 / 丸善出版</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+    <a href="https://amzn.to/3P9QLA0" class="reference-card" data-asin="B0D8S14QGF" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">復刊 物性定数推算法</p><p class="ref-meta">佐藤 一雄 著 / 丸善出版</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../" class="related-card"><span class="small">蒸留</span>蒸留カテゴリへ戻る</a>
+      <a href="../../reaction/arrhenius/" class="related-card"><span class="small">反応</span>アレニウスの式</a>
+    </div>
+  </section>
+
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div></div>
+  </div>
+</footer>
+
+<script src="../../../assets/js/antoine.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

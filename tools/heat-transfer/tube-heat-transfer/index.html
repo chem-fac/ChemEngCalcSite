@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>熱伝達係数 h の計算（円管内層流・乱流・平板・自然対流の相関式） | 化学工学計算支援ツール</title>
+<meta name="description" content="円管内層流・円管内乱流・平板上乱流・垂直平板自然対流の代表相関式（Dittus-Boelter、Sieder-Tate など）から、ヌセルト数 Nu と熱伝達係数 h を概算するツール。">
+<meta name="keywords" content="熱伝達係数, 管内流, 平板, 自然対流, 強制対流, Dittus, Boelter, Sieder, Tate, Re, Pr, Gr, Nu, Nusselt, 熱伝達係数 計算, ヌセルト数">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/heat-transfer/tube-heat-transfer/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="熱伝達係数 h の計算（円管内層流・乱流・平板・自然対流の相関式） | 化学工学計算支援ツール">
+<meta property="og:description" content="円管内層流・円管内乱流・平板上乱流・垂直平板自然対流の代表相関式（Dittus-Boelter、Sieder-Tate など）から、ヌセルト数 Nu と熱伝達係数 h を概算するツール。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/heat-transfer/tube-heat-transfer/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-heat-transfer-tube-heat-transfer.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"熱伝達係数（代表相関式）","url":"https://tools.chem-fac.com/tools/heat-transfer/tube-heat-transfer/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"円管内層流・円管内乱流・平板上乱流・垂直平板自然対流の代表相関式（Dittus-Boelter、Sieder-Tate など）から、ヌセルト数 Nu と熱伝達係数 h を概算するツール。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"熱伝達係数, 管内流, 平板, 自然対流, 強制対流, ディタス, ベルター, Dittus, Boelter, Sieder, Tate, Re, Pr, Gr, Nu, Nusselt, 乱流","about":"伝熱","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">伝熱</a><span class="sep">›</span><span class="current">熱伝達係数</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag" data-cat="heat-transfer">伝熱</span>
+      <h1>熱伝達係数（代表相関式）</h1>
+      <p class="tool-subcopy">円管内層流・円管内乱流・平板上乱流・垂直平板自然対流の代表相関式から、Nu数と熱伝達係数 h を概算します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab" data-mode="tube-laminar">円管内・層流</button>
+      <button type="button" class="mode-tab active" data-mode="tube-turbulent">円管内・乱流</button>
+      <button type="button" class="mode-tab" data-mode="flat-turbulent">平板・乱流</button>
+      <button type="button" class="mode-tab" data-mode="vertical-natural">垂直平板・自然対流</button>
+    </div>
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <!-- value-figure -->
+        <figure class="value-figure input-row-full" data-cat="heat-transfer"><div class="vf-panels"><div class="vf-panel" data-show-when="tube-laminar" hidden><svg class="vf-svg" width="400" height="176" viewBox="0 0 400 176" role="img" aria-label="円管内・層流：管内径 D、入口からの管長 L、壁温での粘度 μ_w" xmlns="http://www.w3.org/2000/svg"><rect x="44" y="64" width="340" height="50" class="vf-fluid"/><rect x="44" y="57" width="340" height="7" class="vf-wallh"/><rect x="44" y="114" width="340" height="7" class="vf-wallh"/><line x1="14" y1="89" x2="392" y2="89" class="vf-cl"/><polyline points="8,80 84,80" class="vf-flow"/><polygon points="84,80 76,83.2 76,76.8" class="vf-flowhead"/><g class="vf-g" data-for="velocity"><text x="92" y="85" class="vf-sym" text-anchor="start"><tspan>u</tspan></text><text x="106.0" y="85" class="vf-name">断面平均流速</text></g><text x="44" y="50" class="vf-note" text-anchor="middle">入口</text><g class="vf-g" data-for="D"><line x1="362" y1="64" x2="362" y2="114" class="vf-dim"/><polygon points="362,64 364.6,71 359.4,71" class="vf-arrow"/><polygon points="362,114 359.4,107 364.6,107" class="vf-arrow"/><text x="354" y="111" class="vf-sym" text-anchor="end"><tspan>D</tspan></text></g><g class="vf-g" data-for="L"><line x1="44" y1="124" x2="44" y2="153" class="vf-ext"/></g><g class="vf-g" data-for="L"><line x1="336" y1="124" x2="336" y2="153" class="vf-ext"/></g><line x1="336" y1="54" x2="336" y2="124" class="vf-section"/><g class="vf-g" data-for="L"><line x1="44" y1="148" x2="336" y2="148" class="vf-dim"/><polygon points="44,148 51,145.4 51,150.6" class="vf-arrow"/><polygon points="336,148 329,150.6 329,145.4" class="vf-arrow"/><text x="74" y="167" class="vf-sym" text-anchor="middle"><tspan>L</tspan></text><text x="86" y="167" class="vf-name" text-anchor="start">入口からの管長</text></g><g class="vf-g" data-for="mu_wall"><line x1="250" y1="60.0" x2="262" y2="38.0" class="vf-ext"/><circle cx="250" cy="60.0" r="2.2" class="vf-dot"/><text x="266" y="36" class="vf-sym" text-anchor="start"><tspan>μ</tspan><tspan class="vf-sub" dy="0.32em">w</tspan></text><text x="288" y="36.0" class="vf-name">壁温での粘度</text></g><g class="vf-g" data-for="mu"><text x="92.0" y="106" class="vf-note">μ：管内の流体の平均温度での値</text></g></svg><p class="vf-panel-note"><span class="sym">D</span> は管内径、<span class="sym">L</span> は加熱（冷却）が始まる入口からの管長です。<span class="sym">μ<sub>w</sub></span> は壁の温度での粘度、<span class="sym">μ</span> は管内の流体の平均温度での粘度。</p></div><div class="vf-panel" data-show-when="tube-turbulent"><svg class="vf-svg" width="400" height="134" viewBox="0 0 400 134" role="img" aria-label="円管内・乱流：管内径 D" xmlns="http://www.w3.org/2000/svg"><rect x="44" y="64" width="340" height="50" class="vf-fluid"/><rect x="44" y="57" width="340" height="7" class="vf-wallh"/><rect x="44" y="114" width="340" height="7" class="vf-wallh"/><line x1="14" y1="89" x2="392" y2="89" class="vf-cl"/><polyline points="8,80 84,80" class="vf-flow"/><polygon points="84,80 76,83.2 76,76.8" class="vf-flowhead"/><g class="vf-g" data-for="velocity"><text x="92" y="85" class="vf-sym" text-anchor="start"><tspan>u</tspan></text><text x="106.0" y="85" class="vf-name">断面平均流速</text></g><text x="44" y="50" class="vf-note" text-anchor="middle">入口</text><g class="vf-g" data-for="D"><line x1="362" y1="64" x2="362" y2="114" class="vf-dim"/><polygon points="362,64 364.6,71 359.4,71" class="vf-arrow"/><polygon points="362,114 359.4,107 364.6,107" class="vf-arrow"/><text x="354" y="111" class="vf-sym" text-anchor="end"><tspan>D</tspan></text></g><g class="vf-g" data-for="mu"><text x="92.0" y="106" class="vf-note">μ：管内の流体の平均温度での値</text></g></svg><p class="vf-panel-note"><span class="sym">D</span> は管内径（呼び径ではない）、<span class="sym">u</span> は断面で平均した流速です。</p></div><div class="vf-panel" data-show-when="flat-turbulent" hidden><svg class="vf-svg" width="400" height="176" viewBox="0 0 400 176" role="img" aria-label="平板：前縁からの長さ L、主流の流速 u" xmlns="http://www.w3.org/2000/svg"><rect x="70" y="120" width="270" height="9" class="vf-wallh"/><polyline points="14,48 54,48" class="vf-flow"/><polygon points="54,48 46,51.2 46,44.8" class="vf-flowhead"/><polyline points="14,72 54,72" class="vf-flow"/><polygon points="54,72 46,75.2 46,68.8" class="vf-flowhead"/><polyline points="14,96 54,96" class="vf-flow"/><polygon points="54,96 46,99.2 46,92.8" class="vf-flowhead"/><g class="vf-g" data-for="velocity"><text x="14" y="38" class="vf-sym" text-anchor="start"><tspan>u</tspan></text><text x="28" y="38" class="vf-name">主流の流速</text></g><polyline points="70,120 79,117.8 88,116.1 97,114.6 106,113.2 115,111.9 124,110.6 133,109.4 142,108.2 151,107 160,105.9 169,104.8 178,103.7 187,102.6 196,101.5 205,100.5 214,99.4 223,98.4 232,97.4 241,96.4 250,95.4 259,94.4 268,93.5 277,92.5 286,91.6 295,90.6 304,89.7 313,88.7 322,87.8 331,86.9 340,86" class="vf-bl"/><text x="336" y="80" class="vf-note" text-anchor="end">境界層</text><text x="70" y="146" class="vf-note" text-anchor="middle">前縁</text><g class="vf-g" data-for="L"><line x1="70" y1="150" x2="70" y2="165" class="vf-ext"/></g><g class="vf-g" data-for="L"><line x1="340" y1="132" x2="340" y2="165" class="vf-ext"/></g><g class="vf-g" data-for="L"><line x1="70" y1="160" x2="340" y2="160" class="vf-dim"/><polygon points="70,160 77,157.4 77,162.6" class="vf-arrow"/><polygon points="340,160 333,162.6 333,157.4" class="vf-arrow"/><text x="110" y="154" class="vf-sym" text-anchor="middle"><tspan>L</tspan></text><text x="122" y="154" class="vf-name" text-anchor="start">前縁から流れ方向の長さ</text></g></svg><p class="vf-panel-note"><span class="sym">u</span> は平板から離れた主流の流速、<span class="sym">L</span> は前縁から流れ方向に測った平板の長さです。</p></div><div class="vf-panel" data-show-when="vertical-natural" hidden><svg class="vf-svg" width="400" height="214" viewBox="0 0 400 214" role="img" aria-label="垂直平板の自然対流：平板の高さ L、温度差 ΔT" xmlns="http://www.w3.org/2000/svg"><rect x="150" y="24" width="10" height="160" class="vf-wallh"/><polyline points="160,184 176.1,176 179.1,168 181.2,160 182.7,152 184,144 185.2,136 186.2,128 187,120 187.8,112 188.6,104 189.3,96 189.9,88 190.5,80 191.1,72 191.6,64 192.2,56 192.6,48 193.1,40 193.6,32 194,24" class="vf-bl"/><polyline points="172,174 172,150" class="vf-flowthin"/><polygon points="172,150 175.2,158 168.8,158" class="vf-flowhead"/><polyline points="172,130 172,106" class="vf-flowthin"/><polygon points="172,106 175.2,114 168.8,114" class="vf-flowhead"/><polyline points="172,86 172,62" class="vf-flowthin"/><polygon points="172,62 175.2,70 168.8,70" class="vf-flowhead"/><g class="vf-g" data-for="L"><line x1="147" y1="24" x2="127" y2="24" class="vf-ext"/></g><g class="vf-g" data-for="L"><line x1="147" y1="184" x2="127" y2="184" class="vf-ext"/></g><g class="vf-g" data-for="L"><line x1="132" y1="24" x2="132" y2="184" class="vf-dim"/><polygon points="132,24 134.6,31 129.4,31" class="vf-arrow"/><polygon points="132,184 129.4,177 134.6,177" class="vf-arrow"/><text x="124" y="100" class="vf-sym" text-anchor="end"><tspan>L</tspan></text></g><g class="vf-g" data-for="L"><text x="124.0" y="120.0" class="vf-name" text-anchor="end">平板の高さ</text></g><g class="vf-g" data-for="deltaT"><text x="155" y="206" class="vf-sym" text-anchor="middle"><tspan>T</tspan><tspan class="vf-sub" dy="0.32em">w</tspan></text><text x="170.0" y="206.0" class="vf-note">壁面の温度</text><text x="300" y="70" class="vf-sym" text-anchor="start"><tspan>T</tspan><tspan class="vf-sub" dy="0.32em">∞</tspan></text><text x="300" y="92" class="vf-note">離れた所の</text><text x="300" y="112" class="vf-note">流体の温度</text><text x="232" y="156" class="vf-sym vf-eqn" text-anchor="start"><tspan>ΔT = |T</tspan><tspan class="vf-sub" dy="0.32em">w</tspan><tspan dy="-0.23em"> − T</tspan><tspan class="vf-sub" dy="0.32em">∞</tspan><tspan dy="-0.23em">|</tspan></text></g></svg><p class="vf-panel-note"><span class="sym">L</span> は平板の高さ、<span class="sym">ΔT</span> は壁面と離れた所の流体の温度差（正の値）。図は壁が流体より熱い場合で、壁が冷たいときは流れが下向きになります。</p></div></div></figure>
+        <!-- /value-figure -->
+        <div class="input-row input-row-full">
+          <label>選択中の相関式</label>
+          <div class="result-note" id="selected-correlation">円管内・乱流</div>
+        </div>
+        <div class="input-row" data-show-when="tube-turbulent">
+          <label for="thermal_mode">操作</label>
+          <div class="input-group">
+            <select id="thermal_mode">
+              <option value="heating">流体を加熱（n = 0.4）</option>
+              <option value="cooling">流体を冷却（n = 0.3）</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-row"><label for="rho">密度 <span class="sym">ρ</span></label><div class="input-group"><input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000"><select aria-label="密度の単位" id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select></div></div>
+        <div class="input-row" data-show-when="tube-laminar tube-turbulent flat-turbulent"><label for="velocity">平均流速 <span class="sym">u</span></label><div class="input-group"><input type="number" inputmode="decimal" id="velocity" step="any" placeholder="例：1.5"><span class="unit-label">m/s</span></div></div>
+        <div class="input-row" data-show-when="tube-laminar tube-turbulent"><label for="D">管内径 <span class="sym">D</span></label><div class="input-group"><input type="number" inputmode="decimal" id="D" step="any" placeholder="例：25"><select aria-label="管内径の単位" id="D_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div></div>
+        <div class="input-row" data-show-when="tube-laminar flat-turbulent vertical-natural"><label for="L">代表長さ・管長 <span class="sym">L</span></label><div class="input-group"><input type="number" inputmode="decimal" id="L" step="any" placeholder="例：1.0"><select aria-label="代表長さ・管長の単位" id="L_unit"><option value="m">m</option><option value="cm">cm</option><option value="mm">mm</option></select></div><p class="hint">円管内層流では入口からの管長、平板・自然対流では平板高さまたは流れ方向長さを入力します。</p></div>
+        <div class="input-row"><label for="mu">粘度 <span class="sym">μ</span></label><div class="input-group"><input type="number" inputmode="decimal" id="mu" step="any" placeholder="例：1"><select aria-label="粘度の単位" id="mu_unit"><option value="mPas">mPa s</option><option value="cP">cP</option><option value="Pas">Pa s</option></select></div><p class="hint">バルク平均温度での粘度を入力します。</p></div>
+        <div class="input-row" data-show-when="tube-laminar"><label for="mu_wall">壁温での粘度 <span class="sym">μ<sub>w</sub></span>（任意）</label><div class="input-group"><input type="number" inputmode="decimal" id="mu_wall" step="any" placeholder="空欄なら μ と同じ"><select aria-label="壁温での粘度（任意）の単位" id="mu_wall_unit"><option value="mPas">mPa s</option><option value="cP">cP</option><option value="Pas">Pa s</option></select></div></div>
+        <div class="input-row"><label for="cp">比熱 <span class="sym">C<sub>p</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" id="cp" step="any" placeholder="例：4.18"><select aria-label="比熱の単位" id="cp_unit"><option value="kJkgK">kJ/(kg K)</option><option value="JkgK">J/(kg K)</option><option value="kcalkgK">kcal/(kg °C)</option></select></div></div>
+        <div class="input-row"><label for="k_fluid">熱伝導率 <span class="sym">k</span></label><div class="input-group"><input type="number" inputmode="decimal" id="k_fluid" step="any" placeholder="例：0.6"><span class="unit-label">W/(m·K)</span></div></div>
+        <div class="input-row" data-show-when="vertical-natural"><label for="beta">体膨張係数 <span class="sym">β</span></label><div class="input-group"><input type="number" inputmode="decimal" id="beta" step="any" placeholder="例：0.0033"><span class="unit-label">1/K</span></div><p class="hint">気体では概算として β ≈ 1/T［K］を使うことがあります。</p></div>
+        <div class="input-row" data-show-when="vertical-natural"><label for="deltaT">壁面と流体の温度差 <span class="sym">ΔT</span></label><div class="input-group"><input type="number" inputmode="decimal" id="deltaT" step="any" placeholder="例：20"><span class="unit-label">K</span></div></div>
+        <div class="btn-row"><button class="btn btn-primary" id="calc-btn">計算する</button><button class="btn btn-ghost" id="reset-btn">リセット</button></div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>熱伝達係数は、代表長さに基づくヌセルト数 $Nu$ から求めます。</p>
+    <div class="math-block">$$ Re=\frac{\rho u D}{\mu}, \qquad Pr=\frac{C_p \mu}{k}, \qquad Nu=\frac{hD}{k} $$</div>
+    <p>円管内の層流では、入口から管長 $L$ までの平均値を、壁温での粘度補正を含む次式（Sieder–Tate の式）で求めます。</p>
+    <div class="math-block">$$ Nu = 1.86\left(Re\,Pr\,\frac{D}{L}\right)^{1/3}\left(\frac{\mu}{\mu_w}\right)^{0.14} $$</div>
+    <p>円管内の乱流では、Dittus-Boelter型の相関式を使います。</p>
+    <div class="math-block">$$ Nu = 0.023 Re^{0.8} Pr^n $$</div>
+    <p>平板上の乱流強制対流は、前縁から乱流の境界層とみなし、局所の式（気体は Lienhard 6版の式(6.112)、液体は式(6.113)）を前縁から長さ $L$ まで積分した平均値で求めます。$Pr$ が 1.58 以下では気体の式、1.58 を超えると液体の式を使います。1.58 は2つの局所の式が同じ値になる $Pr$ なので、切り替えても値は連続します。</p>
+    <div class="math-block">$$ Nu_L = 0.037\,Re_L^{0.8}Pr^{0.6} \quad (Pr \le 1.58) $$</div>
+    <div class="math-block">$$ Nu_L = 0.040\,Re_L^{0.8}Pr^{0.43} \quad (Pr > 1.58) $$</div>
+    <p>垂直平板上の自然対流は、Churchill と Chu の式で求めます。$Ra \le 10^9$ では層流の式（Lienhard 6版の式(8.13a)）を使います。</p>
+    <div class="math-block">$$ Nu_L = 0.68 + \frac{0.670\,Ra^{1/4}}{\psi^{4/9}} $$</div>
+    <p>$Ra > 10^9$ では乱流を含む式（同じく式(8.13b)）を使います。</p>
+    <div class="math-block">$$ Nu_L = \left(0.825 + \frac{0.387\,Ra^{1/6}}{\psi^{8/27}}\right)^2 $$</div>
+    <div class="math-block">$$ \psi = 1 + \left(\frac{0.492}{Pr}\right)^{9/16} $$</div>
+    <div class="math-block">$$ Ra = Gr\,Pr, \qquad Gr = \frac{g\beta\,\Delta T\,L^3}{\nu^2} $$</div>
+    <div class="math-block">$$ h = \frac{Nu\,k}{L_c} $$</div>
+    <ul class="symbol-list">
+      <li>$Re$：レイノルズ数［-］</li>
+      <li>$Pr$：プラントル数［-］</li>
+      <li>$Gr$：グラスホフ数［-］</li>
+      <li>$Ra$：レイリー数［-］</li>
+      <li>$\psi$：Churchill と Chu の式の $Pr$ の補正項［-］</li>
+      <li>$Nu$：ヌセルト数［-］</li>
+      <li>$h$：熱伝達係数［W/(m²·K)］</li>
+      <li>$D$：管内径［m］</li>
+      <li>$L, L_c$：代表長さ［m］</li>
+      <li>$u$：平均流速［m/s］</li>
+      <li>$\rho$：密度［kg/m³］</li>
+      <li>$\mu$：粘度［Pa s］</li>
+      <li>$\mu_w$：壁温での粘度［Pa s］</li>
+      <li>$C_p$：比熱［J/(kg K)］</li>
+      <li>$k$：熱伝導率［W/(m·K)］</li>
+      <li>$\beta$：体膨張係数［1/K］</li>
+      <li>$\Delta T$：壁面と流体の温度差［K］</li>
+      <li>$\nu = \mu/\rho$：動粘度［m²/s］</li>
+      <li>$g$：重力加速度（9.80665 m/s²）</li>
+      <li>ここで扱う式は、単相流・代表的な形状に対する概算相関式です。沸騰・凝縮、複雑形状、非ニュートン流体、放射伝熱が無視できない場合は、対象装置に合った相関式を確認してください。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>単相流体の強制対流・自然対流について、代表的な形状の平均熱伝達係数を相関式で概算するツールです。選んだタブごとに式の前提が異なります。</p>
+    <ul>
+      <li><strong>円管内・乱流</strong>：Dittus-Boelter型で、加熱側は $n=0.4$、冷却側は $n=0.3$ です。式の適用範囲の目安は $Re \ge 10^4$、$0.6 \le Pr \le 160$、$L/D \ge 10$ です（参考資料の ht の説明による。文献によって範囲の書き方には違いがあります）。この範囲に $Re$ の上限は書かれていませんが、より精度の高い Gnielinski の式（Lienhard 6版の式(7.41)、$2300 \le Re \le 5\times10^6$、p.369）と比べると差があり、向きと大きさは $Pr$ によって違います。加熱の場合、液体（$Pr = 7$）では $Re$ が大きいほど差が開き（$Re = 10^5$ で約16%、$10^6$ で約3割小さく）、気体（$Pr = 0.7$）では $Re = 10^4$〜$5\times10^6$ で1割前後（6〜13%）大きく出ます。本ツールは $Re < 10^4$ のときと、$Pr$ が 0.6〜160 を外れたときに警告を出し、$Re > 10^6$ のときは Gnielinski の式の値と差を結果に示します。Lienhard 6版は、Dittus-Boelter などの初期の式の誤差を $0.67 \le Pr \le 100$ で最大 +25%・−40% としています（p.369）。このタブには管長の入力がなく、管の入口付近の影響（$L/D$）は考慮されません。また、壁温の粘度を補正する項がないため、壁と流体の温度差が大きく粘度が大きく変わる液体では、補正項を持つ式（Sieder-Tate型）を別に確認します。</li>
+      <li><strong>円管内・層流</strong>：入口から管長 $L$ までの平均値を求める式で、$Re \le 2100$ 程度が対象です。式は $Nu \propto L^{-1/3}$ なので、管が長いほど $h$ が小さくなり続ける形です。十分長く流れが発達した管では、$Nu$ が一定値に近づく別の扱いが必要です。壁温粘度を空欄にすると $\mu/\mu_w = 1$ として計算します。</li>
+      <li><strong>平板・乱流</strong>：前縁から全面が乱流の境界層とみなし、局所の式を前縁から $L$ まで積分した平均値です。局所の式は Lienhard 6版の式(6.112)（気体、空気の測定から、p.326）と式(6.113)（水と油の測定から、$Pr$ 85 まで、±15%程度、p.327）です。気体の式は、式(6.120)（p.334）で遷移域の始まりと終わりを前縁に置いた形と同じです。液体の式の積分は本書が「同じようにして作れる」と書くだけで、積分した形は本書に載っていません（係数 0.032 を 0.8 で割った 0.040 です）。気体か液体かを選ぶ入力がないため、$Pr$ で決めます（$Pr \le 1.58$ は気体の式）。液体でも $Pr$ が 1.58 以下になる高温の水（飽和水で約 110 °C 以上。IAPWS の値で 150 °C の $Pr$ は 1.16）などは、気体の式で計算されます。$Pr$ が 0.6 未満（液体金属など）または 85 超のとき、本ツールは警告を出します。$L$ は流れ方向の長さです。</li>
+      <li><strong>平板・乱流の前縁側</strong>：実際の平板では、前縁から層流の区間と遷移域があり、乱れの大きい流れ（主流の変動が3%ほど以上）では遷移が $Re \approx 4\times10^4$〜$10^5$ で始まることもあります（p.332）。その分だけ、実際の平均値はこのツールの値と違います。本書の例題6.9（空気、$Re_L = 1.27\times10^6$、遷移域 $Re = 4.0\times10^5$〜$8.7\times10^5$）では、遷移を考えた値が $Nu_L = 1433$、このツールの値は 2297 で約1.6倍です。$Re_L$ が $5\times10^5$ 未満では本ツールが警告を出します。実験室の風洞のような条件では、遷移は多くの場合 $Re_x = 2\times10^5$〜$5\times10^5$ で始まり（p.276）、$Re_L$ が $5\times10^5$ より小さい平板では全体が層流のままのこともあるためです。壁と流体の温度差が大きいときの物性の補正（液体は $(Pr_\infty/Pr_w)^{1/4}$、気体は $(T_\infty/T_w)^{0.4}$ を掛ける、p.327）は入っていません。</li>
+      <li><strong>垂直平板・自然対流</strong>：Churchill と Chu の式です（Lienhard 6版の式(8.13a) p.419、式(8.13b) p.420）。$Ra \le 10^9$ では層流の式(8.13a)、$10^9$ を超えると乱流を含む式(8.13b)に切り替えます。本書は、層流では (8.13a) の方が正確で、(8.13b) はすべての $Ra$ と $Pr$ に使える、としています。2つの式は $Ra = 10^9$ で値がつながらず、その前後で $h$ が大きく変わります（$Pr = 0.71$ で +33%、$Pr = 7$ で +39%、$Pr = 100$ で +42%。$Pr$ が小さいほど差は小さく、$Pr = 0.01$ では +13%）。どちらの式もすべての $Pr$ に使え、壁温一定・熱流束一定のどちらにも使えます。物性は膜温度 $(T_\infty + T_w)/2$ で評価します（p.420）。$Ra$ が式のもとになったデータの範囲（本書の図8.3の横軸で $10^{-1}$ 以上）より小さいと、本ツールは警告を出します。水平面・傾斜面・密閉空間は別の相関式を使います。気体の $\beta$ は $1/T$（$T$ は絶対温度）で近似できます。</li>
+      <li><strong>共通</strong>：物性はバルク平均温度または膜温度で評価します。沸騰・凝縮などの相変化、非ニュートン流体、放射伝熱が無視できない条件は対象外です。</li>
+      <li><strong>結果の読み方</strong>：求まるのは相関式による平均の $h$ で、局所値ではありません。各タブの警告（$Re$、$Pr$、$Gr\,Pr$ の範囲）が出たときは、その式が想定する範囲の外側にいます。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://link.amazon/B08Ohi4pn" class="reference-card" data-asin="B0DZ1QFVKD" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">スッキリわかる 化学工学</p><p class="ref-meta">二井 晋・小林 敬幸・向井 康人・橋爪 進・衣笠 巧 著 / 裳華房</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+    <ul class="paper-link-list">
+      <li><a href="https://doi.org/10.1021/ie50324a027" target="_blank" rel="noopener">Heat Transfer and Pressure Drop of Liquids in Tubes</a><br><span class="paper-meta">E. N. Sieder, G. E. Tate, Industrial &amp; Engineering Chemistry, 28(12), 1429–1435, 1936（円管内・層流の式の出典）</span></li>
+      <li><a href="https://ahtt.mit.edu/" target="_blank" rel="noopener">A Heat Transfer Textbook, 6th ed.（Version 6.00）</a><br><span class="paper-meta">J. H. Lienhard V, J. H. Lienhard IV, Phlogiston Press, 2024。§7.3、p.368–369、式(7.39a)〜(7.40)：円管内乱流のべき乗則の式。Dittus と Boelter の元の式は加熱で係数 0.0243（$Pr^{0.4}$）。これらの式の誤差は $0.67 \le Pr \le 100$ で最大 +25%・−40%。式(7.41)：Gnielinski の式（$2300 \le Re \le 5\times10^6$、$0.6 \le Pr \le 10^5$、摩擦係数は Filonenko の式(7.42)。高い $Re$ で比べる相手）。§6.1、p.276：平板で遷移が始まる $Re_x$。§6.8〜6.9、p.326–327・334、式(6.112)・(6.113)・(6.119)・(6.120)：平板の乱流（このツールの平板・乱流の式）。§8.3、p.419–420、式(8.13a)・(8.13b)：垂直平板の自然対流（このツールの自然対流の式）</span></li>
+      <li><a href="https://ht.readthedocs.io/en/latest/ht.conv_internal.html#ht.conv_internal.turbulent_Dittus_Boelter" target="_blank" rel="noopener">ht: turbulent_Dittus_Boelter</a><br><span class="paper-meta">Python の伝熱計算ライブラリ ht の説明。Dittus–Boelter の式（係数 0.023、加熱 $n=0.4$・冷却 $n=0.3$）の範囲を $0.6 \le Pr \le 160$、$Re_D \ge 10^4$、$L/D \ge 10$ とし、出典に Rohsenow ら『Handbook of Heat Transfer』3版（1998）を挙げる（円管内・乱流の警告の範囲）</span></li>
+      <li><a href="https://doi.org/10.1016/0017-9310(75)90243-4" target="_blank" rel="noopener">Correlating equations for laminar and turbulent free convection from a vertical plate</a><br><span class="paper-meta">S. W. Churchill, H. H. S. Chu, International Journal of Heat and Mass Transfer, 18(11), 1323–1329, 1975（垂直平板・自然対流の式の原論文）</span></li>
+    </ul>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../overall-u/" class="related-card"><span class="small">伝熱</span>総括伝熱係数</a>
+      <a href="../../fluid/reynolds/" class="related-card"><span class="small">流動</span>レイノルズ数（配管）</a>
+      <a href="../lmtd-area/" class="related-card"><span class="small">伝熱</span>LMTD・伝熱面積</a>
+    </div>
+  </section>
+
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/tube-heat-transfer.js"></script>
+<script src="../../../assets/js/value-figure.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

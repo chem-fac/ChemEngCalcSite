@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>撹拌液面変化（バッフルなし槽の渦） | 化学工学計算支援ツール</title>
+<meta name="description" content="バッフルなしの撹拌槽における中心部の液面低下量 ΔH1 と槽壁部の液面上昇量 ΔH2 を計算します。">
+<meta name="keywords" content="液面変化, 渦, vortex, バッフルなし, 邪魔板なし, 中心, 低下, 槽壁, 上昇, フルード, Fr">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/mixing/vortex/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="撹拌液面変化（バッフルなし槽の渦） | 化学工学計算支援ツール">
+<meta property="og:description" content="バッフルなしの撹拌槽における中心部の液面低下量 ΔH1 と槽壁部の液面上昇量 ΔH2 を計算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/mixing/vortex/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-mixing-vortex.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"撹拌液面変化（バッフルなし槽の渦）","url":"https://tools.chem-fac.com/tools/mixing/vortex/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"バッフルなしの撹拌槽における中心部の液面低下量 ΔH1 と槽壁部の液面上昇量 ΔH2 を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"液面変化, 渦, vortex, バッフルなし, 邪魔板なし, 中心, 低下, 槽壁, 上昇, フルード, Fr","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-23"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">撹拌混合</a><span class="sep">›</span><span class="current">撹拌液面変化</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag" data-cat="mixing">撹拌混合</span>
+      <h1>撹拌液面変化（バッフルなし槽の渦）</h1>
+      <p class="tool-subcopy">バッフルのない槽で生じる、中心の液面低下 $\Delta H_1$ と槽壁の液面上昇 $\Delta H_2$ を推算します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <!-- value-figure -->
+        <figure class="value-figure input-row-full" data-cat="mixing"><div class="vf-panels"><div class="vf-panel"><svg class="vf-svg" width="400" height="322" viewBox="0 0 400 322" role="img" aria-label="渦の液面：中心の液面低下 ΔH_1、槽壁の液面上昇 ΔH_2、固体的回転半径 r_c" xmlns="http://www.w3.org/2000/svg"><path d="M58.0,81.0 L60.2,81.2 L62.3,81.4 L64.5,81.7 L66.7,81.9 L68.8,82.1 L71.0,82.4 L73.2,82.7 L75.3,83.0 L77.5,83.3 L79.7,83.6 L81.8,84.0 L84.0,84.3 L86.2,84.7 L88.3,85.2 L90.5,85.6 L92.7,86.1 L94.8,86.6 L97.0,87.2 L99.2,87.7 L101.3,88.4 L103.5,89.1 L105.7,89.8 L107.8,90.6 L110.0,91.5 L112.2,92.4 L114.3,93.5 L116.5,94.6 L118.7,95.8 L120.8,97.2 L123.0,98.7 L125.2,100.3 L127.3,102.2 L129.5,104.2 L131.7,106.5 L133.8,109.1 L136.0,111.9 L138.2,115.2 L140.3,118.9 L142.5,123.1 L144.7,127.0 L146.8,130.8 L149.0,134.5 L151.2,137.9 L153.3,141.1 L155.5,144.1 L157.7,146.9 L159.8,149.5 L162.0,152.0 L164.2,154.2 L166.3,156.3 L168.5,158.1 L170.7,159.8 L172.8,161.2 L175.0,162.5 L177.2,163.6 L179.3,164.4 L181.5,165.1 L183.7,165.6 L185.8,165.9 L188.0,166.0 L190.2,165.9 L192.3,165.6 L194.5,165.1 L196.7,164.4 L198.8,163.6 L201.0,162.5 L203.2,161.2 L205.3,159.8 L207.5,158.1 L209.7,156.3 L211.8,154.2 L214.0,152.0 L216.2,149.5 L218.3,146.9 L220.5,144.1 L222.7,141.1 L224.8,137.9 L227.0,134.5 L229.2,130.8 L231.3,127.0 L233.5,123.1 L235.7,118.9 L237.8,115.2 L240.0,111.9 L242.2,109.1 L244.3,106.5 L246.5,104.2 L248.7,102.2 L250.8,100.3 L253.0,98.7 L255.2,97.2 L257.3,95.8 L259.5,94.6 L261.7,93.5 L263.8,92.4 L266.0,91.5 L268.2,90.6 L270.3,89.8 L272.5,89.1 L274.7,88.4 L276.8,87.7 L279.0,87.2 L281.2,86.6 L283.3,86.1 L285.5,85.6 L287.7,85.2 L289.8,84.7 L292.0,84.3 L294.2,84.0 L296.3,83.6 L298.5,83.3 L300.7,83.0 L302.8,82.7 L305.0,82.4 L307.2,82.1 L309.3,81.9 L311.5,81.7 L313.7,81.4 L315.8,81.2 L318.0,81.0 L318.0,304.0 L58.0,304.0 Z" class="vf-liq"/><polygon points="53,40 53,309 323,309 323,40 318,40 318,304 58,304 58,40" class="vf-wall"/><polyline points="58,81 60.2,81.2 62.3,81.4 64.5,81.7 66.7,81.9 68.8,82.1 71,82.4 73.2,82.7 75.3,83 77.5,83.3 79.7,83.6 81.8,84 84,84.3 86.2,84.7 88.3,85.2 90.5,85.6 92.7,86.1 94.8,86.6 97,87.2 99.2,87.7 101.3,88.4 103.5,89.1 105.7,89.8 107.8,90.6 110,91.5 112.2,92.4 114.3,93.5 116.5,94.6 118.7,95.8 120.8,97.2 123,98.7 125.2,100.3 127.3,102.2 129.5,104.2 131.7,106.5 133.8,109.1 136,111.9 138.2,115.2 140.3,118.9 142.5,123.1 144.7,127 146.8,130.8 149,134.5 151.2,137.9 153.3,141.1 155.5,144.1 157.7,146.9 159.8,149.5 162,152 164.2,154.2 166.3,156.3 168.5,158.1 170.7,159.8 172.8,161.2 175,162.5 177.2,163.6 179.3,164.4 181.5,165.1 183.7,165.6 185.8,165.9 188,166 190.2,165.9 192.3,165.6 194.5,165.1 196.7,164.4 198.8,163.6 201,162.5 203.2,161.2 205.3,159.8 207.5,158.1 209.7,156.3 211.8,154.2 214,152 216.2,149.5 218.3,146.9 220.5,144.1 222.7,141.1 224.8,137.9 227,134.5 229.2,130.8 231.3,127 233.5,123.1 235.7,118.9 237.8,115.2 240,111.9 242.2,109.1 244.3,106.5 246.5,104.2 248.7,102.2 250.8,100.3 253,98.7 255.2,97.2 257.3,95.8 259.5,94.6 261.7,93.5 263.8,92.4 266,91.5 268.2,90.6 270.3,89.8 272.5,89.1 274.7,88.4 276.8,87.7 279,87.2 281.2,86.6 283.3,86.1 285.5,85.6 287.7,85.2 289.8,84.7 292,84.3 294.2,84 296.3,83.6 298.5,83.3 300.7,83 302.8,82.7 305,82.4 307.2,82.1 309.3,81.9 311.5,81.7 313.7,81.4 315.8,81.2 318,81" class="vf-surf"/><line x1="58" y1="96" x2="318" y2="96" class="vf-static"/><text x="64" y="113" class="vf-note" text-anchor="start">静止液面</text><line x1="188" y1="18" x2="188" y2="255" class="vf-cl"/><rect x="185.5" y="20" width="5" height="191" class="vf-shaft"/><rect x="123" y="215" width="130" height="26" class="vf-imp"/><rect x="182" y="211" width="12" height="34" class="vf-imp"/><g class="vf-g"><line x1="185" y1="166" x2="153" y2="166" class="vf-ext"/></g><g class="vf-g"><line x1="158" y1="96" x2="158" y2="166" class="vf-dim"/><polygon points="158,96 160.6,103 155.4,103" class="vf-arrow"/><polygon points="158,166 155.4,159 160.6,159" class="vf-arrow"/><text x="152" y="164" class="vf-sym" text-anchor="end"><tspan>ΔH</tspan><tspan class="vf-sub" dy="0.32em">1</tspan></text></g><g class="vf-g"><line x1="326" y1="81" x2="348" y2="81" class="vf-ext"/></g><g class="vf-g"><line x1="326" y1="96" x2="348" y2="96" class="vf-ext"/></g><g class="vf-g"><line x1="343" y1="67" x2="343" y2="110" class="vf-dim"/><polygon points="343,81 340.4,74 345.6,74" class="vf-arrow"/><polygon points="343,96 345.6,103 340.4,103" class="vf-arrow"/></g><text x="351" y="94.5" class="vf-sym" text-anchor="start"><tspan>ΔH</tspan><tspan class="vf-sub" dy="0.32em">2</tspan></text><circle cx="234.8" cy="120.6" r="2.6" class="vf-dot"/><g class="vf-g" data-for="rc"><line x1="234.8" y1="124.6" x2="234.8" y2="158.6" class="vf-ext"/></g><g class="vf-g" data-for="rc"><line x1="188" y1="152.6" x2="234.8" y2="152.6" class="vf-dim"/><polygon points="188,152.6 195,150 195,155.2" class="vf-arrow"/><polygon points="234.8,152.6 227.8,155.2 227.8,150" class="vf-arrow"/><text x="211.4" y="146.6" class="vf-sym" text-anchor="middle"><tspan>r</tspan><tspan class="vf-sub" dy="0.32em">c</tspan></text></g><g class="vf-g" data-for="D"><line x1="58" y1="36" x2="58" y2="19" class="vf-ext"/></g><g class="vf-g" data-for="D"><line x1="318" y1="36" x2="318" y2="19" class="vf-ext"/></g><g class="vf-g" data-for="D"><line x1="58" y1="24" x2="318" y2="24" class="vf-dim"/><polygon points="58,24 65,21.4 65,26.6" class="vf-arrow"/><polygon points="318,24 311,26.6 311,21.4" class="vf-arrow"/><text x="76" y="19" class="vf-sym" text-anchor="middle"><tspan>D</tspan></text><text x="87" y="19" class="vf-name" text-anchor="start">槽径（内径）</text></g><g class="vf-g" data-for="d"><line x1="123" y1="244" x2="123" y2="266" class="vf-ext"/></g><g class="vf-g" data-for="d"><line x1="253" y1="244" x2="253" y2="266" class="vf-ext"/></g><g class="vf-g" data-for="d"><line x1="123" y1="261" x2="253" y2="261" class="vf-dim"/><polygon points="123,261 130,258.4 130,263.6" class="vf-arrow"/><polygon points="253,261 246,263.6 246,258.4" class="vf-arrow"/><text x="155.5" y="278" class="vf-sym" text-anchor="middle"><tspan>d</tspan></text></g><g class="vf-g" data-for="b"><line x1="256" y1="215" x2="274" y2="215" class="vf-ext"/></g><g class="vf-g" data-for="b"><line x1="256" y1="241" x2="274" y2="241" class="vf-ext"/></g><g class="vf-g" data-for="b"><line x1="269" y1="215" x2="269" y2="241" class="vf-dim"/><polygon points="269,215 271.6,222 266.4,222" class="vf-arrow"/><polygon points="269,241 266.4,234 271.6,234" class="vf-arrow"/><text x="277" y="234" class="vf-sym" text-anchor="start"><tspan>b</tspan></text></g></svg></div></div><figcaption><span class="sym">ΔH<sub>1</sub></span>・<span class="sym">ΔH<sub>2</sub></span> は静止時の液面からの高さの差です。<span class="sym">r<sub>c</sub></span> は軸の中心から、中央の液が翼と一緒に回る部分の外縁までの半径で、翼の半径（<span class="sym">d</span>/2）とは別の量です。図は平パドル翼で、<span class="sym">b</span> は翼の上下の高さです。</figcaption></figure>
+        <!-- /value-figure -->
+
+        <div class="input-row">
+          <label for="n">回転数 <span class="sym">n</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="n" step="any" placeholder="例：100">
+            <select aria-label="回転数の単位" id="n_unit"><option value="rpm">rpm</option><option value="rps">1/s</option></select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label for="d">翼径 <span class="sym">d</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="d" step="any" placeholder="例：300">
+            <select aria-label="翼径の単位" id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label for="D">槽径 <span class="sym">D</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="D" step="any" placeholder="例：900">
+            <select aria-label="槽径の単位" id="D_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label for="rc">固体的回転半径 <span class="sym">r<sub>c</sub></span>（任意）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="rc" step="any" placeholder="例：150">
+            <select aria-label="固体的回転半径の単位" id="rc_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+          </div>
+          <p class="hint">直接入力した場合はこの値を使います。未入力なら下の羽根幅・羽根枚数・撹拌レイノルズ数から推算します。</p>
+        </div>
+
+        <div class="input-row">
+          <label for="b">羽根幅 <span class="sym">b</span>（r<sub>c</sub>推算用）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="b" step="any" placeholder="例：60">
+            <select aria-label="羽根幅の単位" id="b_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label for="np">羽根枚数 <span class="sym">n<sub>p</sub></span>（r<sub>c</sub>推算用）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="np" step="1" placeholder="例：4">
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label for="Re">撹拌レイノルズ数 <span class="sym">Re</span>（r<sub>c</sub>推算用）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Re" step="any" placeholder="例：10000">
+          </div>
+          <p class="hint"><a href="../reynolds/">撹拌レイノルズ数</a>ツールで計算した値を入力してください。</p>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>バッフルのない撹拌槽では、遠心力により液面に偏りが生じ、中心が下がり槽壁が盛り上がります。ここでは固体的回転（中心付近の液塊が翼と一緒に回転）と外側の自由渦（角運動量保存）を組み合わせたモデルで両者の落差を計算します。</p>
+    <p>固体的回転半径 $r_c$ を直接入力しない場合は、翼寸法と撹拌レイノルズ数から次式で推算します。</p>
+    <div class="math-block">$$ \dfrac{2r_c}{d}=1.23\left\{0.57+0.35\left(\dfrac{d}{D}\right)\right\}\left(\dfrac{b}{D}\right)^{0.036}\left(\dfrac{n_p^{0.116}Re}{10^{3}+1.43Re}\right) $$</div>
+    <div class="math-block">$$ \Delta H_1 = \pi^{2} d\, Fr \left( \dfrac{2 r_c}{d} \right)^{2} \left[ 1 - \left( \dfrac{2 r_c}{D} \right)^{2} \left\{ \ln \left( \dfrac{D}{2 r_c} \right) + \dfrac{3}{4} \right\} \right] $$</div>
+    <div class="math-block">$$ \Delta H_2 = \pi^{2} d\, Fr \left( \dfrac{2 r_c}{d} \right)^{2} \left( \dfrac{2 r_c}{D} \right)^{2} \left\{ \ln \left( \dfrac{D}{2 r_c} \right) + \dfrac{1}{4} \right\} $$</div>
+    <p>ここで $Fr = n^{2} d / g$ はフルード数です。</p>
+    <ul class="symbol-list">
+      <li>$\Delta H_1$：中心部の液面低下量［m］</li>
+      <li>$\Delta H_2$：槽壁部の液面上昇量［m］</li>
+      <li>$r_c$：固体的回転半径［m］</li>
+      <li>$d$：翼径［m］</li>
+      <li>$D$：槽径［m］</li>
+      <li>$b$：羽根幅［m］</li>
+      <li>$n_p$：羽根枚数［-］</li>
+      <li>$Re$：撹拌レイノルズ数［-］</li>
+      <li>$n$：回転数［1/s］</li>
+      <li>$g$：重力加速度（9.80665 m/s²）</li>
+    </ul>
+  </section>
+
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>中心の固体的回転部と外側の自由渦を組み合わせた、軸対称で定常な液面形状のモデルです。バッフルなしの槽の液面の落差（$\Delta H_1$、$\Delta H_2$）を、回転数 $n$ とフルード数 $Fr=n^2d/g$ から求めます。</p>
+    <ul>
+      <li><strong>使える条件</strong>：バッフルのない槽。バッフル付き槽の液面形状を求める式ではありません。</li>
+      <li><strong>液深さと比べる</strong>：液深さ $H$ や翼の位置は入力に含まれないため、$\Delta H_1$ が液深さや翼の浸漬深さに達するかどうか（空気を巻き込む状態かどうか）は判定されません。結果の mm 値を、実機の液深さと翼の位置に照らして読む必要があります。</li>
+      <li><strong>$r_c$ の与え方</strong>：$r_c$ を推算で求める場合は、$b$・$n_p$・$Re$ から出す経験式の値です。$n$・$d$・$D$ が一定なら、$\Delta H_1$ は $r_c^2$ に補正項、$\Delta H_2$ は $r_c^4$ に対数項が掛かります。$r_c$ の誤差は両者に大きく効きます。実測の $r_c$ があれば直接入力できます。</li>
+      <li><strong>静止液面の基準</strong>：液量が変わらない条件で、槽断面全体の液面高さの平均を静止液面とします。上の $\Delta H_2$ は、この条件を満たすよう旋回流速度から求めた式です。『最新ミキシング技術の基礎と応用』p.8 式(1.10)の $(d/D)^2$ と異なり、体積保存から $(2r_c/D)^2$ を用います。</li>
+      <li><strong>回転数の効き方</strong>：$r_c$ が同じなら $\Delta H\propto Fr\propto n^2$ です。回転数を2倍にすると、落差は約4倍になります。</li>
+      <li><strong>入力の制限</strong>：$2r_c$ が槽径 $D$ 以上になる値や、翼径 $d$ が槽径 $D$ 以上になる値はエラーになります。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/4ts1HHl" class="reference-card" data-asin="4883616568" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">最新ミキシング技術の基礎と応用（化学工学の進歩42）</p><p class="ref-meta">化学工学会 著 / 三恵社</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+    <ul class="paper-link-list">
+      <li><a href="https://www.jstage.jst.go.jp/article/kakoronbunshu1953/31/4/31_4_365/_pdf/-char/ja" target="_blank" rel="noopener">回分撹拌装置の混合性能</a><br><span class="paper-meta">化学工学, 31(4), 365-372, 1967</span></li>
+    </ul>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../reynolds/" class="related-card"><span class="small">撹拌混合</span>撹拌レイノルズ数</a>
+      <a href="../power/" class="related-card"><span class="small">撹拌混合</span>撹拌所要動力／動力数／トルク変換</a>
+      <a href="../flow/" class="related-card"><span class="small">撹拌混合</span>吐出流量・循環流量</a>
+      <a href="../time/" class="related-card"><span class="small">撹拌混合</span>混合時間</a>
+      <a href="../kamei-hiraoka/" class="related-card"><span class="small">撹拌混合</span>亀井・平岡の式（バッフル無し撹拌所要動力）</a>
+    </div>
+  </section>
+
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div></div>
+  </div>
+</footer>
+
+<script src="../../../assets/js/mix-vortex.js"></script>
+<script src="../../../assets/js/value-figure.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

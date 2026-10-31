@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ハーゲン・ポアズイユの式（円管内層流の速度分布・圧力損失） | 化学工学計算支援ツール</title>
+<meta name="description" content="ハーゲン・ポアズイユの式（法則）で円管内層流の速度分布と圧力損失を計算するツール。管内径と平均流速または流量から、放物線状の速度分布・最大流速 2U・壁面せん断応力を求め、グラフを描画します。">
+<meta name="keywords" content="ハーゲンポアズイユ, ハーゲン・ポアズイユ, Hagen-Poiseuille, 速度分布, 円管内流れ, 層流, 放物線, 最大流速, 平均流速, 体積流量, 粘着条件, 圧力損失, 圧力勾配, 壁面せん断応力, 円管, 管内流れ, 流体力学, ハーゲンポアズイユの式, ハーゲンポアズイユの法則, ポアズイユ流れ, ハーゲンポアズイユ流れ">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/fluid/hagen-poiseuille/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="ハーゲン・ポアズイユの式（円管内層流の速度分布・圧力損失） | 化学工学計算支援ツール">
+<meta property="og:description" content="ハーゲン・ポアズイユの式（法則）で円管内層流の速度分布と圧力損失を計算するツール。管内径と平均流速または流量から、放物線状の速度分布・最大流速 2U・壁面せん断応力を求め、グラフを描画します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/fluid/hagen-poiseuille/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-fluid-hagen-poiseuille.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ハーゲン・ポアズイユ流れ（円管内層流の速度分布）","url":"https://tools.chem-fac.com/tools/fluid/hagen-poiseuille/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"ハーゲン・ポアズイユの式（法則）で円管内層流の速度分布と圧力損失を計算するツール。管内径と平均流速または流量から、放物線状の速度分布・最大流速 2U・壁面せん断応力を求め、グラフを描画します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"ハーゲンポアズイユ, ハーゲン・ポアズイユ, Hagen-Poiseuille, Poiseuille, 速度分布, 円管内流れ, 円管, 管内流れ, 層流, 放物線, 最大流速, 平均流速, 体積流量, 粘着条件, non-slip, 圧力損失, 圧力勾配, 壁面せん断応力, せん断応力, 流体力学, 十分に発達した流れ","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">流動</a><span class="sep">›</span><span class="current">ハーゲン・ポアズイユ流れ</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag" data-cat="fluid">流動</span>
+      <h1>ハーゲン・ポアズイユ流れ（円管内層流の速度分布）</h1>
+      <p class="tool-subcopy">十分に発達した円管内の層流では、速度分布が放物線になります。管内径と平均流速（または体積流量）から、最大流速 u<sub>max</sub> = 2U・各半径位置の流速・圧力損失・壁面せん断応力を求め、速度分布グラフを描画します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <!-- value-figure -->
+        <figure class="value-figure input-row-full" data-cat="fluid"><div class="vf-panels"><div class="vf-panel"><svg class="vf-svg" width="400" height="280" viewBox="0 0 400 280" role="img" aria-label="円管内の層流：管内径 d（半径 R）、半径位置 r、管長 L" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="44" width="368" height="140" class="vf-bore"/><rect x="16" y="38" width="368" height="6" class="vf-wallh"/><rect x="16" y="184" width="368" height="6" class="vf-wallh"/><line x1="16" y1="114" x2="384" y2="114" class="vf-cl"/><line x1="140" y1="44" x2="140" y2="184" class="vf-profilebase"/><polyline points="140,44 152.7,47.5 164.7,51 176.1,54.5 186.8,58 196.9,61.5 206.3,65 215.1,68.5 223.2,72 230.7,75.5 237.5,79 243.7,82.5 249.2,86 254.1,89.5 258.3,93 261.9,96.5 264.8,100 267.1,103.5 268.7,107 269.7,110.5 270,114 269.7,117.5 268.7,121 267.1,124.5 264.8,128 261.9,131.5 258.3,135 254.1,138.5 249.2,142 243.7,145.5 237.5,149 230.7,152.5 223.2,156 215.1,159.5 206.3,163 196.9,166.5 186.8,170 176.1,173.5 164.7,177 152.7,180.5 140,184" class="vf-profile"/><polyline points="140,114 270,114" class="vf-flowthin"/><polygon points="270,114 262,117.2 262,110.8" class="vf-flowhead"/><polyline points="140,139 253.4,139" class="vf-flowthin"/><polygon points="253.4,139 245.4,142.2 245.4,135.8" class="vf-flowhead"/><polyline points="140,164 203.7,164" class="vf-flowthin"/><polygon points="203.7,164 195.7,167.2 195.7,160.8" class="vf-flowhead"/><g class="vf-g" data-for="r"><line x1="140.0" y1="64.0" x2="196.7" y2="64.0" class="vf-dim"/><polygon points="203.7,64.0 196.7,61.4 196.7,66.6" class="vf-arrow"/><line x1="137.0" y1="64.0" x2="119.0" y2="64.0" class="vf-ext"/></g><text x="211.7" y="69" class="vf-sym vf-sym-ink" text-anchor="start"><tspan>u(r)</tspan></text><g class="vf-g" data-for="r"><line x1="124" y1="114" x2="124" y2="64" class="vf-dim"/><polygon points="124,114 121.4,107 126.6,107" class="vf-arrow"/><polygon points="124,64 126.6,71 121.4,71" class="vf-arrow"/><text x="117" y="95" class="vf-sym" text-anchor="end"><tspan>r</tspan></text></g><text x="276" y="107" class="vf-sym vf-sym-ink" text-anchor="start"><tspan>u</tspan><tspan class="vf-sub" dy="0.32em">max</tspan></text><g class="vf-g" data-for="d"><line x1="364" y1="44" x2="364" y2="184" class="vf-dim"/><polygon points="364,44 366.6,51 361.4,51" class="vf-arrow"/><polygon points="364,184 361.4,177 366.6,177" class="vf-arrow"/><text x="356" y="144" class="vf-sym" text-anchor="end"><tspan>d</tspan></text></g><g class="vf-g" data-for="d"><line x1="58" y1="114" x2="58" y2="184" class="vf-dim"/><polygon points="58,114 60.6,121 55.4,121" class="vf-arrow"/><polygon points="58,184 55.4,177 60.6,177" class="vf-arrow"/><text x="65" y="155" class="vf-sym" text-anchor="start"><tspan>R</tspan></text></g><g class="vf-g" data-for="L"><line x1="40" y1="192" x2="40" y2="225" class="vf-ext"/></g><g class="vf-g" data-for="L"><line x1="360" y1="192" x2="360" y2="225" class="vf-ext"/></g><g class="vf-g" data-for="L"><line x1="40" y1="220" x2="360" y2="220" class="vf-dim"/><polygon points="40,220 47,217.4 47,222.6" class="vf-arrow"/><polygon points="360,220 353,222.6 353,217.4" class="vf-arrow"/><text x="120" y="238" class="vf-sym" text-anchor="middle"><tspan>L</tspan></text><text x="132" y="238" class="vf-name" text-anchor="start">管長（ΔP を求める区間）</text></g></svg></div></div><figcaption><span class="sym">r</span> は管の中心から測った距離で、中心が <span class="sym">r</span> = 0、管壁が <span class="sym">r</span> = <span class="sym">R</span>（= <span class="sym">d</span>/2）です。管壁から測った距離ではありません。</figcaption></figure>
+        <!-- /value-figure -->
+        <div class="input-row">
+          <label for="d">管内径 <span class="sym">d</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="d" step="any" placeholder="例：50">
+            <select aria-label="管内径の単位" id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+          </div>
+          <p class="hint">円管の内径 d（半径 R = d/2）。</p>
+        </div>
+        <div class="input-row">
+          <label for="basis">基準量</label>
+          <div class="input-group">
+            <select id="basis"><option value="U">平均流速 U で指定</option><option value="Q">体積流量 Q で指定</option></select>
+          </div>
+          <p class="hint">平均流速 U と体積流量 Q は Q = U·A の関係。どちらで指定しても残りは自動換算します。</p>
+        </div>
+        <div class="input-row" id="row-U">
+          <label for="U">断面平均流速 <span class="sym">U</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="U" step="any" placeholder="例：0.5">
+            <select aria-label="断面平均流速の単位" id="U_unit"><option value="ms">m/s</option><option value="cms">cm/s</option><option value="mmin">m/min</option></select>
+          </div>
+          <p class="hint">断面平均流速。最大流速はこの 2 倍（u<sub>max</sub> = 2U）になります。</p>
+        </div>
+        <div class="input-row" id="row-Q">
+          <label for="Q">体積流量 <span class="sym">Q</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Q" step="any" placeholder="例：1.0">
+            <select aria-label="体積流量の単位" id="Q_unit"><option value="m3h">m³/h</option><option value="Lmin">L/min</option><option value="Ls">L/s</option><option value="m3s">m³/s</option></select>
+          </div>
+          <p class="hint">体積流量。平均流速 U = Q/A に換算して計算します。</p>
+        </div>
+        <div class="input-row">
+          <label for="r">半径位置 <span class="sym">r</span>（任意）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="r" step="any" placeholder="例：10">
+            <select aria-label="半径位置の単位" id="r_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="ratio">×R（比）</option></select>
+          </div>
+          <p class="hint">指定すると、その位置の流速 u(r) を求めます（r = 0 が中心、r = R が管壁）。「×R」を選ぶと r/R の比で入力できます。</p>
+        </div>
+        <div class="input-row">
+          <label for="mu">流体粘度 <span class="sym">μ</span>（任意）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="mu" step="any" placeholder="例：1.0">
+            <select aria-label="流体粘度の単位" id="mu_unit"><option value="mPas">mPa·s</option><option value="cP">cP</option><option value="Pas">Pa·s</option></select>
+          </div>
+          <p class="hint">入力すると壁面せん断応力 τ<sub>w</sub> を、管長 L も入れると圧力損失 ΔP を計算します。水20°Cなら約 1.0 mPa·s。</p>
+        </div>
+        <div class="input-row">
+          <label for="L">管長 <span class="sym">L</span>（任意）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="L" step="any" placeholder="例：10">
+            <select aria-label="管長の単位" id="L_unit"><option value="m">m</option><option value="cm">cm</option><option value="mm">mm</option></select>
+          </div>
+          <p class="hint">粘度 μ と合わせて、ハーゲン・ポアズイユの式から圧力損失 ΔP を計算します。</p>
+        </div>
+        <div class="input-row">
+          <label for="rho">流体密度 <span class="sym">ρ</span>（任意）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000">
+            <select aria-label="流体密度の単位" id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
+          </div>
+          <p class="hint">粘度 μ と合わせてレイノルズ数 Re を計算し、層流かどうかを確認します。水なら約 1000。</p>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div class="tool-chart-wrap">
+          <canvas id="hp-canvas" width="760" height="460" aria-label="円管内層流の速度分布グラフ"></canvas>
+        </div>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>直径 d = 2R の円管内を流れが層流・定常で、十分に発達した状態（流速が軸方向に変化しない状態）になると、軸方向の流速 u<sub>x</sub> は中心からの距離 r だけで決まる放物線状の分布になります。これがハーゲン・ポアズイユ流れです。</p>
+    <h3>速度分布</h3>
+    <div class="math-block">$$ u_x(r) = \dfrac{2Q}{\pi R^2}\left(1-\dfrac{r^2}{R^2}\right) = u_{\max}\left(1-\dfrac{r^2}{R^2}\right) $$</div>
+    <p>管壁（r = R）では粘着条件により u<sub>x</sub>(R) = 0、円管中央（r = 0）で最大流速 u<sub>max</sub> になります。断面平均流速 U とは次の関係があります。</p>
+    <div class="math-block">$$ U = \dfrac{Q}{\pi R^2},\qquad u_{\max} = u_x(0) = \dfrac{2Q}{\pi R^2} = 2U $$</div>
+    <h3>体積流量と圧力勾配</h3>
+    <p>体積流量 Q は軸方向の圧力勾配 ∂p/∂x に比例し、粘度 μ に反比例します（圧力勾配 ∂p/∂x の値は負）。</p>
+    <div class="math-block">$$ Q = \dfrac{\pi R^4}{8\mu}\left(-\dfrac{\partial p}{\partial x}\right) $$</div>
+    <p>長さ L の管での圧力損失 ΔP、壁面せん断応力 τ<sub>w</sub> は次のように書けます。</p>
+    <div class="math-block">$$ \Delta P = \dfrac{8\mu L Q}{\pi R^4},\qquad \tau_w = \dfrac{R}{2}\left(-\dfrac{\partial p}{\partial x}\right) = \dfrac{4\mu U}{R} $$</div>
+    <ul class="symbol-list">
+      <li>$u_x(r)$：半径位置 r での軸方向流速［m/s］</li>
+      <li>$u_{\max}$：最大流速（管中心 r = 0）［m/s］</li>
+      <li>$U$：断面平均流速［m/s］</li>
+      <li>$Q$：体積流量［m³/s］</li>
+      <li>$d,\ R$：管内径・管半径（R = d/2）［m］</li>
+      <li>$r$：管中心からの距離（0 ≤ r ≤ R）［m］</li>
+      <li>$\mu$：流体の粘度［Pa·s］</li>
+      <li>$\Delta P$：長さ L での圧力損失［Pa］</li>
+      <li>$\tau_w$：壁面せん断応力［Pa］</li>
+    </ul>
+  </section>
+
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>層流・定常で十分に発達した円管内の流れを前提にした計算です。</p>
+    <ul>
+      <li><strong>層流のみ</strong>：放物線状の速度分布は<strong>層流</strong>でのみ成り立ちます。円管の臨界レイノルズ数はおよそ Re = 2300 で、これを超えると乱流に遷移し、断面の速度分布は中央が平坦化します（密度 ρ を入力すると Re を確認できます）。</li>
+      <li><strong>発達した流れ</strong>：「十分に発達した」流れを前提とします。入口付近の助走区間では速度分布が発達途中で、本ツールの分布とは異なります。</li>
+      <li><strong>流体と管の前提</strong>：非圧縮性・ニュートン流体・一定断面の直管を前提としています。</li>
+      <li><strong>最大流速と平均流速</strong>：最大流速は平均流速のちょうど 2 倍（u<sub>max</sub> = 2U）です。流速計測の代表点として、平均流速に等しくなるのは r/R ≒ 0.707 の位置です。</li>
+      <li><strong>含まれない損失</strong>：圧力損失 $\Delta P$ は、直管部の粘性による摩擦分だけです。入口・出口、曲がり、弁、管径の変化による損失は含まれず、配管の高低差による圧力変化も含みません。</li>
+      <li><strong>粘度の入力</strong>：粘度 $\mu$ は流れている温度での値を入力します。温度で粘度が大きく変わる流体で、管壁と中心の温度が違う場合は、式の前提（粘度が一定）から外れ、速度分布は放物線からずれます。</li>
+      <li><strong>管が短い場合</strong>：助走区間の長さはレイノルズ数が大きいほど長くなります。管が短い場合は、全長が発達した流れにならず、$\Delta P$ の計算値と実際の値が一致しません。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/4uAk39X" class="reference-card" data-asin="4627674120" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">明解入門 流体力学（第2版）</p><p class="ref-meta">杉山 弘・松村 昌典・河合 秀樹・風間 俊治 著 / 森北出版</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../reynolds/" class="related-card"><span class="small">流動</span>レイノルズ数（配管）</a>
+      <a href="../fanning/" class="related-card"><span class="small">流動</span>ファニングの式・管摩擦係数</a>
+      <a href="../flow-conversion/" class="related-card"><span class="small">流動</span>流量・流速・配管径換算</a>
+    </div>
+  </section>
+
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/hagen-poiseuille.js"></script>
+<script src="../../../assets/js/value-figure.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

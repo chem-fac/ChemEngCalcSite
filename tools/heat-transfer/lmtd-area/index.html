@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LMTD・伝熱面積 | 化学工学計算支援ツール</title>
+<meta name="description" content="並流・向流の端温度差からLMTDを求め、Q = U A ΔTlm F によって必要伝熱面積を概算します。">
+<meta name="keywords" content="LMTD, 対数平均温度差, 伝熱面積, 熱交換器, 総括伝熱係数, 補正係数, 並流, 向流, heat exchanger, area">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/heat-transfer/lmtd-area/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="LMTD・伝熱面積 | 化学工学計算支援ツール">
+<meta property="og:description" content="並流・向流の端温度差からLMTDを求め、Q = U A ΔTlm F によって必要伝熱面積を概算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/heat-transfer/lmtd-area/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-heat-transfer-lmtd-area.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"LMTD・伝熱面積","url":"https://tools.chem-fac.com/tools/heat-transfer/lmtd-area/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"並流・向流の端温度差からLMTDを求め、Q = U A ΔTlm F によって必要伝熱面積を概算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"LMTD, 対数平均温度差, 伝熱面積, 熱交換器, 総括伝熱係数, 補正係数, 並流, 向流, heat exchanger, area","about":"伝熱","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">伝熱</a><span class="sep">›</span><span class="current">LMTD・伝熱面積</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag" data-cat="heat-transfer">伝熱</span>
+      <h1>LMTD・伝熱面積</h1>
+      <p class="tool-subcopy">端温度差から対数平均温度差を計算し、熱交換器の必要伝熱面積を概算します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <!-- value-figure -->
+        <figure class="value-figure input-row-full" data-cat="heat-transfer"><div class="vf-panels"><div class="vf-panel"><svg class="vf-svg" width="400" height="178" viewBox="0 0 400 178" role="img" aria-label="向流：両端の温度差 ΔT₁・ΔT₂" xmlns="http://www.w3.org/2000/svg"><text x="8" y="18" class="vf-title" text-anchor="start">向流</text><rect x="74" y="36" width="252" height="72" class="vf-hx"/><line x1="74" y1="72" x2="326" y2="72" class="vf-hxwall"/><text x="200" y="59" class="vf-note" text-anchor="middle">高温側</text><text x="200" y="95" class="vf-note" text-anchor="middle">低温側</text><polyline points="18,54 72,54" class="vf-flow"/><polygon points="72,54 64,57.2 64,50.8" class="vf-flowhead"/><polyline points="328,54 382,54" class="vf-flow"/><polygon points="382,54 374,57.2 374,50.8" class="vf-flowhead"/><g class="vf-g" data-for="Th_in"><text x="16" y="45" class="vf-sym" text-anchor="start"><tspan>T</tspan><tspan class="vf-sub" dy="0.32em">h,in</tspan></text></g><g class="vf-g" data-for="Th_out"><text x="386" y="45" class="vf-sym" text-anchor="end"><tspan>T</tspan><tspan class="vf-sub" dy="0.32em">h,out</tspan></text></g><polyline points="382,90 328,90" class="vf-flow"/><polygon points="328,90 336,86.8 336,93.2" class="vf-flowhead"/><polyline points="72,90 18,90" class="vf-flow"/><polygon points="18,90 26,86.8 26,93.2" class="vf-flowhead"/><g class="vf-g" data-for="Tc_in"><text x="386" y="114" class="vf-sym" text-anchor="end"><tspan>T</tspan><tspan class="vf-sub" dy="0.32em">c,in</tspan></text></g><g class="vf-g" data-for="Tc_out"><text x="16" y="114" class="vf-sym" text-anchor="start"><tspan>T</tspan><tspan class="vf-sub" dy="0.32em">c,out</tspan></text></g><g class="vf-g"><line x1="56" y1="58" x2="56" y2="86" class="vf-dim"/><polygon points="56,58 58.6,65 53.4,65" class="vf-arrow"/><polygon points="56,86 53.4,79 58.6,79" class="vf-arrow"/></g><g class="vf-g"><line x1="344" y1="58" x2="344" y2="86" class="vf-dim"/><polygon points="344,58 346.6,65 341.4,65" class="vf-arrow"/><polygon points="344,86 341.4,79 346.6,79" class="vf-arrow"/></g><text x="50" y="78" class="vf-sym vf-sym-dt" text-anchor="end"><tspan>ΔT</tspan><tspan class="vf-sub" dy="0.32em">1</tspan></text><text x="350" y="78" class="vf-sym vf-sym-dt" text-anchor="start"><tspan>ΔT</tspan><tspan class="vf-sub" dy="0.32em">2</tspan></text><text x="8" y="160" class="vf-sym vf-eqn" text-anchor="start"><tspan>ΔT</tspan><tspan class="vf-sub" dy="0.32em">1</tspan><tspan dy="-0.23em"> = T</tspan><tspan class="vf-sub" dy="0.32em">h,in</tspan><tspan dy="-0.23em"> − T</tspan><tspan class="vf-sub" dy="0.32em">c,out</tspan></text><text x="392" y="160" class="vf-sym vf-eqn" text-anchor="end"><tspan>ΔT</tspan><tspan class="vf-sub" dy="0.32em">2</tspan><tspan dy="-0.23em"> = T</tspan><tspan class="vf-sub" dy="0.32em">h,out</tspan><tspan dy="-0.23em"> − T</tspan><tspan class="vf-sub" dy="0.32em">c,in</tspan></text></svg></div><div class="vf-panel"><svg class="vf-svg" width="400" height="178" viewBox="0 0 400 178" role="img" aria-label="並流：両端の温度差 ΔT₁・ΔT₂" xmlns="http://www.w3.org/2000/svg"><text x="8" y="18" class="vf-title" text-anchor="start">並流</text><rect x="74" y="36" width="252" height="72" class="vf-hx"/><line x1="74" y1="72" x2="326" y2="72" class="vf-hxwall"/><text x="200" y="59" class="vf-note" text-anchor="middle">高温側</text><text x="200" y="95" class="vf-note" text-anchor="middle">低温側</text><polyline points="18,54 72,54" class="vf-flow"/><polygon points="72,54 64,57.2 64,50.8" class="vf-flowhead"/><polyline points="328,54 382,54" class="vf-flow"/><polygon points="382,54 374,57.2 374,50.8" class="vf-flowhead"/><g class="vf-g" data-for="Th_in"><text x="16" y="45" class="vf-sym" text-anchor="start"><tspan>T</tspan><tspan class="vf-sub" dy="0.32em">h,in</tspan></text></g><g class="vf-g" data-for="Th_out"><text x="386" y="45" class="vf-sym" text-anchor="end"><tspan>T</tspan><tspan class="vf-sub" dy="0.32em">h,out</tspan></text></g><polyline points="18,90 72,90" class="vf-flow"/><polygon points="72,90 64,93.2 64,86.8" class="vf-flowhead"/><polyline points="328,90 382,90" class="vf-flow"/><polygon points="382,90 374,93.2 374,86.8" class="vf-flowhead"/><g class="vf-g" data-for="Tc_in"><text x="16" y="114" class="vf-sym" text-anchor="start"><tspan>T</tspan><tspan class="vf-sub" dy="0.32em">c,in</tspan></text></g><g class="vf-g" data-for="Tc_out"><text x="386" y="114" class="vf-sym" text-anchor="end"><tspan>T</tspan><tspan class="vf-sub" dy="0.32em">c,out</tspan></text></g><g class="vf-g"><line x1="56" y1="58" x2="56" y2="86" class="vf-dim"/><polygon points="56,58 58.6,65 53.4,65" class="vf-arrow"/><polygon points="56,86 53.4,79 58.6,79" class="vf-arrow"/></g><g class="vf-g"><line x1="344" y1="58" x2="344" y2="86" class="vf-dim"/><polygon points="344,58 346.6,65 341.4,65" class="vf-arrow"/><polygon points="344,86 341.4,79 346.6,79" class="vf-arrow"/></g><text x="50" y="78" class="vf-sym vf-sym-dt" text-anchor="end"><tspan>ΔT</tspan><tspan class="vf-sub" dy="0.32em">1</tspan></text><text x="350" y="78" class="vf-sym vf-sym-dt" text-anchor="start"><tspan>ΔT</tspan><tspan class="vf-sub" dy="0.32em">2</tspan></text><text x="8" y="160" class="vf-sym vf-eqn" text-anchor="start"><tspan>ΔT</tspan><tspan class="vf-sub" dy="0.32em">1</tspan><tspan dy="-0.23em"> = T</tspan><tspan class="vf-sub" dy="0.32em">h,in</tspan><tspan dy="-0.23em"> − T</tspan><tspan class="vf-sub" dy="0.32em">c,in</tspan></text><text x="392" y="160" class="vf-sym vf-eqn" text-anchor="end"><tspan>ΔT</tspan><tspan class="vf-sub" dy="0.32em">2</tspan><tspan dy="-0.23em"> = T</tspan><tspan class="vf-sub" dy="0.32em">h,out</tspan><tspan dy="-0.23em"> − T</tspan><tspan class="vf-sub" dy="0.32em">c,out</tspan></text></svg></div></div><figcaption><span class="sym">ΔT₁</span>・<span class="sym">ΔT₂</span> は熱交換器の両端での高温側と低温側の温度差です。向流では高温側の入口と低温側の出口が同じ端にあり、並流では両方の入口が同じ端にあります。</figcaption></figure>
+        <!-- /value-figure -->
+        <div class="input-set input-row-full" role="group" aria-labelledby="set_hot">
+          <p class="input-set-title" id="set_hot">高温側の流体</p>
+          <div class="input-set-body">
+        <div class="input-row"><label for="Th_in">高温側入口温度 <span class="sym">T<sub>h,in</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" id="Th_in" step="any" placeholder="例：120"><span class="unit-label">°C</span></div></div>
+        <div class="input-row"><label for="Th_out">高温側出口温度 <span class="sym">T<sub>h,out</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" id="Th_out" step="any" placeholder="例：70"><span class="unit-label">°C</span></div></div>
+          </div>
+        </div>
+        <div class="input-set input-row-full" role="group" aria-labelledby="set_cold">
+          <p class="input-set-title" id="set_cold">低温側の流体</p>
+          <div class="input-set-body">
+        <div class="input-row"><label for="Tc_in">低温側入口温度 <span class="sym">T<sub>c,in</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" id="Tc_in" step="any" placeholder="例：25"><span class="unit-label">°C</span></div></div>
+        <div class="input-row"><label for="Tc_out">低温側出口温度 <span class="sym">T<sub>c,out</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" id="Tc_out" step="any" placeholder="例：60"><span class="unit-label">°C</span></div></div>
+          </div>
+        </div>
+        <div class="input-set input-row-full" role="group" aria-labelledby="set_cond">
+          <p class="input-set-title" id="set_cond">熱交換器の条件</p>
+          <div class="input-set-body">
+        <div class="input-row">
+          <label for="flow_type">流れ形式</label>
+          <div class="input-group">
+            <select id="flow_type">
+              <option value="counter">向流</option>
+              <option value="parallel">並流</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-row">
+          <label for="Q">熱交換量 <span class="sym">Q</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Q" step="any" placeholder="例：500">
+            <select aria-label="熱交換量の単位" id="Q_unit"><option value="kW">kW</option><option value="W">W</option><option value="MJh">MJ/h</option><option value="kcalh">kcal/h</option></select>
+          </div>
+          <p class="hint">未定の場合は「熱量・熱収支」ページで先に概算してください。</p>
+        </div>
+        <div class="input-row">
+          <label for="U">総括伝熱係数 <span class="sym">U</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="U" step="any" placeholder="例：800">
+            <select aria-label="総括伝熱係数の単位" id="U_unit"><option value="Wm2K">W/(m²·K)</option><option value="kWm2K">kW/(m²·K)</option><option value="kcalhm2K">kcal/(h m² °C)</option></select>
+          </div>
+        </div>
+        <div class="input-row"><label for="F">LMTD補正係数 <span class="sym">F</span></label><div class="input-group"><input type="number" inputmode="decimal" id="F" step="any" value="1" placeholder="例：0.85"></div></div>
+          </div>
+        </div>
+        <div class="btn-row"><button class="btn btn-primary" id="calc-btn">計算する</button><button class="btn btn-ghost" id="reset-btn">リセット</button></div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>熱交換器の概算では、熱交換量、総括伝熱係数、伝熱面積、平均温度差を次の式で結びます。</p>
+    <div class="math-block">$$ Q = U A \Delta T_{lm} F $$</div>
+    <div class="math-block">$$ \Delta T_{lm} = \frac{\Delta T_1-\Delta T_2}{\ln(\Delta T_1/\Delta T_2)} $$</div>
+    <p>$\Delta T_1$ と $\Delta T_2$ は、熱交換器の両端での高温側と低温側の温度差です。向流では $\Delta T_1 = T_{h,in}-T_{c,out}$、$\Delta T_2 = T_{h,out}-T_{c,in}$ として扱います。並流では $\Delta T_1 = T_{h,in}-T_{c,in}$、$\Delta T_2 = T_{h,out}-T_{c,out}$ です。</p>
+    <ul class="symbol-list">
+      <li>$Q$：熱交換量［W］</li>
+      <li>$U$：総括伝熱係数［W/(m²·K)］</li>
+      <li>$A$：伝熱面積［m²］</li>
+      <li>$F$：LMTD補正係数［-］</li>
+      <li>$\Delta T_1$：一端側の温度差［K］</li>
+      <li>$\Delta T_2$：他端側の温度差［K］</li>
+      <li>$\Delta T_{lm}$：対数平均温度差［K］</li>
+      <li>多管式・多パス熱交換器では、流れの配置に応じた補正係数 F を用います。F が小さい場合は、温度条件やパス構成の見直しが必要になることがあります。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>$Q = U A \Delta T_{lm} F$ は、$U$ が一定で、流体の比熱が温度によって変わらず、定常な熱交換を仮定した式です。熱交換量 $Q$、総括伝熱係数 $U$、補正係数 $F$ はそれぞれ入力値で、このツールは相互の整合を確かめません。</p>
+    <ul>
+      <li><strong>使える条件</strong>：向流または並流の熱交換器で、$U$ を伝熱面全体で一定とみなせ、比熱が温度範囲内でほぼ一定の流体。片側が凝縮や沸騰で等温の場合も、この式の特別な場合として扱えます。</li>
+      <li><strong>$Q$ は別に求める</strong>：$Q$ と4つの温度は独立に入力する欄です。$Q = \dot{m} C_p \Delta T$ との一致は確認されないので、「熱量・熱収支」ページなどで先に出した値を入れます。</li>
+      <li><strong>$F$ の扱い</strong>：このツールは $F$ を計算せず、入力された値を掛けます。多管式・多パス・直交流の場合は、配置に応じた $F$ を別の資料から求めて入力します。$F$ は 0 より大きく 1 以下で、小さいほど向流に比べて不利な条件です。</li>
+      <li><strong>外れやすい場合</strong>：比熱や $U$ が温度で大きく変わる場合、脱過熱・凝縮・過冷却のように1台の中で伝熱の様子が変わる場合は、区間ごとに分けて計算する必要があります。</li>
+      <li><strong>温度条件</strong>：$\Delta T_1$、$\Delta T_2$ のどちらかが 0 以下になる条件（温度交差）は計算できません。両端の温度差が近い場合は、算術平均とほぼ同じ値になります。</li>
+      <li><strong>結果の読み方</strong>：$A$ は入力した $U$ と $F$ のもとでの必要面積です。汚れ・余裕は $U$（汚れ係数を含めた値）や設計上の余裕として別に見込みます。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/48Hi37k" class="reference-card" data-asin="4254250339" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">化学工学 ―解説と演習―</p><p class="ref-meta">多田 豊 編 / 朝倉書店</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+    <a href="https://link.amazon/B04LozJG3" class="reference-card" data-asin="4888983372" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">伝熱工学 第2版（JSMEテキストシリーズ）</p><p class="ref-meta">日本機械学会 著 / 日本機械学会</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+    <h3>補正係数を調べる資料</h3>
+    <a href="https://link.amazon/B034YtjaA" class="reference-card" data-asin="4621083880" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">便覧</span><p class="ref-title">改訂七版 化学工学便覧</p><p class="ref-meta">化学工学会 編集 / 丸善出版</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+    <a href="https://amzn.to/3QViUeI" class="reference-card" data-asin="4888981841" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">資料集</span><p class="ref-title">伝熱工学資料</p><p class="ref-meta">日本機械学会 著 / 日本機械学会</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../heat-duty/" class="related-card"><span class="small">伝熱</span>熱量・熱収支</a>
+      <a href="../overall-u/" class="related-card"><span class="small">伝熱</span>総括伝熱係数</a>
+      <a href="../tube-heat-transfer/" class="related-card"><span class="small">伝熱</span>管内流の熱伝達係数</a>
+    </div>
+  </section>
+
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/lmtd-area.js"></script>
+<script src="../../../assets/js/value-figure.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

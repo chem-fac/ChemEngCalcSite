@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>亀井・平岡の式（バッフル無し撹拌所要動力） | 化学工学計算支援ツール</title>
+<meta name="description" content="亀井・平岡の式により、バッフル無し撹拌槽の動力数 Np0 と撹拌所要動力を計算します。パドル翼、傾斜パドル翼、タービン翼、プロペラ翼、アンカー翼、ヘリカルリボン翼、大型翼に対応。">
+<meta name="keywords" content="亀井, 平岡, Kamei, Hiraoka, Np0, Np, 動力数, 所要動力, パドル翼, 傾斜パドル, タービン, プロペラ, アンカー, ヘリカルリボン, 大型翼, 邪魔板なし, バッフル無し">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/mixing/kamei-hiraoka/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="亀井・平岡の式（バッフル無し撹拌所要動力） | 化学工学計算支援ツール">
+<meta property="og:description" content="亀井・平岡の式により、バッフル無し撹拌槽の動力数 Np0 と撹拌所要動力を計算します。パドル翼、傾斜パドル翼、タービン翼、プロペラ翼、アンカー翼、ヘリカルリボン翼、大型翼に対応。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/mixing/kamei-hiraoka/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-mixing-kamei-hiraoka.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"亀井・平岡の式（バッフル無し撹拌所要動力）","url":"https://tools.chem-fac.com/tools/mixing/kamei-hiraoka/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"亀井・平岡の式により、バッフル無し撹拌槽の動力数 Np0 と撹拌所要動力を計算します。パドル翼、傾斜パドル翼、タービン翼、プロペラ翼、アンカー翼、ヘリカルリボン翼、大型翼に対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"亀井, 平岡, Kamei, Hiraoka, Np0, Np, 動力数, 所要動力, パドル翼, 傾斜パドル, タービン, プロペラ, アンカー, ヘリカルリボン, 大型翼, 邪魔板なし, バッフル無し","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">撹拌混合</a><span class="sep">›</span><span class="current">亀井・平岡の式</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag" data-cat="mixing">撹拌混合</span>
+      <h1>亀井・平岡の式（バッフル無し撹拌所要動力）</h1>
+      <p class="tool-subcopy">翼種に応じた亀井・平岡の相関式から、バッフル無し条件の動力数 $N_{p0}$ と所要動力 $P$ を推算します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <!-- value-figure -->
+        <figure class="value-figure input-row-full" data-cat="mixing"><div class="vf-panels"><div class="vf-panel"><svg class="vf-svg" width="400" height="322" viewBox="0 0 400 322" role="img" aria-label="撹拌槽の寸法：槽径 D、液深さ H、翼径 d、翼幅 b（パドル翼）" xmlns="http://www.w3.org/2000/svg"><rect x="58" y="70" width="260" height="234" class="vf-liq"/><polygon points="53,40 53,309 323,309 323,40 318,40 318,304 58,304 58,40" class="vf-wall"/><line x1="58" y1="70" x2="318" y2="70" class="vf-surf"/><polygon points="285,61.2 299,61.2 292,70" class="vf-level"/><line x1="286.4" y1="73.5" x2="297.6" y2="73.5" class="vf-levelline"/><line x1="288.9" y1="76.5" x2="295.1" y2="76.5" class="vf-levelline"/><line x1="188" y1="18" x2="188" y2="227" class="vf-cl"/><rect x="185.5" y="20" width="5" height="163" class="vf-shaft"/><rect x="123" y="187" width="130" height="26" class="vf-imp"/><rect x="182" y="183" width="12" height="34" class="vf-imp"/><g class="vf-g" data-for="D"><line x1="58" y1="36" x2="58" y2="19" class="vf-ext"/></g><g class="vf-g" data-for="D"><line x1="318" y1="36" x2="318" y2="19" class="vf-ext"/></g><g class="vf-g" data-for="D"><line x1="58" y1="24" x2="318" y2="24" class="vf-dim"/><polygon points="58,24 65,21.4 65,26.6" class="vf-arrow"/><polygon points="318,24 311,26.6 311,21.4" class="vf-arrow"/><text x="76" y="19" class="vf-sym" text-anchor="middle"><tspan>D</tspan></text><text x="87" y="19" class="vf-name" text-anchor="start">槽径（内径）</text></g><g class="vf-g" data-for="H"><line x1="326" y1="70" x2="350" y2="70" class="vf-ext"/></g><g class="vf-g" data-for="H"><line x1="326" y1="304" x2="350" y2="304" class="vf-ext"/></g><g class="vf-g" data-for="H"><line x1="345" y1="70" x2="345" y2="304" class="vf-dim"/><polygon points="345,70 347.6,77 342.4,77" class="vf-arrow"/><polygon points="345,304 342.4,297 347.6,297" class="vf-arrow"/><text x="354" y="192" class="vf-sym" text-anchor="start"><tspan>H</tspan></text></g><g class="vf-g" data-for="H"><text x="354" y="211" class="vf-name">液深さ</text></g><g class="vf-g" data-for="d"><line x1="123" y1="216" x2="123" y2="240" class="vf-ext"/></g><g class="vf-g" data-for="d"><line x1="253" y1="216" x2="253" y2="240" class="vf-ext"/></g><g class="vf-g" data-for="d"><line x1="123" y1="235" x2="253" y2="235" class="vf-dim"/><polygon points="123,235 130,232.4 130,237.6" class="vf-arrow"/><polygon points="253,235 246,237.6 246,232.4" class="vf-arrow"/><text x="155.5" y="252" class="vf-sym" text-anchor="middle"><tspan>d</tspan></text><text x="164.5" y="252" class="vf-name" text-anchor="start">翼径（先端から先端）</text></g><g class="vf-g" data-for="b"><line x1="256" y1="187" x2="274" y2="187" class="vf-ext"/></g><g class="vf-g" data-for="b"><line x1="256" y1="213" x2="274" y2="213" class="vf-ext"/></g><g class="vf-g" data-for="b"><line x1="269" y1="187" x2="269" y2="213" class="vf-dim"/><polygon points="269,187 271.6,194 266.4,194" class="vf-arrow"/><polygon points="269,213 266.4,206 271.6,206" class="vf-arrow"/><text x="277" y="206" class="vf-sym" text-anchor="start"><tspan>b</tspan></text></g></svg></div><div class="vf-panel"><svg class="vf-svg" width="400" height="226" viewBox="0 0 400 226" role="img" aria-label="翼の形ごとの翼幅 b・角度 θ・翼径 d の取り方" xmlns="http://www.w3.org/2000/svg"><text x="10" y="20" class="vf-title" text-anchor="start">傾斜パドル翼・プロペラ翼</text><line x1="14" y1="100" x2="158" y2="100" class="vf-cl"/><text x="120" y="118" class="vf-note" text-anchor="start">水平面</text><polygon points="55.6,126.2 112.2,69.6 116.4,73.8 59.8,130.4" class="vf-imp"/><g class="vf-g" data-for="b"><line x1="54.2" y1="124.7" x2="41.5" y2="112" class="vf-ext"/></g><g class="vf-g" data-for="b"><line x1="110.7" y1="68.2" x2="98" y2="55.5" class="vf-ext"/></g><g class="vf-g" data-for="b"><line x1="45" y1="115.6" x2="101.6" y2="59" class="vf-dim"/><polygon points="45,115.6 48.1,108.8 51.8,112.4" class="vf-arrow"/><polygon points="101.6,59 98.4,65.8 94.8,62.1" class="vf-arrow"/><text x="61.3" y="79.3" class="vf-sym" text-anchor="middle"><tspan>b</tspan></text></g><g class="vf-g" data-for="theta"><path d="M107.2,78.8 A30,30 0 0 1 116,100" class="vf-dim"/><polygon points="107.2,78.8 114,81.9 110.3,85.6" class="vf-arrow"/><polygon points="116,100 113.4,93 118.6,93" class="vf-arrow"/><text x="127" y="91" class="vf-sym" text-anchor="middle"><tspan>θ</tspan></text></g><text x="10" y="172" class="vf-note" text-anchor="start">b：羽根の面に沿った幅</text><text x="10" y="192" class="vf-note" text-anchor="start">θ：水平面からの角度</text><text x="10" y="212" class="vf-note" text-anchor="start">（平パドル翼は θ = 90°）</text><text x="212" y="20" class="vf-title" text-anchor="start">アンカー翼・大型翼</text><polygon points="234,44 242,44 242,110 338,110 338,44 346,44 346,118 234,118" class="vf-imp"/><rect x="287.5" y="28" width="5" height="82" class="vf-shaft"/><g class="vf-g" data-for="d"><line x1="234" y1="121" x2="234" y2="139" class="vf-ext"/></g><g class="vf-g" data-for="d"><line x1="346" y1="121" x2="346" y2="139" class="vf-ext"/></g><g class="vf-g" data-for="d"><line x1="234" y1="134" x2="346" y2="134" class="vf-dim"/><polygon points="234,134 241,131.4 241,136.6" class="vf-arrow"/><polygon points="346,134 339,136.6 339,131.4" class="vf-arrow"/><text x="290" y="151" class="vf-sym" text-anchor="middle"><tspan>d</tspan></text></g><g class="vf-g" data-for="b"><line x1="349" y1="44" x2="365" y2="44" class="vf-ext"/></g><g class="vf-g" data-for="b"><line x1="349" y1="118" x2="365" y2="118" class="vf-ext"/></g><g class="vf-g" data-for="b"><line x1="360" y1="44" x2="360" y2="118" class="vf-dim"/><polygon points="360,44 362.6,51 357.4,51" class="vf-arrow"/><polygon points="360,118 357.4,111 362.6,111" class="vf-arrow"/><text x="367" y="87" class="vf-sym" text-anchor="start"><tspan>b</tspan></text></g><text x="212" y="172" class="vf-note" text-anchor="start">b：翼の下端から上端まで</text><text x="212" y="192" class="vf-note" text-anchor="start">d：翼の最も外側の径</text></svg></div></div><figcaption>槽の図は平パドル翼（タービン翼も同じ）で、<span class="sym">b</span> は翼の上下の高さです。傾斜翼・アンカー翼・大型翼の <span class="sym">b</span> と <span class="sym">d</span> は、それぞれの翼の図のとおりに取ります。<span class="sym">H</span> は槽底から静止時の液面までです。</figcaption></figure>
+        <!-- /value-figure -->
+
+        <div class="input-row">
+          <label for="preset">翼種</label>
+          <div class="input-group">
+            <select id="preset" data-example="pitched_paddle">
+            <option value="">（選択してください）</option>
+            <option value="paddle">パドル翼</option>
+            <option value="pitched_paddle">傾斜パドル翼</option>
+            <option value="turbine">タービン翼</option>
+            <option value="propeller">プロペラ翼</option>
+            <option value="retreat">三枚後退翼</option>
+            <option value="hr320">スーパーミックスHR320</option>
+            <option value="hr320s">スーパーミックスHR320S</option>
+            <option value="anchor">アンカー翼</option>
+            <option value="helical">ヘリカルリボン翼</option>
+            <option value="maxblend_dished">マックスブレンド／MR205（皿底槽）</option>
+            <option value="maxblend_flat">マックスブレンド／MR205（平底槽）</option>
+            <option value="fullzone_dished">フルゾーン（皿底槽）</option>
+            <option value="fullzone_flat">フルゾーン（平底槽）</option>
+          </select>
+          </div>
+          <p class="hint" id="preset-note">プリセットで代表的な羽根枚数・角度を入力します。翼幅や物性値は実機条件に合わせて入力してください。</p>
+        </div>
+
+        <div class="input-row">
+          <label for="d">翼径 <span class="sym">d</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="d" step="any" placeholder="例：300"><select aria-label="翼径の単位" id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div>
+        </div>
+        <div class="input-row">
+          <label for="D">槽径 <span class="sym">D</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="D" step="any" placeholder="例：900"><select aria-label="槽径の単位" id="D_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div>
+        </div>
+        <div class="input-row">
+          <label for="H">液深さ <span class="sym">H</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="H" step="any" placeholder="例：900"><select aria-label="液深さの単位" id="H_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div>
+        </div>
+        <div class="input-row">
+          <label for="b">翼幅 <span class="sym">b</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="b" step="any" placeholder="例：60"><select aria-label="翼幅の単位" id="b_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select></div>
+          <p class="hint">ヘリカルリボン翼ではこの入力は計算に使用しません。</p>
+        </div>
+        <div class="input-row">
+          <label for="np">羽根枚数 <span class="sym">n<sub>p</sub></span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="np" step="1" placeholder="例：4"></div>
+        </div>
+        <div class="input-row">
+          <label for="theta">羽根取り付け角度 <span class="sym">θ</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="theta" step="any" placeholder="例：45"><span class="unit-label">°</span></div>
+        </div>
+        <div class="input-row">
+          <label for="rho">密度 <span class="sym">ρ</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000"><select aria-label="密度の単位" id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select></div>
+        </div>
+        <div class="input-row">
+          <label for="n">回転数 <span class="sym">n</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="n" step="any" placeholder="例：300"><select aria-label="回転数の単位" id="n_unit"><option value="rpm">rpm</option><option value="rps">1/s</option></select></div>
+        </div>
+        <div class="input-row">
+          <label for="mu">粘度 <span class="sym">μ</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="mu" step="any" placeholder="例：1"><select aria-label="粘度の単位" id="mu_unit"><option value="mPas">mPa·s</option><option value="cP">cP</option><option value="Pas">Pa·s</option></select></div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>亀井・平岡の式は、バッフル無し条件の動力数 $N_{p0}$ を、翼形状と撹拌レイノルズ数から求める相関式です。求めた動力数は $P=N_{p0}\rho n^3d^5$ で所要動力に換算します。</p>
+    <div class="math-block">$$ P = N_{p0}\rho n^3d^5 $$</div>
+    <div class="math-block">$$ N_{p0} = \dfrac{1.2 \pi^{4} \beta^{2}}{8 d^{3}/(D^{2}H)} f $$</div>
+    <div class="math-block">$$ f = \dfrac{C_L}{Re_G} + C_t \left\{\left(\dfrac{C_{tr}}{Re_G}+Re_G\right)^{-1}+\left(\dfrac{f_{\infty}}{C_t}\right)^{1/m}\right\}^{m} $$</div>
+    <p>パドル翼、傾斜パドル翼、タービン翼、アンカー翼は基本形を使い、プロペラ翼・三枚後退翼・HR320系・大型翼では $C_t$ や $m$ などの変数を翼種に応じて切り替えます。ヘリカルリボン翼は専用の $Re_G$ と前係数を使います。</p>
+    <ul class="symbol-list">
+      <li>$P$：撹拌所要動力［W］</li>
+      <li>$N_{p0}$：バッフル無し動力数［-］</li>
+      <li>$\rho$：密度［kg/m³］</li>
+      <li>$n$：回転数［1/s］</li>
+      <li>$d$：翼径［m］</li>
+      <li>$D$：槽径［m］</li>
+      <li>$H$：液深さ［m］</li>
+      <li>$b$：翼幅［m］</li>
+      <li>$n_p$：羽根枚数［-］</li>
+      <li>$\theta$：羽根取り付け角度［°］</li>
+      <li>$\mu$：粘度［Pa·s］</li>
+      <li>$Re_G$：流れレイノルズ数［-］</li>
+      <li>$C_L$：層流項の係数［-］</li>
+      <li>$C_t$：乱流項の係数［-］</li>
+      <li>$C_{tr}$：遷移項の係数［-］</li>
+      <li>$f_{\infty}$：乱流漸近項の係数［-］</li>
+      <li>$m$：指数［-］</li>
+      <li>翼メーカー固有の大型翼や特殊翼は、公開相関式の適用範囲と実機形状の対応を確認してから使用してください。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>バッフル無しの槽で、層流項・遷移項・乱流項を1つの式 $f$ につないだ相関式です。レイノルズ数が変わると $N_{p0}$ が変わる前提で、$Re_d$ から $Re_G$ を経て $N_{p0}$ を求めます。</p>
+    <ul>
+      <li><strong>使える条件</strong>：バッフル無しの単一液体で、翼が選択肢にある13種のプリセット（翼種・大型翼は槽底が皿底か平底かで区別）のいずれかに当たる場合。レイノルズ数は層流域から乱流域まで同じ式で扱えます。</li>
+      <li><strong>使えない条件</strong>：バッフル付きの槽（「バッフルあり撹拌所要動力」を使います）。羽根取り付け角度 $\theta$ は 0 超 90° 以下に限られ、超えるとエラーになります。</li>
+      <li><strong>レイノルズ数による変化</strong>：$Re_G$ が小さい層流域では $f$ の第1項（$C_L/Re_G$）が支配して $N_{p0}$ が $Re$ にほぼ反比例し、大きい乱流域では $N_{p0}$ が翼と槽の形状で決まる一定値に近づきます。この値をバッフルあり計算の $N_{p0}$ に使うときは、運転条件の $Re$ で求めた値を使ってください。</li>
+      <li><strong>ヘリカルリボン翼</strong>：固定の係数と $Re_d$ だけで計算し、槽径・液深さ・翼幅・羽根枚数・角度は結果に反映されません（粘度・密度・回転数・翼径が効きます）。</li>
+      <li><strong>外れやすい場合</strong>：翼幅 $b$ は、パドル翼・傾斜パドル翼・タービン翼などではプリセット選択時に翼径の一定割合（パドル翼 0.20$d$ など）が自動入力される代表値です。アンカー翼・大型翼の $b$ は翼の下端から上端までの高さなので、自動入力しません。実機の $b$ と違う値のまま計算すると $N_{p0}$ が外れます。式にはフルード数の項がなく、液面の渦の影響は含まれません。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/4ts1HHl" class="reference-card" data-asin="4883616568" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">最新ミキシング技術の基礎と応用（化学工学の進歩42）</p><p class="ref-meta">化学工学会 著 / 三恵社</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+    <ul class="paper-link-list">
+      <li><a href="https://doi.org/10.1155/2012/106496" target="_blank" rel="noopener">Correlation of Power Consumption for Several Kinds of Mixing Impellers</a><br><span class="paper-meta">International Journal of Chemical Engineering, 2012, Article ID 106496</span></li>
+      <li><a href="https://www.jstage.jst.go.jp/article/kakoronbunshu/49/3/49_22wh032/_article/-char/ja/" target="_blank" rel="noopener">新型軸流撹拌翼HR320とHR320Sの性能評価</a><br><span class="paper-meta">化学工学論文集, 49(3), 56-61, 2023</span></li>
+      <li><a href="https://www.jstage.jst.go.jp/article/kakoronbunshu/42/6/42_16wh021/_article/-char/ja/" target="_blank" rel="noopener">大型翼の撹拌所要動力に対する液高さの影響</a><br><span class="paper-meta">化学工学論文集, 42(6), 187-191, 2016</span></li>
+    </ul>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../reynolds/" class="related-card"><span class="small">撹拌混合</span>撹拌レイノルズ数</a>
+      <a href="../power/" class="related-card"><span class="small">撹拌混合</span>撹拌所要動力／動力数／トルク変換</a>
+      <a href="../baffled-power/" class="related-card"><span class="small">撹拌混合</span>バッフルあり撹拌所要動力</a>
+      <a href="../flow/" class="related-card"><span class="small">撹拌混合</span>吐出流量・循環流量</a>
+      <a href="../time/" class="related-card"><span class="small">撹拌混合</span>混合時間</a>
+      <a href="../vortex/" class="related-card"><span class="small">撹拌混合</span>撹拌液面変化（バッフルなし）</a>
+    </div>
+  </section>
+
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div></div>
+  </div>
+</footer>
+
+<script src="../../../assets/js/mix-kamei.js"></script>
+<script src="../../../assets/js/value-figure.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

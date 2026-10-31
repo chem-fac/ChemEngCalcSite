@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>サイクロン分離効率（Lapple カット径・分級曲線） | 化学工学計算支援ツール</title>
+<meta name="description" content="サイクロンの 50% 分離径（カット径 d_pc）、粒径ごとの分離効率、概略圧損を Lapple モデルで計算します。集塵装置の概略選定に。">
+<meta name="keywords" content="サイクロン, cyclone, Lapple, 分離効率, カット径, d50, 集塵, 粒径分布, 旋回回数, 入口流速, 圧損, dust collector">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/dust-collection/cyclone/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="サイクロン分離効率（Lapple カット径・分級曲線） | 化学工学計算支援ツール">
+<meta property="og:description" content="サイクロンの 50% 分離径（カット径 d_pc）、粒径ごとの分離効率、概略圧損を Lapple モデルで計算します。集塵装置の概略選定に。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/dust-collection/cyclone/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-dust-collection-cyclone.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"サイクロン分離効率（Lapple）","url":"https://tools.chem-fac.com/tools/dust-collection/cyclone/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"サイクロンの 50% 分離径（カット径 d_pc）、粒径ごとの分離効率、概略圧損を Lapple モデルで計算します。集塵装置の概略選定に。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"サイクロン, カット径, 50%分離径, 分離効率, 分級曲線, 集塵, 粉塵, ダスト, 圧損, 圧力損失, 有効旋回回数, 入口流速, Lapple, cyclone, cut size, d50, dust collector","about":"集塵","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-21"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">集塵</a><span class="sep">›</span><span class="current">サイクロン分離効率</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag" data-cat="dust-collection">集塵</span>
+      <h1>サイクロン分離効率（Lapple）</h1>
+      <p class="tool-subcopy">入口寸法・入口流速・粒子物性から、カット径 $d_{pc}$（50% 分離径）・分級曲線・概略圧損を Lapple モデルで計算します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <div class="input-row">
+          <label for="B">入口幅 <span class="sym">B</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="B" step="any" placeholder="例：100">
+            <select id="B_unit" aria-label="入口幅の単位"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+          </div>
+          <p class="hint">サイクロン胴部直径 D に対して B ≒ D/4 が標準寸法。</p>
+        </div>
+        <div class="input-row">
+          <label for="H">入口高さ <span class="sym">H</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="H" step="any" placeholder="例：200">
+            <select id="H_unit" aria-label="入口高さの単位"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+          </div>
+          <p class="hint">標準寸法では H ≒ D/2。入口流速の算出に使用。</p>
+        </div>
+        <div class="input-row">
+          <label for="vi">入口流速 <span class="sym">v<sub>i</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="vi" step="any" placeholder="例：15">
+            <span class="unit-label">m/s</span>
+          </div>
+          <p class="hint">空欄なら下の「処理ガス流量」から自動算出します。設計では 9〜27 m/s の範囲とし、15 m/s 前後が最適とされます。</p>
+        </div>
+        <div class="input-row">
+          <label for="Q">処理ガス流量 <span class="sym">Q</span>（任意）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Q" step="any" placeholder="例：1080">
+            <select id="Q_unit" aria-label="処理ガス流量の単位"><option value="m3h">m³/h</option><option value="m3min">m³/min</option><option value="Nm3h">Nm³/h（参考）</option></select>
+          </div>
+          <p class="hint">入力すると v_i = Q/(B·H) で自動算出します（Nm³/h は密度温度補正なしの参考値）。</p>
+        </div>
+        <div class="input-row">
+          <label for="Ne">有効旋回回数 <span class="sym">N<sub>e</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Ne" step="any" value="6" placeholder="例：6">
+            <span class="unit-label">回</span>
+          </div>
+          <p class="hint">Lapple 標準寸法（胴の長さ 2D・円錐部の長さ 2D・入口高さ D/2）で約 6。N_e = (L_b + L_c/2)/H で見積もれます（L_b：胴の長さ、L_c：円錐部の長さ、H：入口高さ）。</p>
+        </div>
+        <div class="input-row">
+          <label for="mu">ガス粘度 <span class="sym">μ</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="mu" step="any" placeholder="例：0.018">
+            <select id="mu_unit" aria-label="ガス粘度の単位"><option value="mPas">mPa·s</option><option value="cP">cP</option><option value="Pas">Pa·s</option></select>
+          </div>
+          <p class="hint">空気20°Cで 0.018 mPa·s（= 1.8×10⁻⁵ Pa·s）。</p>
+        </div>
+        <div class="input-row">
+          <label for="rho_p">粒子密度 <span class="sym">ρ<sub>p</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="rho_p" step="any" placeholder="例：2500">
+            <select id="rho_p_unit" aria-label="粒子密度の単位"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
+          </div>
+        </div>
+        <div class="input-row">
+          <label for="rho_g">ガス密度 <span class="sym">ρ<sub>g</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="rho_g" step="any" value="1.2" placeholder="例：1.2">
+            <select id="rho_g_unit" aria-label="ガス密度の単位"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
+          </div>
+        </div>
+        <div class="input-row">
+          <label for="K">圧損係数 <span class="sym">K</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="K" step="any" value="8" placeholder="例：8">
+            <span class="unit-label">-</span>
+          </div>
+          <p class="hint">ΔP = K·ρ_g·v_i²/2 で概算。K = 16·ab/D_e²（a・b：入口の高さ・幅、D_e：排気管径）。a/D = 0.5、b/D = 0.25、D_e/D = 0.5 の寸法で K = 8。</p>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <h3>Lapple のカット径</h3>
+    <p>サイクロン入口の幅 $B$、入口流速 $v_i$、有効旋回回数 $N_e$ を使い、50%の粒子が分離される粒径（カット径）$d_{pc}$ は次式で表されます。</p>
+    <div class="math-block">$$ d_{pc} = \sqrt{\dfrac{9\,\mu\, B}{2\pi\, N_e\, v_i\, (\rho_p - \rho_g)}} $$</div>
+    <p>分離効率の分級曲線は、粒径 $d_p$ に対して次の経験式で表されます。</p>
+    <div class="math-block">$$ \eta(d_p) = \dfrac{1}{1 + (d_{pc}/d_p)^{2}} $$</div>
+    <p>$d_p = d_{pc}$ で $\eta = 0.5$、$d_p \gg d_{pc}$ で $\eta \to 1$。</p>
+    <h3>圧損の概算</h3>
+    <div class="math-block">$$ \Delta P = K\, \dfrac{\rho_g v_i^{2}}{2} $$</div>
+    <p>$K$ は寸法比から $K = 16\,ab/D_e^{2}$ で求められます（$a$・$b$：入口の高さ・幅、$D_e$：排気管の直径）。$D_e$ が細いほど $K$ は大きくなります。$a/D = 0.5$、$b/D = 0.25$、$D_e/D = 0.5$ の寸法では $K = 8$ です。</p>
+    <ul class="symbol-list">
+      <li>$d_{pc}$：カット径（50% 分離径）［m］</li>
+      <li>$d_p$：粒径［m］</li>
+      <li>$\eta$：分離効率［-］</li>
+      <li>$B$：入口幅［m］</li>
+      <li>$H$：入口高さ［m］</li>
+      <li>$v_i$：入口流速［m/s］</li>
+      <li>$Q$：処理ガス流量。$v_i = Q/(B\,H)$［m³/s］</li>
+      <li>$N_e$：有効旋回回数［-］</li>
+      <li>$\mu$：ガス粘度［Pa·s］</li>
+      <li>$\rho_p$：粒子密度［kg/m³］</li>
+      <li>$\rho_g$：ガス密度［kg/m³］</li>
+      <li>$\Delta P$：圧損［Pa］</li>
+      <li>$K$：圧損係数［-］</li>
+      <li>$a$、$b$：入口の高さ・幅［m］</li>
+      <li>$D$：サイクロン胴部直径［m］</li>
+      <li>$D_e$：排気管の直径［m］</li>
+    </ul>
+  </section>
+
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>標準的な寸法比のサイクロン（Lapple 標準型など）を前提とした式です。</p>
+    <ul>
+      <li><strong>入口流速</strong>：入口流速は 9〜27 m/s の範囲で設計し、15 m/s 前後が最適とされます。流速が高すぎると再飛散や装置の摩耗が増え、低すぎるとカット径が大きくなります。</li>
+      <li><strong>細かい粒子</strong>：カット径より細かい粒子は、後段のバグフィルタや電気集塵で捕集してください。</li>
+      <li><strong>使えない条件</strong>：湿った粉体や付着しやすいダストは、ブリッジや付着を別途検討してください。</li>
+      <li><strong>結果の読み方</strong>：Lapple モデルは概算です。実機の効率は、粉体の性状や装置の寸法によってずれることがあります。</li>
+      <li><strong>機器選定</strong>：重要な設備の選定は、メーカー試算（CFD・実験データ）で確認してください。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://link.amazon/B034YtjaA" class="reference-card" data-asin="4621083880" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">便覧</span><p class="ref-title">改訂七版 化学工学便覧</p><p class="ref-meta">化学工学会 編集 / 丸善出版</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../../separation/settling-velocity/" class="related-card"><span class="small">固液分離</span>球形粒子の終末沈降速度</a>
+      <a href="../../fluid/reynolds/" class="related-card"><span class="small">流動</span>レイノルズ数（配管）</a>
+      <a href="../../fluid/flow-conversion/" class="related-card"><span class="small">流動</span>流量・流速・配管径換算</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/cyclone.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

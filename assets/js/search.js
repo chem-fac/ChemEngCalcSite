@@ -1,0 +1,496 @@
+(function () {
+  const TOOLS = [
+    {
+      title: "調節弁の差圧から流量を推定（液体）",
+      url: "tools/instrumentation-control/control-valve-flow/",
+      category: "計装・制御",
+      keywords: ["調節弁", "Cv", "Kv", "実効Cv", "差圧", "流量", "液体", "水", "密度", "control valve"]
+    },
+    {
+      title: "レイノルズ数（配管）",
+      url: "tools/fluid/reynolds/",
+      category: "流動",
+      keywords: ["レイノルズ", "Reynolds", "Re", "配管", "層流", "乱流", "流速", "流量", "管内径", "粘度", "動粘度", "円管"]
+    },
+    {
+      title: "流量・流速・配管径換算",
+      url: "tools/fluid/flow-conversion/",
+      category: "流動",
+      keywords: ["流量", "流速", "配管径", "管内径", "換算", "断面積", "単位換算", "体積流量", "配管設計", "円管"]
+    },
+    {
+      title: "連続の式（配管断面変化）",
+      url: "tools/fluid/continuity/",
+      category: "流動",
+      keywords: ["連続の式", "continuity", "質量保存", "断面変化", "レジューサ", "絞り", "流速変化", "非圧縮", "Au"]
+    },
+    {
+      title: "ファニングの式・管摩擦係数（圧力損失）",
+      url: "tools/fluid/fanning/",
+      category: "流動",
+      keywords: ["ファニング", "Fanning", "管摩擦係数", "摩擦係数", "圧力損失", "ダルシー", "Darcy", "Weisbach", "コールブルック", "Colebrook", "プラントル", "カルマン", "ブラジウス", "Blasius", "ニクラゼ", "粗さ", "粗面管", "平滑管", "ヘッド", "動圧", "圧損"]
+    },
+    {
+      title: "ポンプ計算（全揚程・NPSH・軸動力）",
+      url: "tools/fluid/pump/",
+      category: "流動",
+      keywords: ["ポンプ", "ポンプ計算", "pump", "全揚程", "実揚程", "揚程", "head", "NPSH", "NPSHa", "NPSHr", "キャビテーション", "大気圧", "軸動力", "水動力", "理論動力", "モーター動力", "モーター入力", "効率", "蒸気圧", "ベルヌーイ", "摩擦損失", "遠心ポンプ"]
+    },
+    {
+      title: "ハーゲン・ポアズイユ流れ（円管内層流の速度分布）",
+      url: "tools/fluid/hagen-poiseuille/",
+      category: "流動",
+      keywords: ["ハーゲンポアズイユ", "ハーゲン・ポアズイユ", "Hagen-Poiseuille", "Poiseuille", "速度分布", "円管内流れ", "円管", "管内流れ", "層流", "放物線", "最大流速", "平均流速", "体積流量", "粘着条件", "non-slip", "圧力損失", "圧力勾配", "壁面せん断応力", "せん断応力", "流体力学", "十分に発達した流れ"]
+    },
+    {
+      title: "流動（カテゴリ）",
+      url: "tools/fluid/",
+      category: "カテゴリ",
+      keywords: ["流動", "流体", "配管", "圧力損失", "fluid"]
+    },
+    {
+      title: "撹拌混合（カテゴリ）",
+      url: "tools/mixing/",
+      category: "カテゴリ",
+      keywords: ["撹拌", "攪拌", "混合", "撹拌槽", "翼", "動力", "スケールアップ", "mixing", "agitation"]
+    },
+    {
+      title: "伝熱（カテゴリ）",
+      url: "tools/heat-transfer/",
+      category: "カテゴリ",
+      keywords: ["伝熱", "熱交換器", "加熱", "冷却", "熱伝達", "熱通過", "heat", "transfer"]
+    },
+    {
+      title: "熱量・熱収支",
+      url: "tools/heat-transfer/heat-duty/",
+      category: "伝熱",
+      keywords: ["熱量", "熱収支", "顕熱", "潜熱", "熱負荷", "加熱", "冷却", "比熱", "蒸発", "凝縮", "heat duty", "energy balance"]
+    },
+    {
+      title: "LMTD・伝熱面積",
+      url: "tools/heat-transfer/lmtd-area/",
+      category: "伝熱",
+      keywords: ["LMTD", "対数平均温度差", "伝熱面積", "熱交換器", "総括伝熱係数", "補正係数", "並流", "向流", "heat exchanger", "area"]
+    },
+    {
+      title: "総括伝熱係数 U",
+      url: "tools/heat-transfer/overall-u/",
+      category: "伝熱",
+      keywords: ["総括伝熱係数", "U", "熱抵抗", "境膜抵抗", "汚れ係数", "ファウリング", "管壁", "overall heat transfer coefficient"]
+    },
+    {
+      title: "熱伝達係数（代表相関式）",
+      url: "tools/heat-transfer/tube-heat-transfer/",
+      category: "伝熱",
+      keywords: ["熱伝達係数", "管内流", "平板", "自然対流", "強制対流", "ディタス", "ベルター", "Dittus", "Boelter", "Sieder", "Tate", "Re", "Pr", "Gr", "Nu", "Nusselt", "乱流"]
+    },
+    {
+      title: "冷却水・蒸気・熱媒油の必要量",
+      url: "tools/heat-transfer/utility/",
+      category: "伝熱",
+      keywords: ["冷却水", "蒸気", "熱媒油", "必要量", "ユーティリティ", "流量", "潜熱", "比熱", "utility", "steam", "hot oil"]
+    },
+    {
+      title: "混合物の比熱（質量・モル混合則）",
+      url: "tools/heat-transfer/cp-mixing/",
+      category: "伝熱",
+      keywords: ["比熱", "混合比熱", "比熱混合則", "mass mixing rule", "mole mixing rule", "cp", "Cp", "混合物物性", "熱容量", "質量分率", "モル分率"]
+    },
+    {
+      title: "飽和蒸気表（温度⇔圧力・物性値）",
+      url: "tools/heat-transfer/steam-table/",
+      category: "伝熱",
+      keywords: ["蒸気表", "飽和蒸気", "飽和水", "比容積", "比エンタルピー", "蒸発潜熱", "比エントロピー", "h_fg", "IAPWS", "スチームテーブル", "蒸気物性", "ボイラ", "ゲージ圧", "絶対圧", "飽和温度", "飽和圧力", "steam table", "saturated steam"]
+    },
+    {
+      title: "物性・熱力学（カテゴリ）",
+      url: "tools/properties/",
+      category: "カテゴリ",
+      keywords: ["物性", "熱力学", "状態方程式", "気体粘度", "混合粘度", "Wilke", "溶液濃度", "化学平衡", "蒸気圧", "properties", "thermodynamics"]
+    },
+    {
+      title: "理想気体の状態方程式・標準状態換算",
+      url: "tools/properties/ideal-gas-law/",
+      category: "物性・熱力学",
+      keywords: ["理想気体", "状態方程式", "PV=nRT", "ガス密度", "モル体積", "標準状態", "Nm3", "ノルマル立米", "実流量", "actual", "流量換算", "kg/h", "kmol/h"]
+    },
+    {
+      title: "混合気体の粘度（Wilke式）",
+      url: "tools/properties/gas-mixture-viscosity/",
+      category: "物性・熱力学",
+      keywords: ["混合気体", "粘度", "Wilke", "ウィルク", "混合粘度", "気体粘度", "純気体粘度", "モル分率", "分子量", "mixture viscosity", "gas viscosity"]
+    },
+    {
+      title: "液体の粘度・動粘度換算",
+      url: "tools/properties/liquid-viscosity/",
+      category: "物性・熱力学",
+      keywords: ["液体", "粘度", "動粘度", "粘性係数", "密度", "cP", "cSt", "センチポアズ", "センチストークス", "viscosity", "kinematic viscosity"]
+    },
+    {
+      title: "溶液濃度の単位換算",
+      url: "tools/properties/concentration-conversion/",
+      category: "物性・熱力学",
+      keywords: ["溶液", "濃度", "単位換算", "質量パーセント", "質量分率", "wt%", "モル濃度", "mol/L", "質量モル濃度", "mol/kg", "モル分率", "g/L", "mg/L", "ppm", "密度", "モル質量", "concentration"]
+    },
+    {
+      title: "ファントホッフの式",
+      url: "tools/properties/vant-hoff/",
+      category: "物性・熱力学",
+      keywords: ["ファントホッフ", "van't Hoff", "平衡定数", "温度依存", "反応エンタルピー", "反応熱", "ギブズエネルギー", "エントロピー", "化学平衡"]
+    },
+    {
+      title: "クラウジウス・クラペイロンの式",
+      url: "tools/properties/clausius-clapeyron/",
+      category: "物性・熱力学",
+      keywords: ["クラウジウス", "クラペイロン", "Clausius", "Clapeyron", "蒸気圧", "飽和蒸気圧", "蒸発熱", "蒸発潜熱", "温度推算", "外挿", "沸点"]
+    },
+    {
+      title: "撹拌レイノルズ数",
+      url: "tools/mixing/reynolds/",
+      category: "撹拌混合",
+      keywords: ["撹拌レイノルズ数", "Reynolds", "Re", "層流", "遷移流", "乱流", "撹拌槽", "翼径", "回転数", "agitation", "impeller"]
+    },
+    {
+      title: "撹拌所要動力／動力数／トルク変換",
+      url: "tools/mixing/power/",
+      category: "撹拌混合",
+      keywords: ["撹拌所要動力", "所要動力", "動力数", "Np", "power", "トルク", "torque", "変換", "kW", "HP", "馬力", "モーター", "選定"]
+    },
+    {
+      title: "バッフルあり撹拌所要動力",
+      url: "tools/mixing/baffled-power/",
+      category: "撹拌混合",
+      keywords: ["バッフルあり", "邪魔板", "撹拌所要動力", "動力数", "Np", "Npmax", "Np0", "power", "バッフル幅", "バッフル枚数"]
+    },
+    {
+      title: "吐出流量・循環流量",
+      url: "tools/mixing/flow/",
+      category: "撹拌混合",
+      keywords: ["撹拌流量", "吐出流量", "循環流量", "動力数", "Np", "Nqd", "Nqc", "同伴流量", "循環時間", "flow", "discharge"]
+    },
+    {
+      title: "混合時間",
+      url: "tools/mixing/time/",
+      category: "撹拌混合",
+      keywords: ["混合時間", "mixing time", "θM", "Np", "Nqd", "バッフル", "邪魔板", "液深さ", "層流", "乱流"]
+    },
+    {
+      title: "撹拌液面変化（バッフルなし槽の渦）",
+      url: "tools/mixing/vortex/",
+      category: "撹拌混合",
+      keywords: ["液面変化", "渦", "vortex", "バッフルなし", "邪魔板なし", "中心", "低下", "槽壁", "上昇", "フルード", "Fr"]
+    },
+    {
+      title: "亀井・平岡の式（バッフル無し撹拌所要動力）",
+      url: "tools/mixing/kamei-hiraoka/",
+      category: "撹拌混合",
+      keywords: ["亀井", "平岡", "Kamei", "Hiraoka", "Np0", "Np", "動力数", "所要動力", "パドル翼", "傾斜パドル", "タービン", "プロペラ", "アンカー", "ヘリカルリボン", "大型翼", "邪魔板なし", "バッフル無し"]
+    },
+    {
+      title: "アントワン式（蒸気圧・沸点）",
+      url: "tools/distillation/antoine/",
+      category: "蒸留",
+      keywords: ["アントワン", "Antoine", "蒸気圧", "沸点", "純物質", "気液平衡", "log P", "水", "エタノール", "メタノール", "ベンゼン", "トルエン", "アセトン", "vapor pressure"]
+    },
+    {
+      title: "気液平衡・相対揮発度計算",
+      url: "tools/distillation/vle/",
+      category: "蒸留",
+      keywords: ["気液平衡", "相対揮発度", "K値", "Raoult", "ラウール", "飽和蒸気圧", "気相組成", "蒸留"]
+    },
+    {
+      title: "単蒸留の設計計算（レイリーの式）",
+      url: "tools/distillation/simple/",
+      category: "蒸留",
+      keywords: ["単蒸留", "レイリーの式", "Rayleigh", "レイリー", "回分蒸留", "留出量", "釜液量", "平均留出組成", "相対揮発度", "蒸留"]
+    },
+    {
+      title: "フラッシュ蒸留の設計計算",
+      url: "tools/distillation/flash/",
+      category: "蒸留",
+      keywords: ["フラッシュ蒸留", "蒸気率", "Rachford", "Rice", "気液平衡", "K値", "液相組成", "気相組成", "蒸留"]
+    },
+    {
+      title: "マッケーブ・シール法（二成分連続蒸留）",
+      url: "tools/distillation/mccabe-thiele/",
+      category: "蒸留",
+      keywords: ["McCabe", "Thiele", "マッケーブ・シール", "マッケーブシール", "二成分連続蒸留", "二成分蒸留", "理論段数", "供給段", "還流比", "q線", "操作線", "相対揮発度", "蒸留"]
+    },
+    {
+      title: "充填塔の理論段数と充填高さの換算（HETP）",
+      url: "tools/distillation/packed-column/",
+      category: "蒸留",
+      keywords: ["充填塔", "理論段数", "充填高さ", "HETP", "理論段相当高さ", "換算", "濃縮部", "回収部", "全還流", "Fenske", "規則充填物", "不規則充填物", "packed column", "蒸留"]
+    },
+    {
+      title: "FUG法（Fenske・Underwood・Gilliland）",
+      url: "tools/distillation/fug/",
+      category: "蒸留",
+      keywords: ["FUG法", "Fenske", "Underwood", "Gilliland", "フェンスケ", "アンダーウッド", "ギリランド", "最小段数", "最小還流比", "還流比", "理論段数", "二成分蒸留", "相対揮発度", "蒸留"]
+    },
+    {
+      title: "アレニウスの式（反応速度定数・活性化エネルギー）",
+      url: "tools/reaction/arrhenius/",
+      category: "反応",
+      keywords: ["アレニウス", "Arrhenius", "活性化エネルギー", "Ea", "頻度因子", "前指数因子", "反応速度定数", "速度定数", "k", "アレニウスプロット", "kinetics"]
+    },
+    {
+      title: "回分反応器の反応時間",
+      url: "tools/reaction/batch-time/",
+      category: "反応",
+      keywords: ["回分反応器", "反応時間", "batch", "reactor", "転化率", "0次", "1次", "2次", "速度式"]
+    },
+    {
+      title: "CSTR設計",
+      url: "tools/reaction/cstr/",
+      category: "反応",
+      keywords: ["CSTR", "完全混合槽", "連続槽型反応器", "反応器設計", "容積", "空間時間", "滞留時間", "転化率"]
+    },
+    {
+      title: "PFR設計",
+      url: "tools/reaction/pfr/",
+      category: "反応",
+      keywords: ["PFR", "管型反応器", "押し出し流れ", "プラグフロー", "反応器設計", "容積", "空間時間", "転化率"]
+    },
+    {
+      title: "抽出後の相分離時間（静置）",
+      url: "tools/extraction/phase-separation-time/",
+      category: "抽出",
+      keywords: ["相分離", "分離時間", "静置", "液液分離", "抽出", "終末速度", "沈降速度", "浮上速度", "ストークス", "アレン", "ニュートン", "粒子レイノルズ数", "Stokes", "Allen", "Newton", "分散帯", "液滴径", "分液ロート", "デカンター", "settling", "phase separation"]
+    },
+    {
+      title: "球形粒子の終末沈降速度",
+      url: "tools/separation/settling-velocity/",
+      category: "固液分離",
+      keywords: ["沈降速度", "終末速度", "terminal velocity", "ストークス", "Stokes", "アレン", "Allen", "ニュートン", "Newton", "抗力係数", "Cd", "粒子レイノルズ数", "固液分離", "重力沈降", "沈降分離", "スラリー", "粒子径"]
+    },
+    {
+      title: "蒸留(カテゴリ)",
+      url: "tools/distillation/",
+      category: "カテゴリ",
+      keywords: ["蒸留", "気液平衡", "単蒸留", "フラッシュ", "相対揮発度", "還流比", "段数", "リボイラ", "コンデンサ", "distillation", "McCabe", "Thiele", "ラウール", "アントワン"]
+    },
+    {
+      title: "抽出（カテゴリ）",
+      url: "tools/extraction/",
+      category: "カテゴリ",
+      keywords: ["抽出", "液液抽出", "溶媒抽出", "分配係数", "抽出段数", "物質収支", "三角線図", "向流抽出", "単抽出", "多段抽出", "extraction", "solvent", "LLE", "partition"]
+    },
+    {
+      title: "反応（カテゴリ）",
+      url: "tools/reaction/",
+      category: "カテゴリ",
+      keywords: ["反応", "化学反応", "反応速度", "反応器", "反応工学", "CSTR", "PFR", "回分", "batch", "kinetics", "reactor"]
+    },
+    {
+      title: "固液分離（カテゴリ）",
+      url: "tools/separation/",
+      category: "カテゴリ",
+      keywords: ["固液分離", "ろ過", "濾過", "沈降", "遠心分離", "分離", "ケーク", "filtration", "settling", "centrifuge", "separation"]
+    },
+    {
+      title: "集塵（カテゴリ）",
+      url: "tools/dust-collection/",
+      category: "カテゴリ",
+      keywords: ["集塵", "粉塵", "ダスト", "サイクロン", "バグフィルタ", "電気集塵", "粒子", "dust", "cyclone", "bag filter", "particle"]
+    },
+    {
+      title: "サイクロン分離効率（Lapple）",
+      url: "tools/dust-collection/cyclone/",
+      category: "集塵",
+      keywords: ["サイクロン", "カット径", "50%分離径", "分離効率", "分級曲線", "集塵", "粉塵", "ダスト", "圧損", "圧力損失", "有効旋回回数", "入口流速", "Lapple", "cyclone", "cut size", "d50", "dust collector"]
+    },
+    {
+      title: "ガス吸収の最小溶媒流量・液ガス比",
+      url: "tools/absorption/minimum-solvent-flow/",
+      category: "吸収",
+      keywords: ["ガス吸収", "最小溶媒流量", "最小液量", "最小液ガス比", "液ガス比", "吸収塔", "操作線", "平衡線", "ピンチ", "solvent flow", "absorption", "L/G"]
+    },
+    {
+      title: "吸収（カテゴリ）",
+      url: "tools/absorption/",
+      category: "カテゴリ",
+      keywords: ["吸収", "ガス吸収", "吸収塔", "物質移動", "ヘンリー", "Henry", "充填塔", "packed tower", "KGa", "HTU", "NTU", "absorption"]
+    },
+    {
+      title: "吸着等温線フィット（ラングミュア・フロイントリッヒ）",
+      url: "tools/adsorption/isotherm/",
+      category: "吸着",
+      keywords: ["吸着等温線", "ラングミュア", "フロイントリッヒ", "吸着平衡", "吸着量", "飽和吸着量", "フィッティング", "線形回帰", "q_max", "K_F", "1/n", "Langmuir", "Freundlich", "isotherm", "adsorption", "fitting"]
+    },
+    {
+      title: "4-20mA信号換算（スケーリング・開平）",
+      url: "tools/instrumentation-control/ma-signal/",
+      category: "計装・制御",
+      keywords: ["4-20mA", "4～20mA", "420mA", "電流信号", "スケーリング", "レンジ換算", "工業量", "開平", "開平演算", "差圧式流量計", "伝送器", "発信器", "1-5V", "ライブゼロ", "NAMUR", "NE43", "調節計", "LRV", "URV", "current loop", "signal", "scaling"]
+    },
+    {
+      title: "吸着（カテゴリ）",
+      url: "tools/adsorption/",
+      category: "カテゴリ",
+      keywords: ["吸着", "活性炭", "吸着塔", "破過", "等温線", "ラングミュア", "フロイントリッヒ", "adsorption", "breakthrough", "Langmuir", "Freundlich"]
+    },
+    {
+      title: "晶析（カテゴリ）",
+      url: "tools/crystallization/",
+      category: "カテゴリ",
+      keywords: ["晶析", "結晶化", "溶解度", "過飽和", "核発生", "粒径", "結晶", "crystallization", "crystal", "supersaturation"]
+    },
+    {
+      title: "湿球温度・湿り空気状態量",
+      url: "tools/moisture/humid-air/",
+      category: "調湿・乾燥",
+      keywords: ["湿球温度", "湿球", "wet bulb", "Stull", "乾球温度", "乾湿差", "湿り空気", "絶対湿度", "相対湿度", "露点温度", "露点", "比エンタルピー", "比容積", "空気線図", "psychrometric", "humidity", "dew point"]
+    },
+    {
+      title: "調湿・乾燥（カテゴリ）",
+      url: "tools/moisture/",
+      category: "カテゴリ",
+      keywords: ["調湿", "乾燥", "湿度", "乾燥速度", "絶対湿度", "相対湿度", "湿り空気", "psychrometric", "drying", "humidity", "moisture"]
+    },
+    {
+      title: "計装・制御（カテゴリ）",
+      url: "tools/instrumentation-control/",
+      category: "カテゴリ",
+      keywords: ["計装", "制御", "プロセス制御", "PID", "センサ", "トランスミッタ", "調節弁", "制御弁", "流量計", "温度計", "圧力計", "instrumentation", "control", "process control"]
+    },
+    {
+      title: "0.6乗則・0.7乗則による設備費の換算",
+      url: "tools/economics/six-tenths-rule/",
+      category: "経済性",
+      keywords: ["0.6乗則", "0.7乗則", "シックステンス", "six-tenths rule", "スケールファクター", "容量指数", "能力換算", "設備費", "建設費", "プラントコスト", "コスト指数", "コストインデックス", "プラントコストインデックス", "PCI", "企業物価指数", "価格換算", "スケールメリット", "見積もり", "概算", "cost scaling"]
+    },
+    {
+      title: "設備新設費の概算（モジュール係数法）",
+      url: "tools/economics/equipment-cost-estimate/",
+      category: "経済性",
+      keywords: ["設備費", "設備新設費", "建設費", "プラントコスト", "概算見積", "見積もり", "工事費", "据付費", "モジュール係数", "ベアモジュール係数", "設置係数", "Guthrie", "ラング係数", "Lang係数", "予備費", "コンティンジェンシー", "見積精度", "AACE", "設備投資", "費用試算", "cost estimation"]
+    },
+    {
+      title: "経済性（カテゴリ）",
+      url: "tools/economics/",
+      category: "カテゴリ",
+      keywords: ["経済性", "経済評価", "設備費", "建設費", "プラントコスト", "費用", "コスト", "見積もり", "概算", "economics", "cost estimation"]
+    }
+  ];
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[c]));
+  }
+
+  function normalize(s) {
+    return String(s).trim().toLowerCase();
+  }
+
+  function scoreTool(t, q) {
+    const title = normalize(t.title);
+    const category = normalize(t.category);
+    const keywords = t.keywords.map(normalize);
+    if (title === q) return 100;
+    if (keywords.some(k => k === q)) return 90;
+    if (title.includes(q)) return 80;
+    if (keywords.some(k => k.includes(q))) return 70;
+    if (category.includes(q)) return 20;
+    return 0;
+  }
+
+  function search(query) {
+    const q = normalize(query);
+    if (!q) return [];
+    return TOOLS
+      .map(t => ({ tool: t, score: scoreTool(t, q) }))
+      .filter(x => x.score > 0)
+      .sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        if (a.tool.category === "カテゴリ" && b.tool.category !== "カテゴリ") return 1;
+        if (a.tool.category !== "カテゴリ" && b.tool.category === "カテゴリ") return -1;
+        return 0;
+      })
+      .map(x => x.tool);
+  }
+
+  function findDirectHit(query, hits) {
+    const q = normalize(query);
+    const exactToolHits = hits.filter(t =>
+      t.category !== "カテゴリ" &&
+      (normalize(t.title) === q || t.keywords.some(k => normalize(k) === q))
+    );
+    if (exactToolHits.length === 1) return exactToolHits[0];
+    if (hits.length === 1) return hits[0];
+    return null;
+  }
+
+  function render(box, hits, hasQuery) {
+    if (!hasQuery) {
+      box.hidden = true;
+      box.innerHTML = "";
+      return;
+    }
+    box.hidden = false;
+    if (hits.length === 0) {
+      box.innerHTML = '<div class="search-empty">該当するツールが見つかりませんでした。</div>';
+      return;
+    }
+    box.innerHTML = hits.map(t =>
+      `<a class="search-hit" href="${escapeHtml(t.url)}">` +
+        `<span class="search-hit-cat">${escapeHtml(t.category)}</span>` +
+        `<span class="search-hit-title">${escapeHtml(t.title)}</span>` +
+      `</a>`
+    ).join("");
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const input = document.getElementById("siteSearchInput");
+    const box = document.getElementById("siteSearchResults");
+    if (!input || !box) return;
+
+    // GA4: 確定した検索語を標準イベントで送信（入力が1.5秒止まったら1回・同一語は再送しない。
+    // search_term はGA4組み込みディメンションなのでカスタム定義の登録は不要）
+    let lastSentTerm = "";
+    let termTimer = null;
+    function sendSearchTerm(q) {
+      const term = (q || "").trim();
+      if (term.length < 2 || term === lastSentTerm) return;
+      lastSentTerm = term;
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "view_search_results", { search_term: term });
+      }
+    }
+    function trackSearchTerm(q) {
+      clearTimeout(termTimer);
+      termTimer = setTimeout(() => sendSearchTerm(q), 1500);
+    }
+
+    function update() {
+      const q = input.value;
+      render(box, search(q), q.trim().length > 0);
+      trackSearchTerm(q);
+    }
+
+    input.addEventListener("input", update);
+    input.addEventListener("focus", update);
+
+    document.addEventListener("click", (e) => {
+      if (!box.contains(e.target) && e.target !== input) {
+        box.hidden = true;
+      }
+    });
+
+    window.__siteSearch = {
+      submit() {
+        // Enterでの遷移前に確定語を即時送信（デバウンス待ちだと送信前にページが変わる）
+        clearTimeout(termTimer);
+        sendSearchTerm(input.value);
+        const hits = search(input.value);
+        const direct = findDirectHit(input.value, hits);
+        if (direct) {
+          location.href = direct.url;
+        } else {
+          render(box, hits, input.value.trim().length > 0);
+        }
+      }
+    };
+  });
+})();

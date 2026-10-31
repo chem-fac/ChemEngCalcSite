@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>抽出後の相分離時間（静置・液滴沈降） | 化学工学計算支援ツール</title>
+<meta name="description" content="抽出後に2相が静置で分離するまでの時間を、液滴の終末速度（ストークス・アレン・ニュートンの式）から概算します。粒子レイノルズ数で領域を自動判定し、液滴径による分離時間の変化を早見表で示します。">
+<meta name="keywords" content="相分離, 分離時間, 静置, 液液分離, 抽出, 終末速度, 沈降速度, 浮上速度, ストークスの式, アレンの式, ニュートンの式, 粒子レイノルズ数, ストークス域, アレン域, ニュートン域, Stokes, Allen, Newton, 分散帯, 液滴径, 分液ロート, decanter, settling time, phase separation">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/extraction/phase-separation-time/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール"><meta property="og:title" content="抽出後の相分離時間（静置・液滴沈降） | 化学工学計算支援ツール">
+<meta property="og:description" content="抽出後に2相が静置で分離するまでの時間を、液滴の終末速度（ストークス・アレン・ニュートンの式）から概算します。粒子レイノルズ数で領域を自動判定し、液滴径による分離時間の変化を早見表で示します。"><meta property="og:url" content="https://tools.chem-fac.com/tools/extraction/phase-separation-time/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-extraction-phase-separation-time.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630"><meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"抽出後の相分離時間（静置）","url":"https://tools.chem-fac.com/tools/extraction/phase-separation-time/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"抽出後に2相が静置で分離するまでの時間を、液滴の終末速度（ストークス・アレン・ニュートンの式）から概算します。粒子レイノルズ数で領域を自動判定し、液滴径による分離時間の変化を早見表で示します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"相分離, 分離時間, 静置, 液液分離, 抽出, 終末速度, 沈降速度, 浮上速度, ストークス, アレン, ニュートン, 粒子レイノルズ数, Stokes, Allen, Newton, 分散帯, 液滴径, 分液ロート, デカンター, settling, phase separation","about":"抽出","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-23"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head><body>
+<header class="site-header"><div class="inner">
+  <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+  <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+</div></header>
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">抽出</a><span class="sep">›</span><span class="current">抽出後の相分離時間</span></nav>
+  <section class="tool-hero tool-hero-simple"><div class="tool-hero-content"><span class="cat-tag" data-cat="extraction">抽出</span><h1>抽出後の相分離時間（静置）</h1><p class="tool-subcopy">抽出して撹拌を止めたあと、分散している液滴が浮上・沈降して2相に分かれるまでの時間を、液滴の終末速度（ストークス・アレン・ニュートンの式）から概算します。液滴径でどれだけ変わるかを早見表で確認できます。</p></div></section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <!-- value-figure -->
+        <figure class="value-figure input-row-full" data-cat="extraction"><div class="vf-panels"><div class="vf-panel"><svg class="vf-svg" width="400" height="292" viewBox="0 0 400 292" role="img" aria-label="静置中の容器：液滴が界面まで移動する距離 H" xmlns="http://www.w3.org/2000/svg"><text x="6" y="20" class="vf-title" text-anchor="start">軽液が液滴のとき</text><text x="6" y="40" class="vf-note" text-anchor="start">（液滴が浮上）</text><rect x="14" y="52" width="132" height="38" class="vf-light"/><rect x="14" y="90" width="132" height="132" class="vf-heavy"/><circle cx="94.9" cy="181.0" r="3.2" class="vf-drop-light"/><circle cx="115.9" cy="204.1" r="3.2" class="vf-drop-light"/><circle cx="109.2" cy="201.8" r="3.2" class="vf-drop-light"/><circle cx="22.7" cy="149.0" r="3.2" class="vf-drop-light"/><circle cx="133.9" cy="170.2" r="3.2" class="vf-drop-light"/><circle cx="128.7" cy="108.3" r="3.2" class="vf-drop-light"/><circle cx="76.2" cy="123.7" r="3.2" class="vf-drop-light"/><circle cx="85.3" cy="161.5" r="3.2" class="vf-drop-light"/><circle cx="20.8" cy="120.3" r="3.2" class="vf-drop-light"/><circle cx="53.2" cy="201.1" r="3.2" class="vf-drop-light"/><circle cx="112.3" cy="113.7" r="3.2" class="vf-drop-light"/><circle cx="116.1" cy="111.2" r="3.2" class="vf-drop-light"/><circle cx="94.3" cy="109.8" r="3.2" class="vf-drop-light"/><circle cx="19.4" cy="195.9" r="3.2" class="vf-drop-light"/><circle cx="44.7" cy="120.1" r="3.2" class="vf-drop-light"/><circle cx="138.7" cy="196.1" r="3.2" class="vf-drop-light"/><circle cx="54.4" cy="206.3" r="3.2" class="vf-drop-light"/><circle cx="84.8" cy="173.6" r="3.2" class="vf-drop-light"/><circle cx="44.1" cy="204.0" r="3.2" class="vf-drop-light"/><circle cx="103.2" cy="206.9" r="3.2" class="vf-drop-light"/><circle cx="127.9" cy="129.7" r="3.2" class="vf-drop-light"/><circle cx="63.1" cy="114.4" r="3.2" class="vf-drop-light"/><circle cx="36.9" cy="102.7" r="3.2" class="vf-drop-light"/><circle cx="55.8" cy="164.9" r="3.2" class="vf-drop-light"/><circle cx="19.6" cy="173.6" r="3.2" class="vf-drop-light"/><circle cx="60.3" cy="131.0" r="3.2" class="vf-drop-light"/><circle cx="118.7" cy="150.8" r="3.2" class="vf-drop-light"/><circle cx="57.6" cy="150.8" r="3.2" class="vf-drop-light"/><circle cx="104.9" cy="101.8" r="3.2" class="vf-drop-light"/><circle cx="137.8" cy="97.8" r="3.2" class="vf-drop-light"/><circle cx="110.4" cy="192.9" r="3.2" class="vf-drop-light"/><circle cx="21.4" cy="186.3" r="3.2" class="vf-drop-light"/><circle cx="63.7" cy="162.1" r="3.2" class="vf-drop-light"/><circle cx="20.3" cy="100.6" r="3.2" class="vf-drop-light"/><circle cx="41.2" cy="205.6" r="3.2" class="vf-drop-light"/><circle cx="43.1" cy="182.6" r="3.2" class="vf-drop-light"/><circle cx="132.2" cy="204.1" r="3.2" class="vf-drop-light"/><circle cx="61.1" cy="136.2" r="3.2" class="vf-drop-light"/><circle cx="83.0" cy="184.9" r="3.2" class="vf-drop-light"/><circle cx="32.3" cy="181.7" r="3.2" class="vf-drop-light"/><circle cx="116.1" cy="194.6" r="3.2" class="vf-drop-light"/><circle cx="23.7" cy="204.5" r="3.2" class="vf-drop-light"/><circle cx="30.3" cy="134.6" r="3.2" class="vf-drop-light"/><circle cx="93.5" cy="201.3" r="3.2" class="vf-drop-light"/><circle cx="60.5" cy="202.0" r="3.2" class="vf-drop-light"/><circle cx="85.5" cy="131.3" r="3.2" class="vf-drop-light"/><circle cx="57.7" cy="115.7" r="3.2" class="vf-drop-light"/><circle cx="28.7" cy="112.4" r="3.2" class="vf-drop-light"/><circle cx="103.0" cy="210.4" r="3.2" class="vf-drop-light"/><circle cx="38.8" cy="100.8" r="3.2" class="vf-drop-light"/><circle cx="139.2" cy="156.9" r="3.2" class="vf-drop-light"/><circle cx="68.6" cy="122.6" r="3.2" class="vf-drop-light"/><circle cx="91.4" cy="190.7" r="3.2" class="vf-drop-light"/><circle cx="74.6" cy="144.0" r="3.2" class="vf-drop-light"/><circle cx="26.0" cy="201.1" r="3.2" class="vf-drop-light"/><circle cx="23.2" cy="152.3" r="3.2" class="vf-drop-light"/><circle cx="121.2" cy="110.3" r="3.2" class="vf-drop-light"/><circle cx="108.2" cy="205.0" r="3.2" class="vf-drop-light"/><circle cx="95.9" cy="186.3" r="3.2" class="vf-drop-light"/><circle cx="32.2" cy="145.4" r="3.2" class="vf-drop-light"/><circle cx="37.3" cy="192.9" r="3.2" class="vf-drop-light"/><circle cx="55.0" cy="147.6" r="3.2" class="vf-drop-light"/><circle cx="140.7" cy="193.7" r="3.2" class="vf-drop-light"/><g class="vf-g" data-for="rhoL"><text x="20.0" y="76.0" class="vf-note">軽液</text><text x="54" y="76" class="vf-sym" text-anchor="start"><tspan>ρ</tspan><tspan class="vf-sub" dy="0.32em">l</tspan></text></g><g class="vf-g" data-for="rhoH mu"><line x1="54.0" y1="226.0" x2="54.0" y2="192.0" class="vf-ext"/><circle cx="54.0" cy="192.0" r="2.2" class="vf-dot"/><text x="14.0" y="246.0" class="vf-note">連続相：重液</text><text x="14" y="268" class="vf-sym" text-anchor="start"><tspan>ρ</tspan><tspan class="vf-sub" dy="0.32em">h</tspan></text><text x="42" y="268" class="vf-sym" text-anchor="start"><tspan>μ</tspan><tspan class="vf-sub" dy="0.32em">c</tspan></text></g><polyline points="84,196 84,170" class="vf-flowthin"/><polygon points="84,170 87.2,178 80.8,178" class="vf-flowhead"/><polyline points="124,196 124,170" class="vf-flowthin"/><polygon points="124,170 127.2,178 120.8,178" class="vf-flowhead"/><rect x="14" y="52" width="132" height="170" class="vf-eq"/><line x1="14" y1="90" x2="146" y2="90" class="vf-surf"/><g class="vf-g" data-for="H"><line x1="149" y1="216" x2="165" y2="216" class="vf-ext"/></g><g class="vf-g" data-for="H"><line x1="149" y1="90" x2="165" y2="90" class="vf-ext"/></g><g class="vf-g" data-for="H"><line x1="160" y1="216" x2="160" y2="90" class="vf-dim"/><polygon points="160,216 157.4,209 162.6,209" class="vf-arrow"/><polygon points="160,90 162.6,97 157.4,97" class="vf-arrow"/><text x="167" y="159" class="vf-sym" text-anchor="start"><tspan>H</tspan></text></g><text x="206" y="20" class="vf-title" text-anchor="start">重液が液滴のとき</text><text x="206" y="40" class="vf-note" text-anchor="start">（液滴が沈降）</text><rect x="214" y="52" width="132" height="128" class="vf-light"/><rect x="214" y="180" width="132" height="42" class="vf-heavy"/><circle cx="275.5" cy="104.9" r="3.2" class="vf-drop-heavy"/><circle cx="236.0" cy="159.9" r="3.2" class="vf-drop-heavy"/><circle cx="220.0" cy="119.3" r="3.2" class="vf-drop-heavy"/><circle cx="328.4" cy="72.2" r="3.2" class="vf-drop-heavy"/><circle cx="286.6" cy="132.0" r="3.2" class="vf-drop-heavy"/><circle cx="224.2" cy="105.5" r="3.2" class="vf-drop-heavy"/><circle cx="304.7" cy="113.6" r="3.2" class="vf-drop-heavy"/><circle cx="307.4" cy="80.7" r="3.2" class="vf-drop-heavy"/><circle cx="248.1" cy="75.6" r="3.2" class="vf-drop-heavy"/><circle cx="280.8" cy="166.3" r="3.2" class="vf-drop-heavy"/><circle cx="291.0" cy="149.6" r="3.2" class="vf-drop-heavy"/><circle cx="265.9" cy="146.5" r="3.2" class="vf-drop-heavy"/><circle cx="231.6" cy="95.7" r="3.2" class="vf-drop-heavy"/><circle cx="301.2" cy="144.2" r="3.2" class="vf-drop-heavy"/><circle cx="270.5" cy="73.0" r="3.2" class="vf-drop-heavy"/><circle cx="251.6" cy="86.6" r="3.2" class="vf-drop-heavy"/><circle cx="253.4" cy="153.5" r="3.2" class="vf-drop-heavy"/><circle cx="243.5" cy="162.1" r="3.2" class="vf-drop-heavy"/><circle cx="326.1" cy="69.3" r="3.2" class="vf-drop-heavy"/><circle cx="265.3" cy="118.1" r="3.2" class="vf-drop-heavy"/><circle cx="222.1" cy="110.6" r="3.2" class="vf-drop-heavy"/><circle cx="329.4" cy="75.7" r="3.2" class="vf-drop-heavy"/><circle cx="291.8" cy="76.7" r="3.2" class="vf-drop-heavy"/><circle cx="289.6" cy="163.1" r="3.2" class="vf-drop-heavy"/><circle cx="243.9" cy="64.1" r="3.2" class="vf-drop-heavy"/><circle cx="229.4" cy="123.4" r="3.2" class="vf-drop-heavy"/><circle cx="221.3" cy="72.7" r="3.2" class="vf-drop-heavy"/><circle cx="279.6" cy="166.0" r="3.2" class="vf-drop-heavy"/><circle cx="270.3" cy="107.6" r="3.2" class="vf-drop-heavy"/><circle cx="296.9" cy="73.6" r="3.2" class="vf-drop-heavy"/><circle cx="289.7" cy="82.5" r="3.2" class="vf-drop-heavy"/><circle cx="293.2" cy="170.1" r="3.2" class="vf-drop-heavy"/><circle cx="225.8" cy="125.1" r="3.2" class="vf-drop-heavy"/><circle cx="292.9" cy="79.9" r="3.2" class="vf-drop-heavy"/><circle cx="251.8" cy="174.2" r="3.2" class="vf-drop-heavy"/><circle cx="340.6" cy="76.7" r="3.2" class="vf-drop-heavy"/><circle cx="305.0" cy="169.3" r="3.2" class="vf-drop-heavy"/><circle cx="248.0" cy="131.4" r="3.2" class="vf-drop-heavy"/><circle cx="224.4" cy="104.0" r="3.2" class="vf-drop-heavy"/><circle cx="301.2" cy="129.1" r="3.2" class="vf-drop-heavy"/><circle cx="313.4" cy="72.9" r="3.2" class="vf-drop-heavy"/><circle cx="261.4" cy="159.6" r="3.2" class="vf-drop-heavy"/><circle cx="290.2" cy="113.6" r="3.2" class="vf-drop-heavy"/><circle cx="268.1" cy="173.2" r="3.2" class="vf-drop-heavy"/><circle cx="289.1" cy="65.2" r="3.2" class="vf-drop-heavy"/><circle cx="316.4" cy="99.9" r="3.2" class="vf-drop-heavy"/><circle cx="271.9" cy="87.0" r="3.2" class="vf-drop-heavy"/><circle cx="273.2" cy="99.4" r="3.2" class="vf-drop-heavy"/><circle cx="230.0" cy="133.5" r="3.2" class="vf-drop-heavy"/><circle cx="231.7" cy="150.7" r="3.2" class="vf-drop-heavy"/><circle cx="222.3" cy="150.3" r="3.2" class="vf-drop-heavy"/><circle cx="317.4" cy="118.7" r="3.2" class="vf-drop-heavy"/><circle cx="305.5" cy="90.9" r="3.2" class="vf-drop-heavy"/><circle cx="308.9" cy="110.6" r="3.2" class="vf-drop-heavy"/><circle cx="247.3" cy="170.8" r="3.2" class="vf-drop-heavy"/><circle cx="267.9" cy="104.8" r="3.2" class="vf-drop-heavy"/><circle cx="323.8" cy="104.4" r="3.2" class="vf-drop-heavy"/><circle cx="300.4" cy="82.3" r="3.2" class="vf-drop-heavy"/><circle cx="321.7" cy="92.1" r="3.2" class="vf-drop-heavy"/><circle cx="225.3" cy="172.0" r="3.2" class="vf-drop-heavy"/><circle cx="240.2" cy="168.8" r="3.2" class="vf-drop-heavy"/><g class="vf-g" data-for="rhoH"><text x="220.0" y="208.0" class="vf-note">重液</text><text x="254" y="208" class="vf-sym" text-anchor="start"><tspan>ρ</tspan><tspan class="vf-sub" dy="0.32em">h</tspan></text></g><g class="vf-g" data-for="rhoL mu"><line x1="314.0" y1="226.0" x2="314.0" y2="154.0" class="vf-ext"/><circle cx="314.0" cy="154.0" r="2.2" class="vf-dot"/><text x="214.0" y="246.0" class="vf-note">連続相：軽液</text><text x="214" y="268" class="vf-sym" text-anchor="start"><tspan>ρ</tspan><tspan class="vf-sub" dy="0.32em">l</tspan></text><text x="242" y="268" class="vf-sym" text-anchor="start"><tspan>μ</tspan><tspan class="vf-sub" dy="0.32em">c</tspan></text></g><polyline points="240,80 240,106" class="vf-flowthin"/><polygon points="240,106 236.8,98 243.2,98" class="vf-flowhead"/><polyline points="280,80 280,106" class="vf-flowthin"/><polygon points="280,106 276.8,98 283.2,98" class="vf-flowhead"/><rect x="214" y="52" width="132" height="170" class="vf-eq"/><line x1="214" y1="180" x2="346" y2="180" class="vf-surf"/><g class="vf-g" data-for="H"><line x1="349" y1="58" x2="365" y2="58" class="vf-ext"/></g><g class="vf-g" data-for="H"><line x1="349" y1="180" x2="365" y2="180" class="vf-ext"/></g><g class="vf-g" data-for="H"><line x1="360" y1="58" x2="360" y2="180" class="vf-dim"/><polygon points="360,58 362.6,65 357.4,65" class="vf-arrow"/><polygon points="360,180 357.4,173 362.6,173" class="vf-arrow"/><text x="367" y="125" class="vf-sym" text-anchor="start"><tspan>H</tspan></text></g></svg></div></div><figcaption><span class="sym">H</span> は液滴がいちばん遠くから界面まで移動する距離で、液滴が分散している部分の厚さです。<span class="sym">μ<sub>c</sub></span> は液滴のまわりの液（連続相）の粘度です。</figcaption></figure>
+        <!-- /value-figure -->
+        <div class="input-row">
+          <label for="disp">分散相（液滴になっている相）</label>
+          <div class="input-group"><select id="disp" aria-label="分散相">
+            <option value="light" selected>軽液（上へ浮上）</option>
+            <option value="heavy">重液（下へ沈降）</option>
+          </select></div>
+          <p class="hint">撹拌を止めたあと、どちらの相が液滴として分散しているかを選びます。</p>
+        </div>
+        <div class="input-row">
+          <label for="rhoH">重液密度 <span class="sym">ρ<sub>h</sub></span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" step="any" id="rhoH" placeholder="例：1000"><span class="unit-label">kg/m³</span></div>
+        </div>
+        <div class="input-row">
+          <label for="rhoL">軽液密度 <span class="sym">ρ<sub>l</sub></span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" step="any" id="rhoL" placeholder="例：850"><span class="unit-label">kg/m³</span></div>
+        </div>
+        <div class="input-row">
+          <label for="mu">連続相粘度 <span class="sym">μ<sub>c</sub></span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" step="any" id="mu" placeholder="例：1.0"><span class="unit-label">mPa·s</span></div>
+          <p class="hint">液滴が通り抜ける相（連続相）の運転温度での粘度。水20°Cなら約1.0 mPa·s。</p>
+        </div>
+        <div class="input-row">
+          <label for="d">液滴径 <span class="sym">d</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" step="any" id="d" placeholder="例：100"><span class="unit-label">μm</span></div>
+          <p class="hint">撹拌の強さで決まります。小さいほど分離は急に難しくなります（ストークス域では速度は $d^2$ に比例）。</p>
+        </div>
+        <div class="input-row">
+          <label for="H">移動距離（分散帯の厚み） <span class="sym">H</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" step="any" id="H" placeholder="例：0.1"><span class="unit-label">m</span></div>
+          <p class="hint">液滴が界面まで移動する距離。静置容器の液深や分散帯の厚みを目安にします。</p>
+        </div>
+        <div class="btn-row"><button class="btn btn-primary" id="calc-btn">計算する</button><button class="btn btn-ghost" id="reset-btn">リセット</button></div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+      <div class="calc-pane calc-result-pane"><h2>計算結果</h2><div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div></div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>分散相の液滴が連続相中を移動する終末速度 $u_t$ を、粒子レイノルズ数 $Re_p$ の領域に応じて次の式で求めます。液滴が分散帯の厚み $H$ を移動しきる時間は $t = H/u_t$ で概算します。</p>
+    <h3>ストークス域（$Re_p < 2$）</h3>
+    <div class="math-block">$$ u_t = \dfrac{g\,d^2\,(\rho_p-\rho_c)}{18\,\mu_c} $$</div>
+    <h3>アレン域（$2 \le Re_p < 500$）</h3>
+    <div class="math-block">$$ u_t = \left[\dfrac{4}{225}\cdot\dfrac{g^2\,(\rho_p-\rho_c)^2}{\rho_c\,\mu_c}\right]^{1/3} d $$</div>
+    <h3>ニュートン域（$500 \le Re_p < 10^5$）</h3>
+    <div class="math-block">$$ u_t = \sqrt{\dfrac{3\,g\,(\rho_p-\rho_c)\,d}{\rho_c}} $$</div>
+    <p>粒子レイノルズ数と相分離時間：</p>
+    <div class="math-block">$$ Re_p = \dfrac{\rho_c\,u_t\,d}{\mu_c},\qquad t = \dfrac{H}{u_t} $$</div>
+    <ul class="symbol-list">
+      <li>$u_t$：液滴の終末沈降（浮上）速度［m/s］</li>
+      <li>$\rho_p$：分散相（液滴）の密度［kg/m³］</li>
+      <li>$\rho_c$：連続相の密度［kg/m³］</li>
+      <li>$\rho_p-\rho_c$：分散相と連続相の密度差（大きさは $\Delta\rho=\rho_h-\rho_l$）［kg/m³］</li>
+      <li>$d$：分散相の液滴径［m］</li>
+      <li>$\mu_c$：連続相の粘度［Pa·s］</li>
+      <li>$H$：液滴が移動する距離（分散帯の厚み）［m］</li>
+      <li>$Re_p$：粒子レイノルズ数［-］</li>
+      <li>$t$：相分離に要する時間［s］</li>
+    </ul>
+  </section>
+
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>式は、1個の粒子が無限に広い静止流体中を、一定の終末速度で動くときの関係です。ストークス・アレン・ニュートンの式は剛体球を前提とした形で、液滴内部の流れや、液滴どうしが互いの動きを妨げる効果は式に入っていません。分散相の割合が大きい分散帯では、実際の速度は単一液滴の計算値と異なります。</p>
+    <ul>
+      <li><strong>代表径</strong>：入力する液滴径は1つの代表値です。実際の分散は粒径に分布があり、小さい液滴ほど遅いため、全体が澄むまでの時間は、最も細かい液滴の径で決まります。早見表は、径を変えたときの幅を見るために使います。</li>
+      <li><strong>密度差</strong>：密度差 $\Delta\rho$ が小さいと $u_t$ に比例して遅くなり、分離時間は密度差に反比例して延びます。密度差の入力値が測定条件（温度・組成）と合っているかが、結果を左右します。</li>
+      <li><strong>領域の判定</strong>：本ツールは $Re_p$ の値からストークス域・アレン域・ニュートン域を自動判定し、対応する式で $u_t$ を求めます。</li>
+      <li><strong>領域の境界</strong>：3つの近似式を領域ごとに切り替える方式のため、領域の境界付近では液滴径をわずかに動かすだけで速度・時間が不連続に変化します。特にストークス域とアレン域の境界では速度が約4割跳ぶ段差が生じます（早見表で領域が切り替わる行の時間が飛んで見えるのはこのためです）。境界付近の値は目安として扱ってください。</li>
+      <li><strong>液滴径の影響</strong>：ストークス域では速度は液滴径の2乗に比例（$u_t \propto d^2$）するため、液滴径が 1/10 になると分離時間は 100 倍になります。撹拌が強すぎて微細分散になると、分離は急に難しくなります。</li>
+      <li><strong>結果の読み方</strong>：この計算は液滴が界面まで移動する「沈降律速」の概算です。実際に澄むまでの時間は液滴どうしの合体（合一）にも依存し、界面活性物質・微粒子・反応副生成物などでエマルジョン化すると大幅に延びます。</li>
+      <li><strong>静置試験</strong>：設計・トラブル検討では、まず分液ロートやメスシリンダーでの静置試験で、分散層の消失時間・界面の明瞭さ・乳化層の有無を確認してください。</li>
+      <li><strong>ニュートン域の近似</strong>：ニュートン域の速度式では、抗力係数0.44を4/9と近似しています。0.44をそのまま使う場合より速度は約0.5%小さくなります。Re<sub>p</sub> が10⁵以上の場合は、適用範囲外の注意を結果に表示します（解説化学工学、221頁、式6･18）。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/4vA7FHw" class="reference-card" data-asin="4782825099" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">化学機械の理論と計算（第2版）</p><p class="ref-meta">亀井 三郎 編 / 産業図書</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related"><h3>関連ツール</h3><div class="related-grid">
+    <a href="../../separation/settling-velocity/" class="related-card"><span class="small">分離</span>球形粒子の終末沈降速度</a>
+  </div></section>
+
+
+</main>
+<footer class="site-footer"><div class="footer-inner">
+  <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+  <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+  <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+  <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div></div>
+</div></footer>
+<script src="../../../assets/js/phase-separation-time.js"></script>
+<script src="../../../assets/js/value-figure.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body></html>

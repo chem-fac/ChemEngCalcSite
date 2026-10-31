@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>連続の式（配管断面変化） | 化学工学計算支援ツール</title>
+<meta name="description" content="非圧縮性流れの連続の式（A₁u₁ = A₂u₂）から、入口の流速・管内径と出口の管内径から出口の平均流速を計算します。">
+<meta name="keywords" content="連続の式, continuity, 質量保存, 断面変化, レジューサ, 絞り, 流速変化, 非圧縮, Au">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/fluid/continuity/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="連続の式（配管断面変化） | 化学工学計算支援ツール">
+<meta property="og:description" content="非圧縮性流れの連続の式（A₁u₁ = A₂u₂）から、入口の流速・管内径と出口の管内径から出口の平均流速を計算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/fluid/continuity/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-fluid-continuity.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"連続の式（配管断面変化）","url":"https://tools.chem-fac.com/tools/fluid/continuity/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"非圧縮性流れの連続の式（A₁u₁ = A₂u₂）から、入口の流速・管内径と出口の管内径から出口の平均流速を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"連続の式, continuity, 質量保存, 断面変化, レジューサ, 絞り, 流速変化, 非圧縮, Au","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7MQ7VEMWHY');
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo">
+      <img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">
+      化学工学計算支援ツール
+    </a>
+    <nav class="site-nav">
+      <a href="../../../tools/">ツール一覧</a>
+      <a href="../../../updates/">更新情報</a>
+      <a href="../../../faq/">よくある質問</a>
+      <a href="../../../support/">支援する</a>
+      <a href="../../../contact/">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+
+  <nav class="breadcrumb">
+    <a href="../../../">ホーム</a>
+    <span class="sep">›</span>
+    <a href="../">流動</a>
+    <span class="sep">›</span>
+    <span class="current">連続の式</span>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag" data-cat="fluid">流動</span>
+      <h1>連続の式（配管断面変化）</h1>
+      <p class="tool-subcopy">非圧縮性流れで、配管径が変わったときの出口流速を $A_1 u_1 = A_2 u_2$ から計算します。</p>
+    </div>
+  </section>
+
+  <!-- ===== Calculator ===== -->
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="calc-grid">
+
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <!-- value-figure -->
+        <figure class="value-figure input-row-full" data-cat="fluid"><div class="vf-panels"><div class="vf-panel"><svg class="vf-svg" width="400" height="176" viewBox="0 0 400 176" role="img" aria-label="配管の断面変化：入口の管内径 D₁、出口の管内径 D₂、平均流速 u₁・u₂" xmlns="http://www.w3.org/2000/svg"><polygon points="16,52 176,52 226,74 384,74 384,110 226,110 176,132 16,132" class="vf-bore"/><polygon points="16,46 176,46 226,68 384,68 384,74 226,74 176,52 16,52" class="vf-wallh"/><polygon points="16,138 176,138 226,116 384,116 384,110 226,110 176,132 16,132" class="vf-wallh"/><line x1="16" y1="92" x2="384" y2="92" class="vf-cl"/><line x1="60" y1="34" x2="60" y2="150" class="vf-section"/><text x="60" y="30" class="vf-note" text-anchor="middle">① 入口</text><line x1="340" y1="56" x2="340" y2="128" class="vf-section"/><text x="340" y="52" class="vf-note" text-anchor="middle">② 出口</text><g class="vf-g" data-for="D1"><line x1="60" y1="52" x2="60" y2="132" class="vf-dim"/><polygon points="60,52 62.6,59 57.4,59" class="vf-arrow"/><polygon points="60,132 57.4,125 62.6,125" class="vf-arrow"/><text x="67" y="84" class="vf-sym" text-anchor="start"><tspan>D</tspan><tspan class="vf-sub" dy="0.32em">1</tspan></text></g><g class="vf-g" data-for="D2"><line x1="340" y1="74" x2="340" y2="110" class="vf-dim"/><polygon points="340,74 342.6,81 337.4,81" class="vf-arrow"/><polygon points="340,110 337.4,103 342.6,103" class="vf-arrow"/><text x="348" y="99" class="vf-sym" text-anchor="start"><tspan>D</tspan><tspan class="vf-sub" dy="0.32em">2</tspan></text></g><polyline points="104,112 160,112" class="vf-flow"/><polygon points="160,112 152,115.2 152,108.8" class="vf-flowhead"/><g class="vf-g" data-for="u1"><text x="118" y="106" class="vf-sym" text-anchor="start"><tspan>u</tspan><tspan class="vf-sub" dy="0.32em">1</tspan></text></g><polyline points="240,102 292,102" class="vf-flow"/><polygon points="292,102 284,105.2 284,98.8" class="vf-flowhead"/><g class="vf-g"><text x="298" y="108" class="vf-sym vf-sym-ink" text-anchor="start"><tspan>u</tspan><tspan class="vf-sub" dy="0.32em">2</tspan></text></g></svg></div></div><figcaption><span class="sym">D₁</span>・<span class="sym">D₂</span> は各断面の内面から内面までの実内径（呼び径ではない）、<span class="sym">u₁</span>・<span class="sym">u₂</span> はその断面で平均した流速です。</figcaption></figure>
+        <!-- /value-figure -->
+
+        <div class="input-row">
+          <label for="D1">入口の管内径 <span class="sym">D<sub>1</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="D1" step="any" placeholder="例：50">
+            <select id="D1_unit" aria-label="入口管内径の単位">
+              <option value="mm">mm</option>
+              <option value="cm">cm</option>
+              <option value="m">m</option>
+              <option value="inch">inch</option>
+            </select>
+          </div>
+          <p class="hint">入口側の<strong>実内径</strong>を入力してください。</p>
+        </div>
+
+        <div class="input-row">
+          <label for="u1">入口の平均流速 <span class="sym">u<sub>1</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="u1" step="any" placeholder="例：1.0">
+            <select id="u1_unit" aria-label="入口流速の単位">
+              <option value="ms">m/s</option>
+              <option value="cms">cm/s</option>
+            </select>
+          </div>
+          <p class="hint">入口断面で平均した流速を入力してください。</p>
+        </div>
+
+        <div class="input-row">
+          <label for="D2">出口の管内径 <span class="sym">D<sub>2</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="D2" step="any" placeholder="例：25">
+            <select id="D2_unit" aria-label="出口管内径の単位">
+              <option value="mm">mm</option>
+              <option value="cm">cm</option>
+              <option value="m">m</option>
+              <option value="inch">inch</option>
+            </select>
+          </div>
+          <p class="hint">出口側の<strong>実内径</strong>を入力してください。レジューサや絞り部の出口径などを想定しています。</p>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area">
+          <div class="placeholder">入力値を入れて「計算する」を押してください</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== Explanation sections ===== -->
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>定常流れにおける質量保存則（連続の式）は、入口断面 1 と出口断面 2 の間で次のように書けます。</p>
+    <div class="math-block">$$ \rho_1 A_1 u_1 = \rho_2 A_2 u_2 $$</div>
+    <p>液体や低速の気体のように<strong>密度が一定とみなせる非圧縮性流れ</strong>では、両辺の密度がキャンセルされて次のようになります。</p>
+    <div class="math-block">$$ A_1 u_1 = A_2 u_2 \quad (\text{= 体積流量 } Q) $$</div>
+    <p>断面積は $A = \dfrac{\pi D^{2}}{4}$ で表せるので、出口の平均流速は次のように求められます。</p>
+    <div class="math-block">$$ u_2 = u_1 \cdot \frac{A_1}{A_2} = u_1 \cdot \left( \frac{D_1}{D_2} \right)^{2} $$</div>
+    <ul class="symbol-list">
+      <li>$u_1, u_2$：入口・出口の平均流速［m/s］</li>
+      <li>$D_1, D_2$：入口・出口の管内径［m］</li>
+      <li>$A_1, A_2$：入口・出口の管断面積［m²］</li>
+      <li>$Q$：体積流量［m³/s］（入口・出口で同じ）</li>
+    </ul>
+    <p>つまり、配管が細くなれば流速は速く、太くなれば流速は遅くなり、その比は<strong>断面積の比</strong>（または<strong>内径の2乗の比</strong>）で決まります。</p>
+  </section>
+
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>入口と出口の体積流量が等しい（$A_1 u_1 = A_2 u_2$）、つまり密度が変わらない定常な満管流れを前提にした計算です。</p>
+    <ul>
+      <li><strong>使える条件</strong>：液体の配管の縮小・拡大部、または圧力と温度がほとんど変わらない低速の気体。流体が管断面を満たし、入口から出口まで流量が時間とともに変化せず、途中で分岐や漏れ、供給がない場合です。</li>
+      <li><strong>使えない条件</strong>：気体で圧力や温度が入口と出口で大きく変わる場合は、$\rho_1 \ne \rho_2$ のため体積流量が一定になりません。この場合は上の質量保存の式 $\rho_1 A_1 u_1 = \rho_2 A_2 u_2$ を使います。気液二相流や、管が満たされていない流れ（開水路、部分的に液が入った配管）も対象外です。</li>
+      <li><strong>外れやすい場合</strong>：流速は断面で平均した値で、管壁付近では遅く、中心付近では速くなります。また、入力する管内径は呼び径ではなく実内径です。スケジュール番号や肉厚が違うと内径が変わり、$u_2$ は内径の2乗に反比例して変わるため、内径の誤差は流速に約2倍の比率で効きます。</li>
+      <li><strong>結果の読み方</strong>：結果は連続の式だけで決まる流速で、圧力損失や流れの状態（層流・乱流）は含みません。それらはファニングの式やレイノルズ数のツールで別に求めます。</li>
+    </ul>
+  </section>
+
+  <!-- ===== Reference ===== -->
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/48Hi37k" class="reference-card" data-asin="4254250339" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body">
+        <span class="ref-tag">書籍</span>
+        <p class="ref-title">化学工学 ―解説と演習―</p>
+        <p class="ref-meta">多田 豊 編 / 朝倉書店</p>
+        <span class="ref-cta">Amazonで見る</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- ===== Related tools ===== -->
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../flow-conversion/" class="related-card">
+        <span class="small">流動</span>
+        流量・流速・配管径換算
+      </a>
+      <a href="../reynolds/" class="related-card">
+        <span class="small">流動</span>
+        レイノルズ数（配管）
+      </a>
+    </div>
+  </section>
+
+
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>サイトについて</h4>
+      <ul>
+        <li><a href="../../../about/">当サイトについて</a></li>
+        <li><a href="../../../privacy/">プライバシーポリシー</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>サポート</h4>
+      <ul>
+        <li><a href="../../../contact/">お問い合わせ</a></li>
+        <li><a href="../../../faq/">よくある質問</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>その他</h4>
+      <ul>
+        <li><a href="../../../terms/">利用規約</a></li>
+        <li><a href="../../../disclaimer/">免責事項</a></li>
+      </ul>
+    </div>
+    <div class="footer-brand">
+      <a href="../../../" class="logo">
+        <img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">
+        化学工学計算支援ツール
+      </a>
+      <div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="../../../assets/js/continuity.js"></script>
+<script src="../../../assets/js/value-figure.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

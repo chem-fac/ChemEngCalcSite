@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>充填塔の理論段数と充填高さの換算（HETP） | 化学工学計算支援ツール</title>
+  <meta name="description" content="蒸留の充填塔で、理論段数とHETPから必要な充填高さを、充填高さから相当する理論段数を計算します。濃縮部と回収部でHETPを分けられ、全還流データからのHETP逆算にも対応します。">
+  <meta name="keywords" content="充填塔, 蒸留, 理論段数, 充填高さ, HETP, 理論段相当高さ, 換算, 濃縮部, 回収部, 全還流, Fenske, 規則充填物, 不規則充填物, packed column, distillation">
+  <link rel="canonical" href="https://tools.chem-fac.com/tools/distillation/packed-column/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="化学工学計算支援ツール">
+  <meta property="og:title" content="充填塔の理論段数と充填高さの換算（HETP） | 化学工学計算支援ツール">
+  <meta property="og:description" content="蒸留の充填塔で、理論段数とHETPから必要な充填高さを、充填高さから相当する理論段数を計算します。濃縮部と回収部でHETPを分けられ、全還流データからのHETP逆算にも対応します。">
+  <meta property="og:url" content="https://tools.chem-fac.com/tools/distillation/packed-column/">
+  <meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-distillation-packed-column.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@chem_fac">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"充填塔の理論段数と充填高さの換算（HETP）","url":"https://tools.chem-fac.com/tools/distillation/packed-column/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"蒸留の充填塔で、理論段数とHETPから必要な充填高さを、充填高さから相当する理論段数を計算します。濃縮部と回収部でHETPを分けられ、全還流データからのHETP逆算にも対応します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"充填塔, 理論段数, 充填高さ, HETP, 理論段相当高さ, 換算, 濃縮部, 回収部, 全還流, Fenske, 規則充填物, 不規則充填物, packed column, 蒸留","about":"蒸留","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+  <script
+    type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"充填塔の理論段数と充填高さの換算","url":"https://tools.chem-fac.com/tools/distillation/packed-column/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"蒸留の充填塔で、理論段数とHETPから必要な充填高さを、充填高さから相当する理論段数を計算します。濃縮部と回収部でHETPを分けられ、全還流データからのHETP逆算にも対応します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"充填塔, 蒸留, 理論段数, 充填高さ, HETP, 全還流, Fenske","about":"蒸留","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/main.css">
+  <link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}]});"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+  <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-7MQ7VEMWHY');</script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="inner">
+      <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+      <nav class="site-nav"><a href="../../../tools/">ツール一覧</a><a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+    </div>
+  </header>
+
+  <main class="tool-page tool-page-wide">
+    <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">蒸留</a><span
+        class="sep">›</span><span class="current">充填塔の理論段数と充填高さの換算</span></nav>
+
+    <section class="tool-hero tool-hero-simple">
+      <div class="tool-hero-content">
+        <span class="cat-tag" data-cat="distillation">蒸留</span>
+        <h1>充填塔の理論段数と充填高さの換算（HETP）</h1>
+        <p class="tool-subcopy">理論段数とHETPから充填高さを、充填高さから相当する理論段数を求めます。理論段数はマッケーブ・シール法のページで求めた値を使えます。</p>
+      </div>
+    </section>
+
+    <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+      <div class="mode-tabs" role="tablist">
+        <button type="button" class="mode-tab active" data-mode="height" role="tab" aria-selected="true">段数 → 充填高さ</button>
+        <button type="button" class="mode-tab" data-mode="stages" role="tab" aria-selected="false">充填高さ → 段数</button>
+        <button type="button" class="mode-tab" data-mode="test" role="tab" aria-selected="false">全還流データからHETP</button>
+      </div>
+
+      <div class="calc-grid">
+        <div class="calc-pane calc-input-pane">
+          <h2>入力</h2>
+        <!-- value-figure -->
+        <figure class="value-figure input-row-full" data-cat="distillation"><div class="vf-panels"><div class="vf-panel" data-show-when="height stages"><svg class="vf-svg" width="400" height="336" viewBox="0 0 400 336" role="img" aria-label="充填塔：濃縮部の充填高さ Z_R・回収部の充填高さ Z_S、理論段数 N_R・N_S" xmlns="http://www.w3.org/2000/svg"><rect x="170" y="44" width="62" height="248" class="vf-column"/><line x1="217.0" y1="74.0" x2="231.0" y2="88.0" class="vf-pack"/><line x1="203.0" y1="74.0" x2="231.0" y2="102.0" class="vf-pack"/><line x1="189.0" y1="74.0" x2="231.0" y2="116.0" class="vf-pack"/><line x1="175.0" y1="74.0" x2="231.0" y2="130.0" class="vf-pack"/><line x1="171.0" y1="84.0" x2="231.0" y2="144.0" class="vf-pack"/><line x1="171.0" y1="98.0" x2="223.0" y2="150.0" class="vf-pack"/><line x1="171.0" y1="112.0" x2="209.0" y2="150.0" class="vf-pack"/><line x1="171.0" y1="126.0" x2="195.0" y2="150.0" class="vf-pack"/><line x1="171.0" y1="140.0" x2="181.0" y2="150.0" class="vf-pack"/><rect x="171" y="74" width="60" height="76" class="vf-packbox"/><line x1="176" y1="66" x2="226" y2="66" class="vf-distrib"/><line x1="170" y1="154" x2="232" y2="154" class="vf-support"/><line x1="217.0" y1="190.0" x2="231.0" y2="204.0" class="vf-pack"/><line x1="203.0" y1="190.0" x2="231.0" y2="218.0" class="vf-pack"/><line x1="189.0" y1="190.0" x2="231.0" y2="232.0" class="vf-pack"/><line x1="175.0" y1="190.0" x2="231.0" y2="246.0" class="vf-pack"/><line x1="171.0" y1="200.0" x2="231.0" y2="260.0" class="vf-pack"/><line x1="171.0" y1="214.0" x2="225.0" y2="268.0" class="vf-pack"/><line x1="171.0" y1="228.0" x2="211.0" y2="268.0" class="vf-pack"/><line x1="171.0" y1="242.0" x2="197.0" y2="268.0" class="vf-pack"/><line x1="171.0" y1="256.0" x2="183.0" y2="268.0" class="vf-pack"/><rect x="171" y="190" width="60" height="78" class="vf-packbox"/><line x1="176" y1="182" x2="226" y2="182" class="vf-distrib"/><line x1="170" y1="272" x2="232" y2="272" class="vf-support"/><polyline points="110,170 170,170" class="vf-flow"/><polygon points="170,170 162,173.2 162,166.8" class="vf-flowhead"/><text x="110" y="162" class="vf-note" text-anchor="start">供給</text><polyline points="201,44 201,20 300,20 300,30" class="vf-pipe"/><rect x="282" y="30" width="36" height="20" class="vf-hx"/><text x="324" y="45" class="vf-note" text-anchor="start">全縮器</text><polyline points="300,50 300,58 240,58" class="vf-pipe"/><polygon points="232,58 240,54.5 240,61.5" class="vf-flowhead"/><polyline points="201,292 201,312 278,312" class="vf-pipe"/><rect x="278" y="300" width="46" height="24" class="vf-hx" rx="4"/><polyline points="301,300 301,282 240,282" class="vf-pipe"/><polygon points="232,282 240,278.5 240,285.5" class="vf-flowhead"/><text x="330" y="317" class="vf-note" text-anchor="start">リボイラー</text><g class="vf-g" data-for="zR"><line x1="167" y1="74" x2="143" y2="74" class="vf-ext"/></g><g class="vf-g" data-for="zR"><line x1="167" y1="150" x2="143" y2="150" class="vf-ext"/></g><g class="vf-g" data-for="zR"><line x1="148" y1="74" x2="148" y2="150" class="vf-dim"/><polygon points="148,74 150.6,81 145.4,81" class="vf-arrow"/><polygon points="148,150 145.4,143 150.6,143" class="vf-arrow"/><text x="141" y="114" class="vf-sym" text-anchor="end"><tspan>Z</tspan><tspan class="vf-sub" dy="0.32em">R</tspan></text></g><g class="vf-g" data-for="zR"><text x="141.0" y="134.0" class="vf-name" text-anchor="end">濃縮部の充填高さ</text></g><g class="vf-g" data-for="zS"><line x1="167" y1="190" x2="143" y2="190" class="vf-ext"/></g><g class="vf-g" data-for="zS"><line x1="167" y1="268" x2="143" y2="268" class="vf-ext"/></g><g class="vf-g" data-for="zS"><line x1="148" y1="190" x2="148" y2="268" class="vf-dim"/><polygon points="148,190 150.6,197 145.4,197" class="vf-arrow"/><polygon points="148,268 145.4,261 150.6,261" class="vf-arrow"/><text x="141" y="231" class="vf-sym" text-anchor="end"><tspan>Z</tspan><tspan class="vf-sub" dy="0.32em">S</tspan></text></g><g class="vf-g" data-for="zS"><text x="141.0" y="251.0" class="vf-name" text-anchor="end">回収部の充填高さ</text></g><g class="vf-g" data-for="nR"><text x="240" y="124" class="vf-sym" text-anchor="start"><tspan>N</tspan><tspan class="vf-sub" dy="0.32em">R</tspan></text><text x="268.0" y="124.0" class="vf-name">供給段より上の段数</text></g><g class="vf-g" data-for="nS"><text x="240" y="231" class="vf-sym" text-anchor="start"><tspan>N</tspan><tspan class="vf-sub" dy="0.32em">S</tspan></text><text x="268.0" y="231.0" class="vf-name">供給段から下の段数</text><text x="268.0" y="251.0" class="vf-name">（リボイラーを除く）</text></g><text x="240" y="186" class="vf-note" text-anchor="start">液分散器（破線）</text><text x="240" y="278" class="vf-note" text-anchor="start">支持板（太線）</text></svg><p class="vf-panel-note"><span class="sym">Z<sub>R</sub></span>・<span class="sym">Z<sub>S</sub></span> は液分散器や支持板を除いた充填層だけの高さで、層が複数あるときは合計します。<span class="sym">N<sub>R</sub></span> は供給段より上、<span class="sym">N<sub>S</sub></span> は供給段を含めてそれより下の理論段数で、リボイラーは数えません。</p></div><div class="vf-panel" data-show-when="test" hidden><svg class="vf-svg" width="400" height="352" viewBox="0 0 400 352" role="img" aria-label="全還流の試験：充填高さ Z、還流液の組成 x_D、リボイラー内の液の組成 x_B" xmlns="http://www.w3.org/2000/svg"><rect x="170" y="44" width="62" height="248" class="vf-column"/><line x1="217.0" y1="82.0" x2="231.0" y2="96.0" class="vf-pack"/><line x1="203.0" y1="82.0" x2="231.0" y2="110.0" class="vf-pack"/><line x1="189.0" y1="82.0" x2="231.0" y2="124.0" class="vf-pack"/><line x1="175.0" y1="82.0" x2="231.0" y2="138.0" class="vf-pack"/><line x1="171.0" y1="92.0" x2="231.0" y2="152.0" class="vf-pack"/><line x1="171.0" y1="106.0" x2="231.0" y2="166.0" class="vf-pack"/><line x1="171.0" y1="120.0" x2="231.0" y2="180.0" class="vf-pack"/><line x1="171.0" y1="134.0" x2="231.0" y2="194.0" class="vf-pack"/><line x1="171.0" y1="148.0" x2="231.0" y2="208.0" class="vf-pack"/><line x1="171.0" y1="162.0" x2="231.0" y2="222.0" class="vf-pack"/><line x1="171.0" y1="176.0" x2="231.0" y2="236.0" class="vf-pack"/><line x1="171.0" y1="190.0" x2="231.0" y2="250.0" class="vf-pack"/><line x1="171.0" y1="204.0" x2="229.0" y2="262.0" class="vf-pack"/><line x1="171.0" y1="218.0" x2="215.0" y2="262.0" class="vf-pack"/><line x1="171.0" y1="232.0" x2="201.0" y2="262.0" class="vf-pack"/><line x1="171.0" y1="246.0" x2="187.0" y2="262.0" class="vf-pack"/><line x1="171.0" y1="260.0" x2="173.0" y2="262.0" class="vf-pack"/><rect x="171" y="82" width="60" height="180" class="vf-packbox"/><line x1="176" y1="74" x2="226" y2="74" class="vf-distrib"/><line x1="170" y1="266" x2="232" y2="266" class="vf-support"/><polyline points="201,44 201,20 300,20 300,30" class="vf-pipe"/><rect x="282" y="30" width="36" height="20" class="vf-hx"/><text x="324" y="45" class="vf-note" text-anchor="start">全縮器</text><polyline points="300,50 300,58 240,58" class="vf-pipe"/><polygon points="232,58 240,54.5 240,61.5" class="vf-flowhead"/><polyline points="201,292 201,312 278,312" class="vf-pipe"/><rect x="278" y="300" width="46" height="24" class="vf-hx" rx="4"/><polyline points="301,300 301,282 240,282" class="vf-pipe"/><polygon points="232,282 240,278.5 240,285.5" class="vf-flowhead"/><text x="330" y="317" class="vf-note" text-anchor="start">リボイラー</text><g class="vf-g" data-for="zTest"><line x1="167" y1="82" x2="143" y2="82" class="vf-ext"/></g><g class="vf-g" data-for="zTest"><line x1="167" y1="262" x2="143" y2="262" class="vf-ext"/></g><g class="vf-g" data-for="zTest"><line x1="148" y1="82" x2="148" y2="262" class="vf-dim"/><polygon points="148,82 150.6,89 145.4,89" class="vf-arrow"/><polygon points="148,262 145.4,255 150.6,255" class="vf-arrow"/><text x="141" y="174" class="vf-sym" text-anchor="end"><tspan>Z</tspan></text></g><g class="vf-g" data-for="zTest"><text x="141.0" y="194.0" class="vf-name" text-anchor="end">充填高さ</text></g><g class="vf-g" data-for="xTop"><text x="240" y="86" class="vf-sym" text-anchor="start"><tspan>x</tspan><tspan class="vf-sub" dy="0.32em">D</tspan></text><text x="264.0" y="86" class="vf-name">還流液の組成</text></g><g class="vf-g" data-for="xBot"><line x1="300" y1="324" x2="300" y2="334" class="vf-ext"/><text x="170" y="348" class="vf-sym" text-anchor="start"><tspan>x</tspan><tspan class="vf-sub" dy="0.32em">B</tspan></text><text x="194" y="348" class="vf-name">リボイラー内の液の組成</text></g><text x="240" y="150" class="vf-note" text-anchor="start">供給・留出・缶出を止め、</text><text x="240" y="170" class="vf-note" text-anchor="start">凝縮液をすべて戻す</text></svg><p class="vf-panel-note">全還流で運転し、塔頂の還流液の組成を <span class="sym">x<sub>D</sub></span>、リボイラー内の液の組成を <span class="sym">x<sub>B</sub></span> に入れます。<span class="sym">Z</span> は充填層だけの高さで、層が複数あるときは合計します。</p></div></div></figure>
+        <!-- /value-figure -->
+
+          <div class="input-row" data-show-when="height">
+            <label for="nR">濃縮部の理論段数 <span class="sym">N<sub>R</sub></span></label>
+            <div class="input-group"><input type="number" inputmode="decimal" id="nR" step="any" placeholder="例：6.7"><span class="unit-label">段</span></div>
+            <p class="hint">供給位置より上の段数です。マッケーブ・シール法のページの結果では、フィード段から1を引いた値になります。</p>
+          </div>
+
+          <div class="input-row" data-show-when="height">
+            <label for="nS">回収部の理論段数 <span class="sym">N<sub>S</sub></span></label>
+            <div class="input-group"><input type="number" inputmode="decimal" id="nS" step="any" placeholder="例：5.5"><span class="unit-label">段</span></div>
+            <p class="hint">供給位置より下の段数で、リボイラーは含めません。マッケーブ・シール法のページでは、理論段数 N（リボイラー込み）からフィード段を引いた値です。</p>
+          </div>
+
+          <div class="input-row" data-show-when="stages" hidden>
+            <label for="zR">濃縮部の充填高さ <span class="sym">Z<sub>R</sub></span></label>
+            <div class="input-group"><input type="number" inputmode="decimal" id="zR" step="any" placeholder="例：3"><span class="unit-label">m</span></div>
+          </div>
+
+          <div class="input-row" data-show-when="stages" hidden>
+            <label for="zS">回収部の充填高さ <span class="sym">Z<sub>S</sub></span></label>
+            <div class="input-group"><input type="number" inputmode="decimal" id="zS" step="any" placeholder="例：2.5"><span class="unit-label">m</span></div>
+            <p class="hint">充填層が複数あるときは各層の高さを合計します。</p>
+          </div>
+
+          <div class="input-row" data-show-when="height stages">
+            <label for="hetpR">濃縮部のHETP <span class="sym">HETP<sub>R</sub></span></label>
+            <div class="input-group"><input type="number" inputmode="decimal" id="hetpR" step="any" placeholder="例：0.5"><span class="unit-label">m</span></div>
+            <p class="hint">充填物メーカーの値や同じ系の実測値を入力します。概略の目安は下の表にまとめています。</p>
+          </div>
+
+          <div class="input-row" data-show-when="height stages">
+            <label for="hetpS">回収部のHETP <span class="sym">HETP<sub>S</sub></span>（任意）</label>
+            <div class="input-group"><input type="number" inputmode="decimal" id="hetpS" step="any" placeholder="空欄なら濃縮部と同じ"><span class="unit-label">m</span></div>
+          </div>
+
+          <div class="input-row" data-show-when="test" hidden>
+            <label for="alpha">相対揮発度 <span class="sym">α</span></label>
+            <div class="input-group"><input type="number" inputmode="decimal" id="alpha" step="any" placeholder="例：2.5"><span class="unit-label">-</span></div>
+            <p class="hint">塔頂と塔底で異なる場合は、両者の幾何平均を使います。</p>
+          </div>
+
+          <div class="input-row" data-show-when="test" hidden>
+            <label for="xTop">塔頂の組成 <span class="sym">x<sub>D</sub></span></label>
+            <div class="input-group"><input type="number" inputmode="decimal" id="xTop" step="any" placeholder="例：0.98"><span class="unit-label">モル分率</span></div>
+            <p class="hint">全還流で運転したときの還流液の低沸点成分の組成です。</p>
+          </div>
+
+          <div class="input-row" data-show-when="test" hidden>
+            <label for="xBot">塔底の組成 <span class="sym">x<sub>B</sub></span></label>
+            <div class="input-group"><input type="number" inputmode="decimal" id="xBot" step="any" placeholder="例：0.02"><span class="unit-label">モル分率</span></div>
+            <p class="hint">同じときの缶出液（リボイラー内の液）の組成です。</p>
+          </div>
+
+          <div class="input-row" data-show-when="test" hidden>
+            <label for="zTest">充填高さ <span class="sym">Z</span></label>
+            <div class="input-group"><input type="number" inputmode="decimal" id="zTest" step="any" placeholder="例：4"><span class="unit-label">m</span></div>
+            <p class="hint">充填層が複数あるときは各層の高さを合計します。</p>
+          </div>
+
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" id="calc-btn">計算する</button>
+            <button type="button" class="btn btn-ghost" id="reset-btn">リセット</button>
+          </div>
+          <div id="error" class="error-msg" style="display:none;"></div>
+        </div>
+
+        <div class="calc-pane calc-result-pane">
+          <h2>計算結果</h2>
+          <div id="result-area">
+            <div class="placeholder">入力値を入れて「計算する」を押してください</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="explain-block">
+      <h2>計算式</h2>
+      <p>充填層の高さは、理論段数とHETP（1理論段に相当する充填高さ）の積です。濃縮部と回収部は液と蒸気の流量が違うため、区間ごとに計算して合計します。</p>
+      <div class="math-block">$$ Z = N_R\,\mathrm{HETP}_R + N_S\,\mathrm{HETP}_S $$</div>
+      <p>全還流のデータからは、塔頂と塔底の組成からFenske式でステップ数を求め、リボイラー分の1段を引いた段数で充填高さを割ってHETPとします。</p>
+      <div class="math-block">$$ S_{\min} = \frac{\ln\!\left(\dfrac{x_D}{1-x_D}\cdot\dfrac{1-x_B}{x_B}\right)}{\ln\alpha} \qquad \mathrm{HETP} = \frac{Z}{S_{\min}-1} $$</div>
+      <ul class="symbol-list">
+        <li>$Z$：充填高さ［m］</li>
+        <li>$N_R$、$N_S$：濃縮部・回収部の理論段数（リボイラーを除く）［-］</li>
+        <li>$\mathrm{HETP}_R$、$\mathrm{HETP}_S$：濃縮部・回収部のHETP［m］</li>
+        <li>$S_{\min}$：全還流でのステップ数（リボイラーを含む）［-］</li>
+        <li>$\alpha$：相対揮発度［-］</li>
+        <li>$x_D$、$x_B$：塔頂（還流液）・塔底（缶出液）の低沸点成分モル分率［-］</li>
+      </ul>
+    </section>
+
+    <section class="explain-block">
+      <h2>HETPの目安</h2>
+      <table class="regime-table">
+        <thead>
+          <tr>
+            <th>充填物</th>
+            <th>HETP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>高性能の不規則充填物（呼び径 25 mm）</td>
+            <td>約 0.35 m</td>
+          </tr>
+          <tr>
+            <td>高性能の不規則充填物（呼び径 50 mm）</td>
+            <td>約 0.65 m</td>
+          </tr>
+          <tr>
+            <td>規則充填物・金属板型（比表面積 100〜500 m²/m³）</td>
+            <td>0.2〜0.9 m（250 m²/m³ 級で約 0.4 m）</td>
+          </tr>
+          <tr>
+            <td>規則充填物・金網型（比表面積 500〜3,300 m²/m³）</td>
+            <td>0.1〜0.4 m</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>出典：分離技術会 編「実用蒸留技術」図4・図5、化学工学便覧 改訂六版 表10・15（Kister, Distillation Design, 1992 による）</p>
+      <p>表は炭化水素系など標準的な系の値です。HETPは物性や気液の負荷でも変わるので、設計では充填物メーカーの値や同じ系の実測値を使います。</p>
+    </section>
+
+    <section class="explain-block notes-block">
+      <h2>適用範囲と注意事項</h2>
+      <p>理論段数と充填高さを HETP で換算する計算です。</p>
+      <ul>
+        <li><strong>入力の注意</strong>：理論段数は、リボイラーを除いた充填部の段数を入力します。全縮器は段に数えません。</li>
+        <li><strong>結果の読み方</strong>：計算する高さは充填層だけで、液分散器や支持板などの空間は含みません。</li>
+        <li><strong>逆算の前提</strong>：全還流データの逆算は二成分系で相対揮発度一定とし、リボイラーを1理論段とします。</li>
+        <li><strong>段数の根拠</strong>：本ツールは理論段数と充填高さを HETP で換算するだけで、理論段数そのもの（還流比や組成からの段数計算）は別に求めた値を入力します。段数の根拠が概算（簡易法）なら、充填高さも同程度の精度になります。</li>
+        <li><strong>HETPの扱い</strong>：HETP は濃縮部と回収部で別の値を入力できますが、1 つの区間では一定として掛けています。HETP は物性や気液の負荷で変わるため（上の表の注記）、運転負荷が設計時の想定から離れると、同じ充填高さでも得られる段数が変わります。</li>
+        <li><strong>逆算したHETP</strong>：全還流データから求めた HETP は、その試験を行った塔・充填物・系・負荷での値です。別の系や負荷にそのまま当てはめられる保証はありません。測定した塔頂・塔底組成の誤差は、$S_\mathrm{min}$ の対数の差に効くため、純度が高い（$x_D$ が 1 に近い、$x_B$ が 0 に近い）ほど HETP の誤差が大きくなります。</li>
+      </ul>
+    </section>
+
+    <section class="explain-block reference-block">
+      <h2>参考資料</h2>
+      <a href="https://link.amazon/B034YtjaA" class="reference-card" data-asin="4621083880" target="_blank" rel="noopener nofollow sponsored">
+        <div class="ref-image" aria-hidden="true"></div>
+        <div class="ref-body"><span class="ref-tag">便覧</span>
+          <p class="ref-title">改訂七版 化学工学便覧</p>
+          <p class="ref-meta">化学工学会 編集 / 丸善出版</p><span class="ref-cta">Amazonで見る</span>
+        </div>
+      </a>
+      <a href="https://amzn.to/48Hi37k" class="reference-card" data-asin="4254250339" target="_blank" rel="noopener nofollow sponsored">
+        <div class="ref-image" aria-hidden="true"></div>
+        <div class="ref-body"><span class="ref-tag">書籍</span>
+          <p class="ref-title">化学工学 ―解説と演習―</p>
+          <p class="ref-meta">多田 豊 編 / 朝倉書店</p><span class="ref-cta">Amazonで見る</span>
+        </div>
+      </a>
+    </section>
+
+    <section class="related">
+      <h3>関連ツール</h3>
+      <div class="related-grid">
+        <a href="../mccabe-thiele/" class="related-card"><span class="small">蒸留</span>マッケーブ・シール法（二成分連続蒸留）</a>
+        <a href="../vle/" class="related-card"><span class="small">蒸留</span>気液平衡・相対揮発度計算</a>
+        <a href="../antoine/" class="related-card"><span class="small">蒸留</span>アントワン式（蒸気圧・沸点）</a>
+      </div>
+    </section>
+
+
+</main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>サイトについて</h4>
+        <ul>
+          <li><a href="../../../about/">当サイトについて</a></li>
+          <li><a href="../../../privacy/">プライバシーポリシー</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>サポート</h4>
+        <ul>
+          <li><a href="../../../contact/">お問い合わせ</a></li>
+          <li><a href="../../../faq/">よくある質問</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>その他</h4>
+        <ul>
+          <li><a href="../../../terms/">利用規約</a></li>
+          <li><a href="../../../disclaimer/">免責事項</a></li>
+        </ul>
+      </div>
+      <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png"
+            alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+        <div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../../assets/js/packed-column.js"></script>
+  <script src="../../../assets/js/value-figure.js"></script>
+<script src="../../../assets/js/share.js"></script>
+  <script src="../../../assets/js/calc-utils.js"></script>
+  <script src="../../../assets/js/references.js"></script>
+</body>
+
+</html>

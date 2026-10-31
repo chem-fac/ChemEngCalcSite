@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>配管口径選定（推奨流速と呼び径の候補） | 化学工学計算支援ツール</title>
+<meta name="description" content="液体・気体・蒸気の体積流量と推奨流速から、必要な管内径と JIS 呼び径（STPG Sch.40）の候補を求めます。配管口径の初期検討に。">
+<meta name="keywords" content="配管口径, 配管選定, 経済流速, 推奨流速, 呼び径, JIS, スケジュール, 配管設計, ライン仕様">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/fluid/pipe-sizing/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="配管口径選定（推奨流速と呼び径の候補） | 化学工学計算支援ツール">
+<meta property="og:description" content="液体・気体・蒸気の体積流量と推奨流速から、必要な管内径と JIS 呼び径の候補を求めます。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/fluid/pipe-sizing/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-fluid-pipe-sizing.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"配管口径選定（推奨流速と呼び径の候補）","url":"https://tools.chem-fac.com/tools/fluid/pipe-sizing/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"液体・気体・蒸気の体積流量と推奨流速から、必要な管内径と JIS 呼び径（STPG Sch.40）の候補を求めます。配管口径の初期検討に。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"配管口径, 配管選定, 経済流速, 推奨流速, 呼び径, JIS, スケジュール, 配管設計, ライン仕様","about":"流動"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+<style>
+.size-table { width:100%; border-collapse:collapse; margin-top:8px; font-size:13px; }
+.size-table th, .size-table td { padding:5px 6px; border-bottom:1px solid var(--border); text-align:left; }
+.size-table th { background:#f6f7f9; font-weight:600; }
+.size-table td.num { text-align:right; font-variant-numeric:tabular-nums; }
+.size-table tr.sel { background:#e8f3ee; font-weight:600; }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">流動</a><span class="sep">›</span><span class="current">配管口径選定</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag" data-cat="fluid">流動</span>
+      <h1>配管口径選定（推奨流速と呼び径の候補）</h1>
+      <p class="tool-subcopy">流体種類と流量から、推奨流速範囲に基づく必要管内径と JIS 呼び径（STPG Sch.40）の候補を求めます。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <div class="input-row">
+          <label>流体種類</label>
+          <div class="input-group">
+            <select id="fluid_type" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;background:#fff;">
+              <option value="liquid_disch">液体・吐出側（u = 1.5〜3.0 m/s）</option>
+              <option value="liquid_suct">液体・吸込側（u = 0.5〜1.5 m/s）</option>
+              <option value="liquid_grav">液体・自然流下（u = 0.5〜1.0 m/s）</option>
+              <option value="gas_lp">ガス・低圧（u = 10〜20 m/s）</option>
+              <option value="gas_mp">ガス・中圧（u = 15〜25 m/s）</option>
+              <option value="gas_hp">ガス・高圧（u = 20〜30 m/s）</option>
+              <option value="steam_sat">飽和蒸気（u = 20〜40 m/s）</option>
+              <option value="steam_sh">過熱蒸気（u = 40〜60 m/s）</option>
+              <option value="custom">カスタム（任意の推奨流速）</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-row" id="row-uminmax" hidden>
+          <label>推奨流速範囲</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="u_min" step="any" placeholder="例：1.5">
+            <span class="unit-label">〜</span>
+            <input type="number" inputmode="decimal" id="u_max" step="any" placeholder="例：3.0">
+            <span class="unit-label">m/s</span>
+          </div>
+        </div>
+        <div class="input-row">
+          <label>体積流量 <span class="sym">Q</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Q" step="any" placeholder="例：50">
+            <select id="Q_unit"><option value="m3h">m³/h</option><option value="m3min">m³/min</option><option value="Lmin">L/min</option><option value="m3s">m³/s</option></select>
+          </div>
+          <p class="hint">運転温度・圧力での実体積流量を入れます。ガスの Nm³/h は<a href="../../properties/ideal-gas-law/">理想気体の状態方程式</a>で実流量に換算してから入れてください。蒸気は質量流量 ÷ 蒸気密度で求めます。</p>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>推奨流速の下限と上限から、必要な管内径の範囲を求めます。</p>
+    <div class="math-block">$$ D = \sqrt{\dfrac{4Q}{\pi u}} $$</div>
+    <p>各呼び径の内径で流速を計算し、推奨範囲に入るものを候補として示します。</p>
+    <div class="math-block">$$ u = \dfrac{4Q}{\pi D_i^{\,2}},\qquad D_i = D_o - 2t $$</div>
+    <ul class="symbol-list">
+      <li>$Q$：運転状態の体積流量［m³/s］</li>
+      <li>$u$：管内の平均流速［m/s］</li>
+      <li>$D$：必要な管内径［m］</li>
+      <li>$D_o$, $t$, $D_i$：鋼管の外径・厚さ・内径（JIS G 3454 STPG Sch.40）［mm］</li>
+    </ul>
+
+    <h2>推奨流速と内径の前提</h2>
+    <ul>
+      <li>流体種類ごとの流速範囲は初期検討用の目安です。ポンプ吸込側は NPSH の余裕を取るため吐出側より遅くします。高粘度液は粘性による圧損が大きいので、カスタムで低めの範囲を入れます。</li>
+      <li>流速だけでは口径は決まりません。候補の呼び径で<a href="../fanning/">圧力損失</a>を計算し、許容値に収まるか確かめます。</li>
+      <li>内径は STPG Sch.40 の値です。Sch.80・ステンレス鋼管・樹脂管・ライニング管では内径が変わります。</li>
+    </ul>
+
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../flow-conversion/" class="related-card"><span class="small">流動</span>流量・流速・配管径換算</a>
+      <a href="../fanning/" class="related-card"><span class="small">流動</span>ファニングの式・管摩擦係数</a>
+      <a href="../reynolds/" class="related-card"><span class="small">流動</span>レイノルズ数（配管）</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/pipe-sizing.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+</body>
+</html>

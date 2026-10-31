@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>飽和蒸気表（温度⇔圧力・物性値） | 化学工学計算支援ツール</title>
+<meta name="description" content="飽和水蒸気の温度・圧力・比容積・比エンタルピー・蒸発潜熱・比エントロピーを相互換算します。蒸気ライン・コンデンサ・リボイラ設計の参照に。">
+<meta name="keywords" content="蒸気表, 飽和蒸気, 飽和水, 比容積, 比エンタルピー, 蒸発潜熱, 比エントロピー, h_fg, IAPWS, スチームテーブル, 蒸気物性, ボイラ">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/heat-transfer/steam-table/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="飽和蒸気表（温度⇔圧力・物性値） | 化学工学計算支援ツール">
+<meta property="og:description" content="飽和水蒸気の温度・圧力・比容積・比エンタルピー・蒸発潜熱・比エントロピーを相互換算します。蒸気ライン・コンデンサ・リボイラ設計の参照に。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/heat-transfer/steam-table/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-heat-transfer-steam-table.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"飽和蒸気表（温度⇔圧力・物性値）","url":"https://tools.chem-fac.com/tools/heat-transfer/steam-table/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"飽和水蒸気の温度・圧力・比容積・比エンタルピー・蒸発潜熱・比エントロピーを相互換算します。蒸気ライン・コンデンサ・リボイラ設計の参照に。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"蒸気表, 飽和蒸気, 飽和水, 比容積, 比エンタルピー, 蒸発潜熱, 比エントロピー, h_fg, IAPWS, スチームテーブル, 蒸気物性, ボイラ, ゲージ圧, 絶対圧, 飽和温度, 飽和圧力, steam table, saturated steam","about":"伝熱","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">伝熱</a><span class="sep">›</span><span class="current">飽和蒸気表</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag" data-cat="heat-transfer">伝熱</span>
+      <h1>飽和蒸気表（温度⇔圧力・物性値）</h1>
+      <p class="tool-subcopy">飽和水蒸気の温度・圧力から、比容積・比エンタルピー・蒸発潜熱・比エントロピーを求めます。0〜373.946 °C（臨界点）の範囲で IAPWS-IF97 の値に基づいて線形補間し、373 °C を超える範囲は目安です。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab active" data-mode="T">温度から</button>
+      <button type="button" class="mode-tab" data-mode="P">圧力から</button>
+    </div>
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <div class="input-row" data-show-when="T">
+          <label for="T">飽和温度 <span class="sym">T<sub>sat</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="T" step="any" placeholder="例：150">
+            <span class="unit-label">°C</span>
+          </div>
+          <p class="hint">0 〜 373.946 °C（臨界点）の範囲で入力してください。373 °C を超えると値は目安です（下の「適用範囲と注意事項」を参照）。</p>
+        </div>
+        <div class="input-row" data-show-when="P">
+          <label for="P">飽和圧力 <span class="sym">P<sub>sat</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="P" step="any" placeholder="例：0.476">
+            <select aria-label="飽和圧力の単位" id="P_unit"><option value="MPaA">MPaA</option><option value="kPaA">kPaA</option><option value="MPaG">MPaG</option><option value="kPaG">kPaG</option><option value="barA">barA</option><option value="barG">barG</option></select>
+          </div>
+          <p class="hint">0.0006117 〜 22.064 MPaA の範囲。21.81 MPaA（21.71 MPaG、373 °C）を超えると値は目安です。「G」を選んだ場合は大気圧 101.325 kPa を加えて絶対圧として処理します。</p>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+          <button class="btn btn-ghost" id="show-table-btn">全表を表示</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>ゲージ圧で入力した場合は、大気圧を足して絶対圧に直します。</p>
+    <div class="math-block">$$ P_\mathrm{abs} = P_\mathrm{gauge} + 0.101325\ \mathrm{MPa} $$</div>
+    <p>温度から求める場合は、入力温度をはさむ表の2点 $T_i \le T \le T_{i+1}$ の間で直線補間します。</p>
+    <div class="math-block">$$ t = \dfrac{T - T_i}{T_{i+1} - T_i},\qquad X = X_i + t\,(X_{i+1} - X_i) $$</div>
+    <p>圧力から求める場合は、飽和圧力が温度に対して指数関数的に増えるため、$\ln P$ で補間の割合を決めます。温度と物性値はこの $t$ で直線補間します。</p>
+    <div class="math-block">$$ t = \dfrac{\ln P - \ln P_i}{\ln P_{i+1} - \ln P_i},\qquad T = T_i + t\,(T_{i+1} - T_i) $$</div>
+    <p>蒸発潜熱と密度は、補間した値から求めます。</p>
+    <div class="math-block">$$ h_{fg} = h_g - h_f,\qquad \rho_f = \dfrac{1}{v_f},\qquad \rho_g = \dfrac{1}{v_g} $$</div>
+
+    <ul class="symbol-list">
+      <li>$X$：補間する物性値（$P$, $v_f$, $v_g$, $h_f$, $h_g$, $s_f$, $s_g$）</li>
+      <li>$i$, $i+1$：入力値をはさむ表の行</li>
+      <li>$t$：2点の間での位置（0〜1）</li>
+      <li>$T_\mathrm{sat}$：飽和温度 [°C]</li>
+      <li>$P_\mathrm{sat}$：飽和圧力 [MPa, abs]</li>
+      <li>$v_f, v_g$：飽和液・飽和蒸気の比容積 [m³/kg]</li>
+      <li>$\rho_f = 1/v_f$, $\rho_g = 1/v_g$：飽和液・飽和蒸気の密度 [kg/m³]</li>
+      <li>$h_f, h_g$：飽和液・飽和蒸気の比エンタルピー [kJ/kg]</li>
+      <li>$h_{fg} = h_g - h_f$：蒸発潜熱 [kJ/kg]</li>
+      <li>$s_f, s_g$：飽和液・飽和蒸気の比エントロピー [kJ/(kg·K)]</li>
+    </ul>
+    <p>基準点は、三重点（0.01 °C・611.657 Pa）の飽和液で比内部エネルギーと比エントロピーを 0 とする IAPWS の約束です。このとき飽和液の $h$ は 0.000612 kJ/kg で、ほぼ 0 です。</p>
+
+
+
+  </section>
+
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>表の代表点（0〜373.946 °C）を補間しています。IAPWS-IF97 の式で計算した値と比べた差の最大値は次のとおりです（2026年10月18日に測定。このツールの計算をそのまま動かし、温度は 0.25 °C 刻み（360 °C 以上は 0.01 °C 刻み、臨界点の直前はさらに細かく）、圧力は約14,000点（臨界圧力の直前まで）で比較。350 °C 以上の比べる値は、IF97 の領域3の式から、飽和圧力に合う液と蒸気の密度を求めて計算）。</p>
+    <ul>
+      <li><strong>圧力で入力、真空〜0.05 MPaG</strong>：飽和温度 0.08 K、蒸発潜熱 0.02%、飽和蒸気の比容積 1.5%。</li>
+      <li><strong>圧力で入力、0.05〜3 MPaG</strong>：飽和温度 0.23 K、蒸発潜熱 0.14%、飽和蒸気の比容積 1.9%、飽和蒸気の比エントロピー 0.02%。</li>
+      <li><strong>圧力で入力、3〜18.5 MPaG（約360 °C まで）</strong>：飽和温度 0.20 K、蒸発潜熱 2.5%、飽和液の比容積 1.6%、飽和蒸気の比容積 1.4%、飽和液の比エンタルピー 8.1 kJ/kg、飽和蒸気の比エンタルピー 13 kJ/kg、飽和蒸気の比エントロピー 0.36%。</li>
+      <li><strong>温度で入力、0〜240 °C</strong>：飽和圧力 1.6%、蒸発潜熱 0.09%、飽和蒸気の比容積 2.3%、飽和蒸気の比エントロピー 0.02%。</li>
+      <li><strong>温度で入力、240〜360 °C</strong>：飽和圧力 1.1%、蒸発潜熱 2.3%、飽和液の比容積 1.6%、飽和蒸気の比容積 1.8%、飽和液の比エンタルピー 7.3 kJ/kg、飽和蒸気の比エンタルピー 12.3 kJ/kg、飽和蒸気の比エントロピー 0.33%。</li>
+      <li><strong>360〜373 °C（18.57〜21.71 MPaG、18.67〜21.81 MPaA）</strong>：飽和圧力 0.01%、飽和温度 0.01 K、蒸発潜熱 0.62%、飽和液の比容積 0.21%、飽和蒸気の比容積 0.15%、比エンタルピー 1.5 kJ/kg、飽和蒸気の比エントロピー 0.05%。</li>
+      <li><strong>373〜373.8 °C（21.71〜21.92 MPaG、21.81〜22.02 MPaA）</strong>：蒸発潜熱 1.4%、比容積 0.2%、比エンタルピー 1.2 kJ/kg、飽和蒸気の比エントロピー 0.05%。</li>
+      <li><strong>373.8 °C〜臨界点（21.92 MPaG、22.02 MPaA〜）</strong>：比容積 1.7%、比エンタルピー 8.6 kJ/kg、飽和蒸気の比エントロピー 0.3%。蒸発潜熱はほとんどの点で小さく出て、差は 17 kJ/kg 以下ですが、潜熱そのものが 0 に近づくため、割合では臨界点の直前で最大ほぼ100%（測った範囲で97%）になります。</li>
+      <li><strong>臨界点の近くの IF97 そのもの</strong>：IF97 は、より精密な IAPWS-95 との差が臨界点の近くで大きくなり（比容積と比エンタルピーの差は 373.9 °C 付近で最大）、373 °C を超えると比容積で最大2.7%、比エンタルピーで最大15 kJ/kg 違います。蒸発潜熱は IAPWS-95 より小さく、373.8 °C で約17%、373.9 °C で約29%、373.94 °C で約4割小さくなります（差は最大27 kJ/kg）。この差は、このツールの補間の誤差と同じ向きです。360〜373 °C でも、比容積で0.8%、比エンタルピーで4.5 kJ/kg、蒸発潜熱で2.7%以内の差があります。373 °C を超える範囲は、多くの点でこの差がこのツールの補間の誤差より大きいので、値は目安として使います。</li>
+      <li><strong>表の値の訂正（2026年10月18日）</strong>：表の代表点の値を IAPWS-IF97 で計算した値と照合し直しました。飽和蒸気の比エントロピー $s_g$ は、15 °C 以上の多くの点で表の値が小さく、200 °C を超えると差が大きくなっていた（300 °C で 0.090、360 °C で 0.315 kJ/(kg·K)）ため、表の最後の桁の半分を超えてずれていた31点を IF97 の値に改めました。ほかの列は、IF97 との差が「最後の桁の半分」と「当時の表の点（0〜360 °C）で最大の IF97 と IAPWS-95 の差（飽和圧力 0.0175%、比容積 0.047〜0.063%、比エンタルピー 0.24〜0.51 kJ/kg ほど）」の合計を超えた値（飽和圧力5点、比容積10点、比エンタルピー4点、飽和液の比エントロピー2点）を IF97 の値に改めました。この基準に入らない小さな差（比容積で0.065%以下、比エンタルピーで0.5 kJ/kg以下）は残っています。同じ日に、360 °C と臨界点の間に IF97 の14点（362〜373.9 °C）を足し、360 °C の点と臨界点（373.95 °C → 373.946 °C）の値も IF97 の値にそろえました。全表で飽和圧力を小数3桁まで示すため、220 °C と 280 °C の飽和圧力も IF97 の値にそろえました。それまでは 360 °C の次が臨界点で、その間を直線で結んでいたため、蒸発潜熱が 360〜373 °C で最大で約8割、臨界点の直前ではほぼ全部（測った範囲で最大99.9%）小さく出ていました。上の数値は訂正後に測ったものです。代表点が正しくなった分、点と点の間の補間の誤差はそのまま残るため、240〜300 °C の飽和蒸気の比容積などは訂正前よりわずかに大きくなっています。</li>
+    </ul>
+    <ul>
+      <li><strong>対象</strong>：純水の飽和液と飽和蒸気（気液平衡の線上）の値です。過熱蒸気、圧縮水（飽和温度未満の液体）の物性は出ません。湿り蒸気のエンタルピーは、乾き度 $x$ を用いて $h_f + x\,h_{fg}$ と別に計算します。</li>
+      <li><strong>水以外・不純物</strong>：IAPWS-IF97 の純水の値なので、溶質を含む水溶液や他の物質の蒸気には使えません。</li>
+      <li><strong>ゲージ圧の換算</strong>：大気圧は 101.325 kPa で固定して絶対圧にします。実際の大気圧との差はそのまま誤差になり、低圧側ほど相対的に大きく効きます。真空側は絶対圧で入力するか、ゲージ圧に負の値を入れます。</li>
+      <li><strong>補間の誤差</strong>：表の温度間隔は 100 °C まで 5 °C、200 °C まで 10 °C、360 °C まで 20 °C と広がり、360 °C から臨界点までは 2 °C から 0.1 °C 以下へと狭めています。臨界点のすぐ近く（373.8 °C 超）を除くと、蒸発潜熱・比エンタルピー・比エントロピーへの補間の影響が最も大きいのは 240〜360 °C です。飽和蒸気の比容積と、温度で入力したときの飽和圧力（圧力で入力したときの飽和温度）は 200〜240 °C 付近の方が大きく、最大2.3%、1.6%（0.23 K）ずれます。</li>
+      <li><strong>使い方の例</strong>：0.5 MPaG（≒ 0.6 MPaA、≒ 159 °C）の飽和蒸気を 1 kg 凝縮させたときの放出熱量 ≒ $h_{fg}$ ≒ 2085 kJ/kg。冷却塔・コンデンサ設計：必要な冷却水量 = $Q / (c_p \Delta T)$、$Q$ は蒸気側の凝縮潜熱から算出。スチームトレース・ジャケット加熱：温度仕様から飽和圧力を逆算し、減圧弁・トラップ仕様を決定。</li>
+      <li><strong>蒸発潜熱の計算</strong>：潜熱は補間した $h_g$ と $h_f$ の差から求めています。表にない温度の値は、表の値そのものではなく補間値です。</li>
+    </ul>
+
+  </section>
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <ul class="paper-link-list">
+      <li><a href="https://www.iapws.org/relguide/IF97-Rev.html" target="_blank" rel="noopener">Revised Release on the IAPWS Industrial Formulation 1997 for the Thermodynamic Properties of Water and Steam（IAPWS-IF97）</a><br><span class="paper-meta">IAPWS。表の値のもとにした式。</span></li>
+      <li><a href="https://www.iapws.org/relguide/IAPWS95-2018.html" target="_blank" rel="noopener">Revised Release on the IAPWS Formulation 1995 for the Thermodynamic Properties of Ordinary Water Substance for General and Scientific Use（IAPWS-95）</a><br><span class="paper-meta">IAPWS。臨界点の近くで IF97 と比べた相手。</span></li>
+      <li>『伝熱工学資料』<br><span class="paper-meta">日本機械学会 編, 日本機械学会。</span></li>
+    </ul>
+  </section>
+
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../utility/" class="related-card"><span class="small">伝熱</span>冷却水・蒸気・熱媒油の必要量</a>
+      <a href="../heat-duty/" class="related-card"><span class="small">伝熱</span>熱量・熱収支</a>
+      <a href="../lmtd-area/" class="related-card"><span class="small">伝熱</span>LMTD・伝熱面積</a>
+    </div>
+  </section>
+
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/steam-table.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+</body>
+</html>

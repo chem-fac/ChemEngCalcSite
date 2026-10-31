@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蒸留カテゴリ | 化学工学計算支援ツール</title>
+<meta name="description" content="蒸留カテゴリの計算ツール一覧。気液平衡・蒸留塔の段数・還流比・物質収支など、蒸留設計に役立つツールを集めます。">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/distillation/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="蒸留カテゴリ | 化学工学計算支援ツール">
+<meta property="og:description" content="蒸留カテゴリの計算ツール一覧。気液平衡・蒸留塔の段数・還流比・物質収支など、蒸留設計に役立つツールを集めます。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/distillation/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-distillation.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@chem_fac">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7MQ7VEMWHY');
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="inner">
+    <a href="../../" class="logo">
+      <img src="../../assets/img/logo.png" alt="化学工学計算支援ツール">
+      化学工学計算支援ツール
+    </a>
+    <nav class="site-nav">
+      <a href="../../tools/">ツール一覧</a>
+      <a href="../../updates/">更新情報</a>
+      <a href="../../faq/">よくある質問</a>
+      <a href="../../support/">支援する</a>
+      <a href="../../contact/">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+
+  <nav class="breadcrumb">
+    <a href="../../">ホーム</a>
+    <span class="sep">›</span>
+    <span class="current">蒸留</span>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag">カテゴリ</span>
+      <h1>蒸留</h1>
+      <p class="tool-subcopy">気液平衡・蒸留塔の段数・還流比・物質収支など、蒸留設計に関するツールをまとめます。</p>
+    </div>
+  </section>
+
+  <!-- ===== In-category search ===== -->
+  <section class="cat-search-section">
+    <div class="search-wrap">
+      <form class="search" id="catSearchForm" onsubmit="event.preventDefault();">
+        <input id="catSearchInput" type="text" autocomplete="off" placeholder="蒸留カテゴリ内で検索（例：気液平衡、単蒸留）">
+      </form>
+    </div>
+    <p class="cat-search-empty" id="catSearchEmpty" hidden>該当するツールが見つかりませんでした。</p>
+  </section>
+
+  <!-- ===== Tools list ===== -->
+  <section class="tool-list-section">
+    <div class="tool-list" id="toolList">
+
+      <a href="antoine/" class="tool-list-card"
+         data-keywords="アントワン Antoine 蒸気圧 沸点 純物質 水 エタノール メタノール ベンゼン トルエン アセトン NIST">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">蒸留</span>
+          <h3 class="tool-list-title">アントワン式（蒸気圧・沸点）</h3>
+          <p class="tool-list-desc">log P = A − B/(T+C) で純物質の蒸気圧・沸点を計算。水・エタノール・ベンゼンほかのプリセット付き。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="vle/" class="tool-list-card"
+         data-keywords="気液平衡 相対揮発度 K値 Raoult ラウール 飽和蒸気圧 気相組成">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">蒸留</span>
+          <h3 class="tool-list-title">気液平衡・相対揮発度計算</h3>
+          <p class="tool-list-desc">飽和蒸気圧と系圧力から、二成分理想系のK値、相対揮発度、気相組成を計算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="simple/" class="tool-list-card"
+         data-keywords="単蒸留 Rayleigh レイリー 回分蒸留 留出量 釜液量 平均留出組成 相対揮発度">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">蒸留</span>
+          <h3 class="tool-list-title">単蒸留の設計計算（レイリーの式）</h3>
+          <p class="tool-list-desc">初期釜液組成と目標釜液組成から、留出量、最終釜液量、平均留出組成を概算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="flash/" class="tool-list-card"
+         data-keywords="フラッシュ蒸留 蒸気率 Rachford Rice 気液平衡 K値 液相組成 気相組成">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">蒸留</span>
+          <h3 class="tool-list-title">フラッシュ蒸留の設計計算</h3>
+          <p class="tool-list-desc">飽和蒸気圧と供給組成から、蒸気率、気相・液相流量、気液組成を計算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="mccabe-thiele/" class="tool-list-card"
+         data-keywords="McCabe Thiele マッケーブ・シール マッケーブシール 二成分連続蒸留 二成分蒸留 理論段数 供給段 還流比 q線 操作線 相対揮発度">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">蒸留</span>
+          <h3 class="tool-list-title">マッケーブ・シール法（二成分連続蒸留）</h3>
+          <p class="tool-list-desc">平衡曲線、濃縮部・回収部操作線、q線を描き、理論段数、供給段位置、最小還流比を図上で概算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="packed-column/" class="tool-list-card"
+         data-keywords="充填塔 理論段数 充填高さ HETP 理論段相当高さ 換算 濃縮部 回収部 全還流 Fenske 規則充填物 不規則充填物 packed column 蒸留">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">蒸留</span>
+          <h3 class="tool-list-title">充填塔の理論段数と充填高さの換算（HETP）</h3>
+          <p class="tool-list-desc">理論段数とHETPから充填高さを、充填高さから相当する理論段数を求めます。全還流データからHETPを逆算することもできます。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+      <a href="fug/" class="tool-list-card"
+         data-keywords="FUG法 Fenske Underwood Gilliland フェンスケ アンダーウッド ギリランド 最小段数 最小還流比 還流比 理論段数 二成分蒸留 相対揮発度 蒸留">
+        <div class="tool-list-card-body">
+          <span class="tool-list-cat">蒸留</span>
+          <h3 class="tool-list-title">FUG法（Fenske・Underwood・Gilliland）</h3>
+          <p class="tool-list-desc">二成分連続蒸留の理論段数を、Fenske式の最小段数、Underwood式の最小還流比、Gilliland相関から概算します。</p>
+        </div>
+        <span class="tool-list-arrow">›</span>
+      </a>
+
+    </div>
+  </section>
+
+  <script>
+  (function () {
+    const input = document.getElementById('catSearchInput');
+    const list = document.getElementById('toolList');
+    const empty = document.getElementById('catSearchEmpty');
+    if (!input || !list) return;
+    const cards = Array.from(list.querySelectorAll('.tool-list-card'));
+    function filter() {
+      const q = input.value.trim().toLowerCase();
+      let visible = 0;
+      cards.forEach(c => {
+        const hay = (c.textContent + ' ' + (c.dataset.keywords || '')).toLowerCase();
+        const show = !q || hay.includes(q);
+        c.hidden = !show;
+        if (show) visible++;
+      });
+      empty.hidden = !(q && visible === 0);
+    }
+    input.addEventListener('input', filter);
+  })();
+  </script>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>サイトについて</h4>
+      <ul>
+        <li><a href="../../about/">当サイトについて</a></li>
+        <li><a href="../../privacy/">プライバシーポリシー</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>サポート</h4>
+      <ul>
+        <li><a href="../../contact/">お問い合わせ</a></li>
+        <li><a href="../../faq/">よくある質問</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>その他</h4>
+      <ul>
+        <li><a href="../../terms/">利用規約</a></li>
+        <li><a href="../../disclaimer/">免責事項</a></li>
+      </ul>
+    </div>
+    <div class="footer-brand">
+      <a href="../../" class="logo">
+        <img src="../../assets/img/logo.png" alt="化学工学計算支援ツール">
+        化学工学計算支援ツール
+      </a>
+      <div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="../../assets/js/share.js"></script>
+</body>
+</html>

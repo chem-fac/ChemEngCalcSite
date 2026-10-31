@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>熱電対 起電力⇔温度（K/J/T 型・ITS-90） | 化学工学計算支援ツール</title>
+<meta name="description" content="熱電対（K 型・J 型・T 型）の起電力⇔温度を ITS-90 NIST 多項式で相互換算します。冷接点 0 °C 基準。冷接点補正にも対応。">
+<meta name="keywords" content="熱電対, thermocouple, K型, J型, T型, ITS-90, NIST, 起電力, mV, 温度補償, 冷接点">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/instrumentation-control/thermocouple/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="熱電対 起電力⇔温度（K/J/T 型・ITS-90） | 化学工学計算支援ツール">
+<meta property="og:description" content="K/J/T 型熱電対の起電力⇔温度を ITS-90 多項式で相互換算します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/instrumentation-control/thermocouple/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-instrumentation-control-thermocouple.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"熱電対 起電力⇔温度（K/J/T 型）","url":"https://tools.chem-fac.com/tools/instrumentation-control/thermocouple/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"熱電対（K 型・J 型・T 型）の起電力⇔温度を ITS-90 NIST 多項式で相互換算します。冷接点 0 °C 基準。冷接点補正にも対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"熱電対, thermocouple, K型, J型, T型, ITS-90, NIST, 起電力, mV, 温度補償, 冷接点","about":"計装・制御"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">計装・制御</a><span class="sep">›</span><span class="current">熱電対 起電力⇔温度</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag" data-cat="instrumentation-control">計装・制御</span>
+      <h1>熱電対 起電力⇔温度（K/J/T 型）</h1>
+      <p class="tool-subcopy">K 型・J 型・T 型熱電対の起電力 (mV) ⇔ 温度 (°C) を ITS-90 NIST 多項式で相互換算します。冷接点 0 °C 基準。冷接点が 0 °C 以外の場合の補正も自動。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab active" data-mode="t2e">温度 → 起電力</button>
+      <button type="button" class="mode-tab" data-mode="e2t">起電力 → 温度</button>
+    </div>
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <div class="input-row">
+          <label>熱電対の型式</label>
+          <div class="input-group">
+            <select id="type" style="width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;background:#fff;">
+              <option value="K">K 型（クロメル-アルメル, 0〜1372 °C）</option>
+              <option value="J">J 型（鉄-コンスタンタン, 0〜760 °C）</option>
+              <option value="T">T 型（銅-コンスタンタン, 0〜400 °C）</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="t2e">
+          <label>測温接点温度 <span class="sym">T</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="T" step="any" placeholder="例：500"><span class="unit-label">°C</span></div>
+        </div>
+        <div class="input-row" data-show-when="e2t">
+          <label>起電力 <span class="sym">E</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="E" step="any" placeholder="例：20.644"><span class="unit-label">mV</span></div>
+        </div>
+        <div class="input-row">
+          <label>冷接点温度 <span class="sym">T<sub>cj</sub></span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="Tcj" step="any" value="0" placeholder="0"><span class="unit-label">°C</span></div>
+          <p class="hint">標準は 0 °C（氷点）。室温の場合は 25 °C 程度を入力すると、ITS-90 で冷接点補正した値が出ます。</p>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">換算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「換算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>熱電対の原理と冷接点補正</h2>
+    <p>熱電対は 2 種類の金属を接合し、両端の温度差に応じた起電力（ゼーベック効果）を生じます。規格（NIST・JIS C 1602）は冷接点が 0 °C のときの起電力 $E(T)$ を ITS-90 の基準関数で定めており、本ツールはこの多項式で計算します。</p>
+    <p>実機の冷接点（端子台など）が 0 °C でない場合は、次の補正を行います。</p>
+    <div class="math-block">$$ E_\mathrm{measured}(T, T_{cj}) = E(T) - E(T_{cj}) $$</div>
+    <p>逆に、起電力測定値 $E_\mathrm{measured}$ から測温接点温度 $T$ を求める場合：</p>
+    <div class="math-block">$$ E(T) = E_\mathrm{measured} + E(T_{cj}) \;\Rightarrow\; T = E^{-1}(\text{上記}) $$</div>
+    <p>この補正を内部で自動実行します。$T_{cj} = 0\,°C$ なら補正は何もしません。</p>
+
+    <h2>各型式の代表特性（規格上の使用範囲）</h2>
+    <table class="regime-table">
+      <thead><tr><th>型式</th><th>規格使用範囲</th><th>本ツール対応範囲</th><th>感度（25 °C 近傍）</th><th>主な用途</th></tr></thead>
+      <tbody>
+        <tr><td>K 型</td><td>−270 〜 1372 °C</td><td>0 〜 1372 °C</td><td>≒ 41 μV/°C</td><td>汎用</td></tr>
+        <tr><td>J 型</td><td>−210 〜 1200 °C</td><td>0 〜 760 °C</td><td>≒ 52 μV/°C</td><td>還元・真空雰囲気</td></tr>
+        <tr><td>T 型</td><td>−270 〜 400 °C</td><td>0 〜 400 °C</td><td>≒ 41 μV/°C</td><td>低温・湿潤雰囲気</td></tr>
+      </tbody>
+    </table>
+    <p>規格使用範囲は ITS-90 基準関数が定義されている温度範囲です。本ツールは 0 °C 以上の係数だけを使うため、0 °C 未満の温度や冷接点温度は入力エラーにします。指示計の多くは冷接点補償の回路を内蔵しているので、指示計の表示温度にこの補正を重ねてかけないようにします。</p>
+  </section>
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <ul>
+      <li>NIST, ITS-90 Thermocouple Database（基準関数と逆関数の係数）（<a href="https://srdata.nist.gov/its90/main/" target="_blank" rel="noopener">NIST</a>）</li>
+      <li>JIS C 1602 熱電対</li>
+    </ul>
+  </section>
+
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../ma-signal/" class="related-card"><span class="small">計装・制御</span>4-20mA信号換算（スケーリング・開平）</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/thermocouple.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>設備新設費の概算（モジュール係数法・ラング係数） | 化学工学計算支援ツール</title>
+  <meta name="description"
+    content="機器の購入価格から、配管・計装・電気・基礎などの工事費と間接費を機器の種類ごとの設置係数で見込み、予備費を加えて設備新設費の総額と精度の幅を概算するツール。ラング係数法の値も並べて表示します。">
+  <meta name="keywords" content="設備費, 設備新設費, 建設費, プラントコスト, 概算見積, 工事費, 据付費, モジュール係数, ベアモジュール係数, 設置係数, Guthrie, ラング係数, Lang係数, 予備費, コンティンジェンシー, 見積精度, AACE, 設備投資, 費用試算">
+  <link rel="canonical" href="https://tools.chem-fac.com/tools/economics/equipment-cost-estimate/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="化学工学計算支援ツール">
+  <meta property="og:title" content="設備新設費の概算（モジュール係数法・ラング係数） | 化学工学計算支援ツール">
+  <meta property="og:description" content="機器の購入価格から、配管・計装・電気・基礎などの工事費と間接費を機器の種類ごとの設置係数で見込み、予備費を加えて設備新設費の総額と精度の幅を概算するツール。ラング係数法の値も並べて表示します。">
+  <meta property="og:url" content="https://tools.chem-fac.com/tools/economics/equipment-cost-estimate/">
+  <meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-economics-equipment-cost-estimate.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"設備新設費の概算（モジュール係数法）","url":"https://tools.chem-fac.com/tools/economics/equipment-cost-estimate/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"機器の購入価格から、配管・計装・電気・基礎などの工事費と間接費を機器の種類ごとの設置係数で見込み、予備費を加えて設備新設費の総額と精度の幅を概算するツール。ラング係数法の値も並べて表示します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"設備費, 設備新設費, 建設費, プラントコスト, 概算見積, 見積もり, 工事費, 据付費, モジュール係数, ベアモジュール係数, 設置係数, Guthrie, ラング係数, Lang係数, 予備費, コンティンジェンシー, 見積精度, AACE, 設備投資, 費用試算, cost estimation","about":"経済性","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/main.css">
+  <link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-7MQ7VEMWHY');
+  </script>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="inner">
+      <a href="../../../" class="logo">
+        <img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">
+        化学工学計算支援ツール
+      </a>
+      <nav class="site-nav">
+        <a href="../../../tools/">ツール一覧</a>
+        <a href="../../../updates/">更新情報</a>
+        <a href="../../../faq/">よくある質問</a>
+        <a href="../../../support/">支援する</a>
+        <a href="../../../contact/">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="tool-page tool-page-wide">
+
+    <nav class="breadcrumb">
+      <a href="../../../">ホーム</a>
+      <span class="sep">›</span>
+      <a href="../">経済性</a>
+      <span class="sep">›</span>
+      <span class="current">設備新設費の概算</span>
+    </nav>
+
+    <!-- ===== Hero ===== -->
+    <section class="tool-hero tool-hero-simple">
+      <div class="tool-hero-content">
+        <span class="cat-tag" data-cat="economics">経済性</span>
+        <h1>設備新設費の概算（モジュール係数法）</h1>
+        <p class="tool-subcopy">機器の購入価格に機器の種類ごとの設置係数を掛けて工事費・間接費を見込み、予備費を加えて総額の目安を出します。</p>
+      </div>
+    </section>
+
+    <!-- ===== Calculator ===== -->
+    <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+      <div class="calc-grid">
+
+        <div class="calc-pane calc-input-pane">
+          <h2>入力</h2>
+
+          <div class="input-row input-row-full">
+            <label for="t1">機器（価格は1台あたり、据付工事を含まない購入価格）</label>
+            <div class="data-table-wrap">
+              <table class="data-table data-table-wide">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>種類</th>
+                    <th>台数</th>
+                    <th>価格［円/台］</th>
+                    <th>材質の倍率</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>機器1</td>
+                    <td><select id="t1" aria-label="機器1の種類" data-example="vv">
+                        <option value="">（未使用）</option>
+                        <option value="vv">塔・縦型容器（反応器を含む）</option>
+                        <option value="hv">横型容器・槽</option>
+                        <option value="hx">熱交換器</option>
+                        <option value="pump">ポンプ（駆動機込み）</option>
+                        <option value="comp">圧縮機</option>
+                        <option value="avg">その他の機器（平均）</option>
+                        <option value="none">据付工事なし（予備品など）</option>
+                      </select></td>
+                    <td><input type="number" inputmode="decimal" id="n1" step="1" placeholder="例：1" aria-label="機器1の台数"></td>
+                    <td><input type="number" inputmode="decimal" id="p1" step="any" placeholder="例：18000000" aria-label="機器1の価格"></td>
+                    <td><input type="number" inputmode="decimal" id="m1" step="any" placeholder="例：1" aria-label="機器1の材質の倍率"></td>
+                  </tr>
+                  <tr>
+                    <td>機器2</td>
+                    <td><select id="t2" aria-label="機器2の種類" data-example="hx">
+                        <option value="">（未使用）</option>
+                        <option value="vv">塔・縦型容器（反応器を含む）</option>
+                        <option value="hv">横型容器・槽</option>
+                        <option value="hx">熱交換器</option>
+                        <option value="pump">ポンプ（駆動機込み）</option>
+                        <option value="comp">圧縮機</option>
+                        <option value="avg">その他の機器（平均）</option>
+                        <option value="none">据付工事なし（予備品など）</option>
+                      </select></td>
+                    <td><input type="number" inputmode="decimal" id="n2" step="1" placeholder="例：1" aria-label="機器2の台数"></td>
+                    <td><input type="number" inputmode="decimal" id="p2" step="any" placeholder="例：9000000" aria-label="機器2の価格"></td>
+                    <td><input type="number" inputmode="decimal" id="m2" step="any" placeholder="例：3.1" aria-label="機器2の材質の倍率"></td>
+                  </tr>
+                  <tr>
+                    <td>機器3</td>
+                    <td><select id="t3" aria-label="機器3の種類" data-example="pump">
+                        <option value="">（未使用）</option>
+                        <option value="vv">塔・縦型容器（反応器を含む）</option>
+                        <option value="hv">横型容器・槽</option>
+                        <option value="hx">熱交換器</option>
+                        <option value="pump">ポンプ（駆動機込み）</option>
+                        <option value="comp">圧縮機</option>
+                        <option value="avg">その他の機器（平均）</option>
+                        <option value="none">据付工事なし（予備品など）</option>
+                      </select></td>
+                    <td><input type="number" inputmode="decimal" id="n3" step="1" placeholder="例：2" aria-label="機器3の台数"></td>
+                    <td><input type="number" inputmode="decimal" id="p3" step="any" placeholder="例：1200000" aria-label="機器3の価格"></td>
+                    <td><input type="number" inputmode="decimal" id="m3" step="any" placeholder="任意" aria-label="機器3の材質の倍率"></td>
+                  </tr>
+                  <tr>
+                    <td>機器4</td>
+                    <td><select id="t4" aria-label="機器4の種類">
+                        <option value="">（未使用）</option>
+                        <option value="vv">塔・縦型容器（反応器を含む）</option>
+                        <option value="hv">横型容器・槽</option>
+                        <option value="hx">熱交換器</option>
+                        <option value="pump">ポンプ（駆動機込み）</option>
+                        <option value="comp">圧縮機</option>
+                        <option value="avg">その他の機器（平均）</option>
+                        <option value="none">据付工事なし（予備品など）</option>
+                      </select></td>
+                    <td><input type="number" inputmode="decimal" id="n4" step="1" placeholder="任意" aria-label="機器4の台数"></td>
+                    <td><input type="number" inputmode="decimal" id="p4" step="any" placeholder="任意" aria-label="機器4の価格"></td>
+                    <td><input type="number" inputmode="decimal" id="m4" step="any" placeholder="任意" aria-label="機器4の材質の倍率"></td>
+                  </tr>
+                  <tr>
+                    <td>機器5</td>
+                    <td><select id="t5" aria-label="機器5の種類">
+                        <option value="">（未使用）</option>
+                        <option value="vv">塔・縦型容器（反応器を含む）</option>
+                        <option value="hv">横型容器・槽</option>
+                        <option value="hx">熱交換器</option>
+                        <option value="pump">ポンプ（駆動機込み）</option>
+                        <option value="comp">圧縮機</option>
+                        <option value="avg">その他の機器（平均）</option>
+                        <option value="none">据付工事なし（予備品など）</option>
+                      </select></td>
+                    <td><input type="number" inputmode="decimal" id="n5" step="1" placeholder="任意" aria-label="機器5の台数"></td>
+                    <td><input type="number" inputmode="decimal" id="p5" step="any" placeholder="任意" aria-label="機器5の価格"></td>
+                    <td><input type="number" inputmode="decimal" id="m5" step="any" placeholder="任意" aria-label="機器5の材質の倍率"></td>
+                  </tr>
+                  <tr>
+                    <td>機器6</td>
+                    <td><select id="t6" aria-label="機器6の種類">
+                        <option value="">（未使用）</option>
+                        <option value="vv">塔・縦型容器（反応器を含む）</option>
+                        <option value="hv">横型容器・槽</option>
+                        <option value="hx">熱交換器</option>
+                        <option value="pump">ポンプ（駆動機込み）</option>
+                        <option value="comp">圧縮機</option>
+                        <option value="avg">その他の機器（平均）</option>
+                        <option value="none">据付工事なし（予備品など）</option>
+                      </select></td>
+                    <td><input type="number" inputmode="decimal" id="n6" step="1" placeholder="任意" aria-label="機器6の台数"></td>
+                    <td><input type="number" inputmode="decimal" id="p6" step="any" placeholder="任意" aria-label="機器6の価格"></td>
+                    <td><input type="number" inputmode="decimal" id="m6" step="any" placeholder="任意" aria-label="機器6の材質の倍率"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="hint">台数は空欄なら1台です。材質の倍率は、炭素鋼でつくった場合の価格に対する倍率です（例：胴・管ともステンレスの熱交換器で2.5〜4.5程度）。空欄なら1として計算し、高価な材質ほど工事費が多めに出ます。古い購入実績や別の容量の価格は、<a href="../six-tenths-rule/">0.6乗則とコスト指数</a>で今の価格に直してから入れてください。</p>
+          </div>
+
+          <div class="input-row">
+            <label for="extra">係数に入らない費用（任意）</label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="extra" step="any" placeholder="例：2000000">
+              <span class="unit-label">円</span>
+            </div>
+            <p class="hint">既設設備とのつなぎ込み・撤去・建屋・ユーティリティの引込みなど、分かっている費用の合計です。</p>
+          </div>
+
+          <div class="input-row">
+            <label for="stage">見積の段階</label>
+            <div class="input-group">
+              <select id="stage" aria-label="見積の段階" data-example="c4">
+                <option value="c4">概略：機器の一覧と係数で出す</option>
+                <option value="c5">構想：容量の換算や類推が中心</option>
+                <option value="c3">予算：主要機器は見積があり工事費も一部積み上げ</option>
+              </select>
+            </div>
+            <p class="hint">精度の幅の目安に使います。</p>
+          </div>
+
+          <div class="input-row">
+            <label for="cont">予備費率 <span class="sym">r</span><sub>c</sub></label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="cont" step="any" placeholder="例：15">
+              <span class="unit-label">%</span>
+            </div>
+            <p class="hint">確立したプロセスで10〜20%が目安です。空欄なら0%として計算します。</p>
+          </div>
+
+          <div class="input-row">
+            <label for="fee">業者のフィー率 <span class="sym">r</span><sub>f</sub></label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="fee" step="any" placeholder="例：3">
+              <span class="unit-label">%</span>
+            </div>
+            <p class="hint">通常3〜5%です。自社施工や、見積の価格に含まれている場合は0%にします。</p>
+          </div>
+
+          <div class="input-row">
+            <label for="plant">プラントの種類（ラング係数法の比較用）</label>
+            <div class="input-group">
+              <select id="plant" aria-label="プラントの種類" data-example="fluid">
+                <option value="fluid">流体（液・ガス）を扱うプラント</option>
+                <option value="mixed">固体と流体を扱うプラント</option>
+                <option value="solid">固体を扱うプラント</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn btn-primary" id="calc-btn">計算する</button>
+            <button class="btn btn-ghost" id="reset-btn">リセット</button>
+          </div>
+
+          <div id="error" class="error-msg" style="display:none;"></div>
+        </div>
+
+        <div class="calc-pane calc-result-pane">
+          <h2>計算結果</h2>
+          <div id="result-area">
+            <div class="placeholder">入力値を入れて「計算する」を押してください</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== Explanation sections ===== -->
+    <section class="explain-block">
+      <h2>計算式</h2>
+      <p>機器ごとに、購入価格（機器費）に設置係数を掛けて据付後の費用を求めます。設置係数は、配管・基礎・架構・計装・電気・保温・塗装の材料、工事の労務、間接費（輸送・現場経費・設計）を含めた費用が機器費の何倍かを表す値で、予備費と業者のフィーは含みません。</p>
+      <div class="math-block">$$ C_{\mathrm{inst},i} = E_i + \dfrac{E_i}{M_i}\left(F_{\mathrm{BM},i} - 1\right) $$</div>
+      <div class="math-block">$$ C_{\mathrm{total}} = \left(\sum_i C_{\mathrm{inst},i} + C_{\mathrm{x}}\right)\left(1 + r_{\mathrm{c}} + r_{\mathrm{f}}\right) $$</div>
+      <ul class="symbol-list">
+        <li>$E_i$：機器費（価格×台数）［円］</li>
+        <li>$M_i$：材質の倍率［-］</li>
+        <li>$F_{\mathrm{BM},i}$：設置係数［-］</li>
+        <li>$C_{\mathrm{x}}$：係数に入らない費用［円］</li>
+        <li>$r_{\mathrm{c}}$：予備費率［-］</li>
+        <li>$r_{\mathrm{f}}$：業者のフィー率［-］</li>
+      </ul>
+      <p>設置係数は炭素鋼の機器を基準にした値です。高価な材質では工事費まで材質の倍率で増えることはないため、工事費は機器費を材質の倍率で割った額に掛けています。</p>
+    </section>
+
+    <section class="explain-block">
+      <h2>設置係数とラング係数</h2>
+      <table class="regime-table">
+        <thead>
+          <tr><th>機器の種類</th><th>設置係数 $F_{\mathrm{BM}}$</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>塔・縦型容器（反応器を含む）</td><td>4.00</td></tr>
+          <tr><td>横型容器・槽</td><td>2.97</td></tr>
+          <tr><td>熱交換器</td><td>3.14</td></tr>
+          <tr><td>ポンプ（駆動機込み）</td><td>3.25</td></tr>
+          <tr><td>圧縮機</td><td>2.90</td></tr>
+          <tr><td>その他の機器（化学プロセスの平均）</td><td>2.95</td></tr>
+          <tr><td>据付工事なし（予備品など）</td><td>1.00</td></tr>
+        </tbody>
+      </table>
+      <p>出典：Guthrieのモジュール係数（化学工学協会 編, 1975）から算出。</p>
+      <table class="regime-table">
+        <thead>
+          <tr><th>プラントの種類</th><th>ラング係数</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>固体を扱うプラント</td><td>3.10</td></tr>
+          <tr><td>固体と流体を扱うプラント</td><td>3.63</td></tr>
+          <tr><td>流体を扱うプラント</td><td>4.74</td></tr>
+        </tbody>
+      </table>
+      <p>出典：Lang（1948）。ラング係数法は主要機器費の合計に係数を掛けて、建屋・ユーティリティを含むプラント全体の総建設費を出す方法です。既設の工場に機器を加える工事では大きめに出ます。</p>
+    </section>
+
+    <section class="explain-block notes-block">
+      <h2>適用範囲と注意事項</h2>
+      <table class="regime-table">
+        <thead>
+          <tr><th>見積の段階</th><th>精度の幅</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>構想：容量の換算や類推が中心</td><td>−50% 〜 +100%</td></tr>
+          <tr><td>概略：機器の一覧と係数で出す</td><td>−30% 〜 +50%</td></tr>
+          <tr><td>予算：主要機器は見積があり工事費も一部積み上げ</td><td>−20% 〜 +30%</td></tr>
+        </tbody>
+      </table>
+      <p>出典：AACE 18R-97（Class 5〜3の幅の広い側）。概略の幅は、国内のF/S用見積（関山, 2026）と同じです。</p>
+      <ul>
+        <li><strong>係数の前提</strong>：係数は米国の化学プラント（1960年代、エンジニアリング会社の施工）の平均的な値です。自社の実績があれば、総額÷機器費を実績と比べて確かめてください。</li>
+        <li><strong>係数に入らない費用</strong>：既設設備とのつなぎ込み、撤去、建屋、運転中の工事による割増しは係数に入っていません。分かる分は「係数に入らない費用」に入れます。</li>
+        <li><strong>価格の時期</strong>：入力する機器費の価格は、すべて同じ時期・同じ通貨の値にそろえます。設置係数は倍率なので、価格の時期が古ければ総額もその時期の水準になります。時期の換算は、このツールではなく0.6乗則のツールのコスト指数で行います。</li>
+        <li><strong>材質の倍率</strong>：材質の倍率は、設置係数が炭素鋼基準であることを前提に、機器費だけを倍率ぶん増やして工事費は増やさない扱いです。倍率の入力範囲は0より大きく20以下で、特殊な材質や機器費の大半が材質以外の要因で決まる場合は、この扱いが当てはまりません。</li>
+        <li><strong>総額の範囲</strong>：総額に含まれるのは、機器費、設置係数の分、係数に入らない費用、予備費、業者のフィーです。ラング係数法の値は建屋・ユーティリティを含むプラント全体を対象とするため、総額との比は、対象範囲の違いを含んだ比較になります。</li>
+      </ul>
+    </section>
+
+    <!-- ===== Reference ===== -->
+    <section class="explain-block reference-block">
+      <h2>参考資料</h2>
+      <ul class="paper-link-list">
+        <li>化学工学協会関東支部 編『プロセス設計シリーズ6 経済評価とプラントコスト』<br><span class="paper-meta">丸善, 1975。第3章（モジュール法 表3・14・図3・7、チルトン法）</span></li>
+        <li>白石 浩『化学プラントのプロセス設計―化学プラント工学入門―』<br><span class="paper-meta">分離技術会, 2011。7章 表7.1</span></li>
+        <li><a href="https://www.scej.org/docs/publication/journal/backnumber/Bulletin090010013.pdf" target="_blank" rel="noopener">関山 隆彦「化学プラント建設費について」</a><br><span class="paper-meta">化学工学, 第90巻 第1号, pp.13–17, 2026</span></li>
+        <li><a href="https://web.aacei.org/docs/default-source/toc/toc_18r-97.pdf" target="_blank" rel="noopener">AACE International Recommended Practice No. 18R-97 “Cost Estimate Classification System – As Applied in Engineering, Procurement, and Construction for the Process Industries”</a><br><span class="paper-meta">AACE International, Rev. 2020。Table 1</span></li>
+      </ul>
+    </section>
+
+    <section class="related">
+      <h3>関連ツール</h3>
+      <div class="related-grid">
+        <a href="../six-tenths-rule/" class="related-card"><span class="small">経済性</span>0.6乗則・0.7乗則による設備費の換算</a>
+        <a href="../../heat-transfer/lmtd-area/" class="related-card"><span class="small">伝熱</span>LMTD・伝熱面積</a>
+        <a href="../../fluid/pump/" class="related-card"><span class="small">流動</span>ポンプ計算（全揚程・NPSH・軸動力）</a>
+      </div>
+    </section>
+
+
+
+</main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>サイトについて</h4>
+        <ul>
+          <li><a href="../../../about/">当サイトについて</a></li>
+          <li><a href="../../../privacy/">プライバシーポリシー</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>サポート</h4>
+        <ul>
+          <li><a href="../../../contact/">お問い合わせ</a></li>
+          <li><a href="../../../faq/">よくある質問</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>その他</h4>
+        <ul>
+          <li><a href="../../../terms/">利用規約</a></li>
+          <li><a href="../../../disclaimer/">免責事項</a></li>
+        </ul>
+      </div>
+      <div class="footer-brand">
+        <a href="../../../" class="logo">
+          <img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">
+          化学工学計算支援ツール
+        </a>
+        <div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../../assets/js/equipment-cost-estimate.js"></script>
+  <script src="../../../assets/js/share.js"></script>
+  <script src="../../../assets/js/calc-utils.js"></script>
+</body>
+
+</html>

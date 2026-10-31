@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アレニウスの式の計算（反応速度定数・活性化エネルギーの求め方） | 化学工学計算支援ツール</title>
+<meta name="description" content="アレニウスの式 k = A·exp(−Ea/RT) で反応速度定数 k を計算するツール。2点の温度と速度定数から活性化エネルギー Ea と頻度因子 A を逆算する2点法、アレニウスプロットの考え方と単位も掲載。">
+<meta name="keywords" content="アレニウス, Arrhenius, 活性化エネルギー, Ea, 頻度因子, 前指数因子, 反応速度定数, 速度定数, k, アレニウスプロット, kinetics, アレニウスの式, アレニウス式, 活性化エネルギー 求め方, 活性化エネルギー 単位">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/reaction/arrhenius/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="アレニウスの式の計算（反応速度定数・活性化エネルギーの求め方） | 化学工学計算支援ツール">
+<meta property="og:description" content="アレニウスの式 k = A·exp(−Ea/RT) で反応速度定数 k を計算するツール。2点の温度と速度定数から活性化エネルギー Ea と頻度因子 A を逆算する2点法、アレニウスプロットの考え方と単位も掲載。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/reaction/arrhenius/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-reaction-arrhenius.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"アレニウスの式（反応速度定数・活性化エネルギー）","url":"https://tools.chem-fac.com/tools/reaction/arrhenius/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"アレニウスの式 k = A·exp(−Ea/RT) で反応速度定数 k を計算するツール。2点の温度と速度定数から活性化エネルギー Ea と頻度因子 A を逆算する2点法、アレニウスプロットの考え方と単位も掲載。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"アレニウス, Arrhenius, 活性化エネルギー, Ea, 頻度因子, 前指数因子, 反応速度定数, 速度定数, k, アレニウスプロット, kinetics","about":"反応","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">反応</a><span class="sep">›</span><span class="current">アレニウスの式</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag" data-cat="reaction">反応</span>
+      <h1>アレニウスの式（反応速度定数・活性化エネルギー）</h1>
+      <p class="tool-subcopy">$k = A \exp\!\left( -\dfrac{E_a}{R T} \right)$ から $k$ を計算、または2点の $(k, T)$ から $E_a$ と $A$ を逆算します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab active" data-mode="kCalc">速度定数 k を計算</button>
+      <button type="button" class="mode-tab" data-mode="EaCalc">活性化エネルギー Ea を逆算（2点法）</button>
+    </div>
+
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+
+        <div class="input-row">
+          <label for="T_unit">温度の単位</label>
+          <div class="input-group">
+            <select id="T_unit">
+              <option value="K">K（絶対温度）</option>
+              <option value="C">°C</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-row" data-show-when="kCalc">
+          <label for="A">頻度因子（前指数因子） <span class="sym">A</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="A" step="any" placeholder="例：1.0e10"></div>
+          <p class="hint">k と同じ単位系の値を入力してください（1次反応なら 1/s）。</p>
+        </div>
+
+        <div class="input-row" data-show-when="kCalc">
+          <label for="Ea">活性化エネルギー <span class="sym">E<sub>a</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Ea" step="any" placeholder="例：80">
+            <select aria-label="活性化エネルギーの単位" id="Ea_unit"><option value="kJmol">kJ/mol</option><option value="Jmol">J/mol</option><option value="kcalmol">kcal/mol</option><option value="calmol">cal/mol</option></select>
+          </div>
+        </div>
+
+        <div class="input-row" data-show-when="kCalc">
+          <label for="T">温度 <span class="sym">T</span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="T" step="any" placeholder="例：298"></div>
+        </div>
+
+        <div class="input-row" data-show-when="EaCalc">
+          <label for="T1">温度 <span class="sym">T<sub>1</sub></span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="T1" step="any" placeholder="例：298"></div>
+        </div>
+
+        <div class="input-row" data-show-when="EaCalc">
+          <label for="k1">速度定数 <span class="sym">k<sub>1</sub></span>（T<sub>1</sub> での値）</label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="k1" step="any" placeholder="例：1.0e-3"></div>
+        </div>
+
+        <div class="input-row" data-show-when="EaCalc">
+          <label for="T2">温度 <span class="sym">T<sub>2</sub></span></label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="T2" step="any" placeholder="例：348"></div>
+        </div>
+
+        <div class="input-row" data-show-when="EaCalc">
+          <label for="k2">速度定数 <span class="sym">k<sub>2</sub></span>（T<sub>2</sub> での値）</label>
+          <div class="input-group"><input type="number" inputmode="decimal" id="k2" step="any" placeholder="例：5.0e-2"></div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>反応速度定数 $k$ の温度依存性を表す代表的な式が<strong>アレニウス (Arrhenius) の式</strong>です。</p>
+    <div class="math-block">$$ k = A \exp\!\left( -\dfrac{E_a}{R T} \right) $$</div>
+    <p>両辺の自然対数をとると、$\ln k$ は $1/T$ の1次関数になります。これを<strong>アレニウスプロット</strong>と呼び、傾きから $E_a$、切片から $A$ を求めます。</p>
+    <div class="math-block">$$ \ln k = \ln A - \dfrac{E_a}{R} \cdot \dfrac{1}{T} $$</div>
+    <p>2点 $(k_1, T_1)$ と $(k_2, T_2)$ から差をとれば、活性化エネルギーを求められます。</p>
+    <div class="math-block">$$ E_a = \dfrac{R \ln (k_2 / k_1)}{\, 1/T_1 - 1/T_2 \,}, \qquad A = k_1 \exp\!\left( \dfrac{E_a}{R T_1} \right) $$</div>
+    <ul class="symbol-list">
+      <li>$k$：反応速度定数（単位は反応次数に依存。1次反応なら 1/s）</li>
+      <li>$A$：頻度因子（前指数因子）。$k$ と同じ単位</li>
+      <li>$E_a$：活性化エネルギー［J/mol］</li>
+      <li>$T$：絶対温度［K］</li>
+      <li>$R$：気体定数 = 8.314 J/(mol·K)</li>
+    </ul>
+  </section>
+
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>$A$ と $E_a$ が温度によらず一定で、$\ln k$ が $1/T$ に対して直線になる範囲を前提にした計算です。</p>
+    <ul>
+      <li><strong>使える条件</strong>：同じ反応機構のまま進む温度範囲で、与えた $k$ または $A$・$E_a$ が測定された範囲の内側かその近傍。$k$ の単位は反応次数で決まり、$A$ と同じ単位系になります。</li>
+      <li><strong>外れやすい条件</strong>：アレニウスプロットが直線にならない場合は、$E_a$ が温度によらず一定という前提が成り立っていません。測定した温度範囲の値を、その外側の温度に当てはめるとずれます。</li>
+      <li><strong>2点法の限界</strong>：2点から求めた $E_a$・$A$ は、その2点の測定誤差を直接受けます。2点の温度が近いほど $1/T_1-1/T_2$ が小さくなり、$E_a$ の誤差が拡大します。重要な値は3点以上の $\ln k$ 対 $1/T$ の直線あてはめで評価します。</li>
+      <li><strong>結果の読み方</strong>：$E_a$ が大きい反応ほど、同じ温度変化で $k$ が大きく変わります。2点法で逆算した $A$ は、$k_1$ と $T_1$ から $E_a$ を介して決まる値で、$E_a$ の誤差が大きいと $A$ は指数的に大きくずれます（$A=k_1\exp(E_a/RT_1)$）。</li>
+      <li><strong>温度の単位</strong>：入力は°Cまたは K で、計算には K を使います。2点法では $T_1$・$T_2$ に同じ単位が適用されます。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/3QUZV3W" class="reference-card" data-asin="4563046345" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">反応工学</p><p class="ref-meta">橋本 健治 著 / 培風館</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../batch-time/" class="related-card"><span class="small">反応</span>回分反応器の反応時間</a>
+      <a href="../cstr/" class="related-card"><span class="small">反応</span>CSTR設計</a>
+      <a href="../pfr/" class="related-card"><span class="small">反応</span>PFR設計</a>
+    </div>
+  </section>
+
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div></div>
+  </div>
+</footer>
+
+<script src="../../../assets/js/arrhenius.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4-20mA信号換算（％・工業量スケーリング・開平） | 化学工学計算支援ツール</title>
+<meta name="description" content="計装の4-20mA電流信号を％・工業量（温度・圧力・流量など）に相互換算します。差圧式流量計の開平換算、1-5V電圧換算、NAMUR NE43に基づくレンジ外判定に対応。">
+<meta name="keywords" content="4-20mA, 4～20mA, 電流信号, スケーリング, レンジ換算, 工業量, 開平, 開平演算, 差圧式流量計, 伝送器, 発信器, 計装, 1-5V, NAMUR NE43, 調節計, ライブゼロ">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/instrumentation-control/ma-signal/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="4-20mA信号換算（％・工業量スケーリング・開平） | 化学工学計算支援ツール">
+<meta property="og:description" content="計装の4-20mA電流信号を％・工業量（温度・圧力・流量など）に相互換算します。差圧式流量計の開平換算、1-5V電圧換算、NAMUR NE43に基づくレンジ外判定に対応。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/instrumentation-control/ma-signal/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-instrumentation-control-ma-signal.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"4-20mA信号換算（スケーリング・開平）","url":"https://tools.chem-fac.com/tools/instrumentation-control/ma-signal/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"計装の4-20mA電流信号を％・工業量（温度・圧力・流量など）に相互換算します。差圧式流量計の開平換算、1-5V電圧換算、NAMUR NE43に基づくレンジ外判定に対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"4-20mA, 4～20mA, 420mA, 電流信号, スケーリング, レンジ換算, 工業量, 開平, 開平演算, 差圧式流量計, 伝送器, 発信器, 1-5V, ライブゼロ, NAMUR, NE43, 調節計, LRV, URV, current loop, signal, scaling","about":"計装・制御","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-23"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">計装・制御</a><span class="sep">›</span><span class="current">4-20mA信号換算</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag" data-cat="instrumentation-control">計装・制御</span>
+      <h1>4-20mA信号換算（スケーリング・開平）</h1>
+      <p class="tool-subcopy">計装の4-20mA電流信号を、％・工業量（温度・圧力・流量など）に相互換算します。差圧式流量計の開平換算と、受信抵抗250Ωでの1-5V電圧換算にも対応します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab active" data-mode="toval">mA → 測定値</button>
+      <button type="button" class="mode-tab" data-mode="toma">測定値 → mA</button>
+    </div>
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+
+        <div class="input-row" data-show-when="toval toma">
+          <label for="char">信号特性</label>
+          <div class="input-group">
+            <select id="char">
+              <option value="linear" selected>リニア（温度・圧力・液位など）</option>
+              <option value="sqrt">開平（差圧に比例した信号 → 流量）</option>
+            </select>
+          </div>
+          <p class="hint">開平は、差圧に比例した電流信号を受信側で流量に換算する場合に使います。伝送器が開平演算を内蔵している場合はリニアを選んでください。</p>
+        </div>
+
+        <div class="input-row" data-show-when="toval">
+          <label for="I">電流 <span class="sym">I</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="I" step="any" placeholder="例：12">
+            <span class="unit-label">mA</span>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="toma">
+          <label for="PV">測定値 <span class="sym">PV</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="PV" step="any" placeholder="例：150">
+            <span class="unit-label">レンジ単位</span>
+          </div>
+          <p class="hint">レンジ下限・上限と同じ単位で入力してください。</p>
+        </div>
+
+        <div class="input-row" data-show-when="toval toma">
+          <label for="LRV">レンジ下限 <span class="sym">LRV</span>（0%値）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="LRV" step="any" placeholder="例：0">
+            <span class="unit-label">レンジ単位</span>
+          </div>
+        </div>
+        <div class="input-row" data-show-when="toval toma">
+          <label for="URV">レンジ上限 <span class="sym">URV</span>（100%値）</label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="URV" step="any" placeholder="例：200">
+            <span class="unit-label">レンジ単位</span>
+          </div>
+          <p class="hint">例：温度レンジ 0〜200°C なら LRV=0、URV=200。％だけ知りたい場合は LRV=0、URV=100 とします。</p>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <h3>リニア換算</h3>
+    <p>計装の電気信号は 4-20mA の直流電流に国際的に統一されており、レンジの 0% が 4mA、100% が 20mA（スパン 16mA）に対応します。</p>
+    <div class="math-block">$$ x = \dfrac{I - 4}{16}, \qquad PV = LRV + (URV - LRV)\, x $$</div>
+    <div class="math-block">$$ I = 4 + 16\,\dfrac{PV - LRV}{URV - LRV} $$</div>
+    <p>受信抵抗 250 Ω を通すと 1-5V の電圧信号になります（$V = 0.25\,I$）。</p>
+    <h3>開平換算（差圧式流量計）</h3>
+    <p>オリフィスなどの差圧式流量計では、流量 $Q$ と差圧 $\Delta P$ に $Q \propto \sqrt{\Delta P}$ の関係があります。伝送器が差圧に比例した電流を出力する場合、受信側で開平（平方根）演算を行って流量に換算します。</p>
+    <div class="math-block">$$ x_{flow} = \sqrt{\dfrac{I - 4}{16}}, \qquad I = 4 + 16\,x_{flow}^{2} $$</div>
+    <ul class="symbol-list">
+      <li>$I$：電流信号［mA］（4-20mA DC）</li>
+      <li>$LRV$：レンジ下限（0%に対応する工業量。Lower Range Value）</li>
+      <li>$URV$：レンジ上限（100%に対応する工業量。Upper Range Value）</li>
+      <li>$PV$：測定値（工業量。レンジと同じ単位）</li>
+      <li>$x$：スパン比（レンジに対する割合。$x=1$ が 100%）［-］</li>
+      <li>$x_{flow}$：流量スパン比（開平換算時）［-］</li>
+      <li>$V$：受信抵抗 250 Ω での電圧換算値［V］（1-5V DC）</li>
+      <li>$Q$：流量、$\Delta P$：差圧（開平換算の説明に使用）</li>
+    </ul>
+  </section>
+
+  <section class="explain-block">
+    <h2>対応早見表</h2>
+    <table class="data-table">
+      <thead><tr><th>スパン比</th><th class="num">電流 I</th><th class="num">電圧 V（250Ω）</th><th class="num">開平時の流量％</th></tr></thead>
+      <tbody>
+        <tr><td>0 %</td><td class="num">4 mA</td><td class="num">1 V</td><td class="num">0 %</td></tr>
+        <tr><td>25 %</td><td class="num">8 mA</td><td class="num">2 V</td><td class="num">50 %</td></tr>
+        <tr><td>50 %</td><td class="num">12 mA</td><td class="num">3 V</td><td class="num">70.7 %</td></tr>
+        <tr><td>75 %</td><td class="num">16 mA</td><td class="num">4 V</td><td class="num">86.6 %</td></tr>
+        <tr><td>100 %</td><td class="num">20 mA</td><td class="num">5 V</td><td class="num">100 %</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>4-20 mA を、設定したレンジ（LRV〜URV）の 0〜100% に対応させる理想的な換算です。伝送器の校正レンジと、ここに入れるレンジが一致している必要があります。</p>
+    <ul>
+      <li><strong>使える条件</strong>：電流が測定値に比例する出力（リニア）、または差圧に比例して受信側で開平する構成。どちらで開平しているかは計装仕様書やループ図で確認します。</li>
+      <li><strong>二重開平に注意</strong>：伝送器が開平演算を内蔵している場合に開平を選ぶと、流量を二重に開平することになります。電流が流量に比例する信号にはリニアを使います。伝送器側で開平演算済みの信号にはリニア換算を、受信側（DCS・調節計）で開平する構成では電流が差圧に比例するため開平換算を使ってください。</li>
+      <li><strong>開平のゼロ付近</strong>：$x_{flow}=\sqrt{x}$ なので、流量が小さいほど電流のわずかな誤差が流量に大きく出ます。たとえば流量 10% は差圧スパンの 1% ですが、電流に差圧スパンの 1% 分（0.16 mA）の誤差があると、流量は約 14% と読めます。4 mA 未満は開平できないため、ツールは換算せずエラーにします。</li>
+      <li><strong>レンジ外の値</strong>：リニア特性ではレンジ外を外挿して計算します。計算上の電流が 3.8〜20.5 mA を外れる場合、実機の伝送器はその値をそのまま出力しません。</li>
+      <li><strong>レンジ外の電流信号</strong>：4mA を下回る・20mA を超える信号には意味があります。NAMUR NE43 は次の区分を推奨し、多くのスマート伝送器がこれに準拠しています（しきい値の設定はメーカー・機種により異なります）。3.8〜20.5 mA は有効な測定情報（4mA 未満・20mA 超は飽和＝プロセス値がレンジ外）、3.6 mA 以下は故障信号（ダウンスケール・バーンアウト）、21 mA 以上は故障信号（アップスケール・バーンアウト）です。</li>
+      <li><strong>ライブゼロ</strong>：4mA を 0% に割り当てる「ライブゼロ」には、信号 0mA（断線・電源喪失）と測定値 0% を区別できる、2線式伝送器の動作電流を確保できる、という利点があります。</li>
+      <li><strong>逆レンジ</strong>：リニア特性では、逆レンジ（LRV &gt; URV）でもそのまま換算できます（開平は正レンジのみ対応）。</li>
+      <li><strong>開度信号</strong>：調節弁の開度信号（4-20mA → 開度 0〜100%）にも使えます。LRV=0、URV=100 としてください。</li>
+      <li><strong>空気式計装</strong>：空気式計装の統一信号は 20〜100 kPa です。0% が 20 kPa に対応する考え方は 4-20mA と同じです。</li>
+      <li><strong>電圧換算</strong>：表示される電圧は受信抵抗 250 Ω（1-5 V）の場合の値です。別の抵抗を使う回路には当てはまりません。</li>
+      <li><strong>結果の読み方</strong>：信号とレンジの関係を計算した理想値です。伝送器の精度、A/D 変換の精度、経年やドリフトによる誤差は含みません。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://link.amazon/B0iqWQ5e7" class="reference-card" data-asin="4905957206" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">工業計測と制御の基礎</p><p class="ref-meta">川村 貞夫・石川 洋次郎 著 / 工業技術社</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../../fluid/flow-conversion/" class="related-card"><span class="small">流動</span>流量・流速・配管径換算</a>
+      <a href="../../heat-transfer/heat-duty/" class="related-card"><span class="small">伝熱</span>熱量・熱収支</a>
+      <a href="../../reaction/cstr/" class="related-card"><span class="small">反応</span>CSTR 設計</a>
+    </div>
+  </section>
+
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/ma-signal.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

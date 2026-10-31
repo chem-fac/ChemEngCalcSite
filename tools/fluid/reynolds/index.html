@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>レイノルズ数の計算（配管・円管内流れの層流／乱流判定） | 化学工学計算支援ツール</title>
+<meta name="description" content="密度・流速・管内径・粘度からレイノルズ数 Re = ρuD/μ を計算するツール。円管内流れの層流・遷移域・乱流の目安を判定し、計算式と求め方も掲載。">
+<meta name="keywords" content="レイノルズ, Reynolds, Re, 配管, 層流, 乱流, 流速, 流量, 管内径, 粘度, 動粘度, 円管, レイノルズ数, レイノルズ数 計算, レイノルズ数 求め方">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/fluid/reynolds/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="レイノルズ数の計算（配管・円管内流れの層流／乱流判定） | 化学工学計算支援ツール">
+<meta property="og:description" content="密度・流速・管内径・粘度からレイノルズ数 Re = ρuD/μ を計算するツール。円管内流れの層流・遷移域・乱流の目安を判定し、計算式と求め方も掲載。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/fluid/reynolds/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-fluid-reynolds.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"レイノルズ数（配管）","url":"https://tools.chem-fac.com/tools/fluid/reynolds/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"密度・流速・管内径・粘度からレイノルズ数 Re = ρuD/μ を計算するツール。円管内流れの層流・遷移域・乱流の目安を判定し、計算式と求め方も掲載。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"レイノルズ, Reynolds, Re, 配管, 層流, 乱流, 流速, 流量, 管内径, 粘度, 動粘度, 円管","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7MQ7VEMWHY');
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo">
+      <img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">
+      化学工学計算支援ツール
+    </a>
+    <nav class="site-nav">
+      <a href="../../../tools/">ツール一覧</a>
+      <a href="../../../updates/">更新情報</a>
+      <a href="../../../faq/">よくある質問</a>
+      <a href="../../../support/">支援する</a>
+      <a href="../../../contact/">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+
+  <nav class="breadcrumb">
+    <a href="../../../">ホーム</a>
+    <span class="sep">›</span>
+    <a href="../">流動</a>
+    <span class="sep">›</span>
+    <span class="current">レイノルズ数</span>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag" data-cat="fluid">流動</span>
+      <h1>レイノルズ数（配管）</h1>
+      <p class="tool-subcopy">密度・流速・管内径・粘度からレイノルズ数 $Re = \rho u D / \mu$ を計算し、層流・遷移域・乱流の目安を判定します。</p>
+    </div>
+  </section>
+
+  <!-- ===== Calculator ===== -->
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid calc-card-reynolds" id="calculator">
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab active" data-mode="velocity">流速から計算</button>
+      <button type="button" class="mode-tab" data-mode="flowrate">流量から計算</button>
+      <button type="button" class="mode-tab" data-mode="kinematic">動粘度から計算</button>
+    </div>
+
+    <div class="calc-grid">
+
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <!-- value-figure -->
+        <figure class="value-figure input-row-full" data-cat="fluid"><div class="vf-panels"><div class="vf-panel"><svg class="vf-svg" width="400" height="190" viewBox="0 0 400 190" role="img" aria-label="配管の断面：管内径 D、平均流速 u" xmlns="http://www.w3.org/2000/svg"><circle cx="104" cy="92" r="70" class="vf-wallring"/><circle cx="104" cy="92" r="58" class="vf-liqcircle"/><line x1="26" y1="92" x2="182" y2="92" class="vf-cl"/><line x1="104" y1="14" x2="104" y2="170" class="vf-cl"/><g class="vf-g" data-for="D"><line x1="46" y1="92" x2="162" y2="92" class="vf-dim"/><polygon points="46,92 53,89.4 53,94.6" class="vf-arrow"/><polygon points="162,92 155,94.6 155,89.4" class="vf-arrow"/><text x="75" y="85" class="vf-sym" text-anchor="middle"><tspan>D</tspan></text></g><g class="vf-g" data-for="D"><text x="112" y="83" class="vf-name">管内径</text></g><rect x="226" y="70" width="166" height="48" class="vf-bore"/><rect x="226" y="65" width="166" height="5" class="vf-wallh"/><rect x="226" y="118" width="166" height="5" class="vf-wallh"/><line x1="226" y1="94" x2="392" y2="94" class="vf-cl"/><polyline points="244,86 374,86" class="vf-flow"/><polygon points="374,86 366,89.2 366,82.8" class="vf-flowhead"/><text x="244" y="58" class="vf-sym" text-anchor="start"><tspan>u</tspan></text><g class="vf-g" data-for="u"><text x="258" y="58" class="vf-name">断面平均流速</text></g><text x="226" y="146" class="vf-note" text-anchor="start">流量 Q から求めるときは</text><text x="226" y="166" class="vf-note" text-anchor="start">u = Q ÷ 断面積（内径 D）</text></svg></div></div><figcaption><span class="sym">D</span> は呼び径ではなく実内径、<span class="sym">u</span> は断面で平均した流速です（管中心の最大流速ではない）。</figcaption></figure>
+        <!-- /value-figure -->
+
+        <div class="input-row reynolds-rho-row" data-field="rho" data-show-when="velocity flowrate">
+          <label for="rho">密度 <span class="sym">ρ</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000">
+            <select id="rho_unit" aria-label="密度の単位">
+              <option value="kgm3">kg/m³</option>
+              <option value="gcm3">g/cm³</option>
+            </select>
+          </div>
+          <p class="hint">液体は温度変化が比較的小さい場合もありますが、気体では運転条件の影響が大きくなります。</p>
+        </div>
+
+        <div class="input-row reynolds-u-row" data-field="u" data-show-when="velocity kinematic">
+          <label for="u">平均流速 <span class="sym">u</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="u" step="any" placeholder="例：1.0">
+            <select id="u_unit" aria-label="流速の単位">
+              <option value="ms">m/s</option>
+              <option value="cms">cm/s</option>
+            </select>
+          </div>
+          <p class="hint">配管断面全体で平均した流速を入力してください。局所最大流速ではありません。</p>
+        </div>
+
+        <div class="input-row reynolds-q-row" data-field="Q" data-show-when="flowrate">
+          <label for="Q">体積流量 <span class="sym">Q</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Q" step="any" placeholder="例：10">
+            <select id="Q_unit" aria-label="流量の単位">
+              <option value="m3h">m³/h</option>
+              <option value="Lmin">L/min</option>
+              <option value="Lh">L/h</option>
+              <option value="m3s">m³/s</option>
+            </select>
+          </div>
+          <p class="hint">流量計の値などから入力すると、管内径から平均流速を自動計算します。</p>
+        </div>
+
+        <div class="input-row reynolds-d-row" data-field="D" data-show-when="velocity flowrate kinematic">
+          <label for="D">管内径 <span class="sym">D</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="D" step="any" placeholder="例：50">
+            <select id="D_unit" aria-label="管内径の単位">
+              <option value="mm">mm</option>
+              <option value="cm">cm</option>
+              <option value="m">m</option>
+              <option value="inch">inch</option>
+            </select>
+          </div>
+          <p class="hint">配管の<strong>呼び径ではなく実内径</strong>を入力してください。スケジュール番号や肉厚で内径は変わります。</p>
+        </div>
+
+        <div class="input-row reynolds-mu-row" data-field="mu" data-show-when="velocity flowrate">
+          <label for="mu">粘度 <span class="sym">μ</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="mu" step="any" placeholder="例：1.0">
+            <select id="mu_unit" aria-label="粘度の単位">
+              <option value="mPas">mPa·s</option>
+              <option value="cP">cP</option>
+              <option value="Pas">Pa·s</option>
+            </select>
+          </div>
+          <p class="hint">粘度は温度依存性が大きい物性値です。運転温度での値を使ってください。1 mPa·s = 1 cP、1 Pa·s = 1000 mPa·s。</p>
+        </div>
+
+        <div class="input-row reynolds-nu-row" data-field="nu" data-show-when="kinematic">
+          <label for="nu">動粘度 <span class="sym">ν</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="nu" step="any" placeholder="例：1.0">
+            <select id="nu_unit" aria-label="動粘度の単位">
+              <option value="mm2s">mm²/s</option>
+              <option value="cSt">cSt</option>
+              <option value="m2s">m²/s</option>
+            </select>
+          </div>
+          <p class="hint">動粘度は粘度を密度で割った値（ν = μ/ρ）。1 cSt = 1 mm²/s = 1×10⁻⁶ m²/s。</p>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area">
+          <div class="placeholder">入力値を入れて「計算する」を押してください</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== Explanation sections ===== -->
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <p>管内流れでは、代表長さとして管内径を用いて、次式でレイノルズ数を計算します。</p>
+    <div class="math-block">$$ Re = \frac{\rho \, u \, D}{\mu} $$</div>
+    <p>動粘度 $\nu$ を使う場合は、</p>
+    <div class="math-block">$$ Re = \frac{u \, D}{\nu} $$</div>
+    <p>体積流量 $Q$ から求める場合は、円管断面積 $A = \dfrac{\pi D^{2}}{4}$ を用いて平均流速 $u$ を計算したうえで、</p>
+    <div class="math-block">$$ u = \frac{4Q}{\pi D^{2}}, \qquad Re = \frac{\rho \, u \, D}{\mu} = \frac{4 \rho Q}{\pi D \mu} $$</div>
+    <ul class="symbol-list">
+      <li>$Re$：レイノルズ数［-］</li>
+      <li>$\rho$：流体密度［kg/m³］</li>
+      <li>$u$：平均流速［m/s］</li>
+      <li>$D$：管内径［m］</li>
+      <li>$\mu$：粘度［Pa·s］</li>
+      <li>$\nu$：動粘度［m²/s］</li>
+      <li>$Q$：体積流量［m³/s］</li>
+    </ul>
+  </section>
+
+  <section class="explain-block">
+    <h2>層流・遷移域・乱流の判定目安</h2>
+    <p>円管内流れでは、レイノルズ数によって流れの状態をおおまかに分類できます。</p>
+    <table class="regime-table">
+      <thead>
+        <tr><th>レイノルズ数</th><th>流れの状態</th><th>イメージ</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>$Re \leq 2{,}300$</strong></td><td><span class="regime-badge laminar">層流</span></td><td>流体が層状に整って流れる</td></tr>
+        <tr><td><strong>$2{,}300 < Re < 4{,}000$</strong></td><td><span class="regime-badge transition">遷移域</span></td><td>層流と乱流の中間で不安定</td></tr>
+        <tr><td><strong>$Re \geq 4{,}000$</strong></td><td><span class="regime-badge turbulent">乱流</span></td><td>渦や乱れを伴って流れる</td></tr>
+      </tbody>
+    </table>
+    <p>この判定は、主に円管内流れの一般的な目安です。流入口条件、配管の粗さ、曲がり、脈動、流体の性質によって、実際の流れの状態は変わる場合があります。</p>
+  </section>
+
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>このツールは、主に<strong>ニュートン流体の円管内流れ</strong>を対象としたレイノルズ数計算ツールです。以下の場合は、計算結果の解釈に注意してください。</p>
+    <ul>
+      <li><strong>非ニュートン流体</strong>：ポリマー溶液、ペースト など</li>
+      <li><strong>多相流</strong>：スラリー、気液二相流、固液二相流</li>
+      <li><strong>圧縮性の大きい気体</strong>：圧縮性の大きい気体流れ</li>
+      <li><strong>脈動流</strong>：脈動流</li>
+      <li><strong>短い配管</strong>：極端に短い配管、入口・出口近傍</li>
+      <li><strong>乱れの強い場所</strong>：エルボ、バルブ、ポンプ直後など</li>
+      <li><strong>装置内の流れ</strong>：充填塔、撹拌槽、粒子周りの流れ</li>
+      <li><strong>円形でない断面</strong>：角ダクト、環状流路、部分的に満たされた管。代表長さが管内径ではなくなるため、$D$ に内径を入れた値は上の判定目安に当てはまりません</li>
+      <li><strong>対象外の場合</strong>：このような場合、レイノルズ数の定義や代表長さの取り方が変わります。対象装置に応じた専門的な式を別途確認してください。</li>
+      <li><strong>入力の注意</strong>：密度と粘度は、流れている温度での値を入力します。温度で粘度が大きく変わる液体では、入口と出口で $Re$ が変わることがあります。</li>
+    </ul>
+  </section>
+
+  <!-- ===== Reference ===== -->
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/48Hi37k" class="reference-card" data-asin="4254250339" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body">
+        <span class="ref-tag">書籍</span>
+        <p class="ref-title">化学工学 ―解説と演習―</p>
+        <p class="ref-meta">多田 豊 編 / 朝倉書店</p>
+        <span class="ref-cta">Amazonで見る</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- ===== Related tools ===== -->
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../flow-conversion/" class="related-card">
+        <span class="small">流動</span>
+        流量・流速・配管径換算
+      </a>
+      <a href="../fanning/" class="related-card">
+        <span class="small">流動</span>
+        ファニングの式・管摩擦係数（圧力損失）
+      </a>
+      <a href="../pump/" class="related-card">
+        <span class="small">流動</span>
+        ポンプ計算（全揚程・NPSH・軸動力）
+      </a>
+      <a href="../continuity/" class="related-card">
+        <span class="small">流動</span>
+        連続の式（配管断面変化）
+      </a>
+    </div>
+  </section>
+
+
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>サイトについて</h4>
+      <ul>
+        <li><a href="../../../about/">当サイトについて</a></li>
+        <li><a href="../../../privacy/">プライバシーポリシー</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>サポート</h4>
+      <ul>
+        <li><a href="../../../contact/">お問い合わせ</a></li>
+        <li><a href="../../../faq/">よくある質問</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>その他</h4>
+      <ul>
+        <li><a href="../../../terms/">利用規約</a></li>
+        <li><a href="../../../disclaimer/">免責事項</a></li>
+      </ul>
+    </div>
+    <div class="footer-brand">
+      <a href="../../../" class="logo">
+        <img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">
+        化学工学計算支援ツール
+      </a>
+      <div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="../../../assets/js/reynolds.js"></script>
+<script src="../../../assets/js/value-figure.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

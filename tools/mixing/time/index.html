@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>混合時間 | 化学工学計算支援ツール</title>
+<meta name="description" content="撹拌槽の混合時間 θM を計算します。乱流域・乱流域（液深さ加味）・層流域の3パターンに対応。">
+<meta name="keywords" content="混合時間, mixing time, θM, Np, Nqd, バッフル, 邪魔板, 液深さ, 層流, 乱流">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/mixing/time/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="混合時間 | 化学工学計算支援ツール">
+<meta property="og:description" content="撹拌槽の混合時間 θM を計算します。乱流域・乱流域（液深さ加味）・層流域の3パターンに対応。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/mixing/time/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-mixing-time.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"混合時間","url":"https://tools.chem-fac.com/tools/mixing/time/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"撹拌槽の混合時間 θM を計算します。乱流域・乱流域（液深さ加味）・層流域の3パターンに対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"混合時間, mixing time, θM, Np, Nqd, バッフル, 邪魔板, 液深さ, 層流, 乱流","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+  <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">撹拌混合</a><span class="sep">›</span><span class="current">混合時間</span></nav>
+
+  <section class="tool-hero tool-hero-simple">
+    <div class="tool-hero-content">
+      <span class="cat-tag" data-cat="mixing">撹拌混合</span>
+      <h1>混合時間</h1>
+      <p class="tool-subcopy">撹拌槽の混合時間 $\theta_M$ を、流れの状態に応じた相関式で計算します。</p>
+    </div>
+  </section>
+
+  <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+    <div class="mode-tabs" role="tablist">
+      <button type="button" class="mode-tab active" data-mode="turb">乱流・基本式</button>
+      <button type="button" class="mode-tab" data-mode="turbH">乱流域・液深さ加味</button>
+      <button type="button" class="mode-tab" data-mode="laminar">層流域</button>
+    </div>
+
+    <div class="calc-grid">
+      <div class="calc-pane calc-input-pane">
+        <h2>入力</h2>
+        <!-- value-figure -->
+        <figure class="value-figure input-row-full" data-cat="mixing"><div class="vf-panels"><div class="vf-panel"><svg class="vf-svg" width="400" height="322" viewBox="0 0 400 322" role="img" aria-label="撹拌槽の寸法：槽径 D、液深さ H、翼径 d" xmlns="http://www.w3.org/2000/svg"><rect x="58" y="70" width="260" height="234" class="vf-liq"/><polygon points="53,40 53,309 323,309 323,40 318,40 318,304 58,304 58,40" class="vf-wall"/><line x1="58" y1="70" x2="318" y2="70" class="vf-surf"/><polygon points="285,61.2 299,61.2 292,70" class="vf-level"/><line x1="286.4" y1="73.5" x2="297.6" y2="73.5" class="vf-levelline"/><line x1="288.9" y1="76.5" x2="295.1" y2="76.5" class="vf-levelline"/><line x1="188" y1="18" x2="188" y2="227" class="vf-cl"/><rect x="185.5" y="20" width="5" height="163" class="vf-shaft"/><rect x="123" y="187" width="130" height="26" class="vf-imp"/><rect x="182" y="183" width="12" height="34" class="vf-imp"/><g class="vf-g" data-for="D"><line x1="58" y1="36" x2="58" y2="19" class="vf-ext"/></g><g class="vf-g" data-for="D"><line x1="318" y1="36" x2="318" y2="19" class="vf-ext"/></g><g class="vf-g" data-for="D"><line x1="58" y1="24" x2="318" y2="24" class="vf-dim"/><polygon points="58,24 65,21.4 65,26.6" class="vf-arrow"/><polygon points="318,24 311,26.6 311,21.4" class="vf-arrow"/><text x="76" y="19" class="vf-sym" text-anchor="middle"><tspan>D</tspan></text><text x="87" y="19" class="vf-name" text-anchor="start">槽径（内径）</text></g><g class="vf-g" data-for="H"><line x1="326" y1="70" x2="350" y2="70" class="vf-ext"/></g><g class="vf-g" data-for="H"><line x1="326" y1="304" x2="350" y2="304" class="vf-ext"/></g><g class="vf-g" data-for="H"><line x1="345" y1="70" x2="345" y2="304" class="vf-dim"/><polygon points="345,70 347.6,77 342.4,77" class="vf-arrow"/><polygon points="345,304 342.4,297 347.6,297" class="vf-arrow"/><text x="354" y="192" class="vf-sym" text-anchor="start"><tspan>H</tspan></text></g><g class="vf-g" data-for="H"><text x="354" y="211" class="vf-name">液深さ</text></g><g class="vf-g" data-for="d"><line x1="123" y1="216" x2="123" y2="240" class="vf-ext"/></g><g class="vf-g" data-for="d"><line x1="253" y1="216" x2="253" y2="240" class="vf-ext"/></g><g class="vf-g" data-for="d"><line x1="123" y1="235" x2="253" y2="235" class="vf-dim"/><polygon points="123,235 130,232.4 130,237.6" class="vf-arrow"/><polygon points="253,235 246,237.6 246,232.4" class="vf-arrow"/><text x="155.5" y="252" class="vf-sym" text-anchor="middle"><tspan>d</tspan></text><text x="164.5" y="252" class="vf-name" text-anchor="start">翼径（先端から先端）</text></g></svg></div></div><figcaption><span class="sym">d</span> は翼の先端から先端まで（翼が回って描く円の直径）、<span class="sym">D</span> は槽の内径、<span class="sym">H</span> は槽底から静止時の液面までです。</figcaption></figure>
+        <!-- /value-figure -->
+
+        <div class="input-row">
+          <label for="n">回転数 <span class="sym">n</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="n" step="any" placeholder="例：100">
+            <select aria-label="回転数の単位" id="n_unit"><option value="rpm">rpm</option><option value="rps">1/s</option></select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label for="d">翼径 <span class="sym">d</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="d" step="any" placeholder="例：300">
+            <select aria-label="翼径の単位" id="d_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label for="D">槽径 <span class="sym">D</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="D" step="any" placeholder="例：900">
+            <select aria-label="槽径の単位" id="D_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+          </div>
+        </div>
+
+        <div class="input-row" data-show-when="turbH laminar">
+          <label for="H">液深さ <span class="sym">H</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="H" step="any" placeholder="例：900">
+            <select aria-label="液深さの単位" id="H_unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option></select>
+          </div>
+          <p class="hint">液面までの深さ。標準的な槽では H ≈ D。</p>
+        </div>
+
+        <div class="input-row">
+          <label for="Np">動力数 <span class="sym">N<sub>p</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Np" step="any" placeholder="例：5.0">
+          </div>
+          <p class="hint">翼形状ごとの動力数。代表値：6枚タービン翼 ≈ 5、4枚45°傾斜パドル翼 ≈ 1.5、プロペラ翼 ≈ 0.4。</p>
+        </div>
+
+        <div class="input-row" data-show-when="turb turbH">
+          <label for="Nqd">吐出流量数 <span class="sym">N<sub>qd</sub></span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="Nqd" step="any" placeholder="例：0.8">
+          </div>
+          <p class="hint">翼形状ごとの吐出流量数。代表値：プロペラ翼 ≈ 0.5、平板タービン翼 ≈ 0.7、傾斜パドル翼 ≈ 0.8。</p>
+        </div>
+
+        <div class="input-row" data-show-when="laminar">
+          <label for="rho">密度 <span class="sym">ρ</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000">
+            <select aria-label="密度の単位" id="rho_unit"><option value="kgm3">kg/m³</option><option value="gcm3">g/cm³</option></select>
+          </div>
+        </div>
+
+        <div class="input-row" data-show-when="laminar">
+          <label for="mu">粘度 <span class="sym">μ</span></label>
+          <div class="input-group">
+            <input type="number" inputmode="decimal" id="mu" step="any" placeholder="例：100">
+            <select aria-label="粘度の単位" id="mu_unit"><option value="mPas">mPa·s</option><option value="cP">cP</option><option value="Pas">Pa·s</option></select>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="calc-btn">計算する</button>
+          <button class="btn btn-ghost" id="reset-btn">リセット</button>
+        </div>
+        <div id="error" class="error-msg" style="display:none;"></div>
+      </div>
+
+      <div class="calc-pane calc-result-pane">
+        <h2>計算結果</h2>
+        <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explain-block">
+    <h2>計算式</h2>
+    <h3>乱流・基本式</h3>
+    <div class="math-block">$$ \dfrac{1}{n\,\theta_M} = 0.092 \left\{ \left( \dfrac{d}{D} \right)^{3} N_{qd} + 0.21 \left( \dfrac{d}{D} \right) \left( \dfrac{N_p}{N_{qd}} \right)^{0.5} \right\} \left\{ 1 - e^{-13 (d/D)^{2}} \right\} $$</div>
+    <p>中括弧内の第1項は槽内循環による対流混合、第2項は翼から与えられる乱れによる拡散混合を表す整理です。傾斜翼・後退翼などの比較でも、この2つの効果を分けて混合時間を読むと、翼ごとの流動パターンの違いを整理しやすくなります。最後の指数項は、$d/D$ が小さいと槽全体に十分な循環が届きにくい影響を補正します。</p>
+    <h3>液深さを加味した式</h3>
+    <div class="math-block">$$ n\,\theta_M = 6.7 \left( \dfrac{D}{d} \right)^{2} \left( \dfrac{N_p}{N_{qd}} \right)^{-0.25} \left( \dfrac{H}{D} \right)^{0.5} $$</div>
+    <h3>層流域の式</h3>
+    <div class="math-block">$$ \dfrac{1}{n\,\theta_M} = 9.8 \times 10^{-5} \cdot \dfrac{d^{3}}{D^{2} H} \cdot N_p \cdot Re $$</div>
+    <ul class="symbol-list">
+      <li>$\theta_M$：混合時間［s］</li>
+      <li>$n$：回転数［1/s］</li>
+      <li>$d$：翼径［m］</li>
+      <li>$D$：槽径［m］</li>
+      <li>$H$：液深さ［m］</li>
+      <li>$N_p$：動力数［-］</li>
+      <li>$N_{qd}$：吐出流量数［-］</li>
+      <li>$Re = \rho n d^{2} / \mu$：撹拌レイノルズ数［-］</li>
+      <li>係数 0.092 は、混合完了の判定条件、投入位置、バッフル条件、翼位置に依存する実験相関の値です。多点投入や配置の最適化で見かけの混合時間が短くなる場合があるため、実機評価では目的物の投入位置と判定精度も合わせて確認してください。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block notes-block">
+    <h2>適用範囲と注意事項</h2>
+    <p>3つのモードは、それぞれ別の相関式です。どのモードを使うかはレイノルズ数を見て利用者が選ぶ形で、ツールがレイノルズ数から自動で切り替えることはありません。</p>
+    <ul>
+      <li><strong>使える条件</strong>：互いに混ざり合う単一の液体で、乱流域なら「乱流」の2モード、層流域なら「層流域」モードを使う場合。乱流の2式には $Re$ が入らず、$N_p$ と $N_{qd}$ だけで翼の違いを表します。</li>
+      <li><strong>$N_p$ と $N_{qd}$ の入力</strong>：入力欄の代表値は目安で、実機の翼・バッフル条件の値に置き換える必要があります。乱流の基本式では $(N_p/N_{qd})^{0.5}$、液深さ加味の式では $(N_p/N_{qd})^{-0.25}$ で効きます。どちらも $N_{qd}$ が一定なら $N_p$ が大きいほど混合時間は短くなりますが、効き方の大きさが異なるため、同じ $N_p$ のずれでも結果への影響はモードで違います。</li>
+      <li><strong>層流域モード</strong>：式の $N_p\cdot Re$ の積が $1/(n\theta_M)$ に比例します。層流域では $N_p$ が $Re$ に反比例して大きくなるため、$N_p$ は運転条件の $Re$ に対応した値を入れます。乱流域の $N_p$ を入れると積が過大になり、混合時間は短く出ます。</li>
+      <li><strong>液深さの扱い</strong>：乱流の基本式には液深さ $H$ が入っていません。$H/D$ が 1 から離れた槽では、液深さを加味した式の結果と見比べてください。</li>
+      <li><strong>結果の読み方</strong>：3つの式は別々の実験相関なので、モード間で同じ条件を入れても値は一致しません。気体の吹き込みや固体粒子を含む系、粘度が混合の途中で変わる系は式に入っていません。</li>
+    </ul>
+  </section>
+
+  <section class="explain-block reference-block">
+    <h2>参考資料</h2>
+    <a href="https://amzn.to/4ts1HHl" class="reference-card" data-asin="4883616568" target="_blank" rel="noopener nofollow sponsored">
+      <div class="ref-image" aria-hidden="true"></div>
+      <div class="ref-body"><span class="ref-tag">書籍</span><p class="ref-title">最新ミキシング技術の基礎と応用（化学工学の進歩42）</p><p class="ref-meta">化学工学会 著 / 三恵社</p><span class="ref-cta">Amazonで見る</span></div>
+    </a>
+    <ul class="paper-link-list">
+      <li><a href="https://www.jstage.jst.go.jp/article/kakoronbunshu1953/31/4/31_4_365/_pdf/-char/ja" target="_blank" rel="noopener">回分撹拌装置の混合性能</a><br><span class="paper-meta">化学工学, 31(4), 365-372, 1967</span></li>
+      <li><a href="https://www.kobelco-eco.co.jp/development/docs/103_04.pdf" target="_blank" rel="noopener">傾斜翼と後退翼との撹拌特性の比較</a><br><span class="paper-meta">神鋼ファウドラー技報, 28(8), 1984</span></li>
+    </ul>
+  </section>
+
+  <section class="related">
+    <h3>関連ツール</h3>
+    <div class="related-grid">
+      <a href="../reynolds/" class="related-card"><span class="small">撹拌混合</span>撹拌レイノルズ数</a>
+      <a href="../power/" class="related-card"><span class="small">撹拌混合</span>撹拌所要動力／動力数／トルク変換</a>
+      <a href="../flow/" class="related-card"><span class="small">撹拌混合</span>吐出流量・循環流量</a>
+      <a href="../vortex/" class="related-card"><span class="small">撹拌混合</span>撹拌液面変化（バッフルなし）</a>
+      <a href="../kamei-hiraoka/" class="related-card"><span class="small">撹拌混合</span>亀井・平岡の式（バッフル無し撹拌所要動力）</a>
+    </div>
+  </section>
+
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li><li><a href="../../../privacy/">プライバシーポリシー</a></li></ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li><li><a href="../../../faq/">よくある質問</a></li></ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li><li><a href="../../../disclaimer/">免責事項</a></li></ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div></div>
+  </div>
+</footer>
+
+<script src="../../../assets/js/mix-time.js"></script>
+<script src="../../../assets/js/value-figure.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+<script src="../../../assets/js/references.js"></script>
+</body>
+</html>

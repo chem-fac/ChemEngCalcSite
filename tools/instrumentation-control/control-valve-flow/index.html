@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>調節弁の差圧から流量を推定（液体） | 化学工学計算支援ツール</title>
+
+
+<link rel="canonical" href="https://tools.chem-fac.com/tools/instrumentation-control/control-valve-flow/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="化学工学計算支援ツール">
+
+
+
+
+
+
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"調節弁の差圧から流量を推定（液体）","url":"https://tools.chem-fac.com/tools/instrumentation-control/control-valve-flow/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"調節弁の実効CvまたはKv、差圧、運転密度から水・低粘度液体の流量を簡易計算。P1−P2と直接差圧の入力、kPa・MPa・barに対応します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"調節弁, Cv, Kv, 実効Cv, 差圧, 流量, 液体, 水, 密度, control valve","about":"計装・制御","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-31"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+<link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7MQ7VEMWHY');</script>
+<meta name="description" content="調節弁の実効CvまたはKv、差圧、運転密度から水・低粘度液体の流量を簡易計算。P1−P2と直接差圧の入力、kPa・MPa・barに対応します。">
+<meta name="keywords" content="調節弁, Cv, Kv, 実効Cv, 差圧, 流量, 液体, 水, 密度, control valve">
+<meta property="og:title" content="調節弁の差圧から流量を推定（液体） | 化学工学計算支援ツール">
+<meta property="og:description" content="調節弁の実効CvまたはKv、差圧、運転密度から水・低粘度液体の流量を簡易計算。P1−P2と直接差圧の入力、kPa・MPa・barに対応します。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/instrumentation-control/control-valve-flow/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-instrumentation-control-control-valve-flow.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a>
+    <nav class="site-nav"><a href="../../../tools/">ツール一覧</a>
+<a href="../../../updates/">更新情報</a><a href="../../../faq/">よくある質問</a><a href="../../../support/">支援する</a><a href="../../../contact/">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main class="tool-page tool-page-wide">
+<nav class="breadcrumb" aria-label="パンくず"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">計装・制御</a><span class="sep">›</span><span class="current">調節弁の差圧から流量を推定</span></nav>
+<section class="tool-hero tool-hero-simple"><div class="tool-hero-content"><span class="cat-tag" data-cat="instrumentation-control">計装・制御</span><h1>調節弁の差圧から流量を推定（液体）</h1>
+<p class="tool-subcopy">調節弁の実効CvまたはKv、弁前後の差圧、運転密度から、水・低粘度液体の体積流量を簡易計算します。</p>
+</div></section>
+
+<section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+  <div class="mode-tabs" role="tablist">
+    <button type="button" class="mode-tab active" data-mode="difference">弁前後の圧力</button>
+    <button type="button" class="mode-tab" data-mode="direct">差圧</button>
+  </div>
+  <div class="calc-grid">
+
+    <div class="calc-pane calc-input-pane">
+      <h2>入力</h2>
+
+      <div class="input-row" data-show-when="difference">
+        <label for="p1">上流圧力 <span class="sym">P<sub>1</sub></span></label>
+        <div class="input-group">
+          <input type="number" inputmode="decimal" id="p1" step="any" placeholder="例：300">
+          <select id="p1_unit" aria-label="上流圧力の単位"><option value="kPa">kPa</option><option value="MPa">MPa</option><option value="bar">bar</option></select>
+        </div>
+      </div>
+
+      <div class="input-row" data-show-when="difference">
+        <label for="p2">下流圧力 <span class="sym">P<sub>2</sub></span></label>
+        <div class="input-group">
+          <input type="number" inputmode="decimal" id="p2" step="any" placeholder="例：200">
+          <select id="p2_unit" aria-label="下流圧力の単位"><option value="kPa">kPa</option><option value="MPa">MPa</option><option value="bar">bar</option></select>
+        </div>
+        <p class="hint">P<sub>1</sub> と P<sub>2</sub> は同じ圧力の基準で入力してください（両方ゲージ圧、または両方絶対圧）。</p>
+      </div>
+
+      <div class="input-row" data-show-when="direct">
+        <label for="dp">差圧 <span class="sym">Δp</span></label>
+        <div class="input-group">
+          <input type="number" inputmode="decimal" id="dp" step="any" placeholder="例：100">
+          <select id="dp_unit" aria-label="差圧の単位"><option value="kPa">kPa</option><option value="MPa">MPa</option><option value="bar">bar</option></select>
+        </div>
+        <p class="hint">Δp &gt; 0 が必要です。</p>
+      </div>
+
+      <div class="input-row">
+        <label for="coef">その開度の流量係数 <span class="sym">C<sub>v</sub></span> または <span class="sym">K<sub>v</sub></span></label>
+        <div class="input-group">
+          <input type="number" inputmode="decimal" id="coef" step="any" placeholder="例：10">
+          <select id="coef_type" aria-label="流量係数の種類"><option value="Cv">Cv</option><option value="Kv">Kv</option></select>
+        </div>
+        <p class="hint">運転時の開度に対応するCvまたはKvを、メーカーの表や特性曲線で確認して入力してください。弁の特性によって変わるため、全開Cvと開度率だけで比例計算しないでください。</p>
+      </div>
+
+      <div class="input-row">
+        <label for="rho">運転温度・圧力での液体の密度 <span class="sym">ρ</span></label>
+        <div class="input-group">
+          <input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：1000">
+          <span class="unit-label">kg/m³</span>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" id="calc-btn">計算する</button>
+        <button class="btn btn-ghost" id="reset-btn">リセット</button>
+      </div>
+
+      <div id="error" class="error-msg" style="display:none;"></div>
+    </div>
+
+    <div class="calc-pane calc-result-pane">
+      <h2>計算結果</h2>
+      <div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="explain-block">
+  <h2>計算式</h2>
+  <p>差圧をkPa、密度をkg/m³に換算して、次の式に代入します。水の基準密度を1000 kg/m³とする工学的近似です。</p>
+  <div class="math-block">$$ \Delta p = P_1 - P_2 $$</div>
+  <div class="math-block">$$ Q = K_v \sqrt{\frac{10\,\Delta p}{\rho}} $$</div>
+  <div class="math-block">$$ Q \approx 0.0865\,C_v \sqrt{\frac{1000\,\Delta p}{\rho}} $$</div>
+  <div class="math-block">$$ K_v = 0.865\,C_v $$</div>
+  <div class="math-block">$$ q = \frac{1000\,Q}{60} $$</div>
+  <div class="math-block">$$ \dot{m} = \rho\,Q $$</div>
+  <ul class="symbol-list">
+    <li>$P_1$：弁上流の圧力［kPa］</li>
+    <li>$P_2$：弁下流の圧力［kPa］</li>
+    <li>$\Delta p$：弁前後の差圧［kPa］</li>
+    <li>$\rho$：運転温度・圧力での液体密度［kg/m³］</li>
+    <li>$C_v$：その開度の実効流量係数。約60°Fの水が差圧1 psiで流れる体積流量の数値［US gal/min基準］</li>
+    <li>$K_v$：その開度の実効流量係数。水が差圧1 barで流れる体積流量の数値［m³/h基準］</li>
+    <li>$Q$：運転状態での体積流量［m³/h］</li>
+    <li>$q$：運転状態での体積流量［L/min］</li>
+    <li>$\dot{m}$：質量流量［kg/h］</li>
+    <li>$F_p$：配管形状補正係数［-］。この計算では1です</li>
+  </ul>
+</section>
+
+<section class="explain-block notes-block">
+  <h2>適用範囲と注意事項</h2>
+  <p>水・低粘度液体の単相・乱流・非チョーク流れを仮定した簡易推定です。</p>
+  <ul>
+    <li><strong>使える条件</strong>：水・低粘度液体の単相、乱流、非チョーク流れを仮定し、配管形状補正係数$F_p = 1$とします。気体・蒸気は対象外です。</li>
+    <li><strong>含まない補正</strong>：キャビテーション、フラッシング、高粘度、異径管による補正を含みません。差圧だけではキャビテーション・フラッシング・チョークの発生を判定できません。</li>
+    <li><strong>実機での確認</strong>：実機の弁選定や運転判断では、蒸気圧、弁の圧力回復係数、配管条件を含むメーカーの計算で確認してください。</li>
+  </ul>
+</section>
+
+<section class="explain-block reference-block">
+  <h2>参考資料</h2>
+  <ul class="paper-link-list">
+    <li><a href="https://usa.samsongroup.com/document/t00050en.pdf" target="_blank" rel="noopener">SAMSON, Application Notes: Kv coefficient · Valve sizing</a><br><span class="paper-meta">SAMSON, AB 05 EN, 2012年3月。p.1。液体のKvと流量・差圧・密度の関係、適用制約。</span></li>
+    <li><a href="https://www.emerson.com/is/content/emerson/en/final-control/flow-controls/documents/d103540x012.pdf" target="_blank" rel="noopener">Emerson, Control Valve Sourcebook: Pulp &amp; Paper</a><br><span class="paper-meta">Emerson。印刷p.3-7（PDF p.51）Table 3-2・式17、印刷p.4-4。Cv用の単位換算係数、液体流量式と乱流の前提。</span></li>
+  </ul>
+</section>
+
+<section class="related">
+  <h3>関連ツール</h3>
+  <div class="related-grid"><a href="../../fluid/flow-conversion/" class="related-card"><span class="small">流動</span>流量・流速・配管径換算</a><a href="../ma-signal/" class="related-card"><span class="small">計装・制御</span>4-20mA信号換算（スケーリング・開平）</a></div>
+</section>
+
+
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h4>サイトについて</h4><ul><li><a href="../../../about/">当サイトについて</a></li>
+<li><a href="../../../privacy/">プライバシーポリシー</a></li>
+</ul></div>
+    <div class="footer-col"><h4>サポート</h4><ul><li><a href="../../../contact/">お問い合わせ</a></li>
+<li><a href="../../../faq/">よくある質問</a></li>
+</ul></div>
+    <div class="footer-col"><h4>その他</h4><ul><li><a href="../../../terms/">利用規約</a></li>
+<li><a href="../../../disclaimer/">免責事項</a></li>
+</ul></div>
+    <div class="footer-brand"><a href="../../../" class="logo"><img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">化学工学計算支援ツール</a><div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div></div>
+  </div>
+</footer>
+<script src="../../../assets/js/control-valve-flow.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/calc-utils.js"></script>
+</body>
+</html>
