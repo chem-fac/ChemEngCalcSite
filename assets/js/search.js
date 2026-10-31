@@ -43,6 +43,12 @@
       keywords: ["ハーゲンポアズイユ", "ハーゲン・ポアズイユ", "Hagen-Poiseuille", "Poiseuille", "速度分布", "円管内流れ", "円管", "管内流れ", "層流", "放物線", "最大流速", "平均流速", "体積流量", "粘着条件", "non-slip", "圧力損失", "圧力勾配", "壁面せん断応力", "せん断応力", "流体力学", "十分に発達した流れ"]
     },
     {
+      title: "配管の耐圧と必要肉厚",
+      url: "tools/fluid/pipe-wall-thickness/",
+      category: "流動",
+      keywords: ["配管", "耐圧", "肉厚", "必要肉厚", "スケジュール", "Sch", "Sch40", "Sch80", "STPG", "SGP", "ステンレス鋼管", "SUS", "呼び径", "外径", "許容引張応力", "溶接効率", "腐れしろ", "例示基準", "高圧ガス", "ASME B31.3", "バーロー", "Barlow", "pipe wall thickness"]
+    },
+    {
       title: "流動（カテゴリ）",
       url: "tools/fluid/",
       category: "カテゴリ",

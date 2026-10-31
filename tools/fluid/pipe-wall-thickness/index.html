@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>配管の耐圧・必要肉厚の計算（Sch40・Sch80・SUS・SGP） | 化学工学計算支援ツール</title>
+  <meta name="description" content="内圧を受ける配管が使える圧力と、圧力に必要な肉厚を、高圧ガス保安法の例示基準の式で計算します。薄肉の式は ASME B31.3 と同じ形です。STPG・ステンレス鋼管・SGP は呼び径とスケジュールを選ぶだけで、製造時の厚さの誤差と腐れしろも見込みます。">
+  <meta name="keywords" content="配管 耐圧, 配管 肉厚 計算, 必要肉厚, スケジュール 耐圧, Sch40 耐圧, Sch80 耐圧, STPG 耐圧, ステンレス配管 耐圧, SGP 耐圧, 許容引張応力, 例示基準, ASME B31.3, バーロー式">
+  <link rel="canonical" href="https://tools.chem-fac.com/tools/fluid/pipe-wall-thickness/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="化学工学計算支援ツール">
+  <meta property="og:title" content="配管の耐圧・必要肉厚の計算（Sch40・Sch80・SUS・SGP） | 化学工学計算支援ツール">
+  <meta property="og:description" content="内圧を受ける配管が使える圧力と、圧力に必要な肉厚を、高圧ガス保安法の例示基準の式で計算します。薄肉の式は ASME B31.3 と同じ形です。STPG・ステンレス鋼管・SGP は呼び径とスケジュールを選ぶだけで、製造時の厚さの誤差と腐れしろも見込みます。">
+  <meta property="og:url" content="https://tools.chem-fac.com/tools/fluid/pipe-wall-thickness/">
+  <meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-fluid-pipe-wall-thickness.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@chem_fac">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"配管の耐圧と必要肉厚","url":"https://tools.chem-fac.com/tools/fluid/pipe-wall-thickness/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"内圧を受ける配管が使える圧力と、圧力に必要な肉厚を、高圧ガス保安法の例示基準の式で計算します。薄肉の式は ASME B31.3 と同じ形です。STPG・ステンレス鋼管・SGP は呼び径とスケジュールを選ぶだけで、製造時の厚さの誤差と腐れしろも見込みます。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"配管, 耐圧, 肉厚, 必要肉厚, スケジュール, Sch, Sch40, Sch80, STPG, SGP, ステンレス鋼管, SUS, 呼び径, 外径, 許容引張応力, 溶接効率, 腐れしろ, 例示基準, 高圧ガス, ASME B31.3, バーロー, Barlow, pipe wall thickness","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-01"}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/main.css">
+  <link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-7MQ7VEMWHY');
+  </script>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="inner">
+      <a href="../../../" class="logo">
+        <img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">
+        化学工学計算支援ツール
+      </a>
+      <nav class="site-nav">
+        <a href="../../../tools/">ツール一覧</a>
+        <a href="../../../updates/">更新情報</a>
+        <a href="../../../faq/">よくある質問</a>
+        <a href="../../../support/">支援する</a>
+        <a href="../../../contact/">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="tool-page tool-page-wide">
+
+    <nav class="breadcrumb">
+      <a href="../../../">ホーム</a>
+      <span class="sep">›</span>
+      <a href="../">流動</a>
+      <span class="sep">›</span>
+      <span class="current">配管の耐圧と必要肉厚</span>
+    </nav>
+
+    <section class="tool-hero tool-hero-simple">
+      <div class="tool-hero-content">
+        <span class="cat-tag" data-cat="fluid">流動</span>
+        <h1>配管の耐圧と必要肉厚</h1>
+        <p class="tool-subcopy">管の外径と厚さ、材料の許容引張応力から、内圧に耐えられる圧力と、圧力に要る最小の厚さを計算します。JIS のスケジュール管と SGP は、呼び径とスケジュールを選ぶと寸法が入ります。</p>
+      </div>
+    </section>
+
+    <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+      <div class="mode-tabs" role="tablist">
+        <button type="button" class="mode-tab active" data-mode="pressure">使える圧力を求める</button>
+        <button type="button" class="mode-tab" data-mode="thickness">必要な厚さを求める</button>
+      </div>
+
+      <div class="calc-grid">
+
+        <div class="calc-pane calc-input-pane">
+          <h2>入力</h2>
+        <!-- value-figure -->
+        <figure class="value-figure input-row-full" data-cat="fluid"><div class="vf-panels"><div class="vf-panel"><svg class="vf-svg" width="400" height="230" viewBox="0 0 400 230" role="img" aria-label="配管の断面：外径 D_o、呼び厚さ t_n、内圧 P。厚さの内訳：腐れしろ c、内圧に耐える厚さ t、製造時の誤差 δ" xmlns="http://www.w3.org/2000/svg"><circle cx="104" cy="98" r="74" class="vf-wallring"/><circle cx="104" cy="98" r="58" class="vf-liqcircle"/><line x1="22" y1="98" x2="186" y2="98" class="vf-cl"/><line x1="104" y1="16" x2="104" y2="180" class="vf-cl"/><g class="vf-g" data-for="P"><line x1="88.5" y1="93.9" x2="50.9" y2="83.8" class="vf-dim"/><polygon points="50.9,83.8 58.3,83.1 57,88.1" class="vf-arrow"/><line x1="92.7" y1="86.7" x2="65.1" y2="59.1" class="vf-dim"/><polygon points="65.1,59.1 71.9,62.2 68.2,65.9" class="vf-arrow"/><line x1="99.9" y1="82.5" x2="89.8" y2="44.9" class="vf-dim"/><polygon points="89.8,44.9 94.1,51 89.1,52.3" class="vf-arrow"/><text x="64" y="132" class="vf-sym" text-anchor="middle"><tspan>P</tspan></text><text x="76" y="132" class="vf-name" text-anchor="start">内圧</text></g><g class="vf-g" data-for="Do"><line x1="30" y1="102" x2="30" y2="199" class="vf-ext"/></g><g class="vf-g" data-for="Do"><line x1="178" y1="102" x2="178" y2="199" class="vf-ext"/></g><g class="vf-g" data-for="Do"><line x1="30" y1="194" x2="178" y2="194" class="vf-dim"/><polygon points="30,194 37,191.4 37,196.6" class="vf-arrow"/><polygon points="178,194 171,196.6 171,191.4" class="vf-arrow"/><text x="82" y="213" class="vf-sym" text-anchor="middle"><tspan>D</tspan><tspan class="vf-sub" dy="0.32em">o</tspan></text><text x="98" y="213" class="vf-name" text-anchor="start">外径</text></g><g class="vf-g" data-for="t"><line x1="132.3" y1="64.3" x2="160.6" y2="30.6" class="vf-dim"/><polygon points="141.3,53.6 138.8,60.6 134.8,57.3" class="vf-arrow"/><polygon points="151.6,41.3 154.1,34.3 158.1,37.6" class="vf-arrow"/></g><g class="vf-g" data-for="t"><text x="166.4" y="24" class="vf-sym" text-anchor="start"><tspan>t</tspan><tspan class="vf-sub" dy="0.32em">n</tspan></text><text x="184.4" y="24.0" class="vf-name">呼び厚さ</text></g><text x="250" y="50" class="vf-note" text-anchor="start">厚さの内訳</text><rect x="250" y="90" width="138" height="28" class="vf-wallh"/><rect x="250" y="90" width="28" height="28" class="vf-foul"/><rect x="356" y="90" width="32" height="28" class="vf-light"/><rect x="356" y="90" width="32" height="28" class="vf-static"/><g class="vf-g" data-for="t"><line x1="250" y1="76" x2="388" y2="76" class="vf-dim"/><polygon points="250,76 257,73.4 257,78.6" class="vf-arrow"/><polygon points="388,76 381,78.6 381,73.4" class="vf-arrow"/><text x="319" y="69" class="vf-sym" text-anchor="middle"><tspan>t</tspan><tspan class="vf-sub" dy="0.32em">n</tspan></text></g><g class="vf-g" data-for="c"><text x="264" y="140" class="vf-sym" text-anchor="middle"><tspan>c</tspan></text></g><text x="317" y="140" class="vf-sym vf-sym-ink" text-anchor="middle"><tspan>t</tspan></text><g class="vf-g" data-for="tol"><text x="372" y="140" class="vf-sym" text-anchor="middle"><tspan>δ</tspan></text></g><text x="250" y="162" class="vf-note" text-anchor="start">内面側</text><text x="388" y="162" class="vf-note" text-anchor="end">外面側</text><text x="250" y="194" class="vf-sym vf-eqn" text-anchor="start"><tspan>t = t</tspan><tspan class="vf-sub" dy="0.32em">n</tspan><tspan dy="-0.23em"> − δ − c</tspan></text></svg></div></div><figcaption><span class="sym">D<sub>o</sub></span> は外面から外面までの外径、<span class="sym">t<sub>n</sub></span> は規格や図面の厚さ（呼び厚さ）、<span class="sym">P</span> は管の内側の圧力です。製造時の誤差 <span class="sym">δ</span> と腐れしろ <span class="sym">c</span> を引いた残りの <span class="sym">t</span> が、内圧に耐える厚さです。</figcaption></figure>
+        <!-- /value-figure -->
+
+          <div class="input-row">
+            <label for="pipe_type">管の種類</label>
+            <div class="input-group">
+              <select id="pipe_type" data-example="stpg">
+                <option value="stpg">圧力配管用炭素鋼鋼管 STPG（JIS G 3454）</option>
+                <option value="sus">配管用ステンレス鋼鋼管（JIS G 3459）</option>
+                <option value="sgp">配管用炭素鋼鋼管 SGP（JIS G 3452）</option>
+                <option value="custom">外径と厚さを入力</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-row" data-pipe="stpg sus sgp">
+            <label for="nps">呼び径</label>
+            <div class="input-group">
+              <select id="nps" data-example="50"></select>
+            </div>
+          </div>
+
+          <div class="input-row" data-pipe="stpg sus" data-show-when="pressure">
+            <label for="sch">スケジュール</label>
+            <div class="input-group">
+              <select id="sch" data-example="40"></select>
+            </div>
+            <p class="hint">（ ）内は呼び厚さです。</p>
+          </div>
+
+          <div class="input-row" data-pipe="custom">
+            <label for="Do">外径 <span class="sym">D<sub>o</sub></span></label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="Do" step="any" placeholder="例：60.5">
+              <span class="unit-label">mm</span>
+            </div>
+          </div>
+
+          <div class="input-row" data-pipe="custom" data-show-when="pressure">
+            <label for="t">呼び厚さ <span class="sym">t<sub>n</sub></span></label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="t" step="any" placeholder="例：3.9">
+              <span class="unit-label">mm</span>
+            </div>
+            <p class="hint">誤差と腐れしろを引く前の、規格や図面の厚さを入力してください。</p>
+          </div>
+
+          <div class="input-row" data-show-when="thickness">
+            <label for="P">圧力 <span class="sym">P</span></label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="P" step="any" placeholder="例：1">
+              <select id="P_unit" aria-label="圧力の単位">
+                <option value="MPa">MPaG</option>
+                <option value="kPa">kPaG</option>
+                <option value="bar">barG</option>
+                <option value="kgfcm2">kgf/cm²G</option>
+              </select>
+            </div>
+            <p class="hint">管の内側の圧力をゲージ圧で入力してください。高圧ガス保安法の例示基準、ASME B31.3 とも設計圧力を使います。</p>
+          </div>
+
+          <div class="input-row">
+            <label for="sigma">許容引張応力 <span class="sym">σ<sub>a</sub></span></label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="sigma" step="any" placeholder="例：92">
+              <span class="unit-label">N/mm²</span>
+            </div>
+            <p class="hint">設計温度での材料の値です。材料と温度で決まります。値の例は<a href="https://chem-fac.com/pipe-allowable-stress/" target="_blank" rel="noopener">配管の許容引張応力の一覧</a>にあります。</p>
+          </div>
+
+          <div class="input-row">
+            <label for="eta">溶接効率 <span class="sym">η</span></label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="eta" step="any" placeholder="例：1">
+              <span class="unit-label">-</span>
+            </div>
+            <p class="hint">継目無管は 1 です。電気抵抗溶接管などで、許容引張応力にあらかじめ溶接効率を掛けた値を使うときも 1 にします。</p>
+          </div>
+
+          <div class="input-row">
+            <label for="c">腐れしろ <span class="sym">c</span>（任意）</label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="c" step="any" placeholder="例：1">
+              <span class="unit-label">mm</span>
+            </div>
+            <p class="hint">腐食や摩耗で減る分の厚さです。空欄なら 0 として計算します。</p>
+          </div>
+
+          <div class="input-row">
+            <label for="tol">製造時の厚さの誤差</label>
+            <div class="input-group">
+              <select id="tol" data-example="hot">
+                <option value="hot">熱間仕上継目無（4 mm 未満 0.5 mm、以上 12.5%）</option>
+                <option value="stpg_cold">STPG の冷間仕上継目無・電気抵抗溶接（3 mm 未満 0.3 mm、以上 10%）</option>
+                <option value="sus_cold">ステンレス鋼管の冷間仕上継目無・溶接（2 mm 未満 0.2 mm、以上 10%）</option>
+                <option value="pct">12.5%（SGP など）</option>
+                <option value="none">見込まない</option>
+              </select>
+            </div>
+            <p class="hint">管が呼び厚さより薄くできてもよい分（マイナス側の許容差）です。管の種類を選ぶと、厚さを薄く見込む側の値に切り替わります。製法が分かれば選び直してください。</p>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn btn-primary" id="calc-btn">計算する</button>
+            <button class="btn btn-ghost" id="reset-btn">リセット</button>
+          </div>
+
+          <div id="error" class="error-msg" style="display:none;"></div>
+        </div>
+
+        <div class="calc-pane calc-result-pane">
+          <h2>計算結果</h2>
+          <div id="result-area">
+            <div class="placeholder">入力値を入れて「計算する」を押してください</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="explain-block">
+      <h2>計算式</h2>
+      <p>内圧を受ける直管の肉厚を、高圧ガス保安法の例示基準の式で計算します。薄肉の式は、ASME B31.3 の直管の式で係数 $Y$ を 0.4、$W$ を 1 としたときと同じ形です。</p>
+      <h3>薄肉の式（外径と内径の比が 1.5 以下）</h3>
+      <div class="math-block">$$ t = \frac{P D_o}{2 \sigma_a \eta + 0.8 P} $$</div>
+      <div class="math-block">$$ P = \frac{2 \sigma_a \eta \, t}{D_o - 0.8 t} $$</div>
+      <h3>厚肉の式（外径と内径の比が 1.5 を超える）</h3>
+      <div class="math-block">$$ t = \frac{D_o}{2} \left( 1 - \sqrt{\frac{\sigma_a \eta - P}{\sigma_a \eta + P}} \right) $$</div>
+      <p>外径と内径の比が 1.5 になるのは、圧力が $\sigma_a \eta$ の 1/2.6（約 38%）のときです。これより低い圧力では薄肉の式、高い圧力では厚肉の式を使います。境目では2つの式が同じ厚さ（外径の 1/6）を出すので、式が切り替わっても結果は途切れません。</p>
+      <h3>呼び厚さとの関係</h3>
+      <p>式で求めた $t$ に腐れしろ $c$ を足し、さらに製造時の誤差 $\delta$ を見込んで、次を満たす呼び厚さを選びます。腐れしろと誤差の見込み方は、ASME B31.3 と同じです。</p>
+      <div class="math-block">$$ t_n - \delta \geq t + c $$</div>
+      <ul class="symbol-list">
+        <li>$t$：内圧に要る最小厚さ［mm］</li>
+        <li>$t_n$：呼び厚さ（スケジュールの厚さ）［mm］</li>
+        <li>$D_o$：外径［mm］</li>
+        <li>$P$：圧力（ゲージ圧）［MPa］</li>
+        <li>$\sigma_a$：設計温度での許容引張応力［N/mm²］</li>
+        <li>$\eta$：溶接効率［-］</li>
+        <li>$c$：腐れしろ［mm］</li>
+        <li>$\delta$：製造時の厚さの誤差（マイナス側）［mm］</li>
+      </ul>
+    </section>
+
+    <section class="explain-block">
+      <h2>製造時の厚さの誤差の目安</h2>
+      <table class="regime-table">
+        <thead>
+          <tr><th>管</th><th>製法</th><th>厚さの誤差（マイナス側）</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>STPG（JIS G 3454）</td><td>熱間仕上継目無</td><td>4 mm 未満は 0.5 mm、4 mm 以上は 12.5%</td></tr>
+          <tr><td>STPG（JIS G 3454）</td><td>冷間仕上継目無・電気抵抗溶接</td><td>3 mm 未満は 0.3 mm、3 mm 以上は 10%</td></tr>
+          <tr><td>ステンレス鋼管（JIS G 3459）</td><td>熱間仕上継目無</td><td>4 mm 未満は 0.5 mm、4 mm 以上は 12.5%</td></tr>
+          <tr><td>ステンレス鋼管（JIS G 3459）</td><td>冷間仕上継目無・溶接</td><td>2 mm 未満は 0.2 mm、2 mm 以上は 10%</td></tr>
+          <tr><td>SGP（JIS G 3452）</td><td>－</td><td>12.5%</td></tr>
+        </tbody>
+      </table>
+      <p>出典：<a href="https://www.nipponsteel.com/product/pipe/pdf/nounyu_shinsei_Part19.pdf" target="_blank" rel="noopener">日本製鉄 圧力配管用炭素鋼鋼管の納入申請図</a>（JIS G 3454）、<a href="https://www.nipponsteel.com/product/construction/handbook/pdf/4-9.pdf" target="_blank" rel="noopener">日本製鉄 建設用資材ハンドブック 配管用炭素鋼鋼管</a>（JIS G 3452）、<a href="https://www.jisf.or.jp/business/standard/jis/documents/docs_kouzai004_jis05G3459_20201202.pdf" target="_blank" rel="noopener">JIS G 3459 改正原案</a>の表10</p>
+    </section>
+
+    <section class="explain-block notes-block">
+      <h2>適用範囲と注意事項</h2>
+      <p>内圧だけを受ける直管の肉厚を、設計の前に見積もるための計算です。</p>
+      <ul>
+        <li><strong>使える条件</strong>：内圧を受ける直管。許容引張応力は設計温度での値を使います。</li>
+        <li><strong>使えない条件</strong>：外圧や真空（管がつぶれる向きの力で厚さが決まる）、エルボ・分岐・フランジ、曲げ・熱膨張・振動による力。ASME B31.3 では、フェライト鋼で 482 °C、オーステナイト鋼で 566 °C を超えると係数 $Y$ が 0.4 より大きくなるので、この式をそのまま使えません。</li>
+        <li><strong>法令の設計</strong>：高圧ガス保安法などの対象の設備は、適用する基準の式と許容引張応力で確かめてください。</li>
+        <li><strong>寸法の表の範囲</strong>：STPG は 10A〜600A の Sch10〜80、ステンレス鋼管は JIS G 3459 の表7 の 6A〜650A（Sch5S〜20S は 300A まで）、SGP は 10A〜500A です。表7 と厚さが違う溶接管の寸法（同じ規格の表8）や、ほかの管は「外径と厚さを入力」を選んでください。</li>
+      </ul>
+    </section>
+
+    <section class="explain-block reference-block">
+      <h2>参考資料</h2>
+      <ul class="paper-link-list">
+        <li><a href="https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/hipregas/files/ippan_reiji.pdf" target="_blank" rel="noopener">一般高圧ガス保安規則関係例示基準</a><br><span class="paper-meta">経済産業省, 2026。「8. 高圧ガス設備及び導管の強度」の配管及び導管の肉厚の算定式</span></li>
+        <li><a href="https://www.asme.org/codes-standards/find-codes-standards/b31-3-process-piping" target="_blank" rel="noopener">ASME B31.3 Process Piping</a><br><span class="paper-meta">ASME。304.1.2 直管の内圧の式、表 304.1.1 の係数 Y</span></li>
+        <li><a href="https://www.jisf.or.jp/business/standard/jis/documents/docs_kouzai004_jis05G3459_20201202.pdf" target="_blank" rel="noopener">JIS G 3459 配管用ステンレス鋼鋼管（改正原案）</a><br><span class="paper-meta">日本鉄鋼連盟, 2020。表7 の寸法、表10 の厚さの許容差</span></li>
+        <li><a href="https://www.nipponsteel.com/product/construction/handbook/pdf/4-10.pdf" target="_blank" rel="noopener">圧力配管用炭素鋼鋼管（STPG 370、STPG 410） JIS G 3454</a><br><span class="paper-meta">日本製鉄, 建設用資材ハンドブック, 2025。寸法</span></li>
+        <li><a href="https://www.nipponsteel.com/product/pipe/pdf/nounyu_shinsei_Part19.pdf" target="_blank" rel="noopener">圧力配管用炭素鋼鋼管（JIS G 3454） 納入申請図</a><br><span class="paper-meta">日本製鉄, 2019。肉厚の許容差</span></li>
+        <li><a href="https://www.nipponsteel.com/product/construction/handbook/pdf/4-9.pdf" target="_blank" rel="noopener">配管用炭素鋼鋼管（SGP） JIS G 3452</a><br><span class="paper-meta">日本製鉄, 建設用資材ハンドブック, 2025。寸法と厚さの許容差</span></li>
+      </ul>
+    </section>
+
+    <section class="related">
+      <h3>関連ツール</h3>
+      <div class="related-grid">
+        <a href="../flow-conversion/" class="related-card">
+          <span class="small">流動</span>
+          流量・流速・配管径換算
+        </a>
+        <a href="../fanning/" class="related-card">
+          <span class="small">流動</span>
+          ファニングの式・管摩擦係数（圧力損失）
+        </a>
+        <a href="../reynolds/" class="related-card">
+          <span class="small">流動</span>
+          レイノルズ数（配管）
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>サイトについて</h4>
+        <ul>
+          <li><a href="../../../about/">当サイトについて</a></li>
+          <li><a href="../../../privacy/">プライバシーポリシー</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>サポート</h4>
+        <ul>
+          <li><a href="../../../contact/">お問い合わせ</a></li>
+          <li><a href="../../../faq/">よくある質問</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>その他</h4>
+        <ul>
+          <li><a href="../../../terms/">利用規約</a></li>
+          <li><a href="../../../disclaimer/">免責事項</a></li>
+        </ul>
+      </div>
+      <div class="footer-brand">
+        <a href="../../../" class="logo">
+          <img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">
+          化学工学計算支援ツール
+        </a>
+        <div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../../assets/js/pipe-wall-thickness.js"></script>
+  <script src="../../../assets/js/value-figure.js"></script>
+  <script src="../../../assets/js/share.js"></script>
+  <script src="../../../assets/js/calc-utils.js"></script>
+</body>
+
+</html>
