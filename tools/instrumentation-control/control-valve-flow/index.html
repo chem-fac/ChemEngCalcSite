@@ -101,7 +101,7 @@
           <input type="number" inputmode="decimal" id="coef" step="any" placeholder="例：10">
           <select id="coef_type" aria-label="流量係数の種類"><option value="Cv">Cv</option><option value="Kv">Kv</option></select>
         </div>
-        <p class="hint">運転時の開度に対応するCvまたはKvを、メーカーの表や特性曲線で確認して入力してください。カタログの定格Cv・Kvsは全開時の値で、開度の割合を掛けても運転時の値にはなりません。</p>
+        <p class="hint">運転時の開度に対応するCvまたはKvを、メーカーの表や特性曲線で確認して入力してください。カタログの定格Cv・Kvsは全開時の値です。資料が手元にないときは、<a href="#cv-guide">流量係数の目安</a>で見当をつけられます。</p>
       </div>
 
       <div class="input-row">
@@ -163,6 +163,54 @@
   </ul>
 </section>
 
+<section class="explain-block" id="cv-guide">
+  <h2>流量係数の目安</h2>
+  <p>計算には、使う弁のメーカーの資料にある、運転時の開度での値を使います。資料が手元にないときは、次の2つの表で見当をつけられます。</p>
+
+  <h3>全開時の Cv（玉形弁）</h3>
+  <p>弁座の口径を絞っていない単座の玉形弁では、全開時の $C_v$ が、呼び径をインチで表した数 $d$ の2乗のおよそ11〜12倍になります。</p>
+  <table class="regime-table">
+    <thead>
+      <tr><th>呼び径</th><th>インチ</th><th>全開時の $C_v$ の目安</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>25A</td><td>1</td><td>11〜12</td></tr>
+      <tr><td>50A</td><td>2</td><td>44〜48</td></tr>
+      <tr><td>80A</td><td>3</td><td>99〜108</td></tr>
+      <tr><td>100A</td><td>4</td><td>176〜192</td></tr>
+      <tr><td>150A</td><td>6</td><td>396〜432</td></tr>
+    </tbody>
+  </table>
+  <p>弁座の口径を絞った弁は、これより小さくなります。Vボール弁やボール弁は同じ呼び径の玉形弁の数倍になり、あるメーカーの 50A の公表値では、玉形弁 49、Vボール弁 163、ボール弁（全口径）251 です。</p>
+
+  <h3>開度と Cv の割合（流量特性）</h3>
+  <p>運転時の $C_v$ は、全開時の $C_v$ に、弁の流量特性に応じた次の割合を掛けて見積もります。流量特性はメーカーの資料で確かめます。</p>
+  <table class="regime-table">
+    <thead>
+      <tr><th>開度</th><th>リニア特性</th><th>イコールパーセント特性</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>10%</td><td>10%</td><td>3.0%</td></tr>
+      <tr><td>20%</td><td>20%</td><td>4.4%</td></tr>
+      <tr><td>30%</td><td>30%</td><td>6.5%</td></tr>
+      <tr><td>40%</td><td>40%</td><td>9.6%</td></tr>
+      <tr><td>50%</td><td>50%</td><td>14%</td></tr>
+      <tr><td>60%</td><td>60%</td><td>21%</td></tr>
+      <tr><td>70%</td><td>70%</td><td>31%</td></tr>
+      <tr><td>80%</td><td>80%</td><td>46%</td></tr>
+      <tr><td>90%</td><td>90%</td><td>68%</td></tr>
+      <tr><td>100%</td><td>100%</td><td>100%</td></tr>
+    </tbody>
+  </table>
+  <p>イコールパーセント特性の割合は $C_v / C_{v0} = R^{\,x-1}$ から計算しました。開度が10%増えるごとに、流量は約48%増えます。</p>
+  <ul class="symbol-list">
+    <li>$C_{v0}$：全開時の流量係数［US gal/min基準］</li>
+    <li>$x$：開度（全開を1とする）［-］</li>
+    <li>$R$：レンジアビリティ（全開と最小の流量係数の比）。ここでは50［-］</li>
+  </ul>
+  <p>どちらも弁前後の差圧が一定のときの形です。配管に組み込むと開度で差圧が変わるので、イコールパーセント特性はリニアに、リニア特性は少しの開度で大きく流れる形に近づきます。小さい開度ではこの形から外れる弁もあります。</p>
+</section>
+
 <section class="explain-block notes-block">
   <h2>適用範囲と注意事項</h2>
   <p>水・低粘度液体の単相・乱流・非チョーク流れを仮定した簡易推定です。</p>
@@ -178,6 +226,12 @@
   <ul class="paper-link-list">
     <li><a href="https://usa.samsongroup.com/document/t00050en.pdf" target="_blank" rel="noopener">SAMSON, Application Notes: Kv coefficient · Valve sizing</a><br><span class="paper-meta">SAMSON, AB 05 EN, 2012年3月。p.1。液体のKvと流量・差圧・密度の関係、適用制約。</span></li>
     <li><a href="https://www.emerson.com/is/content/emerson/en/final-control/flow-controls/documents/d103540x012.pdf" target="_blank" rel="noopener">Emerson, Control Valve Sourcebook: Pulp &amp; Paper</a><br><span class="paper-meta">Emerson。印刷p.3-7（PDF p.51）Table 3-2・式17、印刷p.4-4。Cv用の単位換算係数、液体流量式と乱流の前提。</span></li>
+    <li><a href="https://www.spiraxsarco.com/learn-about-steam/control-hardware-electric-pneumatic-actuation/control-valve-characteristics" target="_blank" rel="noopener">Control Valve Characteristics</a><br><span class="paper-meta">Spirax Sarco, The Steam and Condensate Loop, Block 6.5。イコールパーセント特性の考え方と、レンジアビリティ50で開度10%ごとに流量が約48%増えること</span></li>
+    <li><a href="https://www.engineeringtoolbox.com/control-valves-flow-characteristics-d_485.html" target="_blank" rel="noopener">Control Valves - Flow Characteristics</a><br><span class="paper-meta">The Engineering ToolBox。リニア特性とイコールパーセント特性、配管に組み込んだときの特性の変わり方</span></li>
+    <li><a href="https://instrumentationtools.com/relative-flow-capacity-of-a-valve/" target="_blank" rel="noopener">Relative Flow Capacity of a Valve</a><br><span class="paper-meta">Inst Tools。全開時の Cv を呼び径（インチ）の2乗で割った値の目安（単座の玉形弁で約11）</span></li>
+    <li><a href="https://www.valmet.com/globalassets/flow-control/services/GU_GUAL.html" target="_blank" rel="noopener">Neles GU series, Cv-values (GUAL)</a><br><span class="paper-meta">Valmet。玉形弁・リニア特性・DN50・RN0 の開度ごとの Cv（全開49）</span></li>
+    <li><a href="https://www.valmet.com/globalassets/flow-control/services/RE_RE.html" target="_blank" rel="noopener">Neles RE series, Cv-values</a><br><span class="paper-meta">Valmet。Vボール弁・DN50・RN0 の全開 Cv 163</span></li>
+    <li><a href="https://www.valmet.com/globalassets/flow-control/services/J4B_J4B.html" target="_blank" rel="noopener">Neles J4 series, Cv-values</a><br><span class="paper-meta">Valmet。全口径のボール弁・DN50 の全開 Cv 251</span></li>
   </ul>
 </section>
 
