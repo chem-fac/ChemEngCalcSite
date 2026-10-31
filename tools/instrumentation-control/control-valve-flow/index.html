@@ -131,12 +131,23 @@
 <section class="explain-block">
   <h2>計算式</h2>
   <p>差圧をkPa、密度をkg/m³に換算して、次の式に代入します。水の基準密度を1000 kg/m³とする工学的近似です。</p>
-  <div class="math-block">$$ \Delta p = P_1 - P_2 $$</div>
+  <p>前後圧力を入力した場合は、$\Delta p = P_1 - P_2$ で差圧を求めます。</p>
+
+  <h3>体積流量の計算</h3>
+  <p>入力した流量係数に応じて、次のどちらかの式を使います。</p>
+  <p><strong>Kvを入力した場合</strong></p>
   <div class="math-block">$$ Q = K_v \sqrt{\frac{10\,\Delta p}{\rho}} $$</div>
+  <p><strong>Cvを入力した場合</strong></p>
   <div class="math-block">$$ Q \approx 0.0865\,C_v \sqrt{\frac{1000\,\Delta p}{\rho}} $$</div>
-  <div class="math-block">$$ K_v = 0.865\,C_v $$</div>
-  <div class="math-block">$$ q = \frac{1000\,Q}{60} $$</div>
-  <div class="math-block">$$ \dot{m} = \rho\,Q $$</div>
+
+  <h3>係数と流量の換算</h3>
+  <ul>
+    <li>CvとKvの換算：$K_v = 0.865\,C_v$</li>
+    <li>体積流量をL/minに換算：$q = \frac{1000\,Q}{60}$</li>
+    <li>質量流量をkg/hで計算：$\dot{m} = \rho\,Q$</li>
+  </ul>
+
+  <h3>記号と単位</h3>
   <ul class="symbol-list">
     <li>$P_1$：弁上流の圧力［kPa］</li>
     <li>$P_2$：弁下流の圧力［kPa］</li>
