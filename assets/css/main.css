@@ -211,13 +211,13 @@ textarea:focus-visible {
 }
 
 /* ===== Category index (top)：分野の目録。箱にせず細い罫線で区切る =====
-   装置の線画と分野名を横に並べ、PCは4列。狭い画面では列数と線画の大きさを調整する */
+   装置の線画の下に分野名を置き、PCは7列。狭い画面では列数と線画の大きさを調整する */
 .cat-index {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   column-gap: 24px;
   border-top: 1px solid var(--border);
 }
@@ -227,18 +227,20 @@ textarea:focus-visible {
 }
 .cat-link {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   gap: 10px;
-  padding: 10px 0;
+  padding: 16px 8px;
   color: var(--text);
+  text-align: center;
 }
 .cat-link:hover { text-decoration: none; }
-/* 分野を見分ける装置の線画は、PCの4列で読み取れる大きさにする。 */
+/* 装置の線画を主役にし、分野名はその下でそろえる。 */
 .cat-link img {
   flex: 0 0 auto;
-  width: 96px;
-  height: 80px;
+  width: 136px;
+  height: 112px;
+  max-width: 100%;
   object-fit: contain;
   object-position: center;
   display: block;
@@ -247,7 +249,7 @@ textarea:focus-visible {
 .cat-link-name {
   display: block;
   word-break: auto-phrase;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 700;
   line-height: 1.5;
   color: var(--brand);
@@ -1707,17 +1709,23 @@ details.formula .body {
   .footer-inner { grid-template-columns: 1fr 1fr; }
   .footer-brand { align-items: flex-start; }
 }
-@media (max-width: 1000px) {
-  .cat-index { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 1199px) {
+  .cat-index { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .cat-link img { width: 120px; height: 100px; }
 }
-@media (max-width: 760px) {
-  .cat-index { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 899px) {
+  .cat-index { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 16px; }
+  .cat-link img { width: 104px; height: 88px; }
 }
-@media (max-width: 560px) {
-  /* スマホは2列（アイコンは名前の横） */
-  .cat-index { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
-  .cat-index .cat-link img { width: 56px; height: 47px; }
+@media (max-width: 599px) {
+  .cat-index { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 12px; }
+  .cat-link { padding: 12px 2px; }
+  .cat-link img { width: 88px; height: 76px; }
   .cat-link-name { font-size: 15px; }
+}
+@media (max-width: 359px) {
+  .cat-link img { width: 80px; height: 72px; }
+  .cat-link-name { font-size: 14px; }
 }
 @media (max-width: 768px) {
   html, body { overflow-x: hidden; max-width: 100vw; }
