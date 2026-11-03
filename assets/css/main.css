@@ -211,14 +211,13 @@ textarea:focus-visible {
 }
 
 /* ===== Category index (top)：分野の目録。箱にせず細い罫線で区切る =====
-   アイコンを名前の横に小さく置き、幅に応じて列数を決める（PCで5〜6列・スマホで2列）。
-   縦に積む大きいアイコンは使わない */
+   装置の線画と分野名を横に並べ、PCは4列。狭い画面では列数と線画の大きさを調整する */
 .cat-index {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   column-gap: 24px;
   border-top: 1px solid var(--border);
 }
@@ -235,12 +234,11 @@ textarea:focus-visible {
   color: var(--text);
 }
 .cat-link:hover { text-decoration: none; }
-/* 自作の装置線画（このサイトだけの資産）は名前の横に置く。52×44 では小さすぎて見づらいので、
-   横並びの詰めた配置は保ったまま 72×60 にする（PCの5列で分野名が1行に収まる大きさ） */
+/* 分野を見分ける装置の線画は、PCの4列で読み取れる大きさにする。 */
 .cat-link img {
   flex: 0 0 auto;
-  width: 72px;
-  height: 60px;
+  width: 96px;
+  height: 80px;
   object-fit: contain;
   object-position: center;
   display: block;
@@ -1514,9 +1512,9 @@ details.formula .body {
 }
 .profile-links li {
   display: grid;
-  grid-template-columns: 9em 1fr;
-  gap: 2px 14px;
-  align-items: baseline;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 2px 18px;
+  align-items: start;
   font-size: 15px;
   line-height: 1.6;
   padding: 12px 0;
@@ -1525,11 +1523,22 @@ details.formula .body {
 @media (max-width: 900px) {
   .profile-links { grid-template-columns: 1fr; }
 }
+.profile-link-logo {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  align-self: center;
+  width: 88px;
+  height: 64px;
+  object-fit: contain;
+  display: block;
+}
 .profile-link-label {
+  grid-column: 2;
   font-size: 13px;
   color: var(--text-sub);
 }
 .profile-link {
+  grid-column: 2;
   color: var(--brand);
   font-weight: 500;
   text-decoration: underline;
@@ -1555,8 +1564,8 @@ details.formula .body {
 @media (max-width: 640px) {
   .profile-header { gap: 16px; }
   .profile-avatar { width: 72px; height: 72px; }
-  .profile-links li { grid-template-columns: 1fr; gap: 2px; }
-  .profile-link-desc { grid-column: 1; }
+  .profile-links li { grid-template-columns: 64px minmax(0, 1fr); gap: 2px 14px; }
+  .profile-link-logo { width: 64px; height: 56px; }
 }
 
 /* ===== Doc page (about / privacy / faq / terms / disclaimer) ===== */
@@ -1697,6 +1706,12 @@ details.formula .body {
   .info-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
   .footer-brand { align-items: flex-start; }
+}
+@media (max-width: 1000px) {
+  .cat-index { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .cat-index { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 560px) {
   /* スマホは2列（アイコンは名前の横） */
