@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>圧縮性・非圧縮性の判定（マッハ数・音速・圧力損失） | 化学工学計算支援ツール</title>
+  <meta name="description" content="流速と音速の比（マッハ数）から、気体や液体の流れを非圧縮性とみなせるかを判定します。音速は温度・モル質量・比熱比、または体積弾性係数と密度から求め、気体の配管は圧力損失の入口圧力に対する割合でも判定します。">
+  <meta name="keywords" content="圧縮性流体,非圧縮性流体,圧縮性,非圧縮性,マッハ数,Mach,音速,体積弾性係数,圧縮率,比熱比,密度変化,圧力損失,気体,配管,compressible flow">
+  <link rel="canonical" href="https://tools.chem-fac.com/tools/fluid/compressibility/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="化学工学計算支援ツール">
+  <meta property="og:title" content="圧縮性・非圧縮性の判定（マッハ数・音速・圧力損失） | 化学工学計算支援ツール">
+  <meta property="og:description" content="流速と音速の比（マッハ数）から、気体や液体の流れを非圧縮性とみなせるかを判定します。音速は温度・モル質量・比熱比、または体積弾性係数と密度から求め、気体の配管は圧力損失の入口圧力に対する割合でも判定します。">
+  <meta property="og:url" content="https://tools.chem-fac.com/tools/fluid/compressibility/">
+  <meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-fluid-compressibility.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@chem_fac">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"圧縮性流体の判定（マッハ数）","url":"https://tools.chem-fac.com/tools/fluid/compressibility/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"流速と音速の比（マッハ数）から、気体や液体の流れを非圧縮性とみなせるかを判定します。音速は温度・モル質量・比熱比、または体積弾性係数と密度から求め、気体の配管は圧力損失の入口圧力に対する割合でも判定します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"圧縮性流体, 非圧縮性流体, 圧縮性, 非圧縮性, マッハ数, Mach, 音速, 体積弾性係数, 圧縮率, 比熱比, 密度変化, 圧力損失, 気体, 配管, compressible flow","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-31"}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/css/main.css">
+  <link rel="icon" href="/assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon-512.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\\\[',right:'\\\\]',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}]});"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-7MQ7VEMWHY');
+  </script>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="inner">
+      <a href="../../../" class="logo">
+        <img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">
+        化学工学計算支援ツール
+      </a>
+      <nav class="site-nav">
+        <a href="../../../tools/">ツール一覧</a>
+        <a href="../../../updates/">更新情報</a>
+        <a href="../../../faq/">よくある質問</a>
+        <a href="../../../support/">支援する</a>
+        <a href="../../../contact/">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="tool-page tool-page-wide">
+
+    <nav class="breadcrumb">
+      <a href="../../../">ホーム</a>
+      <span class="sep">›</span>
+      <a href="../">流動</a>
+      <span class="sep">›</span>
+      <span class="current">圧縮性流体の判定</span>
+    </nav>
+
+    <section class="tool-hero tool-hero-simple">
+      <div class="tool-hero-content">
+        <span class="cat-tag" data-cat="fluid">流動</span>
+        <h1>圧縮性流体の判定（マッハ数）</h1>
+        <p class="tool-subcopy">流速と音速からマッハ数を求め、流れを非圧縮性（密度一定）とみなせるかを判定します。気体の配管では、圧力損失の入口圧力に対する割合でも判定します。</p>
+      </div>
+    </section>
+
+    <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
+      <div class="mode-tabs" role="tablist">
+        <button type="button" class="mode-tab active" data-mode="gas">気体（理想気体）</button>
+        <button type="button" class="mode-tab" data-mode="bulk">体積弾性係数から（液体など）</button>
+      </div>
+      <div class="calc-grid">
+
+        <div class="calc-pane calc-input-pane">
+          <h2>入力</h2>
+        <!-- value-figure -->
+        <figure class="value-figure input-row-full" data-cat="fluid"><div class="vf-panels"><div class="vf-panel" data-show-when="gas"><svg class="vf-svg" width="400" height="206" viewBox="0 0 400 206" role="img" aria-label="配管の気体の流れ：平均流速 v、入口①の圧力 P₁、①から②までの圧力損失 ΔP" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="70" width="368" height="48" class="vf-bore"/><rect x="16" y="64" width="368" height="6" class="vf-wallh"/><rect x="16" y="118" width="368" height="6" class="vf-wallh"/><line x1="16" y1="94" x2="384" y2="94" class="vf-cl"/><line x1="64" y1="56" x2="64" y2="132" class="vf-section"/><text x="64" y="30" class="vf-note" text-anchor="middle">① 入口</text><line x1="316" y1="56" x2="316" y2="132" class="vf-section"/><text x="316" y="30" class="vf-note" text-anchor="middle">② 出口</text><g class="vf-g" data-for="P1"><line x1="64" y1="56" x2="90" y2="46" class="vf-ext"/><text x="94" y="51" class="vf-sym" text-anchor="start"><tspan>P</tspan><tspan class="vf-sub" dy="0.32em">1</tspan></text><text x="120" y="51" class="vf-name" text-anchor="start">入口の圧力</text></g><text x="324" y="51" class="vf-sym vf-sym-ink" text-anchor="start"><tspan>P</tspan><tspan class="vf-sub" dy="0.32em">2</tspan></text><polyline points="110,86 180,86" class="vf-flow"/><polygon points="180,86 172,89.2 172,82.8" class="vf-flowhead"/><text x="192" y="92" class="vf-sym" text-anchor="start"><tspan>v</tspan></text><g class="vf-g" data-for="v"><text x="206" y="92" class="vf-name">断面平均流速</text></g><g class="vf-g" data-for="dP"><line x1="64" y1="134" x2="64" y2="157" class="vf-ext"/></g><g class="vf-g" data-for="dP"><line x1="316" y1="134" x2="316" y2="157" class="vf-ext"/></g><g class="vf-g" data-for="dP"><line x1="64" y1="152" x2="316" y2="152" class="vf-dim"/><polygon points="64,152 71,149.4 71,154.6" class="vf-arrow"/><polygon points="316,152 309,154.6 309,149.4" class="vf-arrow"/><text x="96" y="172" class="vf-sym" text-anchor="middle"><tspan>ΔP</tspan></text><text x="116" y="172" class="vf-name" text-anchor="start">①〜②の圧力損失（P₁ − P₂）</text></g></svg><p class="vf-panel-note"><span class="sym">v</span> は断面で平均した流速、<span class="sym">P<sub>1</sub></span> は入口①の圧力、<span class="sym">ΔP</span> は①から出口②までの圧力損失です。</p></div></div></figure>
+        <!-- /value-figure -->
+
+          <div class="input-row" data-show-when="gas">
+            <label for="v">流速 <span class="sym">v</span></label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="v" step="any" placeholder="例：30">
+              <span class="unit-label">m/s</span>
+            </div>
+            <p class="hint">配管の断面で平均した流速です。弁や絞りのように断面が狭い所があれば、そこの流速で判定します。</p>
+          </div>
+
+          <div class="input-row" data-show-when="gas">
+            <label for="T">温度 <span class="sym">T</span></label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="T" step="any" placeholder="例：20">
+              <span class="unit-label">°C</span>
+            </div>
+          </div>
+
+          <div class="input-row" data-show-when="gas">
+            <label for="M">モル質量 <span class="sym">M</span></label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="M" step="any" placeholder="例：28.97">
+              <span class="unit-label">g/mol</span>
+            </div>
+            <p class="hint">空気 28.97、窒素 28.01、二酸化炭素 44.01、メタン 16.04、水蒸気 18.02、水素 2.016。混合気体はモル分率で重みを付けて平均します。</p>
+          </div>
+
+          <div class="input-row" data-show-when="gas">
+            <label for="k">比熱比 <span class="sym">k</span></label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="k" step="any" placeholder="例：1.4">
+              <span class="unit-label">-</span>
+            </div>
+            <p class="hint">定圧比熱と定容比熱の比 C<sub>p</sub>/C<sub>v</sub> です。常温で、空気・窒素・水素は約1.4、二酸化炭素・メタン・水蒸気は約1.3。</p>
+          </div>
+
+          <div class="input-row" data-show-when="gas">
+            <label for="P1">入口圧力 <span class="sym">P<sub>1</sub></span>（任意）</label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="P1" step="any" placeholder="例：100">
+              <select id="P1_unit" aria-label="入口圧力の単位">
+                <option value="kPaG">kPaG</option>
+                <option value="MPaG">MPaG</option>
+                <option value="kPaA">kPaA</option>
+                <option value="MPaA">MPaA</option>
+              </select>
+            </div>
+            <p class="hint">ゲージ圧は大気圧 101.325 kPa を足して絶対圧にします。圧力損失と両方入れると、圧力損失による判定もします。</p>
+          </div>
+
+          <div class="input-row" data-show-when="gas">
+            <label for="dP">圧力損失 <span class="sym">ΔP</span>（任意）</label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="dP" step="any" placeholder="例：30">
+              <select id="dP_unit" aria-label="圧力損失の単位">
+                <option value="kPa">kPa</option>
+                <option value="MPa">MPa</option>
+              </select>
+            </div>
+            <p class="hint">密度を一定として求めた、入口から出口までの圧力損失です。</p>
+          </div>
+
+          <div class="input-row" data-show-when="bulk" hidden>
+            <label for="v_b">流速 <span class="sym">v</span></label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="v_b" step="any" placeholder="例：2">
+              <span class="unit-label">m/s</span>
+            </div>
+            <p class="hint">配管の断面で平均した流速です。弁や絞りのように断面が狭い所があれば、そこの流速で判定します。</p>
+          </div>
+
+          <div class="input-row" data-show-when="bulk" hidden>
+            <label for="K">体積弾性係数 <span class="sym">K</span></label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="K" step="any" placeholder="例：2.2">
+              <select id="K_unit" aria-label="体積弾性係数の単位">
+                <option value="GPa">GPa</option>
+                <option value="MPa">MPa</option>
+              </select>
+            </div>
+            <p class="hint">水（20 °C）は約 2.2 GPa です。気体を入れるときは断熱の値 K = kP を使います（等温の値 K = P では音速が小さく出ます）。圧縮率 β からの換算は K = 1/β です。</p>
+          </div>
+
+          <div class="input-row" data-show-when="bulk" hidden>
+            <label for="rho">密度 <span class="sym">ρ</span></label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="rho" step="any" placeholder="例：998">
+              <select id="rho_unit" aria-label="密度の単位">
+                <option value="kgm3">kg/m³</option>
+                <option value="gcm3">g/cm³</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-row" data-show-when="bulk" hidden>
+            <label for="dp_b">圧力の変化 <span class="sym">Δp</span>（任意）</label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="dp_b" step="any" placeholder="例：500">
+              <select id="dp_b_unit" aria-label="圧力の変化の単位">
+                <option value="kPa">kPa</option>
+                <option value="MPa">MPa</option>
+              </select>
+            </div>
+            <p class="hint">入れると、その圧力の変化で密度が何%変わるか（Δρ/ρ = Δp/K）も表示します。</p>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn btn-primary" id="calc-btn">計算する</button>
+            <button class="btn btn-ghost" id="reset-btn">リセット</button>
+          </div>
+
+          <div id="error" class="error-msg" style="display:none;"></div>
+        </div>
+
+        <div class="calc-pane calc-result-pane">
+          <h2>計算結果</h2>
+          <div id="result-area">
+            <div class="placeholder">入力値を入れて「計算する」を押してください</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="explain-block">
+      <h2>計算式</h2>
+      <p>マッハ数は流速と音速の比で、流れの中で密度がどれだけ変わるかの目安になります。</p>
+      <div class="math-block">$$ Ma = \frac{v}{a} $$</div>
+      <h3>音速</h3>
+      <p>気体は理想気体として温度から求めます。</p>
+      <div class="math-block">$$ a = \sqrt{\frac{kRT}{M}} $$</div>
+      <p>液体などは体積弾性係数と密度から求めます。</p>
+      <div class="math-block">$$ a = \sqrt{\frac{K}{\rho}} \qquad K = \frac{\Delta p}{\Delta \rho / \rho} $$</div>
+      <h3>流速による密度の変化</h3>
+      <p>流れを止めたときの密度 $\rho_0$ との差です。気体は等エントロピー変化の式で求めます。</p>
+      <div class="math-block">$$ \frac{\rho_0 - \rho}{\rho_0} = 1 - \left(1 + \frac{k-1}{2} Ma^2\right)^{-\frac{1}{k-1}} $$</div>
+      <p>体積弾性係数から求めるときは、動圧 $\rho v^2/2$ による縮みとして計算します。</p>
+      <div class="math-block">$$ \frac{\rho_0 - \rho}{\rho_0} \approx \frac{Ma^2}{2} $$</div>
+      <h3>圧力損失による密度の変化（気体）</h3>
+      <p>温度が変わらない理想気体では、密度は絶対圧に比例します。</p>
+      <div class="math-block">$$ \frac{\rho_1 - \rho_2}{\rho_1} = \frac{\Delta P}{P_1} $$</div>
+      <ul class="symbol-list">
+        <li>$Ma$：マッハ数［-］</li>
+        <li>$v$：流速［m/s］</li>
+        <li>$a$：音速［m/s］</li>
+        <li>$k$：比熱比 $C_p/C_v$［-］</li>
+        <li>$R$：気体定数 8.314［J/(mol·K)］</li>
+        <li>$T$：絶対温度［K］</li>
+        <li>$M$：モル質量［kg/mol］</li>
+        <li>$K$：体積弾性係数（音速の式では断熱の値）［Pa］</li>
+        <li>$\rho$：密度［kg/m³］</li>
+        <li>$\rho_0$：流れを止めたときの密度［kg/m³］</li>
+        <li>$\Delta p$：圧力の変化［Pa］</li>
+        <li>$\Delta \rho$：密度の変化［kg/m³］</li>
+        <li>$P_1$：入口の絶対圧［Pa］</li>
+        <li>$\Delta P$：入口から出口までの圧力損失［Pa］</li>
+        <li>$\rho_1$, $\rho_2$：入口と出口の密度［kg/m³］</li>
+      </ul>
+    </section>
+
+    <section class="explain-block">
+      <h2>判定の目安</h2>
+      <table class="regime-table">
+        <thead>
+          <tr><th>判定に使う値</th><th>範囲</th><th>扱い</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>マッハ数 $Ma$</td><td>0.3 以下</td><td>非圧縮性とみなせる（空気では密度の変化が約4.4%以下）</td></tr>
+          <tr><td>マッハ数 $Ma$</td><td>0.3 を超え 1 未満</td><td>圧縮性を考える</td></tr>
+          <tr><td>マッハ数 $Ma$</td><td>1 以上</td><td>音速以上。一定断面の配管の中で、亜音速の流れが音速を超えることはない</td></tr>
+          <tr><td>圧力損失の割合 $\Delta P/P_1$</td><td>10% 以下</td><td>入口か出口の密度で、密度一定の式を使える</td></tr>
+          <tr><td>圧力損失の割合 $\Delta P/P_1$</td><td>10% を超え 40% 以下</td><td>入口と出口の平均の密度で、密度一定の式を使える</td></tr>
+          <tr><td>圧力損失の割合 $\Delta P/P_1$</td><td>40% を超える</td><td>圧縮性流体の式で計算する</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="explain-block notes-block">
+      <h2>適用範囲と注意事項</h2>
+      <p>流れの中で密度が変わる割合を、流速（マッハ数）と圧力損失の2つから見積もります。</p>
+      <ul>
+        <li><strong>2つの判定の違い</strong>：マッハ数で見るのは流速による密度の変化で、圧力損失の割合で見るのは配管の中で圧力が下がることによる密度の変化です。流速が小さくても、長い配管や圧力の低い配管では圧力損失で密度が大きく変わります。入口か出口の密度で密度一定の式（ファニングの式など）をそのまま使えるのは、マッハ数が0.3以下で、圧力損失の割合が10%以下のときです。</li>
+        <li><strong>使える条件</strong>：単相の気体または液体の流れ。気体は理想気体として音速を求めます。</li>
+        <li><strong>使えない条件</strong>：気液二相流、臨界点に近い気体や高圧で理想気体から外れる気体。高圧のガスは、実在気体の物性から求めた断熱の体積弾性係数と密度を「体積弾性係数から」に入れて計算します。</li>
+        <li><strong>温度の変化</strong>：圧力損失による判定の前提は温度一定です。加熱・冷却で温度が大きく変わる流れは、温度の変化でも密度が変わります。</li>
+        <li><strong>液体</strong>：配管の流速ではマッハ数がおよそ 0.001 で、流れの中の密度はほとんど変わりません。液体の圧縮性が効くのは、弁を急に閉めたときの水撃のように、圧力が急に変わる場合です。</li>
+      </ul>
+    </section>
+
+    <section class="explain-block reference-block">
+      <h2>参考資料</h2>
+      <ul class="paper-link-list">
+        <li><a href="https://chem-fac.com/compressible-fluid/" target="_blank" rel="noopener">流体の圧縮性と非圧縮性</a><br><span class="paper-meta">かねまる, ケムファク, 2024。マッハ数による判定、体積弾性係数と音速の式</span></li>
+        <li><a href="https://www.grc.nasa.gov/www/k-12/airplane/isentrop.html" target="_blank" rel="noopener">Isentropic Flow Equations</a><br><span class="paper-meta">NASA Glenn Research Center, Beginner's Guide to Aeronautics。理想気体の音速（Eq. 2）、マッハ数と密度の関係（Eq. 8）</span></li>
+        <li>Fluid Mechanics: Fundamentals and Applications<br><span class="paper-meta">Y. A. Çengel, J. M. Cimbala, McGraw-Hill, 第3版, 2014。第1章 流れの分類（密度の変化が約5%以下となる Ma &lt; 0.3 で非圧縮性とみなす）</span></li>
+        <li>Flow of Fluids Through Valves, Fittings, and Pipe (Technical Paper No. 410)<br><span class="paper-meta">Crane Co.。第1章 圧縮性流体の流れ（圧力損失が入口圧力の10%・40%で密度の取り方を分ける）</span></li>
+      </ul>
+    </section>
+
+    <section class="related">
+      <h3>関連ツール</h3>
+      <div class="related-grid">
+        <a href="../flow-conversion/" class="related-card">
+          <span class="small">流動</span>
+          流量・流速・配管径換算
+        </a>
+        <a href="../reynolds/" class="related-card">
+          <span class="small">流動</span>
+          レイノルズ数（配管）
+        </a>
+        <a href="../fanning/" class="related-card">
+          <span class="small">流動</span>
+          ファニングの式・管摩擦係数（圧力損失）
+        </a>
+        <a href="../continuity/" class="related-card">
+          <span class="small">流動</span>
+          連続の式（配管断面変化）
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>サイトについて</h4>
+        <ul>
+          <li><a href="../../../about/">当サイトについて</a></li>
+          <li><a href="../../../privacy/">プライバシーポリシー</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>サポート</h4>
+        <ul>
+          <li><a href="../../../contact/">お問い合わせ</a></li>
+          <li><a href="../../../faq/">よくある質問</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>その他</h4>
+        <ul>
+          <li><a href="../../../terms/">利用規約</a></li>
+          <li><a href="../../../disclaimer/">免責事項</a></li>
+        </ul>
+      </div>
+      <div class="footer-brand">
+        <a href="../../../" class="logo">
+          <img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">
+          化学工学計算支援ツール
+        </a>
+        <div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../../assets/js/compressibility.js"></script>
+  <script src="../../../assets/js/value-figure.js"></script>
+<script src="../../../assets/js/share.js"></script>
+  <script src="../../../assets/js/calc-utils.js"></script>
+</body>
+
+</html>

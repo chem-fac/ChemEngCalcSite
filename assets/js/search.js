@@ -49,6 +49,12 @@
       keywords: ["配管", "耐圧", "肉厚", "必要肉厚", "スケジュール", "Sch", "Sch40", "Sch80", "STPG", "SGP", "ステンレス鋼管", "SUS", "呼び径", "外径", "許容引張応力", "溶接効率", "腐れしろ", "例示基準", "高圧ガス", "ASME B31.3", "バーロー", "Barlow", "pipe wall thickness"]
     },
     {
+      title: "圧縮性流体の判定（マッハ数）",
+      url: "tools/fluid/compressibility/",
+      category: "流動",
+      keywords: ["圧縮性流体", "非圧縮性流体", "圧縮性", "非圧縮性", "マッハ数", "Mach", "音速", "体積弾性係数", "圧縮率", "比熱比", "密度変化", "圧力損失", "気体", "配管", "compressible flow"]
+    },
+    {
       title: "流動（カテゴリ）",
       url: "tools/fluid/",
       category: "カテゴリ",
