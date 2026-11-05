@@ -95,13 +95,20 @@ function initShareButtons() {
   document.body.appendChild(shareContainer);
 
   // 本文の左に縦の列を置く余白がない幅では、画面下の帯にする（本文の文字とボタンを重ねない）。
-  // 余白は、ページの見出し（h1）の左端と、縦の列の右端との間で測る。
+  // 余白は、ページの見出し（h1）とフッターの文字の左端のうち左にあるほうと、縦の列の右端との間で測る
+  // （ツールのページは本文よりフッターの幅が広いので、見出しだけで測るとフッターの文字に重なる）。
   const heading = document.querySelector('h1');
+  const footerInner = document.querySelector('.footer-inner');
+  const contentLeft = (el) => {
+    if (!el) return Infinity;
+    const padding = parseFloat(getComputedStyle(el).paddingLeft) || 0;
+    return el.getBoundingClientRect().left + padding;
+  };
   const fitLayout = () => {
     shareContainer.classList.remove('share-buttons--bottom');
     document.body.classList.remove('has-share-bottom');
     const narrow = window.matchMedia('(max-width: 768px)').matches;
-    const textLeft = heading ? heading.getBoundingClientRect().left : Infinity;
+    const textLeft = Math.min(contentLeft(heading), contentLeft(footerInner));
     const barRight = shareContainer.getBoundingClientRect().right;
     if (narrow || textLeft < barRight + 12) {
       shareContainer.classList.add('share-buttons--bottom');
