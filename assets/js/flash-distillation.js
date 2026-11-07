@@ -50,26 +50,52 @@
   }
 
   function rr(beta, zA, KA, KB) {
-    const zB = 1 - zA;
-    return zA * (KA - 1) / (1 + beta * (KA - 1)) +
-           zB * (KB - 1) / (1 + beta * (KB - 1));
+    // This denominator also retains K at beta=1 when K-1 rounds to -1.
+    const term = (z, K) => z === 0 ? 0 : z * ((K - 1) / ((1 - beta) + beta * K));
+    return term(zA, KA) + term(1 - zA, KB);
   }
 
-  function bisect(fn, low, high) {
-    let fLow = fn(low);
-    let mid = NaN;
-    for (let i = 0; i < 100; i++) {
-      mid = (low + high) / 2;
-      const fMid = fn(mid);
-      if (Math.abs(fMid) < 1e-10 || Math.abs(high - low) < 1e-8) return mid;
-      if (fLow * fMid <= 0) {
-        high = mid;
-      } else {
-        low = mid;
-        fLow = fMid;
-      }
+  function solveFlash(zA, KA, KB, endpoints) {
+    if (!fraction(zA) || !positive(KA) || !positive(KB)) throw new Error('組成とK値の入力範囲を確認してください。');
+    const zB = 1 - zA;
+    const allUnit = (zA === 0 || KA === 1) && (zB === 0 || KB === 1);
+    if (allUnit) return { phase: 'indeterminate', beta: null, xA: zA, xB: zB, yA: zA, yB: zB };
+    const f0 = endpoints ? endpoints.f0 : rr(0, zA, KA, KB);
+    const f1 = endpoints ? endpoints.f1 : rr(1, zA, KA, KB);
+    if (Number.isNaN(f0) || Number.isNaN(f1)) throw new Error('K値の組み合わせで相判定の数値範囲を超えました。');
+    if (f0 < 0) return { phase: 'liquid', beta: 0, xA: zA, xB: zB, yA: null, yB: null };
+    if (f1 > 0) return { phase: 'vapor', beta: 1, xA: null, xB: null, yA: zA, yB: zB };
+    let low = 0, high = 1, beta, phase;
+    if (f0 === 0) { beta = 0; phase = 'bubble'; }
+    else if (f1 === 0) { beta = 1; phase = 'dew'; }
+    else phase = 'two-phase';
+    let xA, xB, yA, yB, normalizationError;
+    for (let i = 0; i < 1100; i++) {
+      if (phase === 'two-phase') beta = low + (high - low) / 2;
+      xA = zA / ((1 - beta) + beta * KA); xB = zB / ((1 - beta) + beta * KB);
+      yA = KA * xA; yB = KB * xB;
+      normalizationError = Math.max(Math.abs(xA + xB - 1), Math.abs(yA + yB - 1));
+      if (phase !== 'two-phase' || (high - low <= 1e-12 && normalizationError <= 1e-10)) break;
+      const f = rr(beta, zA, KA, KB);
+      // Never stop solely on |f|: a nearly flat RR curve can have a large beta error.
+      // Sign comparisons avoid underflow in products of small endpoint residuals.
+      if (f > 0) low = beta;
+      else high = beta;
+      if (low === high || low + (high - low) / 2 === low || low + (high - low) / 2 === high) break;
     }
-    return mid;
+    if (![xA, xB, yA, yB].every(fraction) || normalizationError > 1e-10 || (phase === 'two-phase' && high - low > 1e-12)) throw new Error('入力値の組み合わせで計算精度を確保できません。圧力と組成の桁数を確認してください。');
+    return { phase, beta, xA, xB, yA, yB, bracketWidth: phase === 'two-phase' ? high - low : 0, normalizationError,
+      compositionSensitivity: phase === 'two-phase' ? Math.abs(1 / (KA - 1) - 1 / (KB - 1)) : null };
+  }
+
+  function solveFlashAtPressure(zA, pSatA, pSatB, P) {
+    if (![pSatA, pSatB, P].every(positive)) throw new Error('飽和蒸気圧と系圧力を正の数値で入力してください。');
+    const KA = pSatA / P, KB = pSatB / P, zB = 1 - zA;
+    // Evaluate endpoints from pressure differences to retain exact pressure boundaries.
+    const term = (z, pSat, denominator) => z === 0 ? 0 : z * ((pSat - P) / denominator);
+    const f0 = term(zA, pSatA, P) + term(zB, pSatB, P);
+    const f1 = term(zA, pSatA, pSatA) + term(zB, pSatB, pSatB);
+    return solveFlash(zA, KA, KB, { f0, f1 });
   }
 
   function calculate() {
@@ -86,69 +112,33 @@
     const KB = pSatB / P;
     const alpha = KA / KB;
     if (![KA, KB, alpha].every(positive)) return setError('K値または相対揮発度が数値範囲を超えました。圧力の桁を見直してください。');
-    const f0 = rr(0, zA, KA, KB);
-    const f1 = rr(1, zA, KA, KB);
-    let beta;
-    let phase;
-    let xA;
-    let yA;
+    let result;
+    try { result = solveFlashAtPressure(zA, pSatA, pSatB, P); } catch (error) { return setError(error.message); }
+    const { beta, xA, xB, yA, yB } = result;
+    const phase = { liquid: '全液相', vapor: '全気相', bubble: '泡点境界', dew: '露点境界', 'two-phase': '気液二相', indeterminate: '相量未定' }[result.phase];
     const notes = [];
-
-    if (f0 <= 0) {
-      beta = 0;
-      phase = '全液相';
-      xA = zA;
-      const yRawA = KA * xA;
-      const yRawB = KB * (1 - xA);
-      yA = yRawA / (yRawA + yRawB);
-      notes.push('Rachford-Rice式に0〜1の二相根がないため、全液相として判定しました。');
-    } else if (f1 >= 0) {
-      beta = 1;
-      phase = '全気相';
-      yA = zA;
-      const xRawA = yA / KA;
-      const xRawB = (1 - yA) / KB;
-      xA = xRawA / (xRawA + xRawB);
-      notes.push('Rachford-Rice式に0〜1の二相根がないため、全気相として判定しました。');
-    } else {
-      beta = bisect(b => rr(b, zA, KA, KB), 0, 1);
-      phase = '気液二相';
-      xA = zA / (1 + beta * (KA - 1));
-      yA = KA * xA;
-    }
-
-    const V = F * beta;
-    const L = F - V;
-    const xB = 1 - xA;
-    const yB = 1 - yA;
-    if (![beta, xA, xB, yA, yB].every(fraction) || ![V, L].every(isFinite)) {
-      return setError('入力値の組み合わせで計算精度または数値範囲を超えました。圧力の桁を見直してください。');
-    }
+    const V = beta === null ? null : F * beta;
+    const L = beta === null ? null : F * (1 - beta);
+    if (result.phase === 'indeterminate') notes.push('供給に含まれる全成分のK値が1で、どの蒸気率でも気液の組成が供給組成と一致します。この入力だけでは相量を決められません。熱量などの追加条件が必要です。');
+    if (result.phase === 'bubble') notes.push('液体から蒸気が現れ始める境目です。蒸気流量は0で、気相組成は現れ始める蒸気の組成です。');
+    if (result.phase === 'dew') notes.push('蒸気から液体が現れ始める境目です。液流量は0で、液相組成は現れ始める液体の組成です。');
+    if (result.phase === 'liquid' || result.phase === 'vapor') notes.push('この固定Kモデルでは単相です。存在しない相の組成は表示しません。');
+    if (result.phase === 'two-phase') notes.push('K値が1に近い条件では、入力のわずかな違いで蒸気率が大きく変わることがあります。');
     if (alpha < 1) notes.push('成分Aの方が成分Bより揮発しにくい条件です。軽沸点成分をAにしたい場合は成分A/Bを入れ替えてください。');
 
-    const warns = [];
-    const isAllLiquid = phase === '全液相';
-    const isAllGas = phase === '全気相';
-    const liquidRowCls = isAllGas ? 'row-pseudo' : '';
-    const vaporRowCls = isAllLiquid ? 'row-pseudo' : '';
-    if (isAllLiquid) {
-      warns.push('この圧力では供給は<strong>全量液相</strong>です。下表の気相組成 y<sub>A</sub>, y<sub>B</sub> は「もし微量に蒸気が発生した場合の K値ベース仮想組成」であり、実在しません。');
-    }
-    if (isAllGas) {
-      warns.push('この圧力では供給は<strong>全量気相</strong>です。下表の液相組成 x<sub>A</sub>, x<sub>B</sub> は「もし微量に凝縮液が発生した場合の K値ベース仮想組成」であり、実在しません。');
-    }
+    const composition = value => value === null ? '存在しない相' : fmtNum(value);
+    const flow = value => value === null ? '未定' : fmtNum(value) + ' kmol/h';
 
     $('result-area').innerHTML = `
       <div class="result-target">蒸気率 β（${phase}）</div>
-      <div class="result-value-big">${fmtNum(beta)} <span class="unit">-</span></div>
-      ${warns.map(n => `<div class="result-note-warn">注意：${n}</div>`).join('')}
+      <div class="result-value-big">${beta === null ? '未定' : fmtNum(beta)} <span class="unit">-</span></div>
       <table class="unit-table"><tbody>
-        <tr><td>気相流量 V</td><td class="num">${fmtNum(V)} kmol/h</td></tr>
-        <tr><td>液相流量 L</td><td class="num">${fmtNum(L)} kmol/h</td></tr>
-        <tr class="${liquidRowCls}"><td>液相組成 x<sub>A</sub></td><td class="num">${fmtNum(xA)}</td></tr>
-        <tr class="${liquidRowCls}"><td>液相組成 x<sub>B</sub></td><td class="num">${fmtNum(xB)}</td></tr>
-        <tr class="${vaporRowCls}"><td>気相組成 y<sub>A</sub></td><td class="num">${fmtNum(yA)}</td></tr>
-        <tr class="${vaporRowCls}"><td>気相組成 y<sub>B</sub></td><td class="num">${fmtNum(yB)}</td></tr>
+        <tr><td>気相流量 V</td><td class="num">${flow(V)}</td></tr>
+        <tr><td>液相流量 L</td><td class="num">${flow(L)}</td></tr>
+        <tr><td>液相組成 x<sub>A</sub></td><td class="num">${composition(xA)}</td></tr>
+        <tr><td>液相組成 x<sub>B</sub></td><td class="num">${composition(xB)}</td></tr>
+        <tr><td>気相組成 y<sub>A</sub></td><td class="num">${composition(yA)}</td></tr>
+        <tr><td>気相組成 y<sub>B</sub></td><td class="num">${composition(yB)}</td></tr>
         <tr><td>K<sub>A</sub></td><td class="num">${fmtNum(KA)}</td></tr>
         <tr><td>K<sub>B</sub></td><td class="num">${fmtNum(KB)}</td></tr>
         <tr><td>相対揮発度 α<sub>AB</sub></td><td class="num">${fmtNum(alpha)}</td></tr>
@@ -170,6 +160,8 @@
     clearResult();
   }
 
+  if (typeof module !== 'undefined' && module.exports) module.exports = { solveFlash, solveFlashAtPressure, rr };
+  if (typeof document === 'undefined') return;
   document.addEventListener('DOMContentLoaded', () => {
     $('calc-btn').addEventListener('click', calculate);
     $('reset-btn').addEventListener('click', reset);
