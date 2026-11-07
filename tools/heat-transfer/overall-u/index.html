@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"総括伝熱係数 U","url":"https://tools.chem-fac.com/tools/heat-transfer/overall-u/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"内外面の熱伝達係数、壁の熱伝導抵抗、汚れ係数から総括伝熱係数 U を平板近似で計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"総括伝熱係数, U, 熱抵抗, 境膜抵抗, 汚れ係数, ファウリング, 管壁, overall heat transfer coefficient","about":"伝熱","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"総括伝熱係数 U","url":"https://tools.chem-fac.com/tools/heat-transfer/overall-u/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"内外面の熱伝達係数、壁の熱伝導抵抗、汚れ係数から総括伝熱係数 U を平板近似で計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"総括伝熱係数, U, 熱抵抗, 境膜抵抗, 汚れ係数, ファウリング, 管壁, overall heat transfer coefficient","about":"伝熱","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -98,18 +98,18 @@
       <li>$k$：管壁の熱伝導率［W/(m·K)］</li>
       <li>このページは平板近似です。円管で内面基準・外面基準の U を厳密に比較する場合は、内外面積比を含めた円筒壁の熱抵抗で確認してください。</li>
     </ul>
+    <h3>熱抵抗の内訳</h3>
+    <p>「律速寄りの抵抗」は5つの項目のうち最大の熱抵抗で、総括伝熱係数を大きくしたいときに最も効く項目を示します。内訳の割合は入力した値の比率です。</p>
   </section>
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>各抵抗を同じ面積基準で直列に足す平板近似です。入力する $h_i$、$h_o$、$R_f$、$k$ の精度が、そのまま $U$ の精度になります。</p>
+    <p>同じ面積基準の熱抵抗を直列に足す平板近似で、総括伝熱係数を求めます。</p>
     <ul>
-      <li><strong>使える条件</strong>：壁厚が管径に比べて十分小さく、内外の伝熱面積の差を無視できる管や平板。壁抵抗を無視する場合は壁厚に 0 を入力します。</li>
-      <li><strong>使えない条件</strong>：厚肉の管や小径管など内外の面積比が1から離れる場合は、$U$ が内面基準か外面基準かで値が変わります。円筒壁の熱抵抗を面積比つきで組み直してください。フィン付き管のように伝熱面積が拡大している場合は、面積比とフィン効率が必要で、この式には含まれません。</li>
-      <li><strong>$h$ の与え方</strong>：$h_i$、$h_o$ は他の相関式や実測から求めた値を入れます。流速や温度、相変化の有無で変わるため、運転条件に対応した値を使います。</li>
-      <li><strong>汚れ係数</strong>：$R_f$ は内側・外側それぞれの面基準の値です。0 にすると清浄時の $U$ になります。</li>
-      <li><strong>係数の出典</strong>：各種の熱伝達係数や汚れ係数は、化学工学便覧などの物性・設計資料を参考にしてください。</li>
-      <li><strong>結果の読み方</strong>：「律速寄りの抵抗」は5つの項目のうち最大の熱抵抗で、$U$ を大きくしたいときに最も効く項目を示します。内訳の割合は、入力した値の比率です。</li>
+      <li><strong>内外の面積差が小さい場合</strong>：平板や、壁厚が管径に比べ十分小さい管が対象です。壁抵抗を無視する場合は壁厚を0にします。</li>
+      <li><strong>厚肉管・小径管は別計算</strong>：内外の面積比が1から離れる管は、面積比を含む円筒壁の式で確認します。フィン付き管は面積比とフィン効率も必要です。</li>
+      <li><strong>運転条件に合う係数を使う</strong>：熱伝達係数は流速・温度・相変化に対応する相関式や実測値を使います。入力係数の精度が結果の精度を決めます。</li>
+      <li><strong>汚れ係数の面基準をそろえる</strong>：内側・外側それぞれの面基準で入力します。0なら清浄時の値です。係数は化学工学便覧などの設計資料で確認してください。</li>
     </ul>
   </section>
 

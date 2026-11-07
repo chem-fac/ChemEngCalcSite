@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"アントワン式（蒸気圧・沸点）","url":"https://tools.chem-fac.com/tools/distillation/antoine/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"アントワン式 log P = A − B/(T+C) で純物質の蒸気圧・沸点を計算します。係数の温度単位・圧力単位・対数の底を指定できます。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"アントワン, Antoine, 蒸気圧, 沸点, 純物質, 気液平衡, log P, 水, エタノール, メタノール, ベンゼン, トルエン, アセトン, vapor pressure","about":"蒸留","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"アントワン式（蒸気圧・沸点）","url":"https://tools.chem-fac.com/tools/distillation/antoine/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"アントワン式 log P = A − B/(T+C) で純物質の蒸気圧・沸点を計算します。係数の温度単位・圧力単位・対数の底を指定できます。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"アントワン, Antoine, 蒸気圧, 沸点, 純物質, 気液平衡, log P, 水, エタノール, メタノール, ベンゼン, トルエン, アセトン, vapor pressure","about":"蒸留","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -151,14 +151,12 @@
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>$\log_{10} P = A - B/(T + C)$ に、利用者が与えた係数 A・B・C をそのまま代入する計算です。物質の判定や係数の妥当性の検査は行いません。</p>
+    <p>利用者が与えた係数を使い、純物質の飽和蒸気圧または沸点を計算します。</p>
     <ul>
-      <li><strong>使える条件</strong>：係数を求めた温度範囲の内側で、係数の出典と同じ形式（常用対数、圧力と温度の単位）で入力する場合。</li>
-      <li><strong>係数の単位系</strong>：A・B・C は、式の対数の種類（常用対数か自然対数か）、圧力の単位（mmHg・kPa・bar）、温度の単位（°C か K）の組み合わせごとに別の値になります。出典の単位系と画面の単位選択が一致していないと、式は計算できても結果は桁違いになります。</li>
-      <li><strong>温度範囲</strong>：係数は出典ごとに有効な温度範囲が付いており、同じ物質でも範囲別に複数の係数組が示されることがあります（NIST Chemistry WebBook のベンゼンでは範囲の異なる 4 組が掲載）。入力温度が範囲外でも式は値を返しますが、その値は保証されません。範囲外では沸点（逆算した $T_{sat}$）にも同じことが言えます。</li>
-      <li><strong>計算できない領域</strong>：$T + C = 0$ 付近では蒸気圧が発散し、逆算では $A - \log_{10} P = 0$ で解けません。逆算した温度が絶対零度以下になる圧力は、式の適用範囲外として弾きます（ツールの入力検査どおり）。</li>
-      <li><strong>係数の調べ方</strong>：アントワン定数や物性定数を調べたい場合は、参考資料の『復刊 物性定数推算法』が参考になります。</li>
-      <li><strong>外れやすい場合</strong>：広い温度範囲を 1 組の係数で通した場合（広い範囲ではワグナー式などを検討）、係数の出典の温度範囲が不明な場合。純物質の蒸気圧であり、混合物の泡点・露点は活量係数などを含む別の計算になります。</li>
+      <li><strong>係数の形式・単位</strong>：出典の対数の底（常用対数・自然対数）、圧力単位（mmHg・kPa・bar）、温度単位（°C・K）を画面の選択に合わせます。</li>
+      <li><strong>係数の有効温度範囲</strong>：出典の範囲内で使います。同じ物質でも範囲別に係数が異なり、範囲外は蒸気圧・逆算温度とも保証されません。物質や係数の妥当性は自動判定しません。</li>
+      <li><strong>計算できない条件</strong>：$T+C=0$ 付近では式が発散します。逆算で係数Aと、選択した底による圧力の対数値が等しい場合は解けません。逆算温度が絶対零度以下になる入力も対象外です。</li>
+      <li><strong>対象外</strong>：広い温度範囲を1組の係数で扱う場合はワグナー式などを検討します。混合物の泡点・露点は、活量係数などを含む別の計算が必要です。</li>
     </ul>
   </section>
 

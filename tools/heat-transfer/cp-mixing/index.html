@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"混合物の比熱（質量・モル混合則）","url":"https://tools.chem-fac.com/tools/heat-transfer/cp-mixing/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"液体・気体混合物の比熱を、成分の質量分率またはモル分率と各成分の比熱から加算則で計算します。最大 8 成分まで対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"比熱, 混合比熱, 比熱混合則, mass mixing rule, mole mixing rule, cp, Cp, 混合物物性, 熱容量, 質量分率, モル分率","about":"伝熱","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"混合物の比熱（質量・モル混合則）","url":"https://tools.chem-fac.com/tools/heat-transfer/cp-mixing/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"液体・気体混合物の比熱を、成分の質量分率またはモル分率と各成分の比熱から加算則で計算します。最大 8 成分まで対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"比熱, 混合比熱, 比熱混合則, mass mixing rule, mole mixing rule, cp, Cp, 混合物物性, 熱容量, 質量分率, モル分率","about":"伝熱","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -118,15 +118,12 @@
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>本ツールは理想混合（線形和）を前提に計算します。</p>
+    <p>成分間相互作用が小さい系の比熱を、理想混合の線形和で求めます。</p>
     <ul>
-      <li><strong>使える条件</strong>：線形和（理想混合）が成立するのは、成分間相互作用が小さい系です。</li>
-      <li><strong>気体混合物</strong>：気体混合物では理想混合がよく成り立つ（特に低圧）。</li>
-      <li><strong>評価温度</strong>：比熱は温度の関数。混合物の評価温度を統一して入力すること。</li>
-      <li><strong>使えない条件</strong>：非理想性が強い系では、実験データや過剰熱容量（過剰モル熱容量）を考慮した精密モデルで再評価してください。</li>
-      <li><strong>基準の統一</strong>：質量基準では質量分率（質量流量）と質量比熱、モル基準ではモル分率（モル流量）とモル比熱を組み合わせます。「分率／量」欄は、選んだ比熱の単位に応じて質量またはモルとして扱い、合計で正規化します。質量分率にモル比熱を掛けるような組み合わせは成立しません。</li>
-      <li><strong>相の一致</strong>：各成分の比熱は、評価温度で混合物中にある相（液体または気体）の値を入れます。温度範囲の途中で蒸発・凝縮・凝固する成分があると、顕熱の比熱の加算では潜熱が入りません。</li>
-      <li><strong>結果の範囲</strong>：求まるのは混合物の比熱だけです。混合熱、溶解熱、反応熱は含まれません。</li>
+      <li><strong>質量・モル基準をそろえる</strong>：質量分率・質量流量には質量比熱、モル分率・モル流量にはモル比熱を使います。選んだ比熱単位に応じて「分率／量」を扱い、合計で正規化します。</li>
+      <li><strong>温度と相をそろえる</strong>：各成分は同じ評価温度で、混合物中にある相の比熱を入力します。途中で蒸発・凝縮・凝固する場合の潜熱は含みません。</li>
+      <li><strong>非理想系は再評価</strong>：低圧の気体では理想混合がよく成り立ちます。非理想性が強い系は実験データや過剰熱容量を用いるモデルで確認してください。</li>
+      <li><strong>混合熱は含まない</strong>：求まるのは比熱だけで、混合熱・溶解熱・反応熱は含みません。</li>
     </ul>
   </section>
 

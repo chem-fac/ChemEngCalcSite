@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"FUG法（Fenske・Underwood・Gilliland）","url":"https://tools.chem-fac.com/tools/distillation/fug/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"二成分連続蒸留の理論段数を、Fenske式の最小段数・Underwood式の最小還流比・Gilliland相関から求めるFUG法の計算ツールです。還流比は倍率でも直接でも指定できます。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"FUG法, Fenske, Underwood, Gilliland, フェンスケ, アンダーウッド, ギリランド, 最小段数, 最小還流比, 還流比, 理論段数, 二成分蒸留, 相対揮発度, 蒸留","about":"蒸留","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-23"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"FUG法（Fenske・Underwood・Gilliland）","url":"https://tools.chem-fac.com/tools/distillation/fug/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"二成分連続蒸留の理論段数を、Fenske式の最小段数・Underwood式の最小還流比・Gilliland相関から求めるFUG法の計算ツールです。還流比は倍率でも直接でも指定できます。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"FUG法, Fenske, Underwood, Gilliland, フェンスケ, アンダーウッド, ギリランド, 最小段数, 最小還流比, 還流比, 理論段数, 二成分蒸留, 相対揮発度, 蒸留","about":"蒸留","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -128,13 +128,12 @@
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>Molokanov式の検証範囲は、q＝0.28〜1.42、相対揮発度α＝1.11〜4.05、最小還流比Rmin＝0.53〜9.09、最小ステップ数Smin＝3.4〜60.3です。範囲外は外挿として結果に注意を表示します（改訂六版 化学工学便覧、10･3･3、式10･81）。</p>
+    <p>二成分系で相対揮発度が塔内で一定の蒸留を対象にした、段数の概算です。</p>
     <ul>
-      <li><strong>使える条件</strong>：二成分系で、相対揮発度は塔内で一定とします。</li>
-      <li><strong>段の数え方</strong>：凝縮器は全縮器として段に数えず、リボイラーを1理論段とします。</li>
-      <li><strong>結果の読み方</strong>：Gilliland相関は経験式のため、段数は概算値です。供給段の位置と各段の組成は、マッケーブ・シール法のページで確認できます。</li>
-      <li><strong>誤差の伝わり方</strong>：Fenske式（最小段数）とUnderwood式（最小還流比）の結果がそのままGilliland相関の入力になります。相対揮発度や供給状態の誤差は、$S_\mathrm{min}$ と $R_\mathrm{min}$ を通じて段数に伝わります。</li>
-      <li><strong>入力の注意</strong>：最小還流比は、q線と平衡曲線の交点が $x_B$ と $x_D$ の間にあることが前提です。この範囲にないと最小還流比は求まらず、ツールはエラーを返します。入力する還流比は $R_\mathrm{min}$ より大きい値（倍率では 1 より大）が必要で、$R_\mathrm{min}$ に近いほど段数は急に増えます。</li>
+      <li><strong>相関の検証範囲</strong>：Molokanov式は $q=0.28〜1.42$、$\alpha=1.11〜4.05$、$R_\mathrm{min}=0.53〜9.09$、$S_\mathrm{min}=3.4〜60.3$ で検証され、範囲外は外挿です。</li>
+      <li><strong>還流比の条件</strong>：q線と平衡曲線の交点が $x_B$ と $x_D$ の間にない場合、最小還流比は求められません。還流比は $R_\mathrm{min}$ より大きく（倍率は1より大）、近づくほど段数が急増します。</li>
+      <li><strong>入力誤差の影響</strong>：相対揮発度や供給状態の誤差は、最小段数・最小還流比を通じて段数に伝わります。</li>
+      <li><strong>段の数え方</strong>：全縮器は数えず、リボイラーを1理論段とします。供給段・各段組成はマッケーブ・シール法で別に確認します。</li>
     </ul>
   </section>
 

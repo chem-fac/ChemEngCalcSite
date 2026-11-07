@@ -19,7 +19,7 @@
   <meta property="og:locale" content="ja_JP">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@chem_fac">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"充填塔の理論段数と充填高さの換算（HETP）","url":"https://tools.chem-fac.com/tools/distillation/packed-column/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"蒸留の充填塔で、理論段数とHETPから必要な充填高さを、充填高さから相当する理論段数を計算します。濃縮部と回収部でHETPを分けられ、全還流データからのHETP逆算にも対応します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"充填塔, 理論段数, 充填高さ, HETP, 理論段相当高さ, 換算, 濃縮部, 回収部, 全還流, Fenske, 規則充填物, 不規則充填物, packed column, 蒸留","about":"蒸留","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"充填塔の理論段数と充填高さの換算（HETP）","url":"https://tools.chem-fac.com/tools/distillation/packed-column/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"蒸留の充填塔で、理論段数とHETPから必要な充填高さを、充填高さから相当する理論段数を計算します。濃縮部と回収部でHETPを分けられ、全還流データからのHETP逆算にも対応します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"充填塔, 理論段数, 充填高さ, HETP, 理論段相当高さ, 換算, 濃縮部, 回収部, 全還流, Fenske, 規則充填物, 不規則充填物, packed column, 蒸留","about":"蒸留","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -193,17 +193,16 @@
     </section>
 
     <section class="explain-block notes-block">
-      <h2>適用範囲と注意事項</h2>
-      <p>理論段数と充填高さを HETP で換算する計算です。</p>
-      <ul>
-        <li><strong>入力の注意</strong>：理論段数は、リボイラーを除いた充填部の段数を入力します。全縮器は段に数えません。</li>
-        <li><strong>結果の読み方</strong>：計算する高さは充填層だけで、液分散器や支持板などの空間は含みません。</li>
-        <li><strong>逆算の前提</strong>：全還流データの逆算は二成分系で相対揮発度一定とし、リボイラーを1理論段とします。</li>
-        <li><strong>段数の根拠</strong>：本ツールは理論段数と充填高さを HETP で換算するだけで、理論段数そのもの（還流比や組成からの段数計算）は別に求めた値を入力します。段数の根拠が概算（簡易法）なら、充填高さも同程度の精度になります。</li>
-        <li><strong>HETPの扱い</strong>：HETP は濃縮部と回収部で別の値を入力できますが、1 つの区間では一定として掛けています。HETP は物性や気液の負荷で変わるため（上の表の注記）、運転負荷が設計時の想定から離れると、同じ充填高さでも得られる段数が変わります。</li>
-        <li><strong>逆算したHETP</strong>：全還流データから求めた HETP は、その試験を行った塔・充填物・系・負荷での値です。別の系や負荷にそのまま当てはめられる保証はありません。測定した塔頂・塔底組成の誤差は、$S_\mathrm{min}$ の対数の差に効くため、純度が高い（$x_D$ が 1 に近い、$x_B$ が 0 に近い）ほど HETP の誤差が大きくなります。</li>
-      </ul>
-    </section>
+    <h2>適用範囲と注意事項</h2>
+    <p>理論段数と充填高さを、区間ごとに一定のHETPで換算します。</p>
+    <ul>
+      <li><strong>段数の入力</strong>：リボイラーを除いた充填部の理論段数を、別の計算から入力します。全縮器も段に数えません。段数が概算なら高さも同程度の精度です。</li>
+      <li><strong>充填高さの範囲</strong>：液分散器・支持板などの空間は含みません。</li>
+      <li><strong>HETPと運転負荷</strong>：濃縮部・回収部で別の値を使えますが、各区間内は一定です。物性や気液負荷が変わると、同じ高さで得られる段数も変わります。</li>
+      <li><strong>全還流データの逆算</strong>：二成分系・相対揮発度一定で、リボイラーを1理論段とします。求めたHETPは試験した塔・充填物・系・負荷の値で、別条件への適用は保証されません。</li>
+      <li><strong>高純度での測定誤差</strong>：塔頂組成が1、塔底組成が0に近いほど、組成誤差が最小段数の対数差に効き、逆算HETPの誤差が大きくなります。</li>
+    </ul>
+  </section>
 
     <section class="explain-block reference-block">
       <h2>参考資料</h2>

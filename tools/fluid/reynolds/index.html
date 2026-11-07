@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"レイノルズ数（配管）","url":"https://tools.chem-fac.com/tools/fluid/reynolds/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"密度・流速・管内径・粘度からレイノルズ数 Re = ρuD/μ を計算するツール。円管内流れの層流・遷移域・乱流の目安を判定し、計算式と求め方も掲載。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"レイノルズ, Reynolds, Re, 配管, 層流, 乱流, 流速, 流量, 管内径, 粘度, 動粘度, 円管","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"レイノルズ数（配管）","url":"https://tools.chem-fac.com/tools/fluid/reynolds/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"密度・流速・管内径・粘度からレイノルズ数 Re = ρuD/μ を計算するツール。円管内流れの層流・遷移域・乱流の目安を判定し、計算式と求め方も掲載。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"レイノルズ, Reynolds, Re, 配管, 層流, 乱流, 流速, 流量, 管内径, 粘度, 動粘度, 円管","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -227,18 +227,12 @@
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>このツールは、主に<strong>ニュートン流体の円管内流れ</strong>を対象としたレイノルズ数計算ツールです。以下の場合は、計算結果の解釈に注意してください。</p>
+    <p>主にニュートン流体の円管内流れを対象としたレイノルズ数計算です。</p>
     <ul>
-      <li><strong>非ニュートン流体</strong>：ポリマー溶液、ペースト など</li>
-      <li><strong>多相流</strong>：スラリー、気液二相流、固液二相流</li>
-      <li><strong>圧縮性の大きい気体</strong>：圧縮性の大きい気体流れ</li>
-      <li><strong>脈動流</strong>：脈動流</li>
-      <li><strong>短い配管</strong>：極端に短い配管、入口・出口近傍</li>
-      <li><strong>乱れの強い場所</strong>：エルボ、バルブ、ポンプ直後など</li>
-      <li><strong>装置内の流れ</strong>：充填塔、撹拌槽、粒子周りの流れ</li>
-      <li><strong>円形でない断面</strong>：角ダクト、環状流路、部分的に満たされた管。代表長さが管内径ではなくなるため、$D$ に内径を入れた値は上の判定目安に当てはまりません</li>
-      <li><strong>対象外の場合</strong>：このような場合、レイノルズ数の定義や代表長さの取り方が変わります。対象装置に応じた専門的な式を別途確認してください。</li>
-      <li><strong>入力の注意</strong>：密度と粘度は、流れている温度での値を入力します。温度で粘度が大きく変わる液体では、入口と出口で $Re$ が変わることがあります。</li>
+      <li><strong>運転温度の物性を入力</strong>：密度と粘度は流れている温度の値を使います。粘度が大きく変わる液体は入口と出口で$Re$が変わる場合があります。</li>
+      <li><strong>円管の判定目安が使えない流れ</strong>：ポリマー溶液・ペーストなどの非ニュートン流体、スラリー・気液二相・固液二相、圧縮性の大きい気体、脈動流は別に確認してください。</li>
+      <li><strong>入口や乱れの強い場所に注意</strong>：極端に短い配管、入口・出口付近、エルボ・バルブ・ポンプ直後は上の判定目安から外れる場合があります。</li>
+      <li><strong>装置と断面に合う代表長さ</strong>：充填塔・撹拌槽・粒子周り、角ダクト・環状流路・部分的に満たされた管は、定義や代表長さが変わります。管内径をそのまま使わず、対象に合う式を確認してください。</li>
     </ul>
   </section>
 

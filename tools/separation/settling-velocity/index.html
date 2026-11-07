@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"球形粒子の終末沈降速度","url":"https://tools.chem-fac.com/tools/separation/settling-velocity/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"固液分離で、固体粒子が液中を沈むときの終末沈降速度を、ストークス・アレン・ニュートンの式から計算します。粒子レイノルズ数で領域を自動判定し、粒子径による沈降速度の変化を早見表で示します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"沈降速度, 終末速度, terminal velocity, ストークス, Stokes, アレン, Allen, ニュートン, Newton, 抗力係数, Cd, 粒子レイノルズ数, 固液分離, 重力沈降, 沈降分離, スラリー, 粒子径","about":"固液分離","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-23"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"球形粒子の終末沈降速度","url":"https://tools.chem-fac.com/tools/separation/settling-velocity/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"固液分離で、固体粒子が液中を沈むときの終末沈降速度を、ストークス・アレン・ニュートンの式から計算します。粒子レイノルズ数で領域を自動判定し、粒子径による沈降速度の変化を早見表で示します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"沈降速度, 終末速度, terminal velocity, ストークス, Stokes, アレン, Allen, ニュートン, Newton, 抗力係数, Cd, 粒子レイノルズ数, 固液分離, 重力沈降, 沈降分離, スラリー, 粒子径","about":"固液分離","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -125,19 +125,20 @@
       <li>$C_D$：抗力係数［-］</li>
       <li>$Re_p$：粒子レイノルズ数［-］</li>
     </ul>
+      <h3>粒子径の影響と領域境界</h3>
+    <p>ストークス域では速度は粒子径の2乗に比例（v<sub>t</sub> ∝ d²）します。粒子径が 1/10 になると沈降速度は 1/100 になり、微粒子の重力沈降は急に遅くなります。</p>
+    <p>ストークス域とアレン域の境界（$Re_p=2$）では、隣り合う式の値が連続しません。密度差1500 kg/m³・水の例では、境界の粒子径（約135 μm）でストークス式 14.8 mm/s、アレン式 21.1 mm/s となり、この付近の粒子径では式の切り替わりで値が飛びます。境界の近くは目安として扱い、粒子径を少し振って確認してください。</p>
+    <p>ニュートン域の速度式では、抗力係数0.44を4/9と近似しています。0.44をそのまま使う場合より速度は約0.5%小さくなります。Re<sub>p</sub> が10⁵以上の場合は、適用範囲外の注意を結果に表示します（解説化学工学、221頁、式6･18）。</p>
   </section>
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>球形・単一粒子・希薄分散を前提とした値です。</p>
+    <p>球形の単一粒子が、希薄分散した流体中で定常の終末速度に達して沈む場合を対象にします。</p>
     <ul>
-      <li><strong>領域の判定</strong>：Re<sub>p</sub> の値からストークス域・アレン域・ニュートン域を自動判定し、対応する式で v<sub>t</sub> を求めます（領域の境界は Re<sub>p</sub> ≒ 2 と 500）。</li>
-      <li><strong>粒子径の影響</strong>：ストークス域では速度は粒子径の2乗に比例（v<sub>t</sub> ∝ d²）します。粒子径が 1/10 になると沈降速度は 1/100 になり、微粒子の重力沈降は急に遅くなります。</li>
-      <li><strong>干渉沈降</strong>：濃厚スラリーでは粒子どうしが干渉して遅くなる干渉沈降（Richardson-Zaki など）の補正が必要です。</li>
-      <li><strong>粒子の形状</strong>：形状が球から外れる（球形度が小さい）と抗力が増え、実際の沈降速度はこれより小さくなります。重要な設計はメスシリンダーなどでの沈降試験で確認してください。</li>
-      <li><strong>使える条件</strong>：粒子が液中を単独で、定常の終末速度に達して沈む場合。粒子密度が流体密度より大きいことが必要です（$\rho_p\le\rho_f$ のときはエラーになります）。粒子径は球相当径で、凝集して大きなフロックになった粒子や多孔質の粒子は、見かけの径・密度で入力します。</li>
-      <li><strong>領域の境界</strong>：ストークス域とアレン域の境界（$Re_p=2$）では、隣り合う式の値が連続しません。密度差1500 kg/m³・水の例では、境界の粒子径（約135 μm）でストークス式 14.8 mm/s、アレン式 21.1 mm/s となり、この付近の粒子径では式の切り替わりで値が飛びます。境界の近くは目安として扱い、粒子径を少し振って確認してください。</li>
-      <li><strong>ニュートン域の近似</strong>：ニュートン域の速度式では、抗力係数0.44を4/9と近似しています。0.44をそのまま使う場合より速度は約0.5%小さくなります。Re<sub>p</sub> が10⁵以上の場合は、適用範囲外の注意を結果に表示します（解説化学工学、221頁、式6･18）。</li>
+      <li><strong>密度・粒子径</strong>：粒子密度は流体密度より大きい値が必要です。径は球相当径とし、凝集フロックや多孔質粒子は見かけの径・密度で入力します。</li>
+      <li><strong>濃厚スラリー</strong>：粒子どうしが干渉して遅くなるため、Richardson-Zakiなどによる干渉沈降の補正が必要です。</li>
+      <li><strong>球から外れる形状</strong>：抗力が増えて実際の速度は小さくなります。重要な設計ではメスシリンダーなどで沈降試験を行ってください。</li>
+      <li><strong>領域境界と上限</strong>：$Re_p=2$ で式が不連続に切り替わります。境界付近は粒子径を少し変えて確認し、目安として扱います。$Re_p\ge10^5$ は適用範囲外です。</li>
     </ul>
   </section>
 

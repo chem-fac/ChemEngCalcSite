@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ポンプ計算（全揚程・NPSH・軸動力）","url":"https://tools.chem-fac.com/tools/fluid/pump/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"ポンプ系統の全揚程、利用可能NPSH（NPSHa）、水動力・軸動力・モーター入力動力を、共通の入力から1画面でまとめて計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"ポンプ, ポンプ計算, pump, 全揚程, 実揚程, 揚程, head, NPSH, NPSHa, NPSHr, キャビテーション, 大気圧, 軸動力, 水動力, 理論動力, モーター動力, モーター入力, 効率, 蒸気圧, ベルヌーイ, 摩擦損失, 遠心ポンプ","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ポンプ計算（全揚程・NPSH・軸動力）","url":"https://tools.chem-fac.com/tools/fluid/pump/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"ポンプ系統の全揚程、利用可能NPSH（NPSHa）、水動力・軸動力・モーター入力動力を、共通の入力から1画面でまとめて計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"ポンプ, ポンプ計算, pump, 全揚程, 実揚程, 揚程, head, NPSH, NPSHa, NPSHr, キャビテーション, 大気圧, 軸動力, 水動力, 理論動力, モーター動力, モーター入力, 効率, 蒸気圧, ベルヌーイ, 摩擦損失, 遠心ポンプ","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -234,16 +234,14 @@
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-      <p>非圧縮性の単相液体を一定流量で送る場合の、全揚程・利用可能NPSH・動力の計算です。</p>
-      <ul>
-        <li><strong>ポンプ効率</strong>：ポンプ効率 $\eta_{p}$ は型式・容量・運転点で変わります。正確にはメーカーの性能曲線の値を用います。</li>
-        <li><strong>NPSH の余裕</strong>：NPSH<sub>a</sub> ≧ NPSH<sub>r</sub> ＋ 余裕（目安1 m）を確保します。</li>
-        <li><strong>使えない条件</strong>：対象は非圧縮性の単相液体を一定流量で送る場合です。全揚程は速度ヘッド差を無視した式で、吸込側と吐出側で配管径が大きく違う場合や、流速が大きい場合はその差の分だけずれます。気体、気液二相、スラリーは対象外です。</li>
-        <li><strong>摩擦損失</strong>：摩擦損失 $\Delta P_s$、$\Delta P_d$ は、入力した流量 $Q$ での値を使います。流量を変えたら損失も計算し直します。流量が増えると $\Delta P_s$ が増えるため、NPSH<sub>a</sub> は下がります。</li>
-        <li><strong>飽和蒸気圧</strong>：飽和蒸気圧 $P_v$ は、ポンプ入口の液温での値を入力します。液温が上がると $P_v$ が上がり、NPSH<sub>a</sub> は下がります。沸点近くの液や、減圧タンクからの吸込では、この差が結果を左右します。</li>
-        <li><strong>メーカーの値</strong>：NPSH<sub>r</sub> と効率 $\eta_{p}$ はポンプの機種と運転点（流量・回転数）で決まる値で、このツールでは計算しません。粘度の高い液体では、水で測った性能曲線の効率や揚程がそのまま当てはまらないため、メーカーの値を使います。</li>
-        <li><strong>動力が出ない条件</strong>：全揚程が0以下になる条件では、動力は計算されません。</li>
-      </ul>
+    <p>非圧縮性の単相液体を一定流量で送る全揚程・利用可能NPSH・動力を求めます。</p>
+    <ul>
+      <li><strong>NPSHに余裕を確保</strong>：NPSH<sub>a</sub> ≧ NPSH<sub>r</sub> ＋ 余裕（目安1 m）とします。NPSH<sub>r</sub>と効率は機種・流量・回転数に合うメーカーの性能曲線で確認してください。粘性液には水の曲線をそのまま使えません。</li>
+      <li><strong>損失は入力流量に合わせる</strong>：流量を変えたら吸込・吐出の摩擦損失を再計算します。流量増で吸込損失が増えるとNPSH<sub>a</sub>は下がります。</li>
+      <li><strong>蒸気圧は入口液温の値</strong>：液温上昇で蒸気圧が上がるとNPSH<sub>a</sub>は下がります。沸点近くや減圧タンクからの吸込では特に確認してください。</li>
+      <li><strong>速度ヘッド差は無視</strong>：吸込・吐出の管径差や流速が大きい場合は全揚程がずれます。気体・気液二相・スラリーは対象外です。</li>
+      <li><strong>全揚程0以下は動力なし</strong>：この条件では動力を計算しません。</li>
+    </ul>
   </section>
 
   <section class="explain-block reference-block">

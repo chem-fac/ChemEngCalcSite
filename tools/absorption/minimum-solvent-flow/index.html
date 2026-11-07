@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ガス吸収の最小溶媒流量・液ガス比","url":"https://tools.chem-fac.com/tools/absorption/minimum-solvent-flow/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"向流ガス吸収について、入口・出口組成と気液平衡組成から最小液ガス比、最小溶媒流量、運転溶媒流量、出口液組成を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"ガス吸収, 最小溶媒流量, 最小液量, 最小液ガス比, 液ガス比, 吸収塔, 操作線, 平衡線, ピンチ, solvent flow, absorption, L/G","about":"吸収","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ガス吸収の最小溶媒流量・液ガス比","url":"https://tools.chem-fac.com/tools/absorption/minimum-solvent-flow/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"向流ガス吸収について、入口・出口組成と気液平衡組成から最小液ガス比、最小溶媒流量、運転溶媒流量、出口液組成を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"ガス吸収, 最小溶媒流量, 最小液量, 最小液ガス比, 液ガス比, 吸収塔, 操作線, 平衡線, ピンチ, solvent flow, absorption, L/G","about":"吸収","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -182,14 +182,12 @@
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>定常状態の向流ガス吸収で、溶質を除いたガス・液のモル流量は塔内で一定とします。</p>
+    <p>定常の向流ガス吸収で、溶質を除くガス・液のモル流量が塔内で一定の系を対象にします。</p>
     <ul>
-      <li><strong>平衡組成の入力</strong>：入口ガスと平衡になる液組成 $x^*_{A1}$ は、対象温度・圧力の気液平衡データから設定します。</li>
-      <li><strong>運転倍率</strong>：運転倍率が1では塔底で出口液が入口ガスと平衡になり、物質移動推進力がゼロとなるため、1より大きい値を使用します。</li>
-      <li><strong>使えない条件</strong>：化学反応、吸収熱による温度変化、溶媒蒸発が大きい系は対象外です。</li>
-      <li><strong>最小液ガス比</strong>：塔底で出口液が入口ガスと平衡になる（操作線が平衡線に塔底端で接する）場合の値です。</li>
-      <li><strong>平衡線の近似</strong>：平衡線は原点と入力した平衡点を結ぶ直線で近似します。実際の平衡曲線が直線から外れる系（高濃度域、ヘンリー則が成り立たない系）では、$X^*_{A1}$ を入口ガス組成に対する実際の平衡値として与えても、塔内の推進力や作図上の平衡線は実際と異なります。</li>
-      <li><strong>結果の読み方</strong>：求まる量は、塔底で推進力がゼロになる極限の液量と、その倍率の運転液量です。必要な塔高（理論段数・移動単位数）は別の計算で、運転倍率が1に近いほど大きくなります。</li>
+      <li><strong>平衡組成</strong>：入口ガスと平衡になる液組成は、対象温度・圧力の気液平衡データから入力します。</li>
+      <li><strong>運転倍率は1より大</strong>：倍率1では塔底の物質移動推進力がゼロになります。1に近づくほど必要な塔高が大きくなり、塔高・理論段数・移動単位数は別の計算が必要です。</li>
+      <li><strong>平衡線の直線近似</strong>：原点と入力平衡点を結ぶ直線を使います。高濃度域などで実際の平衡曲線が直線から外れる場合、塔内の推進力や作図も実際と異なります。</li>
+      <li><strong>対象外</strong>：化学反応、吸収熱による温度変化、溶媒蒸発が大きい系には使えません。</li>
     </ul>
   </section>
 

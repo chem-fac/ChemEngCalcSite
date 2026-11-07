@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"回分反応器の反応時間","url":"https://tools.chem-fac.com/tools/reaction/batch-time/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"0次・1次・2次の不可逆反応について、目標転化率に達する回分反応時間を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"回分反応器, 反応時間, batch, reactor, 転化率, 0次, 1次, 2次, 速度式","about":"反応","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"回分反応器の反応時間","url":"https://tools.chem-fac.com/tools/reaction/batch-time/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"0次・1次・2次の不可逆反応について、目標転化率に達する回分反応時間を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"回分反応器, 反応時間, batch, reactor, 転化率, 0次, 1次, 2次, 速度式","about":"反応","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -49,13 +49,12 @@
   <section class="explain-block"><h2>計算式</h2><p>定容・等温・不可逆反応の回分反応器では、速度式を積分して反応時間を求めます。</p><div class="math-block">$$ 0次: t=\frac{C_{A0}X}{k}, \qquad 1次: t=\frac{-\ln(1-X)}{k}, \qquad 2次: t=\frac{X}{k C_{A0}(1-X)} $$</div><ul class="symbol-list"><li>$t$：反応時間［s］</li><li>$C_{A0}$：初濃度［mol/L］</li><li>$X$：転化率［-］</li><li>$k$：速度定数（0次：mol/(L s)、1次：1/s、2次：L/(mol s)）</li></ul></section>
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>定容・等温・不可逆で、反応速度が $-r_A=kC_A^{\,n}$（$n$ = 0, 1, 2、成分Aの濃度だけに依存）と表せる回分反応の、目標転化率までの純反応時間です。</p>
+    <p>定容・等温・不可逆で、成分Aの濃度だけに依存する0次・1次・2次の回分反応を対象にします。</p>
     <ul>
-      <li><strong>使える条件</strong>：液相反応など、反応で体積がほぼ変わらず、温度を一定に保てる場合。$k$ はその温度の値を、濃度は mol/L、時間は選択した単位で入力します。</li>
-      <li><strong>使えない条件</strong>：気相で総モル数が変わる反応を定圧で進める場合は体積が変化するため、定容の式は使えません。可逆反応は逆反応分だけ正味の速度が小さくなるため、平衡転化率に近い転化率では実際の時間がここで計算した値より長くなります。</li>
-      <li><strong>反応次数の扱い</strong>：2次の式は速度式が $-r_A=kC_A^2$ のとき（A単独、またはA＋Bで初濃度が等しいとき）の形です。初濃度が異なるA＋Bの2次反応は、別の式が必要です。次数が整数でない場合や複数の反応が重なる場合も対象外です。</li>
-      <li><strong>温度が変わる場合</strong>：発熱・吸熱で槽内温度が動くと $k$ が一定でなくなり、等温の式は成り立ちません。温度を変えるときは、アレニウスの式で求めた $k$ を使って各温度で計算します。</li>
-      <li><strong>結果の読み方</strong>：出力は反応が進む時間だけです。実バッチの昇温・投入・冷却・サンプリングの時間は含まれません。目標転化率を100%に近づけると、1次・2次では時間が急に増えます。</li>
+      <li><strong>速度定数と単位</strong>：運転温度での速度定数を使い、濃度はmol/L、時間は選択した単位で入力します。発熱・吸熱で温度が動く場合は対象外です。</li>
+      <li><strong>体積変化・可逆反応</strong>：総モル数が変わる気相反応を定圧で行う場合は使えません。可逆反応で平衡転化率に近づくと、実際の反応時間は計算値より長くなります。</li>
+      <li><strong>2次反応の条件</strong>：A単独、またはA＋Bの初濃度が等しく、速度がA濃度の2乗に比例する場合の式です。初濃度が異なるA＋B、非整数次数、複合反応には使えません。</li>
+      <li><strong>純反応時間</strong>：昇温・投入・冷却・サンプリングの時間は含みません。1次・2次は目標転化率を100%に近づけると時間が急増します。</li>
     </ul>
   </section>
 

@@ -20,7 +20,7 @@
   <meta property="og:locale" content="ja_JP">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ファニングの式・管摩擦係数（圧力損失）","url":"https://tools.chem-fac.com/tools/fluid/fanning/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"ファニングの式 ΔP = 4f(ρu²/2)(L/D) で配管直管部の圧力損失を計算するツール。管摩擦係数 f は層流 f = 16/Re、乱流はコールブルック式の反復解で求め、ダルシー・ワイスバッハの式との関係も説明します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"ファニング, Fanning, 管摩擦係数, 摩擦係数, 圧力損失, ダルシー, Darcy, Weisbach, コールブルック, Colebrook, プラントル, カルマン, ブラジウス, Blasius, ニクラゼ, 粗さ, 粗面管, 平滑管, ヘッド, 動圧, 圧損","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ファニングの式・管摩擦係数（圧力損失）","url":"https://tools.chem-fac.com/tools/fluid/fanning/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"ファニングの式 ΔP = 4f(ρu²/2)(L/D) で配管直管部の圧力損失を計算するツール。管摩擦係数 f は層流 f = 16/Re、乱流はコールブルック式の反復解で求め、ダルシー・ワイスバッハの式との関係も説明します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"ファニング, Fanning, 管摩擦係数, 摩擦係数, 圧力損失, ダルシー, Darcy, Weisbach, コールブルック, Colebrook, プラントル, カルマン, ブラジウス, Blasius, ニクラゼ, 粗さ, 粗面管, 平滑管, ヘッド, 動圧, 圧損","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -302,16 +302,15 @@
     </section>
 
     <section class="explain-block notes-block">
-      <h2>適用範囲と注意事項</h2>
-      <p>円形断面の満管を、密度と流速が一定の非圧縮性流れとして扱い、直管部の摩擦による圧力損失だけを求める計算です。</p>
-      <ul>
-        <li><strong>使える条件</strong>：液体、または管路内の圧力変化が小さい気体の直管。配管長さ $L$ が内径 $D$ に比べて十分に長く、流れが発達している場合です。</li>
-        <li><strong>使えない条件</strong>：管内で圧力が大きく下がって気体の密度や流速が変わる場合は、$\rho$ と $u$ が一定という前提が成り立ちません。区間を分けて計算するか、圧縮性流れの式が必要です。粗さの比 $\varepsilon/D$ が0.05を超える場合は、コールブルックの式の適用目安を外れるため、このツールでは計算を受け付けません。非ニュートン流体や気液二相流も対象外です。</li>
-        <li><strong>含まれない損失</strong>：入口・出口、曲がり、弁、管径の変化による損失と、配管の高低差による圧力変化は含まれません。これらは別に加算します。</li>
-        <li><strong>遷移域（$2{,}300 < Re < 4{,}000$）</strong>：層流と乱流のどちらにもなり得る範囲です。このツールは乱流側の式で計算するため、結果は参考値として扱います。</li>
-        <li><strong>粗さの入力</strong>：$\varepsilon$ を空欄にすると、ステンレス配管・平滑仕上げ（0.003 mm）で計算します。炭素鋼管など別の配管では、結果が実際より小さく出る場合があるため、配管に合わせて入力します。粗さの値は経年のスケール付着などで変わります。</li>
-      </ul>
-    </section>
+    <h2>適用範囲と注意事項</h2>
+    <p>密度と流速が一定の円形満管で、直管の摩擦圧力損失を求めます。</p>
+    <ul>
+      <li><strong>十分に発達した流れ</strong>：内径に比べ十分長い直管の液体や、圧力変化の小さい気体が対象です。密度が大きく変わる気体は区間分割や圧縮性流れの式で計算します。非ニュートン流体・気液二相流は対象外です。</li>
+      <li><strong>粗さ比は0.05以下</strong>：これを超える値は受け付けません。粗さが空欄ならステンレス配管・平滑仕上げの0.003 mmを使います。炭素鋼などでは過小評価になる場合があるため、管種や経年のスケール付着に合わせて入力してください。</li>
+      <li><strong>遷移域は参考値</strong>：$2{,}300 < Re < 4{,}000$ は層流・乱流のどちらにもなり得ます。本ツールは乱流側の式を使います。</li>
+      <li><strong>局部損失と高低差は別加算</strong>：入口・出口・曲がり・弁・管径変化の損失、配管の高低差による圧力変化は含みません。</li>
+    </ul>
+  </section>
 
     <!-- ===== Reference ===== -->
     <section class="explain-block reference-block">

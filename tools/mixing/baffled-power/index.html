@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"バッフルあり撹拌所要動力","url":"https://tools.chem-fac.com/tools/mixing/baffled-power/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"邪魔板（バッフル）あり撹拌槽の動力数 Np と撹拌所要動力を、バッフル幅・枚数・液深さ・Np0・Npmax から推算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"バッフルあり, 邪魔板, 撹拌所要動力, 動力数, Np, Npmax, Np0, power, バッフル幅, バッフル枚数","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-23"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"バッフルあり撹拌所要動力","url":"https://tools.chem-fac.com/tools/mixing/baffled-power/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"邪魔板（バッフル）あり撹拌槽の動力数 Np と撹拌所要動力を、バッフル幅・枚数・液深さ・Np0・Npmax から推算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"バッフルあり, 邪魔板, 撹拌所要動力, 動力数, Np, Npmax, Np0, power, バッフル幅, バッフル枚数","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -180,19 +180,19 @@
       <li>$n$：回転数［1/s］</li>
       <li>大型翼は完全邪魔板条件の動力数を手入力してください。メーカー翼は翼形状と適用範囲の確認が必要です。</li>
     </ul>
+      <h3>動力数の扱い</h3>
+    <p>$N_{p0}$ は運転条件の撹拌レイノルズ数で求めた値をそのまま入力する形です。$N_{Pmax}$ はレイノルズ数に依存しない定数として扱います。動力数がレイノルズ数に依存しなくなるのは乱流域なので、層流域や遷移域では、運転条件の $N_{p0}$ を使わないと $N_p$ が外れます。大型翼の $x$ には $N_{p0}$ が入らず、$N_{p0}$ は下限値としてだけ働きます。</p>
   </section>
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>入力したバッフル無し動力数 $N_{p0}$ と、完全邪魔板条件の動力数 $N_{Pmax}$ のあいだを、邪魔板の寸法・枚数と液深さから決まる補正変数 $x$ で結ぶ相関式による計算です。単一の均質な液体（物性は密度 $\rho$ のみ）を前提にしています。</p>
+    <p>単一の均質な液体のバッフル付き動力を、選択した翼種の相関式で推算します。</p>
     <ul>
-      <li><strong>使える条件</strong>：選択肢にある5種類（パドル翼、傾斜パドル翼、大型翼、HR320、HR320S）で、翼種ごとに用意された $x$ の形が実機の翼に対応する場合。</li>
-      <li><strong>使えない条件</strong>：選択肢にない翼種。$x$ の形は翼種ごとに異なるため、他の翼種の式を流用した値は相関式の裏付けがありません。大型翼は $N_{Pmax}$ を自動計算できないので、手入力が必要です。</li>
-      <li><strong>$N_{p0}$ の扱い</strong>：$N_{p0}$ は運転条件の撹拌レイノルズ数で求めた値をそのまま入力する形です。$N_{Pmax}$ はレイノルズ数に依存しない定数として扱います。動力数がレイノルズ数に依存しなくなるのは乱流域なので、層流域や遷移域では、運転条件の $N_{p0}$ を使わないと $N_p$ が外れます。大型翼の $x$ には $N_{p0}$ が入らず、$N_{p0}$ は下限値としてだけ働きます。</li>
-      <li><strong>結果の読み方</strong>：補正式の値が $N_{p0}$ を下回ると $N_{p0}$ を採用し、結果欄に注記が出ます。$h_B$ は液深さ以下の正の数値とします。$B/D$、$n_B$、$H/D$ には範囲のチェックがなく、相関式の元になった実験範囲の外でも数値は出ます。範囲は参考資料の各論文で確認してください。</li>
-      <li><strong>パドル翼の液深さ</strong>：上記の2011年・2015年論文の実験は $H=D$ です。通常のパドル翼について、$H\ne D$ における検証範囲は確認できていません。</li>
-      <li><strong>大型翼の実験条件</strong>：2016年論文はマックスブレンド、フルゾーン、MR205を対象に、$H/D=0.8$〜$1.5$ で検討しています。実機への適用は翼形状と槽底形状も合わせて確認してください。</li>
-      <li><strong>外れやすい場合</strong>：気体の吹き込みや固体粒子の存在による動力の変化、液面に渦が生じる条件の影響は式に入っていません。</li>
+      <li><strong>対象の翼</strong>：パドル翼、傾斜パドル翼、大型翼、HR320、HR320Sが対象です。選択肢以外の翼に式を流用できません。</li>
+      <li><strong>動力数の入力</strong>：$N_{p0}$ は運転条件の撹拌レイノルズ数の値を使い、大型翼の $N_{Pmax}$ は手入力します。</li>
+      <li><strong>寸法の範囲</strong>：$h_B$ は液深さ以下の正値です。$B/D$・$n_B$・$H/D$ は範囲外でも計算されるため、参考論文の実験範囲を確認してください。</li>
+      <li><strong>液深さと翼形状</strong>：パドル翼の2011年・2015年論文の実験は $H=D$ で、$H\ne D$ の検証範囲は未確認です。大型翼の2016年論文はマックスブレンド・フルゾーン・MR205、$H/D=0.8$〜$1.5$ が対象で、実機の翼・槽底形状との対応も確認します。</li>
+      <li><strong>含まない影響</strong>：気体吹き込み、固体粒子、液面の渦による動力変化は含みません。</li>
     </ul>
   </section>
 

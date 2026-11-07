@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"撹拌レイノルズ数","url":"https://tools.chem-fac.com/tools/mixing/reynolds/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"撹拌レイノルズ数 Re = ρnd²/μ を計算し、層流／遷移流／乱流の判定を行います。撹拌槽設計の基本指標。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"撹拌レイノルズ数, Reynolds, Re, 層流, 遷移流, 乱流, 撹拌槽, 翼径, 回転数, agitation, impeller","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"撹拌レイノルズ数","url":"https://tools.chem-fac.com/tools/mixing/reynolds/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"撹拌レイノルズ数 Re = ρnd²/μ を計算し、層流／遷移流／乱流の判定を行います。撹拌槽設計の基本指標。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"撹拌レイノルズ数, Reynolds, Re, 層流, 遷移流, 乱流, 撹拌槽, 翼径, 回転数, agitation, impeller","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -147,6 +147,8 @@
       <li>$d$：翼径［m］</li>
       <li>$\mu$：粘度［Pa·s］</li>
     </ul>
+      <h3>乱流域の動力数</h3>
+    <p>乱流域では動力数 $N_p$ が $Re$ に依存しなくなりますが、この性質は乱流域の範囲に限られます。</p>
   </section>
 
   <section class="explain-block">
@@ -164,13 +166,12 @@
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>$Re=\rho nd^2/\mu$ は、翼径 $d$ と回転数 $n$ から作る撹拌専用の定義で、粘度 $\mu$ を1つの値で入力します。判定は上の表の境界値による区分で、流れの状態を厳密に決めるものではありません。</p>
+    <p>粘度が一定のニュートン流体について、翼径と回転数から撹拌レイノルズ数を求めます。</p>
     <ul>
-      <li><strong>使える条件</strong>：運転温度での密度と粘度が1つの値で決まる流体（粘度が一定のニュートン流体）。温度が変わると粘度が大きく変わる液では、運転温度の粘度を入力します。</li>
-      <li><strong>使えない条件</strong>：せん断速度で粘度が変わる流体。1つの $\mu$ では代表できないため、得られる $Re$ は見かけの粘度の選び方に左右されます。</li>
-      <li><strong>代表長さ</strong>：式の長さは翼径 $d$ です。槽径 $D$ や翼の先端速度ではないので、$D$ を入れると $d^2$ の比だけ $Re$ がずれます。</li>
-      <li><strong>判定の境界</strong>：層流・遷移・乱流の境界は翼の種類や槽径と翼径の比で変わり、文献ごとにも異なる値が使われます。表の値は目安として読み、$Re$ が境界の近くにあるときは、その翼の動力数や混合時間の相関がどの領域で成り立つかを確認してください。</li>
-      <li><strong>外れやすい場合</strong>：乱流域では動力数 $N_p$ が $Re$ に依存しなくなりますが、この性質は乱流域の範囲に限られます。</li>
+      <li><strong>物性の温度</strong>：密度・粘度は運転温度の値を使います。</li>
+      <li><strong>非ニュートン流体</strong>：せん断速度で粘度が変わる流体には、単一の粘度による判定を適用できません。</li>
+      <li><strong>代表長さ</strong>：入力は翼径 $d$ です。槽径 $D$ や翼先端速度を代用しないでください。</li>
+      <li><strong>境界での判定</strong>：表の区分は目安です。境界は翼種・寸法比・文献で異なるため、境界付近では使う動力数・混合時間の相関式の適用域を確認します。</li>
     </ul>
   </section>
 

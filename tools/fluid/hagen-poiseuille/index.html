@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ハーゲン・ポアズイユ流れ（円管内層流の速度分布）","url":"https://tools.chem-fac.com/tools/fluid/hagen-poiseuille/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"ハーゲン・ポアズイユの式（法則）で円管内層流の速度分布と圧力損失を計算するツール。管内径と平均流速または流量から、放物線状の速度分布・最大流速 2U・壁面せん断応力を求め、グラフを描画します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"ハーゲンポアズイユ, ハーゲン・ポアズイユ, Hagen-Poiseuille, Poiseuille, 速度分布, 円管内流れ, 円管, 管内流れ, 層流, 放物線, 最大流速, 平均流速, 体積流量, 粘着条件, non-slip, 圧力損失, 圧力勾配, 壁面せん断応力, せん断応力, 流体力学, 十分に発達した流れ","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ハーゲン・ポアズイユ流れ（円管内層流の速度分布）","url":"https://tools.chem-fac.com/tools/fluid/hagen-poiseuille/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"ハーゲン・ポアズイユの式（法則）で円管内層流の速度分布と圧力損失を計算するツール。管内径と平均流速または流量から、放物線状の速度分布・最大流速 2U・壁面せん断応力を求め、グラフを描画します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"ハーゲンポアズイユ, ハーゲン・ポアズイユ, Hagen-Poiseuille, Poiseuille, 速度分布, 円管内流れ, 円管, 管内流れ, 層流, 放物線, 最大流速, 平均流速, 体積流量, 粘着条件, non-slip, 圧力損失, 圧力勾配, 壁面せん断応力, せん断応力, 流体力学, 十分に発達した流れ","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -163,19 +163,18 @@
       <li>$\Delta P$：長さ L での圧力損失［Pa］</li>
       <li>$\tau_w$：壁面せん断応力［Pa］</li>
     </ul>
+    <h3>平均流速と等しくなる位置</h3>
+    <p>最大流速は平均流速の2倍です。流速が平均値に等しくなるのは$r/R \simeq 0.707$の位置です。</p>
   </section>
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>層流・定常で十分に発達した円管内の流れを前提にした計算です。</p>
+    <p>非圧縮性のニュートン流体について、一定断面の直管内で発達した定常層流を扱います。</p>
     <ul>
-      <li><strong>層流のみ</strong>：放物線状の速度分布は<strong>層流</strong>でのみ成り立ちます。円管の臨界レイノルズ数はおよそ Re = 2300 で、これを超えると乱流に遷移し、断面の速度分布は中央が平坦化します（密度 ρ を入力すると Re を確認できます）。</li>
-      <li><strong>発達した流れ</strong>：「十分に発達した」流れを前提とします。入口付近の助走区間では速度分布が発達途中で、本ツールの分布とは異なります。</li>
-      <li><strong>流体と管の前提</strong>：非圧縮性・ニュートン流体・一定断面の直管を前提としています。</li>
-      <li><strong>最大流速と平均流速</strong>：最大流速は平均流速のちょうど 2 倍（u<sub>max</sub> = 2U）です。流速計測の代表点として、平均流速に等しくなるのは r/R ≒ 0.707 の位置です。</li>
-      <li><strong>含まれない損失</strong>：圧力損失 $\Delta P$ は、直管部の粘性による摩擦分だけです。入口・出口、曲がり、弁、管径の変化による損失は含まれず、配管の高低差による圧力変化も含みません。</li>
-      <li><strong>粘度の入力</strong>：粘度 $\mu$ は流れている温度での値を入力します。温度で粘度が大きく変わる流体で、管壁と中心の温度が違う場合は、式の前提（粘度が一定）から外れ、速度分布は放物線からずれます。</li>
-      <li><strong>管が短い場合</strong>：助走区間の長さはレイノルズ数が大きいほど長くなります。管が短い場合は、全長が発達した流れにならず、$\Delta P$ の計算値と実際の値が一致しません。</li>
+      <li><strong>層流のみ</strong>：臨界レイノルズ数はおよそ$Re = 2300$です。超えると乱流に遷移し、放物線状の速度分布は成り立ちません。密度を入力すると$Re$を確認できます。</li>
+      <li><strong>入口付近・短管に注意</strong>：助走区間では速度分布が発達途中です。助走区間はレイノルズ数が大きいほど長く、短管では全長が発達した流れにならず、圧力損失も実際とずれます。</li>
+      <li><strong>運転温度の粘度を入力</strong>：粘度一定が前提です。壁と中心の温度差で粘度が大きく変わると、速度分布は放物線からずれます。</li>
+      <li><strong>局部損失と高低差は含まない</strong>：圧力損失は直管の粘性摩擦分だけです。入口・出口・曲がり・弁・管径変化の損失や高低差は別に確認してください。</li>
     </ul>
   </section>
 

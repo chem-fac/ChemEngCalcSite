@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"流量・流速・配管径換算","url":"https://tools.chem-fac.com/tools/fluid/flow-conversion/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"体積流量、平均流速、管内径のうち2つを入力すると、残りの1つを計算します。配管設計・流量計算の検討に。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"流量, 流速, 配管径, 管内径, 換算, 断面積, 単位換算, 体積流量, 配管設計, 円管","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"流量・流速・配管径換算","url":"https://tools.chem-fac.com/tools/fluid/flow-conversion/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"体積流量、平均流速、管内径のうち2つを入力すると、残りの1つを計算します。配管設計・流量計算の検討に。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"流量, 流速, 配管径, 管内径, 換算, 断面積, 単位換算, 体積流量, 配管設計, 円管","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -206,12 +206,12 @@
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>円形断面の満管で、流量・流速・内径のうち2つから残る1つを求める幾何学的な換算です。流体の物性は使わず、流れの状態も判定しません。</p>
+    <p>円形満管の流量・平均流速・実内径を、流体物性を使わず幾何学的に換算します。</p>
     <ul>
-      <li><strong>使える条件</strong>：円管が流体で満たされている流れ。流量は、流速を測った場所と同じ圧力・温度での体積流量（実体積流量）として扱います。</li>
-      <li><strong>使えない条件</strong>：気体の流量が標準状態（Nm³/h など）で示されている場合は、運転条件の体積流量に換算してから入力します。そのまま入れると、圧力が高いほど流速を過小に見積もります。角形ダクト、部分的にしか満たされていない管、開水路は対象外です。</li>
-      <li><strong>外れやすい場合</strong>：「平均流速」は断面全体の平均で、管壁付近と中心では速度が異なります。管内径は呼び径ではなく実内径を入力します（外径と肉厚からの計算も可能）。流速は内径の2乗に反比例するため、内径の誤差は流速の誤差に約2倍で効きます。</li>
-      <li><strong>結果の読み方</strong>：「配管径を計算」で出る値は、指定した流速に対する計算上の内径です。実在する規格管の内径とは一致しないため、近い規格管を選び、その実内径で流速を再計算します。流速の目安（液体 1〜3 m/s、気体 10〜20 m/s）は経験的な値で、圧力損失、騒音、浸食などの条件で変わります。</li>
+      <li><strong>運転状態の体積流量を入力</strong>：流速と同じ場所・圧力・温度の値を使います。Nm³/hなどの標準状態の気体流量は換算が必要で、そのままでは高圧ほど流速を過小評価します。</li>
+      <li><strong>呼び径ではなく実内径</strong>：外径と肉厚からも計算できます。内径の誤差は流速に約2倍で効きます。流速は断面平均値で、壁付近と中心では異なります。</li>
+      <li><strong>角形・未充満は対象外</strong>：角形ダクト、部分的に満たされた管、開水路には使えません。</li>
+      <li><strong>規格管で再計算</strong>：計算した内径に近い規格管を選び、その実内径で流速を再計算します。目安の液体1〜3 m/s・気体10〜20 m/sは経験値で、圧力損失・騒音・浸食で変わります。流れの状態は判定しません。</li>
     </ul>
   </section>
 

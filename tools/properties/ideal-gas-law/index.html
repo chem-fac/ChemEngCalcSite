@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"理想気体の状態方程式・標準状態換算","url":"https://tools.chem-fac.com/tools/properties/ideal-gas-law/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"理想気体の状態方程式 PV=nRT からガス密度・モル体積を計算し、Nm³/h（標準状態）と運転条件の実 m³/h・kg/h・kmol/h を相互換算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"理想気体, 状態方程式, PV=nRT, ガス密度, モル体積, 標準状態, Nm3, ノルマル立米, 実流量, actual, 流量換算, kg/h, kmol/h","about":"物性・熱力学","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"理想気体の状態方程式・標準状態換算","url":"https://tools.chem-fac.com/tools/properties/ideal-gas-law/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"理想気体の状態方程式 PV=nRT からガス密度・モル体積を計算し、Nm³/h（標準状態）と運転条件の実 m³/h・kg/h・kmol/h を相互換算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"理想気体, 状態方程式, PV=nRT, ガス密度, モル体積, 標準状態, Nm3, ノルマル立米, 実流量, actual, 流量換算, kg/h, kmol/h","about":"物性・熱力学","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -156,17 +156,18 @@
     <div class="math-block">$$ Q_A = Q_N \cdot \dfrac{P_N}{P} \cdot \dfrac{T}{T_N} \qquad \dot{m} = \dfrac{Q_N}{22.414}\,M $$</div>
     <p>$P_N, T_N$ は標準状態（0°C, 101.325 kPaA）の圧力・温度です。Sm³（15°C基準）は同圧で温度比 $273.15/288.15$ を掛けて Nm³ に直します。</p>
 
+      <h3>質量流量と実体積流量</h3>
+    <p>質量流量は Nm³/h を 22.414 L/mol で割ったモル流量に $M$ を掛けた値で、運転条件の $Z$ には依存しません。実体積流量 $Q_A$ だけが $T$・$P$ の理想気体換算に依存します。</p>
   </section>
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>気体を理想気体（圧縮係数 $Z=1$）として扱う計算です。結果は $PV=nRT$ から出る値で、実在気体の挙動は含みません。</p>
+    <p>圧縮係数 $Z=1$ の理想気体として、密度・体積・流量を計算します。</p>
     <ul>
-      <li><strong>使える条件</strong>：大気圧付近から低圧で、温度が沸点より十分高い気体。この範囲では分子間力と分子の大きさの影響が小さく、$Z\approx1$ とみなせます。</li>
-      <li><strong>外れやすい条件</strong>：高圧・低温の気体、凝縮に近い蒸気、極性が強い気体では $Z$ が1から離れ、密度やモル体積が理想気体の値からずれます。ツールの結果欄にも、高圧・低温では $Z$ を考慮するよう注記しています。</li>
-      <li><strong>圧力は絶対圧</strong>：入力欄の圧力はすべて絶対圧です。ゲージ圧をそのまま入れると、特に低圧で密度や流量換算が大きくずれます。温度も絶対温度（K）に直して計算されます。</li>
-      <li><strong>「標準状態」の定義</strong>：本ツールの Nm³ は 0°C・101.325 kPaA（モル体積 22.414 L/mol）、Sm³ は 15°C・101.325 kPaA です。他者の Nm³/h や Sm³/h を換算に使うときは、先方がどの温度・圧力を基準にしているかを確かめてください。</li>
-      <li><strong>質量流量の読み方</strong>：質量流量は Nm³/h を 22.414 L/mol で割ったモル流量に $M$ を掛けた値で、運転条件の $Z$ には依存しません。実体積流量 $Q_A$ だけが $T$・$P$ の理想気体換算に依存します。</li>
+      <li><strong>適用条件</strong>：大気圧付近から低圧で、沸点より十分高い温度の気体が対象です。</li>
+      <li><strong>誤差が増える条件</strong>：高圧・低温、凝縮に近い蒸気、極性の強い気体では $Z$ が1から離れます。実在気体の補正は含みません。</li>
+      <li><strong>絶対圧の入力</strong>：ゲージ圧を使わないでください。温度はKに換算して計算します。</li>
+      <li><strong>標準状態の照合</strong>：Nm³は0°C・101.325 kPaA、Sm³は15°C・101.325 kPaAです。他者の流量値を使うときは基準温度・圧力を確認します。</li>
     </ul>
   </section>
 

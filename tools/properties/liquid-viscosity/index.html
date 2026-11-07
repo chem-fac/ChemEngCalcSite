@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"液体の粘度・動粘度換算","url":"https://tools.chem-fac.com/tools/properties/liquid-viscosity/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"液体の粘度と動粘度を密度から相互換算するツール。Pa·s、mPa·s、cP と m²/s、mm²/s、cSt に対応。動粘度 ν = μ/ρ の関係と単位の換算も掲載。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"液体, 粘度, 動粘度, 粘性係数, 密度, cP, cSt, センチポアズ, センチストークス, viscosity, kinematic viscosity","about":"物性・熱力学","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"液体の粘度・動粘度換算","url":"https://tools.chem-fac.com/tools/properties/liquid-viscosity/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"液体の粘度と動粘度を密度から相互換算するツール。Pa·s、mPa·s、cP と m²/s、mm²/s、cSt に対応。動粘度 ν = μ/ρ の関係と単位の換算も掲載。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"液体, 粘度, 動粘度, 粘性係数, 密度, cP, cSt, センチポアズ, センチストークス, viscosity, kinematic viscosity","about":"物性・熱力学","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -124,12 +124,11 @@
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>$\nu=\mu/\rho$ という定義に従う単位・物性値の換算です。近似は含まないため、結果の信頼性は入力した粘度（または動粘度）と密度の条件が揃っているかで決まります。</p>
+    <p>粘度・動粘度・密度の定義式による換算で、入力範囲と例は液体を想定しています。</p>
     <ul>
-      <li><strong>使える条件</strong>：粘度（または動粘度）と密度を、同じ温度・同じ圧力で用意できる流体。この式は液体に限らず気体でも成り立ちますが、本ツールの入力範囲と例は液体を想定しています。</li>
-      <li><strong>外れやすい場合</strong>：粘度は測定した温度のもの、密度は別の温度（15°Cの基準密度や20°Cの値など）のものを組み合わせると、密度の差の分だけ換算結果がずれます。動粘度の測定値を粘度に直すときも、測定温度の密度を使います。</li>
-      <li><strong>非ニュートン流体</strong>：ポリマー溶液やスラリーなどでは粘度がせん断速度によって変わります。入力する値は目的の流れと同じせん断条件で測った見かけ粘度である必要があり、換算後の動粘度もその条件の値です。</li>
-      <li><strong>cP と cSt を同じ数値にできる場合</strong>：$\mu$ [mPa·s]（= cP）と $\nu$ [mm²/s]（= cSt）の数値が等しくなるのは、密度が 1 g/cm³（1000 kg/m³）のときだけです。密度が違う液体（油など）では両者の数値は一致しません。</li>
+      <li><strong>物性条件の一致</strong>：粘度（または動粘度）と密度を同じ温度・圧力でそろえます。動粘度の測定値から逆算するときも測定温度の密度を使ってください。</li>
+      <li><strong>非ニュートン流体</strong>：目的の流れと同じせん断条件の見かけ粘度を入力します。換算後の動粘度もその条件の値です。</li>
+      <li><strong>cPとcSt</strong>：両者が同じ数値になるのは密度1 g/cm³（1000 kg/m³）のときだけです。</li>
     </ul>
   </section>
 

@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ファントホッフの式","url":"https://tools.chem-fac.com/tools/properties/vant-hoff/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"ファントホッフの式で、2点の平衡定数から反応エンタルピー ΔH° を求めたり、ΔH° から別温度の平衡定数を外挿します。ΔG°・ΔS° も同時に表示。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"ファントホッフ, van't Hoff, 平衡定数, 温度依存, 反応エンタルピー, 反応熱, ギブズエネルギー, エントロピー, 化学平衡","about":"物性・熱力学","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ファントホッフの式","url":"https://tools.chem-fac.com/tools/properties/vant-hoff/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"ファントホッフの式で、2点の平衡定数から反応エンタルピー ΔH° を求めたり、ΔH° から別温度の平衡定数を外挿します。ΔG°・ΔS° も同時に表示。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"ファントホッフ, van't Hoff, 平衡定数, 温度依存, 反応エンタルピー, 反応熱, ギブズエネルギー, エントロピー, 化学平衡","about":"物性・熱力学","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -128,18 +128,20 @@
       <li>$\Delta G^\circ$：標準反応ギブズエネルギー［J/mol］</li>
       <li>$\Delta S^\circ$：標準反応エントロピー［J/(mol·K)］</li>
     </ul>
+      <h3>温度と平衡定数</h3>
+    <p>発熱反応（ΔH°&lt;0）は温度を上げると平衡定数が下がり、吸熱反応（ΔH°&gt;0）は上がります（ルシャトリエの原理）。</p>
+    <h3>反応式の係数と熱力学量</h3>
+    <p>$K$ と $\Delta H^\circ$ は書いた反応式（係数）に対応した値です。係数を2倍にすると $K$ は2乗、$\Delta H^\circ$ は2倍になるため、$K_1$・$K_2$ と $\Delta H^\circ$ はすべて同じ反応式で揃えてください。</p>
   </section>
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>反応エンタルピーを一定とした積分形で、2点から反応熱を求める計算と、反応熱から別温度の平衡定数を求める計算です。</p>
+    <p>反応エンタルピーを一定とし、2点から反応熱を求めるか、別温度の平衡定数を推算します。</p>
     <ul>
-      <li><strong>温度の影響</strong>：発熱反応（ΔH°&lt;0）は温度を上げると平衡定数が下がり、吸熱反応（ΔH°&gt;0）は上がります（ルシャトリエの原理）。</li>
-      <li><strong>近似の限界</strong>：ΔH° を一定とみなす近似のため、広い温度範囲ではずれます。精密には $\Delta C_p$ の温度依存を考慮します。</li>
-      <li><strong>平衡定数の基準</strong>：平衡定数は無次元（活量基準）として扱っています。圧平衡定数 $K_p$ を使う場合は基準圧の取り方に注意してください。</li>
-      <li><strong>反応式の書き方</strong>：$K$ と $\Delta H^\circ$ は書いた反応式（係数）に対応した値です。係数を2倍にすると $K$ は2乗、$\Delta H^\circ$ は2倍になるため、$K_1$・$K_2$ と $\Delta H^\circ$ はすべて同じ反応式で揃えてください。</li>
-      <li><strong>区間内に相変化がある場合</strong>：温度区間内で反応物または生成物の沸点・融点などをまたぐと、$\Delta H^\circ$ が途中で変わるため、一定とみなした結果は使えません。区間を分けて扱います。</li>
-      <li><strong>2点法の誤差</strong>：$\Delta H^\circ$ は $\ln(K_2/K_1)$ を $(1/T_1-1/T_2)$ で割って求めます。2点の温度が近いと分母が小さくなり、$K$ の読み取り誤差が $\Delta H^\circ$ に大きく拡大されます。</li>
-      <li><strong>$\Delta S^\circ$・$\Delta G^\circ$ の読み方</strong>：$\Delta S^\circ$ も温度によらず一定として $T_1$ の値から求めています。$\Delta G^\circ=-RT\ln K$ は $K$ が活量基準の無次元量であることが前提で、結果は $K$ の値だけで決まり、平衡組成（転化率）そのものは計算しません。</li>
+      <li><strong>温度区間</strong>：広い温度範囲ではずれます。沸点・融点をまたぐ場合は使えず、区間を分けます。精密には $\Delta C_p$ の温度依存を考慮します。</li>
+      <li><strong>平衡定数の基準</strong>：活量基準の無次元量を使います。$K_p$ は基準圧を確認してください。</li>
+      <li><strong>反応式の統一</strong>：$K_1$・$K_2$・$\Delta H^\circ$ は同じ反応式・係数にそろえます。</li>
+      <li><strong>2点の温度差</strong>：温度が近いほど、$K$ の読み取り誤差が反応熱に大きく拡大されます。</li>
+      <li><strong>結果の範囲</strong>：$\Delta S^\circ$ も温度によらず一定とし、$T_1$ の値から求めます。平衡組成・転化率は計算しません。</li>
     </ul>
   </section>
 

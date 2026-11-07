@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"冷却水・蒸気・熱媒油の必要量","url":"https://tools.chem-fac.com/tools/heat-transfer/utility/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"既知の熱量から、冷却水・加熱蒸気・熱媒油の必要流量を概算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"冷却水, 蒸気, 熱媒油, 必要量, ユーティリティ, 流量, 潜熱, 比熱, utility, steam, hot oil","about":"伝熱","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"冷却水・蒸気・熱媒油の必要量","url":"https://tools.chem-fac.com/tools/heat-transfer/utility/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"既知の熱量から、冷却水・加熱蒸気・熱媒油の必要流量を概算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"冷却水, 蒸気, 熱媒油, 必要量, ユーティリティ, 流量, 潜熱, 比熱, utility, steam, hot oil","about":"伝熱","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -142,19 +142,19 @@
       <li>$\rho$：密度［kg/m³］</li>
       <li>実機では熱損失、汚れ、制御余裕、季節変動を見込みます。蒸気量は圧力・乾き度・ドレン条件で変わるため、蒸気表や設備条件で確認してください。蒸気潜熱は化学工学便覧にも掲載されています。</li>
     </ul>
+    <h3>余裕率</h3>
+    <p>余裕率を入力すると、熱量に$(1+\text{余裕率})$を掛けて流量を求めます。</p>
   </section>
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>既知の熱量 $Q$ を、顕熱（冷却水・熱媒油）または凝縮潜熱（蒸気）だけで受け持たせる場合の必要流量です。熱量そのものは別に求めた値を入力します。</p>
+    <p>別に求めた熱量を、液体の顕熱または蒸気の凝縮潜熱で受け持つ必要流量を求めます。</p>
     <ul>
-      <li><strong>冷却水・熱媒油</strong>：比熱は入口〜出口で一定とし、液体のまま使う条件です。冷却水は昇温（出口＞入口）、熱媒油は降温（入口＞出口）の向きで入力します。沸騰や蒸発を伴う場合は成り立ちません。</li>
-      <li><strong>蒸気</strong>：凝縮潜熱だけを使う計算で、$\dot{m}_{steam} = Q/\lambda$ に過熱度やドレンの顕熱は入っていません。ドレンが飽和温度より下まで冷えて熱を放出する場合は、その分だけ実際の必要量が少なくなります。</li>
-      <li><strong>蒸気圧力のプリセット</strong>：絶対圧（MPaA）で、飽和蒸気の凝縮潜熱です。ゲージ圧で運転値を扱うときは約 0.1 MPa を加えて選びます。プリセットにない圧力は、潜熱を直接入力します。</li>
-      <li><strong>温度差の目安</strong>：ツールは $\Delta T$ が 1 K 未満のとき警告します。小さい $\Delta T$ では入力の小さな誤差が流量に大きく効くためです。目安として冷却水は 5〜10 K、熱媒油は 10〜30 K です。</li>
-      <li><strong>蒸気潜熱の出典</strong>：蒸気潜熱は圧力によって変わります。化学工学便覧などの蒸気表・物性表を参考にしてください。</li>
-      <li><strong>余裕率</strong>：入力すると $Q$ に $(1+\text{余裕率})$ を掛けて流量を求めます。100% を超えると警告し、500% を超える値は受け付けません。</li>
-      <li><strong>外れやすい場合</strong>：熱損失、汚れ、夏季の冷却水温上昇などは式に含まれず、余裕率で見込む項目です。物性は運転温度での値を入れます。</li>
+      <li><strong>液体のまま使う</strong>：冷却水は出口＞入口、熱媒油は入口＞出口で入力します。比熱一定とし、沸騰・蒸発は扱いません。物性は運転温度の値を使います。</li>
+      <li><strong>蒸気は凝縮潜熱のみ</strong>：過熱度とドレンの顕熱は含みません。ドレンが飽和温度未満まで冷える場合、実際の必要量は少なくなります。</li>
+      <li><strong>プリセットは絶対圧</strong>：MPaAで選びます。ゲージ圧には約0.1 MPaを加え、候補外は蒸気表などの潜熱を直接入力します。</li>
+      <li><strong>小さい温度差に注意</strong>：1 K未満で警告します。入力誤差が流量に大きく効きます。目安は冷却水5〜10 K、熱媒油10〜30 Kです。</li>
+      <li><strong>余裕率の上限</strong>：熱損失・汚れ・夏季の冷却水温上昇は余裕率で見込みます。100%超で警告し、500%超は受け付けません。</li>
     </ul>
   </section>
 

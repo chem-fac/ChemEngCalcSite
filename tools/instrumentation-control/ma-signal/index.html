@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"4-20mA信号換算（スケーリング・開平）","url":"https://tools.chem-fac.com/tools/instrumentation-control/ma-signal/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"計装の4-20mA電流信号を％・工業量（温度・圧力・流量など）に相互換算します。差圧式流量計の開平換算、1-5V電圧換算、NAMUR NE43に基づくレンジ外判定に対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"4-20mA, 4～20mA, 420mA, 電流信号, スケーリング, レンジ換算, 工業量, 開平, 開平演算, 差圧式流量計, 伝送器, 発信器, 1-5V, ライブゼロ, NAMUR, NE43, 調節計, LRV, URV, current loop, signal, scaling","about":"計装・制御","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-23"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"4-20mA信号換算（スケーリング・開平）","url":"https://tools.chem-fac.com/tools/instrumentation-control/ma-signal/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"計装の4-20mA電流信号を％・工業量（温度・圧力・流量など）に相互換算します。差圧式流量計の開平換算、1-5V電圧換算、NAMUR NE43に基づくレンジ外判定に対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"4-20mA, 4～20mA, 420mA, 電流信号, スケーリング, レンジ換算, 工業量, 開平, 開平演算, 差圧式流量計, 伝送器, 発信器, 1-5V, ライブゼロ, NAMUR, NE43, 調節計, LRV, URV, current loop, signal, scaling","about":"計装・制御","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -139,6 +139,14 @@
       <li>$V$：受信抵抗 250 Ω での電圧換算値［V］（1-5V DC）</li>
       <li>$Q$：流量、$\Delta P$：差圧（開平換算の説明に使用）</li>
     </ul>
+      <h3>開平のゼロ付近</h3>
+    <p>$x_{flow}=\sqrt{x}$ なので、流量が小さいほど電流のわずかな誤差が流量に大きく出ます。たとえば流量 10% は差圧スパンの 1% ですが、電流に差圧スパンの 1% 分（0.16 mA）の誤差があると、流量は約 14% と読めます。4 mA 未満は開平できないため、ツールは換算せずエラーにします。</p>
+    <h3>ライブゼロ</h3>
+    <p>4mA を 0% に割り当てる「ライブゼロ」には、信号 0mA（断線・電源喪失）と測定値 0% を区別できる、2線式伝送器の動作電流を確保できる、という利点があります。</p>
+    <h3>開度信号</h3>
+    <p>調節弁の開度信号（4-20mA → 開度 0〜100%）にも使えます。LRV=0、URV=100 としてください。</p>
+    <h3>空気式計装</h3>
+    <p>空気式計装の統一信号は 20〜100 kPa です。0% が 20 kPa に対応する考え方は 4-20mA と同じです。</p>
   </section>
 
   <section class="explain-block">
@@ -153,23 +161,27 @@
         <tr><td>100 %</td><td class="num">20 mA</td><td class="num">5 V</td><td class="num">100 %</td></tr>
       </tbody>
     </table>
+      <h3>レンジ外の電流信号</h3>
+    <p>NAMUR NE43は次の区分を推奨し、多くのスマート伝送器が準拠しています。しきい値の設定はメーカー・機種で異なります。</p>
+    <table class="regime-table">
+      <thead><tr><th>電流</th><th>信号の意味</th></tr></thead>
+      <tbody>
+        <tr><td>3.8〜20.5 mA</td><td>有効な測定情報。4 mA未満・20 mA超は飽和（プロセス値がレンジ外）</td></tr>
+        <tr><td>3.6 mA以下</td><td>故障信号（ダウンスケール・バーンアウト）</td></tr>
+        <tr><td>21 mA以上</td><td>故障信号（アップスケール・バーンアウト）</td></tr>
+      </tbody>
+    </table>
   </section>
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>4-20 mA を、設定したレンジ（LRV〜URV）の 0〜100% に対応させる理想的な換算です。伝送器の校正レンジと、ここに入れるレンジが一致している必要があります。</p>
+    <p>4-20 mAと設定レンジ（LRV〜URV）の関係を、理想的な信号として換算します。</p>
     <ul>
-      <li><strong>使える条件</strong>：電流が測定値に比例する出力（リニア）、または差圧に比例して受信側で開平する構成。どちらで開平しているかは計装仕様書やループ図で確認します。</li>
-      <li><strong>二重開平に注意</strong>：伝送器が開平演算を内蔵している場合に開平を選ぶと、流量を二重に開平することになります。電流が流量に比例する信号にはリニアを使います。伝送器側で開平演算済みの信号にはリニア換算を、受信側（DCS・調節計）で開平する構成では電流が差圧に比例するため開平換算を使ってください。</li>
-      <li><strong>開平のゼロ付近</strong>：$x_{flow}=\sqrt{x}$ なので、流量が小さいほど電流のわずかな誤差が流量に大きく出ます。たとえば流量 10% は差圧スパンの 1% ですが、電流に差圧スパンの 1% 分（0.16 mA）の誤差があると、流量は約 14% と読めます。4 mA 未満は開平できないため、ツールは換算せずエラーにします。</li>
-      <li><strong>レンジ外の値</strong>：リニア特性ではレンジ外を外挿して計算します。計算上の電流が 3.8〜20.5 mA を外れる場合、実機の伝送器はその値をそのまま出力しません。</li>
-      <li><strong>レンジ外の電流信号</strong>：4mA を下回る・20mA を超える信号には意味があります。NAMUR NE43 は次の区分を推奨し、多くのスマート伝送器がこれに準拠しています（しきい値の設定はメーカー・機種により異なります）。3.8〜20.5 mA は有効な測定情報（4mA 未満・20mA 超は飽和＝プロセス値がレンジ外）、3.6 mA 以下は故障信号（ダウンスケール・バーンアウト）、21 mA 以上は故障信号（アップスケール・バーンアウト）です。</li>
-      <li><strong>ライブゼロ</strong>：4mA を 0% に割り当てる「ライブゼロ」には、信号 0mA（断線・電源喪失）と測定値 0% を区別できる、2線式伝送器の動作電流を確保できる、という利点があります。</li>
-      <li><strong>逆レンジ</strong>：リニア特性では、逆レンジ（LRV &gt; URV）でもそのまま換算できます（開平は正レンジのみ対応）。</li>
-      <li><strong>開度信号</strong>：調節弁の開度信号（4-20mA → 開度 0〜100%）にも使えます。LRV=0、URV=100 としてください。</li>
-      <li><strong>空気式計装</strong>：空気式計装の統一信号は 20〜100 kPa です。0% が 20 kPa に対応する考え方は 4-20mA と同じです。</li>
-      <li><strong>電圧換算</strong>：表示される電圧は受信抵抗 250 Ω（1-5 V）の場合の値です。別の抵抗を使う回路には当てはまりません。</li>
-      <li><strong>結果の読み方</strong>：信号とレンジの関係を計算した理想値です。伝送器の精度、A/D 変換の精度、経年やドリフトによる誤差は含みません。</li>
+      <li><strong>校正レンジ</strong>：入力レンジを伝送器の校正レンジに合わせます。精度・A/D変換・経年・ドリフトの誤差は含みません。</li>
+      <li><strong>開平する場所</strong>：差圧比例の電流を受信側で開平する構成は開平換算、伝送器で開平済みの流量比例信号はリニア換算を選びます。二重開平を避け、計装仕様書・ループ図で確認してください。</li>
+      <li><strong>レンジ外</strong>：リニアは外挿しますが、3.8〜20.5 mAを外れる計算値を実機がそのまま出力するわけではありません。開平は4 mA未満をエラーにします。</li>
+      <li><strong>逆レンジ</strong>：LRV &gt; URVはリニアのみ対応し、開平は正レンジのみです。</li>
+      <li><strong>電圧換算</strong>：表示電圧は受信抵抗250 Ω（1-5 V）の値で、別の抵抗には使えません。</li>
     </ul>
   </section>
 

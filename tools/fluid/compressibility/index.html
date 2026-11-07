@@ -19,7 +19,7 @@
   <meta property="og:locale" content="ja_JP">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@chem_fac">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"圧縮性流体の判定（マッハ数）","url":"https://tools.chem-fac.com/tools/fluid/compressibility/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"流速と音速の比（マッハ数）から、気体や液体の流れを非圧縮性とみなせるかを判定します。音速は温度・モル質量・比熱比、または体積弾性係数と密度から求め、気体の配管は圧力損失の入口圧力に対する割合でも判定します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"圧縮性流体, 非圧縮性流体, 圧縮性, 非圧縮性, マッハ数, Mach, 音速, 体積弾性係数, 圧縮率, 比熱比, 密度変化, 圧力損失, 気体, 配管, compressible flow","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-31"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"圧縮性流体の判定（マッハ数）","url":"https://tools.chem-fac.com/tools/fluid/compressibility/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"流速と音速の比（マッハ数）から、気体や液体の流れを非圧縮性とみなせるかを判定します。音速は温度・モル質量・比熱比、または体積弾性係数と密度から求め、気体の配管は圧力損失の入口圧力に対する割合でも判定します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"圧縮性流体, 非圧縮性流体, 圧縮性, 非圧縮性, マッハ数, Mach, 音速, 体積弾性係数, 圧縮率, 比熱比, 密度変化, 圧力損失, 気体, 配管, compressible flow","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -268,16 +268,15 @@
     </section>
 
     <section class="explain-block notes-block">
-      <h2>適用範囲と注意事項</h2>
-      <p>流れの中で密度が変わる割合を、流速（マッハ数）と圧力損失の2つから見積もります。</p>
-      <ul>
-        <li><strong>2つの判定の違い</strong>：マッハ数で見るのは流速による密度の変化で、圧力損失の割合で見るのは配管の中で圧力が下がることによる密度の変化です。流速が小さくても、長い配管や圧力の低い配管では圧力損失で密度が大きく変わります。入口か出口の密度で密度一定の式（ファニングの式など）をそのまま使えるのは、マッハ数が0.3以下で、圧力損失の割合が10%以下のときです。</li>
-        <li><strong>使える条件</strong>：単相の気体または液体の流れ。気体は理想気体として音速を求めます。</li>
-        <li><strong>使えない条件</strong>：気液二相流、臨界点に近い気体や高圧で理想気体から外れる気体。高圧のガスは、実在気体の物性から求めた断熱の体積弾性係数と密度を「体積弾性係数から」に入れて計算します。</li>
-        <li><strong>温度の変化</strong>：圧力損失による判定の前提は温度一定です。加熱・冷却で温度が大きく変わる流れは、温度の変化でも密度が変わります。</li>
-        <li><strong>液体</strong>：配管の流速ではマッハ数がおよそ 0.001 で、流れの中の密度はほとんど変わりません。液体の圧縮性が効くのは、弁を急に閉めたときの水撃のように、圧力が急に変わる場合です。</li>
-      </ul>
-    </section>
+    <h2>適用範囲と注意事項</h2>
+    <p>単相流の密度変化を、流速と圧力損失から見積もります。</p>
+    <ul>
+      <li><strong>2つの判定を確認</strong>：入口か出口の密度で密度一定の式を使える目安は、マッハ数0.3以下かつ圧力損失の割合10%以下です。低速でも長い配管や低圧では圧力損失で密度が変わります。</li>
+      <li><strong>理想気体から外れる場合</strong>：気体の音速は理想気体で計算します。臨界点近傍や高圧では、実在気体の断熱体積弾性係数と密度を「体積弾性係数から」に入力します。気液二相流は対象外です。</li>
+      <li><strong>温度一定で判定</strong>：圧力損失による判定は温度一定が前提です。加熱・冷却による密度変化は別に確認してください。</li>
+      <li><strong>液体の急変は別に確認</strong>：通常の配管流速ではマッハ数はおよそ0.001で、密度変化は小さい値です。急な弁閉止による水撃などでは圧縮性が効きます。</li>
+    </ul>
+  </section>
 
     <section class="explain-block reference-block">
       <h2>参考資料</h2>

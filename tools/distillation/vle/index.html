@@ -19,7 +19,7 @@
   <meta property="og:locale" content="ja_JP">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@chem_fac">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"気液平衡・相対揮発度計算","url":"https://tools.chem-fac.com/tools/distillation/vle/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"気液平衡の計算ツール。二成分系の飽和蒸気圧と系圧力から、ラウールの法則で気液平衡比（K値）・相対揮発度・気相組成 y を求めます。計算式と適用範囲も掲載。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"気液平衡, 相対揮発度, K値, Raoult, ラウール, 飽和蒸気圧, 気相組成, 蒸留","about":"蒸留","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"気液平衡・相対揮発度計算","url":"https://tools.chem-fac.com/tools/distillation/vle/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"気液平衡の計算ツール。二成分系の飽和蒸気圧と系圧力から、ラウールの法則で気液平衡比（K値）・相対揮発度・気相組成 y を求めます。計算式と適用範囲も掲載。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"気液平衡, 相対揮発度, K値, Raoult, ラウール, 飽和蒸気圧, 気相組成, 蒸留","about":"蒸留","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -120,20 +120,20 @@
         <li>$y_i$：気相中の成分 $i$ のモル分率［-］</li>
         <li>$\alpha_{AB}$：成分A/Bの相対揮発度［-］</li>
       </ul>
-    </section>
+        <h3>気相組成と泡点圧</h3>
+    <p>気相組成 $y_A$ は $\alpha_{AB}$ だけから計算します。ラウール則の $y_i=P_i^{sat}x_i/P$ と一致するのは、$\sum x_iK_i=1$、つまり入力した系圧力がその液組成・温度での泡点圧に等しいときです。結果表の $\sum x_iK_i$ が 1 から外れると、ツールは注意を表示します。</p>
+  </section>
 
     <section class="explain-block notes-block">
-      <h2>適用範囲と注意事項</h2>
-      <p>二成分系の簡易計算です。</p>
-      <ul>
-        <li><strong>前提</strong>：気相は理想気体、液相は理想溶液として扱います。</li>
-        <li><strong>入力の注意</strong>：飽和蒸気圧は同じ温度、同じ圧力単位で入力してください。</li>
-        <li><strong>考慮していない点</strong>：活量係数、共沸、圧力損失、熱収支は考慮していません。</li>
-        <li><strong>使えない条件</strong>：強い非理想性を持つ系では、実測の気液平衡データや活量係数モデルを確認してください。</li>
-        <li><strong>気相組成の扱い</strong>：気相組成 $y_A$ は $\alpha_{AB}$ だけから計算します。ラウール則の $y_i=P_i^{sat}x_i/P$ と一致するのは、$\sum x_iK_i=1$、つまり入力した系圧力がその液組成・温度での泡点圧に等しいときです。結果表の $\sum x_iK_i$ が 1 から外れると、ツールは注意を表示します。</li>
-        <li><strong>相対揮発度の扱い</strong>：$\alpha_{AB}$ は飽和蒸気圧を与えた 1 つの温度の値です。実際の等圧蒸留では液組成により泡点温度が変わり、$\alpha$ も変化するので、一定値とした $y$–$x$ 関係は広い組成範囲では近似になります。</li>
-      </ul>
-    </section>
+    <h2>適用範囲と注意事項</h2>
+    <p>気相を理想気体、液相を理想溶液として扱う二成分系の計算です。</p>
+    <ul>
+      <li><strong>飽和蒸気圧の入力</strong>：両成分とも同じ温度・同じ圧力単位の値を使います。</li>
+      <li><strong>系圧力との整合</strong>：計算した気相組成がラウール則と一致するのは、系圧力がその液組成・温度の泡点圧に等しい場合です。結果の $\sum x_iK_i$ が1から外れるときは注意を確認してください。</li>
+      <li><strong>相対揮発度一定の近似</strong>：入力した1つの温度の値を使います。実際の等圧蒸留では組成とともに泡点温度・相対揮発度が変わり、広い組成範囲では近似になります。</li>
+      <li><strong>対象外</strong>：活量係数、共沸、圧力損失、熱収支は含みません。強非理想系では実測平衡データや活量係数モデルを確認してください。</li>
+    </ul>
+  </section>
 
     <section class="explain-block reference-block">
       <h2>参考資料</h2>

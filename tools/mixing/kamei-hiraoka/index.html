@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"亀井・平岡の式（バッフル無し撹拌所要動力）","url":"https://tools.chem-fac.com/tools/mixing/kamei-hiraoka/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"亀井・平岡の式により、バッフル無し撹拌槽の動力数 Np0 と撹拌所要動力を計算します。パドル翼、傾斜パドル翼、タービン翼、プロペラ翼、アンカー翼、ヘリカルリボン翼、大型翼に対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"亀井, 平岡, Kamei, Hiraoka, Np0, Np, 動力数, 所要動力, パドル翼, 傾斜パドル, タービン, プロペラ, アンカー, ヘリカルリボン, 大型翼, 邪魔板なし, バッフル無し","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"亀井・平岡の式（バッフル無し撹拌所要動力）","url":"https://tools.chem-fac.com/tools/mixing/kamei-hiraoka/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"亀井・平岡の式により、バッフル無し撹拌槽の動力数 Np0 と撹拌所要動力を計算します。パドル翼、傾斜パドル翼、タービン翼、プロペラ翼、アンカー翼、ヘリカルリボン翼、大型翼に対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"亀井, 平岡, Kamei, Hiraoka, Np0, Np, 動力数, 所要動力, パドル翼, 傾斜パドル, タービン, プロペラ, アンカー, ヘリカルリボン, 大型翼, 邪魔板なし, バッフル無し","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -164,17 +164,23 @@
       <li>$m$：指数［-］</li>
       <li>翼メーカー固有の大型翼や特殊翼は、公開相関式の適用範囲と実機形状の対応を確認してから使用してください。</li>
     </ul>
+      <h3>レイノルズ数による変化</h3>
+    <p>$Re_G$ が小さい層流域では $f$ の第1項（$C_L/Re_G$）が支配して $N_{p0}$ が $Re$ にほぼ反比例し、大きい乱流域では $N_{p0}$ が翼と槽の形状で決まる一定値に近づきます。この値をバッフルあり計算の $N_{p0}$ に使うときは、運転条件の $Re$ で求めた値を使ってください。</p>
+    <h3>ヘリカルリボン翼の計算</h3>
+    <p>固定の係数と $Re_d$ だけで計算し、槽径・液深さ・翼幅・羽根枚数・角度は結果に反映されません（粘度・密度・回転数・翼径が効きます）。</p>
+    <h3>翼幅の入力値</h3>
+    <p>翼幅 $b$ は、パドル翼・傾斜パドル翼・タービン翼などではプリセット選択時に翼径の一定割合（パドル翼 0.20$d$ など）が自動入力される代表値です。アンカー翼・大型翼の $b$ は翼の下端から上端までの高さなので、自動入力しません。実機の $b$ と違う値のまま計算すると $N_{p0}$ が外れます。</p>
   </section>
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>バッフル無しの槽で、層流項・遷移項・乱流項を1つの式 $f$ につないだ相関式です。レイノルズ数が変わると $N_{p0}$ が変わる前提で、$Re_d$ から $Re_G$ を経て $N_{p0}$ を求めます。</p>
+    <p>バッフルのない単一液体の動力を、層流域から乱流域まで推算します。</p>
     <ul>
-      <li><strong>使える条件</strong>：バッフル無しの単一液体で、翼が選択肢にある13種のプリセット（翼種・大型翼は槽底が皿底か平底かで区別）のいずれかに当たる場合。レイノルズ数は層流域から乱流域まで同じ式で扱えます。</li>
-      <li><strong>使えない条件</strong>：バッフル付きの槽（「バッフルあり撹拌所要動力」を使います）。羽根取り付け角度 $\theta$ は 0 超 90° 以下に限られ、超えるとエラーになります。</li>
-      <li><strong>レイノルズ数による変化</strong>：$Re_G$ が小さい層流域では $f$ の第1項（$C_L/Re_G$）が支配して $N_{p0}$ が $Re$ にほぼ反比例し、大きい乱流域では $N_{p0}$ が翼と槽の形状で決まる一定値に近づきます。この値をバッフルあり計算の $N_{p0}$ に使うときは、運転条件の $Re$ で求めた値を使ってください。</li>
-      <li><strong>ヘリカルリボン翼</strong>：固定の係数と $Re_d$ だけで計算し、槽径・液深さ・翼幅・羽根枚数・角度は結果に反映されません（粘度・密度・回転数・翼径が効きます）。</li>
-      <li><strong>外れやすい場合</strong>：翼幅 $b$ は、パドル翼・傾斜パドル翼・タービン翼などではプリセット選択時に翼径の一定割合（パドル翼 0.20$d$ など）が自動入力される代表値です。アンカー翼・大型翼の $b$ は翼の下端から上端までの高さなので、自動入力しません。実機の $b$ と違う値のまま計算すると $N_{p0}$ が外れます。式にはフルード数の項がなく、液面の渦の影響は含まれません。</li>
+      <li><strong>翼と槽底の選択</strong>：実機の翼種・槽底形状に対応する13種のプリセットを使います。バッフル付き槽は対象外です。</li>
+      <li><strong>羽根角度</strong>：$\theta$ は0超90°以下です。</li>
+      <li><strong>運転条件の動力数</strong>：バッフルあり計算へ渡す $N_{p0}$ は、運転条件の $Re$ で求めてください。</li>
+      <li><strong>翼幅の確認</strong>：自動入力の翼幅は代表値です。実機と照合し、アンカー翼・大型翼には翼の下端から上端までの高さを入力します。</li>
+      <li><strong>含まない影響</strong>：液面の渦は含みません。ヘリカルリボン翼では槽径・液深さ・翼幅・羽根枚数・角度が結果に反映されません。</li>
     </ul>
   </section>
 

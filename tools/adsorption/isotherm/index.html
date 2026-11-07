@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"吸着等温線フィット（ラングミュア・フロイントリッヒ）","url":"https://tools.chem-fac.com/tools/adsorption/isotherm/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"平衡濃度 c と吸着量 q のデータから、Langmuir 等温線・Freundlich 等温線のパラメータを線形回帰でフィットし、R² 比較で最適モデルを選定します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"吸着等温線, ラングミュア, フロイントリッヒ, 吸着平衡, 吸着量, 飽和吸着量, フィッティング, 線形回帰, q_max, K_F, 1/n, Langmuir, Freundlich, isotherm, adsorption, fitting","about":"吸着","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"吸着等温線フィット（ラングミュア・フロイントリッヒ）","url":"https://tools.chem-fac.com/tools/adsorption/isotherm/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"平衡濃度 c と吸着量 q のデータから、Langmuir 等温線・Freundlich 等温線のパラメータを線形回帰でフィットし、R² 比較で最適モデルを選定します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"吸着等温線, ラングミュア, フロイントリッヒ, 吸着平衡, 吸着量, 飽和吸着量, フィッティング, 線形回帰, q_max, K_F, 1/n, Langmuir, Freundlich, isotherm, adsorption, fitting","about":"吸着","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -100,19 +100,18 @@
       <li>$K_F$：Freundlich 定数</li>
       <li>$1/n$：Freundlich 式の指数［-］。$1/n < 1$ で典型的（好ましい吸着）、$1/n = 1$ で線形（Henry 則）、$1/n > 1$ で不利な吸着</li>
     </ul>
+      <h3>モデルの形と選び方</h3>
+    <p>飽和に向かう傾向が明らかな場合（高濃度で q が頭打ち）は Langmuir が適合しやすく、広い濃度範囲で q が単調増加する場合は Freundlich が適合しやすいです。</p>
   </section>
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>入力データを、同一温度で測定した平衡濃度 c と吸着量 q の組とみなし、Langmuir 式と Freundlich 式を線形化した直線回帰で計算する計算です。</p>
+    <p>同一温度で測定した、平衡濃度と吸着量のデータを対象にします。</p>
     <ul>
-      <li><strong>使える条件</strong>：温度一定で測った平衡データ（吸着平衡に達した後の c と q）。c と q はともに正の値、3 点以上、c に十分なばらつきが必要です（ツールの入力検査どおり）。</li>
-      <li><strong>使えない条件</strong>：温度が異なるデータの混在、平衡に達していない測定値、c または q が 0 以下の点（対数・c/q が取れない）。温度依存は $b$、$K_F$ が温度ごとに別の値になるため、温度ごとに別々にフィットします。</li>
-      <li><strong>パラメータの求め方</strong>：パラメータは c/q–c、log q–log c の直線回帰から出します。線形化で各点の重みと誤差の構造が変わるため、q を直接当てはめる非線形回帰とは、同じデータでも異なるパラメータになることがあります。表示する $R^2$ には q 残差ベースと線形プロットのものがあり、モデルの優劣は q 残差ベースで見ます。</li>
-      <li><strong>モデルの選び方</strong>：飽和に向かう傾向が明らかな場合（高濃度で q が頭打ち）は Langmuir が適合しやすく、広い濃度範囲で q が単調増加する場合は Freundlich が適合しやすいです。</li>
-      <li><strong>結果の読み方</strong>：本ツールは R² が大きい方を「より良いフィット」として表示しますが、物理的妥当性（高濃度極限、感度範囲）も併せて判断してください。</li>
-      <li><strong>外挿</strong>：Freundlich 式は飽和がなく、c を上げると q が際限なく増えます。測定した濃度範囲の外（特に高濃度側）への外挿には使えません。Langmuir 式の $q_\mathrm{max}$ も、測定点が飽和域に届いていないと、直線の切片と傾きから外挿した値になります。</li>
-      <li><strong>外れやすい場合</strong>：多層吸着や吸着サイトの不均一性が強い系、1 種類の成分だけを想定できない混合吸着質、孔内拡散などで平衡に達していない系では、どちらのモデルも物理的な意味を持ちにくく、$R^2$ が高くても機構の裏付けにはなりません。データ点が 3〜4 点ではパラメータの不確かさが大きくなります。</li>
+      <li><strong>入力データ</strong>：濃度・吸着量がともに正の点を3点以上用意し、濃度に十分なばらつきを持たせます。温度の異なる点や未平衡の値は混ぜず、温度ごとに当てはめます。</li>
+      <li><strong>回帰の限界</strong>：線形化で点の重みが変わり、吸着量を直接当てはめる非線形回帰とは結果が異なる場合があります。モデルの比較には吸着量の残差に基づく $R^2$ を使います。</li>
+      <li><strong>測定範囲外の予測</strong>：飽和しないFreundlich式を測定濃度範囲の外、特に高濃度へ外挿しないでください。Langmuir式の最大吸着量も、測定点が飽和域に届かなければ外挿値です。</li>
+      <li><strong>機構の判断</strong>：多層吸着、不均一な吸着サイト、混合吸着質、未平衡の系では、高い $R^2$ も機構の裏付けになりません。3〜4点のデータではパラメータの不確かさが大きくなります。</li>
     </ul>
   </section>
 

@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"混合気体の粘度（Wilke式）","url":"https://tools.chem-fac.com/tools/properties/gas-mixture-viscosity/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"各成分のモル分率・純気体粘度・分子量から、Wilke式で混合気体の粘度を計算します。最大6成分まで対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"混合気体, 粘度, Wilke, ウィルク, 混合粘度, 気体粘度, 純気体粘度, モル分率, 分子量, mixture viscosity, gas viscosity","about":"物性・熱力学","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"混合気体の粘度（Wilke式）","url":"https://tools.chem-fac.com/tools/properties/gas-mixture-viscosity/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"各成分のモル分率・純気体粘度・分子量から、Wilke式で混合気体の粘度を計算します。最大6成分まで対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"混合気体, 粘度, Wilke, ウィルク, 混合粘度, 気体粘度, 純気体粘度, モル分率, 分子量, mixture viscosity, gas viscosity","about":"物性・熱力学","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -118,13 +118,12 @@
   </section>
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>気体分子運動論に基づくWilke式で、純気体の粘度 $\mu_i$ からそれらの混合物の粘度を推算します。入力した $\mu_i$ の温度・圧力がそのまま混合物の温度・圧力になります。</p>
+    <p>低密度（常圧付近）の気体混合物の粘度を、Wilke式で推算します。</p>
     <ul>
-      <li><strong>使える条件</strong>：低密度（常圧付近）の気体混合物で、全成分の $\mu_i$ を同じ温度・同じ圧力で用意できる場合。</li>
-      <li><strong>使えない／外れやすい条件</strong>：低密度を前提とするため、高圧の混合気体と液体混合物には使えません。各成分の粘度を別の温度から補正する機能は含みません。</li>
-      <li><strong>組成の入れ方</strong>：式のモル分率 $x_i$ は mol 基準です。質量分率や体積分率を入れると結果が変わります（ツールは合計で正規化するだけで、質量基準から変換はしません）。</li>
-      <li><strong>入力する粘度</strong>：$\mu_i$ は実測値または信頼できる物性値を、計算したい温度・圧力で入れてください。温度の異なる値を混ぜても警告は出ず、混合粘度の誤差は入力した $\mu_i$ の誤差をそのまま引き継ぎます。</li>
-      <li><strong>結果の読み方</strong>：推算値であり、実測の混合粘度が手元にあるときはそちらを優先します。成分が2つしかなく物性が近い場合は、単純なモル分率平均との差が小さくなります。</li>
+      <li><strong>温度・圧力の一致</strong>：全成分の純気体粘度を、計算したい同じ温度・圧力で入力します。温度補正はなく、異なる温度の値でも警告は出ません。</li>
+      <li><strong>高圧・液体は対象外</strong>：高圧の混合気体や液体混合物には使えません。</li>
+      <li><strong>組成はモル基準</strong>：質量分率・体積分率を代用しないでください。入力値は合計で正規化するだけで、質量基準からの変換はしません。</li>
+      <li><strong>実測値の優先</strong>：結果は入力粘度の誤差を引き継ぐ推算値です。混合粘度の実測値があれば優先します。</li>
     </ul>
   </section>
 

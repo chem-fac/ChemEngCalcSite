@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"単蒸留の設計計算（レイリーの式）","url":"https://tools.chem-fac.com/tools/distillation/simple/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"飽和蒸気圧から相対揮発度を求め、レイリーの式で単蒸留の留出量、最終釜液量、平均留出組成を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"単蒸留, レイリーの式, Rayleigh, レイリー, 回分蒸留, 留出量, 釜液量, 平均留出組成, 相対揮発度, 蒸留","about":"蒸留","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"単蒸留の設計計算（レイリーの式）","url":"https://tools.chem-fac.com/tools/distillation/simple/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"飽和蒸気圧から相対揮発度を求め、レイリーの式で単蒸留の留出量、最終釜液量、平均留出組成を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"単蒸留, レイリーの式, Rayleigh, レイリー, 回分蒸留, 留出量, 釜液量, 平均留出組成, 相対揮発度, 蒸留","about":"蒸留","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -115,14 +115,12 @@
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>二成分系の単蒸留を対象にした概算です。</p>
+    <p>二成分系で、相対揮発度を一定とする単蒸留の概算です。</p>
     <ul>
-      <li><strong>前提</strong>：相対揮発度は蒸留中に一定とみなします。</li>
-      <li><strong>入力の注意</strong>：飽和蒸気圧は代表温度での値を入力してください。</li>
-      <li><strong>考慮していない点</strong>：ホールドアップ、熱損失、非理想性、蒸留速度の時間変化は考慮していません。</li>
-      <li><strong>使える条件</strong>：レイリーの式は、釜液が均一に混合され、発生した蒸気が釜液と平衡な組成で、凝縮しながら戻らずに全量抜き出される場合の関係です。還流や精留部がある装置、飛沫同伴が多い装置では成り立ちません。</li>
-      <li><strong>結果の読み方</strong>：蒸留が進むと釜液組成が変わり、沸点が上がるため、実際の相対揮発度は一定になりません。飽和蒸気圧を 1 つの代表温度で与える本ツールでは、$x_0$ と $x_W$ の幅が大きいほど、留出量や平均留出組成の誤差が大きくなります。</li>
-      <li><strong>使えない条件</strong>：$\alpha_{AB}$ が 1 に近い系では、1 回の単蒸留では組成がほとんど変わらず、わずかな $\alpha$ の誤差が結果に大きく効きます。共沸を持つ系は $\alpha$ が一定の仮定が成り立たない代表例です。</li>
+      <li><strong>釜液と蒸気の条件</strong>：釜液が均一で、蒸気は釜液と平衡になり、凝縮して戻らず全量抜き出される場合に使います。還流・精留部・多い飛沫同伴がある装置は対象外です。</li>
+      <li><strong>代表温度の入力</strong>：飽和蒸気圧は代表温度の値を使います。実際は沸点と相対揮発度が変わるため、初期・残液組成の幅が大きいほど留出量・平均留出組成の誤差が増えます。</li>
+      <li><strong>相対揮発度が1付近</strong>：組成がほとんど変わらず、相対揮発度のわずかな誤差が結果に大きく影響します。共沸系には一定値の仮定を使えません。</li>
+      <li><strong>含まれない影響</strong>：ホールドアップ、熱損失、非理想性、蒸留速度の時間変化は含みません。</li>
     </ul>
   </section>
 

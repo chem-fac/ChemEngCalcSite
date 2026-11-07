@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"熱量・熱収支","url":"https://tools.chem-fac.com/tools/heat-transfer/heat-duty/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"顕熱・潜熱・顕熱＋潜熱から、連続操作の熱負荷やバッチ操作の必要熱量を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"熱量, 熱収支, 顕熱, 潜熱, 熱負荷, 加熱, 冷却, 比熱, 蒸発, 凝縮, heat duty, energy balance","about":"伝熱","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"熱量・熱収支","url":"https://tools.chem-fac.com/tools/heat-transfer/heat-duty/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"顕熱・潜熱・顕熱＋潜熱から、連続操作の熱負荷やバッチ操作の必要熱量を計算します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"熱量, 熱収支, 顕熱, 潜熱, 熱負荷, 加熱, 冷却, 比熱, 蒸発, 凝縮, heat duty, energy balance","about":"伝熱","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -196,14 +196,12 @@
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>入口から出口まで比熱 $C_p$ が一定の顕熱と、単一の潜熱 $\lambda$ を足し合わせるエンタルピー変化の計算です。入力する物性は1組だけで、区間ごとの変化は扱いません。</p>
+    <p>一定比熱の顕熱と単一の潜熱から、流体のエンタルピー変化を求めます。</p>
     <ul>
-      <li><strong>使える条件</strong>：単相のまま温度が変わる顕熱だけの場合、または一定温度での蒸発・凝縮・融解など潜熱だけの場合。比熱は入口〜出口の平均温度付近の値を1つ入れます。</li>
-      <li><strong>顕熱＋潜熱の限界</strong>：液体の加熱から蒸発、さらに蒸気の過熱へと進む場合、液と蒸気の比熱は異なります。入力できる $C_p$ は1つで、温度差全体にそのまま掛かります。相ごとに区間を分けて、顕熱と潜熱を別々に求めてから合計してください。</li>
-      <li><strong>向きの指定</strong>：潜熱を含む場合は、加熱・蒸発か除熱・凝縮かを選ばないと計算できません。温度差の符号だけでは潜熱の向きが決まらないためです。</li>
-      <li><strong>含まれない項目</strong>：熱損失、反応熱、混合熱、溶解熱、ポンプや撹拌の仕事は式に入っていません。流体のエンタルピー変化だけが求まります。</li>
-      <li><strong>流量の入力</strong>：質量流量があればそれを使い、空欄のときだけ体積流量×密度から質量流量を作ります。体積流量を測った状態での密度を入れます。</li>
-      <li><strong>バッチの平均熱負荷</strong>：処理時間を入れると表示されるのは熱量÷時間の平均値です。時間内の最大負荷ではありません。</li>
+      <li><strong>相ごとに区間を分ける</strong>：比熱は入口〜出口の平均温度付近の値を1つ使います。液体の加熱・蒸発・蒸気の過熱は、相ごとに顕熱と潜熱を求めて合計してください。</li>
+      <li><strong>潜熱の向きを選ぶ</strong>：一定温度の蒸発・凝縮・融解なども扱えます。潜熱を含む場合は加熱・蒸発か除熱・凝縮かの選択が必要です。</li>
+      <li><strong>流量と密度をそろえる</strong>：質量流量を優先し、空欄なら体積流量×密度を使います。密度は体積流量を測った状態の値を入れます。</li>
+      <li><strong>装置の熱負荷とは区別</strong>：熱損失・反応熱・混合熱・溶解熱・ポンプや撹拌の仕事は含みません。バッチの熱量÷処理時間は平均負荷で、最大負荷ではありません。</li>
     </ul>
   </section>
 

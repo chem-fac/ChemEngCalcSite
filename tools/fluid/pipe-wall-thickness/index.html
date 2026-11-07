@@ -19,7 +19,7 @@
   <meta property="og:locale" content="ja_JP">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@chem_fac">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"配管の耐圧と必要肉厚","url":"https://tools.chem-fac.com/tools/fluid/pipe-wall-thickness/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"内圧を受ける配管が使える圧力と、圧力に必要な肉厚を、高圧ガス保安法の例示基準の式で計算します。薄肉の式は ASME B31.3 と同じ形です。STPG・ステンレス鋼管・SGP は呼び径とスケジュールを選ぶだけで、製造時の厚さの誤差と腐れしろも見込みます。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"配管, 耐圧, 肉厚, 必要肉厚, スケジュール, Sch, Sch40, Sch80, STPG, SGP, ステンレス鋼管, SUS, 呼び径, 外径, 許容引張応力, 溶接効率, 腐れしろ, 例示基準, 高圧ガス, ASME B31.3, バーロー, Barlow, pipe wall thickness","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-01"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"配管の耐圧と必要肉厚","url":"https://tools.chem-fac.com/tools/fluid/pipe-wall-thickness/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"内圧を受ける配管が使える圧力と、圧力に必要な肉厚を、高圧ガス保安法の例示基準の式で計算します。薄肉の式は ASME B31.3 と同じ形です。STPG・ステンレス鋼管・SGP は呼び径とスケジュールを選ぶだけで、製造時の厚さの誤差と腐れしろも見込みます。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"配管, 耐圧, 肉厚, 必要肉厚, スケジュール, Sch, Sch40, Sch80, STPG, SGP, ステンレス鋼管, SUS, 呼び径, 外径, 許容引張応力, 溶接効率, 腐れしろ, 例示基準, 高圧ガス, ASME B31.3, バーロー, Barlow, pipe wall thickness","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -237,6 +237,8 @@
 
     <section class="explain-block">
       <h2>製造時の厚さの誤差の目安</h2>
+      <h3>選択できる管寸法</h3>
+      <p>STPGは10A〜600AのSch10〜80です。ステンレス鋼管はJIS G 3459の表7の6A〜650A（Sch5S〜20Sは300Aまで）を扱います。大径ステンレス鋼管はJIS G 3468の150A〜1000A（Sch40は600Aまで）、SGPは10A〜500Aです。表7 と厚さが違う溶接管の寸法（同じ規格の表8）や、ほかの管は「外径と厚さを入力」を選んでください。</p>
       <table class="regime-table">
         <thead>
           <tr><th>管</th><th>製法</th><th>厚さの誤差（マイナス側）</th></tr>
@@ -254,15 +256,15 @@
     </section>
 
     <section class="explain-block notes-block">
-      <h2>適用範囲と注意事項</h2>
-      <p>内圧だけを受ける直管の肉厚を、設計の前に見積もるための計算です。</p>
-      <ul>
-        <li><strong>使える条件</strong>：内圧を受ける直管。許容引張応力は設計温度での値を使います。</li>
-        <li><strong>使えない条件</strong>：外圧や真空（管がつぶれる向きの力で厚さが決まる）、エルボ・分岐・フランジ、曲げ・熱膨張・振動による力。ASME B31.3 では、フェライト鋼で 482 °C、オーステナイト鋼で 566 °C を超えると係数 $Y$ が 0.4 より大きくなるので、この式をそのまま使えません。</li>
-        <li><strong>法令の設計</strong>：高圧ガス保安法などの対象の設備は、適用する基準の式と許容引張応力で確かめてください。</li>
-        <li><strong>寸法の表の範囲</strong>：STPG は 10A〜600A の Sch10〜80、ステンレス鋼管は JIS G 3459 の表7 の 6A〜650A（Sch5S〜20S は 300A まで）、大径ステンレス鋼管は JIS G 3468 の 150A〜1000A（Sch40 は 600A まで）、SGP は 10A〜500A です。表7 と厚さが違う溶接管の寸法（同じ規格の表8）や、ほかの管は「外径と厚さを入力」を選んでください。</li>
-      </ul>
-    </section>
+    <h2>適用範囲と注意事項</h2>
+    <p>内圧だけを受ける直管の肉厚を、設計の前に見積もります。</p>
+    <ul>
+      <li><strong>許容応力は設計温度の値</strong>：常温の値をそのまま使わず、設計温度での許容引張応力を入力します。</li>
+      <li><strong>外圧・真空・他の力は対象外</strong>：エルボ・分岐・フランジ、曲げ・熱膨張・振動による力も扱いません。</li>
+      <li><strong>高温では係数を確認</strong>：ASME B31.3ではフェライト鋼482 °C超、オーステナイト鋼566 °C超で係数$Y$が0.4より大きくなるため、この式をそのまま使えません。</li>
+      <li><strong>適用法令の基準で照合</strong>：高圧ガス保安法などの対象設備は、適用する基準の式と許容引張応力で確かめてください。</li>
+    </ul>
+  </section>
 
     <section class="explain-block reference-block">
       <h2>参考資料</h2>

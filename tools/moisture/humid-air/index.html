@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"湿球温度・湿り空気状態量","url":"https://tools.chem-fac.com/tools/moisture/humid-air/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"気温（乾球温度）と相対湿度から湿球温度を試算します。圧力を考慮した反復計算とStull近似式を比較し、露点・絶対湿度・比エンタルピーも同時に算出します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"湿球温度, 湿球, wet bulb, Stull, 乾球温度, 乾湿差, 湿り空気, 絶対湿度, 相対湿度, 露点温度, 露点, 比エンタルピー, 比容積, 空気線図, psychrometric, humidity, dew point","about":"調湿・乾燥","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-23"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"湿球温度・湿り空気状態量","url":"https://tools.chem-fac.com/tools/moisture/humid-air/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"気温（乾球温度）と相対湿度から湿球温度を試算します。圧力を考慮した反復計算とStull近似式を比較し、露点・絶対湿度・比エンタルピーも同時に算出します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"湿球温度, 湿球, wet bulb, Stull, 乾球温度, 乾湿差, 湿り空気, 絶対湿度, 相対湿度, 露点温度, 露点, 比エンタルピー, 比容積, 空気線図, psychrometric, humidity, dew point","about":"調湿・乾燥","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -107,6 +107,7 @@
   <section class="explain-block">
     <h2>計算式</h2>
     <h3>飽和蒸気圧（Buck 式）</h3>
+    <p>湿り空気中の水蒸気の実在気体補正（増加係数）は使わず、飽和蒸気圧をそのまま分圧の計算に使っています。この補正は海面気圧で約0.5%程度です。比エンタルピーは比熱一定（乾燥空気 1.006、水蒸気 1.86 kJ/(kg·K)）の式、比容積は理想気体の式です。</p>
     <div class="math-block">$$ P_\mathrm{sat}(T) = 611.21\, \exp\!\left[\left(18.678 - \dfrac{T}{234.5}\right)\dfrac{T}{257.14 + T}\right]\quad [\text{Pa}],\quad T\,[\text{°C}] $$</div>
 
     <h3>絶対湿度（混合比）</h3>
@@ -124,6 +125,7 @@
     <div class="math-block">$$ (W_s(T_{wb}) - W)\,h_{fg}(T_{wb}) = (c_{p,a} + W\,c_{p,v})(T_{db} - T_{wb}) $$</div>
 
     <h3>Stull近似式</h3>
+    <p>原論文の適用条件は標準大気圧 101.325 kPa、乾球温度 −20〜50 °C、相対湿度 5〜99%です。ただし、低温かつ低湿度の組合せでは適合が悪くなります。適用範囲内の誤差は −1〜+0.65 °C、平均絶対誤差は 0.3 °C未満と報告されています。</p>
     <p>気温と相対湿度から反復計算なしで湿球温度を求める経験式です。相対湿度は小数ではなく百分率の数値を使い、逆正接の引数はラジアンとして計算します。</p>
     <div class="math-block">$$
       \begin{aligned}
@@ -154,15 +156,12 @@
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>乾燥空気と水蒸気を理想気体の混合物として扱い、飽和蒸気圧にBuck式を使った状態量の計算です。入力した2つの状態量から絶対湿度 $W$ を決め、露点・湿球温度・比エンタルピー・比容積を求めます。</p>
+    <p>乾燥空気と水蒸気の理想混合気体として、Buck式から湿り空気の状態量を求めます。</p>
     <ul>
-      <li><strong>使える条件</strong>：乾球温度 −40〜50 °C で、大気圧を絶対圧（kPa）で入力できる場合。式の中で $P_\mathrm{atm}-P_v$ として使うため、ゲージ圧ではなく絶対圧を入れます。</li>
-      <li><strong>使えない条件</strong>：乾球温度が 50 °C を超える熱風乾燥の入口空気などは、外挿せずエラーになります。乾球温度が大気圧での沸点以上の場合や、過飽和になる入力の組合せもエラーです。</li>
-      <li><strong>氷点下の読み方</strong>：飽和蒸気圧は水面に対するBuck式を全温度で使っています。0 °C 未満の相対湿度と露点は過冷却水を基準にした値で、氷面を基準にした霜点・相対湿度とは別の値になります。</li>
-      <li><strong>湿球温度の意味</strong>：断熱飽和過程のエネルギー収支から求める熱力学的な湿球温度です。湿球温度計の読みは通風などの測定条件にも左右されるため、この値と一致するとは限りません。</li>
-      <li><strong>近似している点</strong>：湿り空気中の水蒸気の実在気体補正（増加係数）は使わず、飽和蒸気圧をそのまま分圧の計算に使っています。この補正は海面気圧で約 0.5% 程度とされます。比エンタルピーは比熱一定（乾燥空気 1.006、水蒸気 1.86 kJ/(kg·K)）の式、比容積は理想気体の式です。</li>
-      <li><strong>Stull近似式の範囲</strong>：原論文の適用条件は標準大気圧 101.325 kPa、乾球温度 −20〜50 °C、相対湿度 5〜99%です。ただし、低温かつ低湿度の組合せでは適合が悪くなります。適用範囲内の誤差は −1〜+0.65 °C、平均絶対誤差は 0.3 °C未満と報告されています。</li>
-      <li><strong>高温域・減圧</strong>：本ツールは飽和蒸気圧にBuck式を採用しています。高温域や大きな減圧条件では蒸気表やより厳密な湿り空気計算で再評価してください。</li>
+      <li><strong>乾球温度は−40〜50 °C</strong>：50 °C超は外挿せずエラーにします。大気圧での沸点以上や、過飽和になる入力もエラーです。</li>
+      <li><strong>大気圧は絶対圧で入力</strong>：kPaの絶対圧を使います。高温域や大きな減圧条件は蒸気表などの厳密な計算で再評価してください。</li>
+      <li><strong>氷点下は過冷却水基準</strong>：0 °C未満の相対湿度・露点も水面に対する値です。氷面を基準とする霜点・相対湿度とは異なります。</li>
+      <li><strong>湿球温度は熱力学的な値</strong>：断熱飽和のエネルギー収支による値で、通風などに左右される湿球温度計の読みと一致するとは限りません。Stull式の範囲と誤差は上の計算式を確認してください。</li>
     </ul>
   </section>
 

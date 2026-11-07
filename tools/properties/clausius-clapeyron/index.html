@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"クラウジウス・クラペイロンの式","url":"https://tools.chem-fac.com/tools/properties/clausius-clapeyron/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"クラウジウス・クラペイロンの式で、2点の蒸気圧データから蒸発潜熱を求めたり、蒸発熱から別温度の蒸気圧を外挿します。アントワン式が無い物質の概算に。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"クラウジウス, クラペイロン, Clausius, Clapeyron, 蒸気圧, 飽和蒸気圧, 蒸発熱, 蒸発潜熱, 温度推算, 外挿, 沸点","about":"物性・熱力学","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"クラウジウス・クラペイロンの式","url":"https://tools.chem-fac.com/tools/properties/clausius-clapeyron/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"クラウジウス・クラペイロンの式で、2点の蒸気圧データから蒸発潜熱を求めたり、蒸発熱から別温度の蒸気圧を外挿します。アントワン式が無い物質の概算に。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"クラウジウス, クラペイロン, Clausius, Clapeyron, 蒸気圧, 飽和蒸気圧, 蒸発熱, 蒸発潜熱, 温度推算, 外挿, 沸点","about":"物性・熱力学","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -132,17 +132,18 @@
       <li>$\Delta H_\mathrm{vap}$：モル蒸発潜熱［J/mol］</li>
       <li>$R$：気体定数 8.314 J/(mol·K)</li>
     </ul>
+      <h3>近似の成立条件</h3>
+    <p>上の式の仮定（$\Delta H_\mathrm{vap}$ 一定・蒸気は理想気体・液体のモル体積は無視）が成り立つ温度範囲、つまり低〜中程度の蒸気圧で、与えた2点に近い温度です。実際の $\Delta H_\mathrm{vap}$ は温度が上がるほど小さくなり、臨界温度でゼロになります（Watson式など）。</p>
   </section>
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>蒸発熱を一定とした積分形で、2点から蒸発熱を求める計算と、蒸発熱から蒸気圧を外挿する計算です。</p>
+    <p>蒸発熱を一定とし、2点から蒸発熱を求めるか、蒸気圧を外挿します。</p>
     <ul>
-      <li><strong>外挿の誤差</strong>：蒸発熱を一定とする近似のため、外挿幅が大きいほど誤差が増えます。臨界点近傍では成立しません。</li>
-      <li><strong>精度が必要な場合</strong>：精度よく蒸気圧が必要な場合は、アントワン式や物性データベースの値を使ってください。</li>
-      <li><strong>使える条件</strong>：上の式の仮定（$\Delta H_\mathrm{vap}$ 一定・蒸気は理想気体・液体のモル体積は無視）が成り立つ温度範囲、つまり低〜中程度の蒸気圧で、与えた2点に近い温度です。実際の $\Delta H_\mathrm{vap}$ は温度が上がるほど小さくなり、臨界温度でゼロになります（Watson式など）。</li>
-      <li><strong>2点法の読み方</strong>：2点から求めた $\Delta H_\mathrm{vap}$ は $T_1$〜$T_2$ の区間の平均値です。標準沸点での蒸発熱などの文献値とは一致しないことがあり、区間の外の温度では別の値になります。</li>
-      <li><strong>入力データの条件</strong>：2点は同じ物質の飽和蒸気圧（液体と蒸気の平衡）です。固体の昇華圧を入れると、求まるのは蒸発熱ではなく昇華熱で、融点をまたぐ2点には使えません。温度が高いほど蒸気圧が低くなるデータは、蒸発熱が正にならないため計算できません。</li>
-      <li><strong>温度と圧力の取り方</strong>：温度は絶対温度（K）に換算して計算します。圧力は絶対圧で入力します。式は比 $P_2/P_1$ を使うため、ゲージ圧のまま入れると比が変わり、$\Delta H_\mathrm{vap}$ も外挿した蒸気圧も誤った値になります。</li>
+      <li><strong>適用温度</strong>：低〜中程度の蒸気圧で、入力した2点に近い温度に限ります。外挿幅が広いほど誤差が増え、臨界点近傍では使えません。</li>
+      <li><strong>飽和蒸気圧</strong>：同じ物質の液体・蒸気平衡の2点を使います。昇華圧では昇華熱が求まり、融点をまたぐ2点には使えません。温度上昇で圧力が低下するデータは計算できません。</li>
+      <li><strong>温度と圧力</strong>：温度はKに換算して計算します。圧力は絶対圧を入力し、ゲージ圧を使わないでください。</li>
+      <li><strong>2点法の結果</strong>：蒸発熱は入力温度区間の平均値です。標準沸点の文献値などとは一致しない場合があります。</li>
+      <li><strong>精度が必要な場合</strong>：アントワン式や物性データベースの値を使ってください。</li>
     </ul>
   </section>
 

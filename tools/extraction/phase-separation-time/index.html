@@ -11,7 +11,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630"><meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"抽出後の相分離時間（静置）","url":"https://tools.chem-fac.com/tools/extraction/phase-separation-time/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"抽出後に2相が静置で分離するまでの時間を、液滴の終末速度（ストークス・アレン・ニュートンの式）から概算します。粒子レイノルズ数で領域を自動判定し、液滴径による分離時間の変化を早見表で示します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"相分離, 分離時間, 静置, 液液分離, 抽出, 終末速度, 沈降速度, 浮上速度, ストークス, アレン, ニュートン, 粒子レイノルズ数, Stokes, Allen, Newton, 分散帯, 液滴径, 分液ロート, デカンター, settling, phase separation","about":"抽出","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-23"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"抽出後の相分離時間（静置）","url":"https://tools.chem-fac.com/tools/extraction/phase-separation-time/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"抽出後に2相が静置で分離するまでの時間を、液滴の終末速度（ストークス・アレン・ニュートンの式）から概算します。粒子レイノルズ数で領域を自動判定し、液滴径による分離時間の変化を早見表で示します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"相分離, 分離時間, 静置, 液液分離, 抽出, 終末速度, 沈降速度, 浮上速度, ストークス, アレン, ニュートン, 粒子レイノルズ数, Stokes, Allen, Newton, 分散帯, 液滴径, 分液ロート, デカンター, settling, phase separation","about":"抽出","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../../assets/css/main.css">
@@ -99,20 +99,20 @@
       <li>$Re_p$：粒子レイノルズ数［-］</li>
       <li>$t$：相分離に要する時間［s］</li>
     </ul>
+      <h3>液滴径と速度の近似</h3>
+    <p>ストークス域では速度は液滴径の2乗に比例（$u_t \propto d^2$）するため、液滴径が 1/10 になると分離時間は 100 倍になります。撹拌が強すぎて微細分散になると、分離は急に難しくなります。</p>
+    <p>ニュートン域の速度式では、抗力係数0.44を4/9と近似しています。0.44をそのまま使う場合より速度は約0.5%小さくなります。Re<sub>p</sub> が10⁵以上の場合は、適用範囲外の注意を結果に表示します（解説化学工学、221頁、式6･18）。</p>
   </section>
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>式は、1個の粒子が無限に広い静止流体中を、一定の終末速度で動くときの関係です。ストークス・アレン・ニュートンの式は剛体球を前提とした形で、液滴内部の流れや、液滴どうしが互いの動きを妨げる効果は式に入っていません。分散相の割合が大きい分散帯では、実際の速度は単一液滴の計算値と異なります。</p>
+    <p>静止流体中を単一の剛体球として動く液滴の、界面までの移動時間を概算します。</p>
     <ul>
-      <li><strong>代表径</strong>：入力する液滴径は1つの代表値です。実際の分散は粒径に分布があり、小さい液滴ほど遅いため、全体が澄むまでの時間は、最も細かい液滴の径で決まります。早見表は、径を変えたときの幅を見るために使います。</li>
-      <li><strong>密度差</strong>：密度差 $\Delta\rho$ が小さいと $u_t$ に比例して遅くなり、分離時間は密度差に反比例して延びます。密度差の入力値が測定条件（温度・組成）と合っているかが、結果を左右します。</li>
-      <li><strong>領域の判定</strong>：本ツールは $Re_p$ の値からストークス域・アレン域・ニュートン域を自動判定し、対応する式で $u_t$ を求めます。</li>
-      <li><strong>領域の境界</strong>：3つの近似式を領域ごとに切り替える方式のため、領域の境界付近では液滴径をわずかに動かすだけで速度・時間が不連続に変化します。特にストークス域とアレン域の境界では速度が約4割跳ぶ段差が生じます（早見表で領域が切り替わる行の時間が飛んで見えるのはこのためです）。境界付近の値は目安として扱ってください。</li>
-      <li><strong>液滴径の影響</strong>：ストークス域では速度は液滴径の2乗に比例（$u_t \propto d^2$）するため、液滴径が 1/10 になると分離時間は 100 倍になります。撹拌が強すぎて微細分散になると、分離は急に難しくなります。</li>
-      <li><strong>結果の読み方</strong>：この計算は液滴が界面まで移動する「沈降律速」の概算です。実際に澄むまでの時間は液滴どうしの合体（合一）にも依存し、界面活性物質・微粒子・反応副生成物などでエマルジョン化すると大幅に延びます。</li>
-      <li><strong>静置試験</strong>：設計・トラブル検討では、まず分液ロートやメスシリンダーでの静置試験で、分散層の消失時間・界面の明瞭さ・乳化層の有無を確認してください。</li>
-      <li><strong>ニュートン域の近似</strong>：ニュートン域の速度式では、抗力係数0.44を4/9と近似しています。0.44をそのまま使う場合より速度は約0.5%小さくなります。Re<sub>p</sub> が10⁵以上の場合は、適用範囲外の注意を結果に表示します（解説化学工学、221頁、式6･18）。</li>
+      <li><strong>液滴径・密度差</strong>：径は1つの代表値で、小さい液滴ほど遅くなります。早見表で径による幅を見て、密度差は測定温度・組成に合わせて入力します。</li>
+      <li><strong>液滴の相互作用</strong>：液滴内部の流れや液滴どうしの干渉は含みません。分散相の割合が大きい分散帯では速度が計算値と異なります。</li>
+      <li><strong>領域境界と上限</strong>：境界で式が切り替わり、特にストークス域・アレン域の境界では速度が約4割跳びます。境界付近は目安とし、$Re_p\ge10^5$ は適用範囲外です。</li>
+      <li><strong>合一・乳化の影響</strong>：澄むまでの時間は液滴の合一にも依存します。界面活性物質・微粒子・反応副生成物による乳化で大幅に延びる場合があります。</li>
+      <li><strong>静置試験での確認</strong>：設計・トラブル検討では、分液ロートやメスシリンダーで分散層の消失時間、界面の明瞭さ、乳化層の有無を確認してください。</li>
     </ul>
   </section>
 

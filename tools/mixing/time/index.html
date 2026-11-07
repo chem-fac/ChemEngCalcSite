@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"混合時間","url":"https://tools.chem-fac.com/tools/mixing/time/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"撹拌槽の混合時間 θM を計算します。乱流域・乱流域（液深さ加味）・層流域の3パターンに対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"混合時間, mixing time, θM, Np, Nqd, バッフル, 邪魔板, 液深さ, 層流, 乱流","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"混合時間","url":"https://tools.chem-fac.com/tools/mixing/time/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"撹拌槽の混合時間 θM を計算します。乱流域・乱流域（液深さ加味）・層流域の3パターンに対応。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"混合時間, mixing time, θM, Np, Nqd, バッフル, 邪魔板, 液深さ, 層流, 乱流","about":"撹拌混合","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -167,17 +167,18 @@
       <li>$Re = \rho n d^{2} / \mu$：撹拌レイノルズ数［-］</li>
       <li>係数 0.092 は、混合完了の判定条件、投入位置、バッフル条件、翼位置に依存する実験相関の値です。多点投入や配置の最適化で見かけの混合時間が短くなる場合があるため、実機評価では目的物の投入位置と判定精度も合わせて確認してください。</li>
     </ul>
+      <h3>動力数・吐出流量数の影響</h3>
+    <p>入力欄の代表値は目安で、実機の翼・バッフル条件の値に置き換える必要があります。乱流の基本式では $(N_p/N_{qd})^{0.5}$、液深さ加味の式では $(N_p/N_{qd})^{-0.25}$ で効きます。どちらも $N_{qd}$ が一定なら $N_p$ が大きいほど混合時間は短くなりますが、効き方の大きさが異なるため、同じ $N_p$ のずれでも結果への影響はモードで違います。</p>
   </section>
 
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>3つのモードは、それぞれ別の相関式です。どのモードを使うかはレイノルズ数を見て利用者が選ぶ形で、ツールがレイノルズ数から自動で切り替えることはありません。</p>
+    <p>互いに混ざり合う単一液体の混合時間を、3種類の実験相関式で推算します。</p>
     <ul>
-      <li><strong>使える条件</strong>：互いに混ざり合う単一の液体で、乱流域なら「乱流」の2モード、層流域なら「層流域」モードを使う場合。乱流の2式には $Re$ が入らず、$N_p$ と $N_{qd}$ だけで翼の違いを表します。</li>
-      <li><strong>$N_p$ と $N_{qd}$ の入力</strong>：入力欄の代表値は目安で、実機の翼・バッフル条件の値に置き換える必要があります。乱流の基本式では $(N_p/N_{qd})^{0.5}$、液深さ加味の式では $(N_p/N_{qd})^{-0.25}$ で効きます。どちらも $N_{qd}$ が一定なら $N_p$ が大きいほど混合時間は短くなりますが、効き方の大きさが異なるため、同じ $N_p$ のずれでも結果への影響はモードで違います。</li>
-      <li><strong>層流域モード</strong>：式の $N_p\cdot Re$ の積が $1/(n\theta_M)$ に比例します。層流域では $N_p$ が $Re$ に反比例して大きくなるため、$N_p$ は運転条件の $Re$ に対応した値を入れます。乱流域の $N_p$ を入れると積が過大になり、混合時間は短く出ます。</li>
-      <li><strong>液深さの扱い</strong>：乱流の基本式には液深さ $H$ が入っていません。$H/D$ が 1 から離れた槽では、液深さを加味した式の結果と見比べてください。</li>
-      <li><strong>結果の読み方</strong>：3つの式は別々の実験相関なので、モード間で同じ条件を入れても値は一致しません。気体の吹き込みや固体粒子を含む系、粘度が混合の途中で変わる系は式に入っていません。</li>
+      <li><strong>モードの選択</strong>：$Re$ を確認し、乱流なら乱流の2モード、層流なら層流域モードを選びます。自動切替はなく、モード間で値は一致しません。</li>
+      <li><strong>動力数と流量数</strong>：代表値を実機の翼・バッフル条件の値に置き換えます。層流域の $N_p$ は運転条件の $Re$ に対応する値を使います。</li>
+      <li><strong>液深さ</strong>：乱流の基本式は液深さを含みません。$H/D$ が1から離れた槽では、液深さを加味した式と見比べてください。</li>
+      <li><strong>対象外の系</strong>：気体吹き込み、固体粒子、混合途中の粘度変化は含みません。</li>
     </ul>
   </section>
 
