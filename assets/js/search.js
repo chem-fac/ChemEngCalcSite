@@ -60,6 +60,7 @@
       category: "流動",
       keywords: ["圧縮性流体", "非圧縮性流体", "圧縮性", "非圧縮性", "マッハ数", "Mach", "音速", "体積弾性係数", "圧縮率", "比熱比", "密度変化", "圧力損失", "気体", "配管", "compressible flow"]
     },
+    { title: "真空排気時間と到達圧力", url: "tools/fluid/vacuum-pumpdown/", category: "流動", keywords: ["真空", "排気時間", "到達圧力", "漸近圧力", "有効排気速度", "ガス負荷", "vacuum", "pumpdown"] },
     {
       title: "流動（カテゴリ）",
       url: "tools/fluid/",

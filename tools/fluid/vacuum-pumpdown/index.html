@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>真空排気時間と到達圧力 | 化学工学計算支援ツール</title>
+<meta name="description" content="容器側の有効排気速度と一定総ガス負荷から、真空排気時間と漸近圧力を計算します。絶対圧を使い、目標圧力は1 PaAより高い範囲を扱います。">
+<meta name="keywords" content="真空,排気時間,有効排気速度,到達圧力,漸近圧力,ガス負荷,真空ポンプ">
+<link rel="canonical" href="https://tools.chem-fac.com/tools/fluid/vacuum-pumpdown/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="化学工学計算支援ツール">
+<meta property="og:title" content="真空排気時間と到達圧力 | 化学工学計算支援ツール">
+<meta property="og:description" content="容器側の有効排気速度と一定総ガス負荷から、真空排気時間と漸近圧力を計算します。絶対圧を使い、目標圧力は1 PaAより高い範囲を扱います。">
+<meta property="og:url" content="https://tools.chem-fac.com/tools/fluid/vacuum-pumpdown/">
+<meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-fluid-vacuum-pumpdown.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@chem_fac">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"真空排気時間と到達圧力","url":"https://tools.chem-fac.com/tools/fluid/vacuum-pumpdown/","applicationCategory":"EngineeringApplication","inLanguage":"ja","about":"流動","description":"容器側の有効排気速度と一定総ガス負荷から、真空排気時間と漸近圧力を計算します。絶対圧を使い、目標圧力は1 PaAより高い範囲を扱います。","author":{"@type":"Person","name":"かねまる"},"dateModified":"2026-11-08"}</script>
+<link rel="stylesheet" href="../../../assets/css/main.css"><link rel="icon" href="../../../assets/img/favicon.ico">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MQ7VEMWHY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-7MQ7VEMWHY');
+  </script>
+</head><body>
+<header class="site-header">
+    <div class="inner">
+      <a href="../../../" class="logo">
+        <img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">
+        化学工学計算支援ツール
+      </a>
+      <nav class="site-nav">
+        <a href="../../../tools/">ツール一覧</a>
+        <a href="../../../updates/">更新情報</a>
+        <a href="../../../faq/">よくある質問</a>
+        <a href="../../../support/">支援する</a>
+        <a href="../../../contact/">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
+<main class="tool-page tool-page-wide">
+<nav class="breadcrumb"><a href="../../../">ホーム</a><span> › </span><a href="../">流動</a><span> › </span><span class="current">真空排気時間と到達圧力</span></nav>
+<section class="tool-hero tool-hero-simple"><div class="tool-hero-content"><span class="cat-tag" data-cat="fluid">流動</span><h1>真空排気時間と到達圧力</h1><p class="tool-subcopy">容積、容器側の有効排気速度と一定総ガス負荷から、目標絶対圧までの時間を計算します。</p></div></section>
+<section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator"><div class="calc-grid">
+<div class="calc-pane calc-input-pane"><h2>入力</h2>
+<figure class="value-figure"><svg class="vf-svg" xmlns="http://www.w3.org/2000/svg" width="800" height="360" viewBox="0 0 800 360" role="img" aria-labelledby="effective-speed-title effective-speed-desc">
+  <title id="effective-speed-title">真空容器から真空ポンプまでの排気経路</title>
+  <desc id="effective-speed-desc">左の真空容器から、配管とバルブを通って右の真空ポンプへ気体が流れます。緑の点は、容器側の有効排気速度Sを考える位置です。Sには配管とバルブの抵抗を含めます。</desc>
+  <defs>
+    <marker id="effective-speed-flow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#555f59"/>
+    </marker>
+  </defs>
+  <rect width="800" height="360" fill="#fff"/>
+  <g font-family="'Noto Sans JP','Yu Gothic',Meiryo,sans-serif" fill="#1c2320">
+    <g fill="none" stroke="#1c2320" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+      <rect x="44" y="110" width="170" height="136" rx="12"/>
+      <!-- Each pipe segment stops at the valve body. -->
+      <path id="chamber-pipe" d="M214 178H388"/>
+      <path id="pump-pipe" d="M460 178H594"/>
+      <g id="valve-body" fill="#fff">
+        <path d="M388 150L424 178L388 206Z"/>
+        <path d="M460 150L424 178L460 206Z"/>
+      </g>
+      <path d="M424 126V178M408 126H440"/>
+      <circle cx="658" cy="178" r="64"/>
+    </g>
+    <g text-anchor="middle" font-size="26">
+      <text x="129" y="167">真空容器</text>
+      <text x="129" y="202" font-size="24">体積 V</text>
+      <text x="304" y="140" font-size="24">配管</text>
+      <text x="424" y="93">バルブ</text>
+      <text x="658" y="170">真空</text>
+      <text x="658" y="205">ポンプ</text>
+    </g>
+    <path d="M258 49H574" fill="none" stroke="#555f59" stroke-width="2.5" marker-end="url(#effective-speed-flow)"/>
+    <text x="416" y="31" text-anchor="middle" font-size="24" fill="#555f59">気体の流れ</text>
+    <circle cx="230" cy="178" r="6" fill="#006938"/>
+    <text x="230" y="216" text-anchor="middle" font-size="24" fill="#006938">S</text>
+    <text x="54" y="304" font-size="27" fill="#006938">容器側の有効排気速度 S</text>
+    <text x="54" y="338" font-size="24" fill="#555f59">配管・バルブの抵抗を含める</text>
+  </g>
+</svg><figcaption>Sは容器の接続口での値です。容器とポンプの間にある配管・バルブの抵抗を含めます。qは容器へ入る総ガス負荷です。</figcaption></figure><div class="input-row"><label for="volume">容器の有効容積 <span class="sym">V</span></label><div class="input-group"><input id="volume" type="number" inputmode="decimal" step="any" placeholder="例：1"><select id="volume_unit" aria-label="容器の有効容積の単位"><option value="m3">m³</option><option value="L">L</option></select></div><p class="hint">気体が占める容積です。容器側に含める接続部の容積も考慮します。</p></div>
+<div class="input-row"><label for="speed">容器側の有効排気速度 <span class="sym">S</span></label><div class="input-group"><input id="speed" type="number" inputmode="decimal" step="any" placeholder="例：0.01"><select id="speed_unit" aria-label="容器側の有効排気速度の単位"><option value="m3s">m³/s</option><option value="m3h">m³/h</option><option value="Ls">L/s</option></select></div><p class="hint">ポンプ単体の公称排気速度ではありません。対象圧力範囲で一定と仮定します。</p></div>
+<div class="input-row"><label for="start">初期絶対圧 <span class="sym">p<sub>0</sub></span></label><div class="input-group"><input id="start" type="number" inputmode="decimal" step="any" placeholder="例：100000"><select id="start_unit" aria-label="初期絶対圧の単位"><option value="Pa">PaA</option><option value="kPa">kPaA</option></select></div></div>
+<div class="input-row"><label for="target">目標絶対圧 <span class="sym">p<sub>1</sub></span></label><div class="input-group"><input id="target" type="number" inputmode="decimal" step="any" placeholder="例：1000"><select id="target_unit" aria-label="目標絶対圧の単位"><option value="Pa">PaA</option><option value="kPa">kPaA</option></select></div><p class="hint">1 PaAより高く、初期圧力以下かつq/Sより高い値を入力します。</p></div>
+<div class="input-row"><label for="load">一定総ガス負荷 <span class="sym">q</span></label><div class="input-group"><input id="load" type="number" inputmode="decimal" step="any" placeholder="例：0"><span class="unit-label">Pa·m³/s</span></div><p class="hint">漏れ・脱ガスなどを含む圧力×体積/時間です。基準状態の体積流量ではありません。</p></div>
+<div class="btn-row"><button class="btn btn-ghost" id="ideal-example">理想排気の例を入力</button><button class="btn btn-ghost" id="load-example">ガス負荷ありの例を入力</button></div><div class="btn-row"><button class="btn btn-primary" id="calc-btn">計算する</button><button class="btn btn-ghost" id="reset-btn">リセット</button></div><div id="error" class="error-msg" style="display:none;"></div>
+</div><div class="calc-pane calc-result-pane"><h2>計算結果</h2><div id="result-area"><div class="placeholder">入力値を入れて「計算する」を押してください</div></div></div></div></section>
+<section class="explain-block"><h2>計算式</h2><p>一定容積・等温で、容器側の有効排気速度Sと総ガス負荷qを一定とした物質収支です。</p><div class="math-block">$$ V\frac{dp}{dt}=q-Sp,\qquad p_\infty=\frac{q}{S} $$</div><div class="math-block">$$ p(t)=p_\infty+(p_0-p_\infty)\exp\left(-\frac{St}{V}\right) $$</div><div class="math-block">$$ t=\frac{V}{S}\ln\left(\frac{p_0-p_\infty}{p_1-p_\infty}\right) $$</div><p>$q=0$では $t=(V/S)\ln(p_0/p_1)$ です。一定ガス負荷の式は、この物質収支を積分した理想化モデルです。</p><ul class="symbol-list"><li>$V$：容器の有効容積［m³］</li><li>$S$：容器側の有効排気速度［m³/s］</li><li>$q$：容器の気体温度での一定総ガス負荷［Pa·m³/s］</li><li>$p_0, p_1$：初期・目標絶対圧［PaA］</li><li>$p_\infty$：このモデルの漸近圧力［PaA］</li><li>$t$：排気時間［s］。lnは自然対数です。</li></ul>
+<h3>計算例</h3><p>V＝1 m³、S＝0.01 m³/s、q＝0で100000→1000 PaAの排気時間は460.517秒です。</p><p>同じVとSで1000→200 PaA、q＝1 Pa·m³/sなら、漸近圧力は100 PaA、時間は219.722秒となります。同じ区間をq＝0で計算すると160.944秒です。</p></section>
+<section class="explain-block notes-block"><h2>適用範囲と注意事項</h2><p>実機の圧力範囲とガス負荷を確認して使います。</p><ul><li><strong>単純近似の範囲</strong>：Leyboldの簡易式は目標圧力が0.01 mbar＝1 PaAより高い範囲です。このページも1 PaA以下を受け付けません。</li><li><strong>容器側の値</strong>：配管・バルブの抵抗を含む有効排気速度を使います。実機の排気速度が圧力で変わる場合は、一定Sの仮定を見直してください。</li><li><strong>漸近圧力</strong>：q/Sに等しい目標へは無限時間で近づき、それより低い圧力には到達しません。両方とも有限時間の計算をエラーにします。</li><li><strong>実機との差</strong>：ポンプ固有の到達圧力は含みません。一定qは時間で変わる脱ガスや蒸発を再現せず、実機の時間や到達圧力を保証しません。</li><li><strong>絶対圧とガス負荷</strong>：ゲージ圧・負の真空度を入力しないでください。qの単位はPa·m³/sです。sccmなどの基準状態の体積流量をそのまま入力できません。</li></ul></section>
+<section class="explain-block reference-block"><h2>参考資料</h2><ul class="paper-link-list"><li><a href="https://www.leybold.com/content/dam/brands/leybold/downloads/gated/Fundamentals-of-leak-detection-2024.pdf" target="_blank" rel="noopener">Fundamentals of Leak Detection</a><br><span class="paper-meta">Leybold, 2024。冊子p.36 §9.12（排気時間と近似条件）、p.7 式(2)（ガス負荷と排気速度）。一定qの時間式は物質収支からの導出です。</span></li><li><a href="https://chem-fac.com/vacuum-pumpdown-conditions/" target="_blank" rel="noopener">真空排気時間の計算式と成立条件</a><br><span class="paper-meta">ケムファク。一定排気速度・一定ガス負荷の式と条件。</span></li></ul></section>
+<section class="related"><h3>関連ツール</h3><div class="related-grid"><a class="related-card" href="../../properties/ideal-gas-law/"><span class="small">物性・熱力学</span>理想気体の状態方程式・標準状態換算</a><a class="related-card" href="../flow-conversion/"><span class="small">流動</span>流量・流速・配管径換算</a></div></section>
+</main><footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>サイトについて</h4>
+        <ul>
+          <li><a href="../../../about/">当サイトについて</a></li>
+          <li><a href="../../../privacy/">プライバシーポリシー</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>サポート</h4>
+        <ul>
+          <li><a href="../../../contact/">お問い合わせ</a></li>
+          <li><a href="../../../faq/">よくある質問</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>その他</h4>
+        <ul>
+          <li><a href="../../../terms/">利用規約</a></li>
+          <li><a href="../../../disclaimer/">免責事項</a></li>
+        </ul>
+      </div>
+      <div class="footer-brand">
+        <a href="../../../" class="logo">
+          <img src="../../../assets/img/logo.png" alt="化学工学計算支援ツール">
+          化学工学計算支援ツール
+        </a>
+        <div class="footer-copy">© 2026 <a href="https://chem-fac.com/about-chemfac/">ケムファク</a></div>
+      </div>
+    </div>
+  </footer>
+<script src="../../../assets/js/vacuum-pumpdown.js"></script><script src="../../../assets/js/value-figure.js"></script><script src="../../../assets/js/share.js"></script><script src="../../../assets/js/calc-utils.js"></script>
+</body></html>
