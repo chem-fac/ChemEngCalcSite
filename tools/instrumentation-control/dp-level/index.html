@@ -27,15 +27,14 @@
 </div></header>
 <main class="tool-page tool-page-wide">
   <nav class="breadcrumb"><a href="../../../">ホーム</a><span class="sep">›</span><a href="../">計装制御</a><span class="sep">›</span><span class="current">差圧液面計のレンジ計算</span></nav>
-  <section class="tool-hero tool-hero-simple"><div class="tool-hero-content"><span class="cat-tag" data-cat="instrumentation-control">計装制御</span><h1>差圧液面計のレンジ計算（密閉・開放）</h1><p class="tool-subcopy">液位範囲、液密度、取り出し位置と差圧伝送器の高低差からLRV・URV・スパンを計算します。開放タンクと密閉タンクの乾式・湿式導圧管に対応します。</p></div></section>
+  <section class="tool-hero tool-hero-simple"><div class="tool-hero-content"><span class="cat-tag" data-cat="instrumentation-control">計装制御</span><h1>差圧液面計のレンジ計算（密閉・開放）</h1><p class="tool-subcopy">液位・密度・取り出し口の高さから、差圧の下限・上限・スパンを計算します。</p></div></section>
 
   <section class="calc-card calc-card-stacked calc-card-stacked-input-grid" id="calculator">
     <div class="calc-grid">
       <div class="calc-pane calc-input-pane">
         <h2>入力</h2>
-        <div class="input-row input-row-full"><label for="mode">タンクタイプ</label><div class="input-group"><select id="mode"><option value="open">開放タンク（液面も計器の低圧側も大気に開放）</option><option value="closed_dry">密閉・乾式（上部につながる管の中は気体）</option><option value="closed_wet">密閉・湿式（上部につながる管を液で満たす）</option></select></div></div>
-        <p class="hint input-row-full">圧力を伝える細い管が導圧管です。差圧伝送器で、上下の圧力差を測ります。</p>
-        <p class="hint input-row-full" id="mode-description" aria-live="polite">液面と伝送器の低圧側に同じ大気圧がかかる構成です。タンク上部と低圧側を結ぶ管は接続しません。</p>
+        <div class="input-row input-row-full"><label for="mode">タンクタイプ</label><div class="input-group"><select id="mode"><option value="open">開放</option><option value="closed_dry">密閉・乾式（上部配管は気体）</option><option value="closed_wet">密閉・湿式（上部配管は液）</option></select></div></div>
+        <p class="hint input-row-full" id="mode-description" aria-live="polite">液面と伝送器の低圧側を大気に開放します。</p>
         <!-- value-figure -->
         <figure class="value-figure">
           <svg class="vf-svg" viewBox="0 0 530 355" width="530" role="img" aria-labelledby="dp-fig-title dp-fig-desc">
@@ -70,16 +69,16 @@
             <g class="vf-g" data-for="rho_seal" data-dp-modes="closed_wet" display="none"><text class="vf-sym" x="444" y="145">ρ<tspan class="vf-sub" baseline-shift="sub">seal</tspan></text></g>
             <path class="vf-dim" d="M40 100V45L35 55M40 45L45 55"/><text class="vf-note" x="22" y="125">上が正</text>
           </svg>
-          <figcaption id="mode-figure-caption">高さは配管長さではなく鉛直方向の差です。図は開放タンク・伝送器下置きの例です。低圧側の接続口は大気に開放し、タンク上部とは接続しません。図は静水圧式から独自に作図しています。</figcaption>
+          <figcaption id="mode-figure-caption">高さは鉛直方向の差で、図は伝送器を下に置いた例です。</figcaption>
         </figure>
         <!-- /value-figure -->
-        <p class="hint">HP・LPは高圧側・低圧側の接続口の名称で、実際の圧力の大小を表すものではありません。HP導圧管はプロセス液で満たされ、同じ密度を持つものとします。伝送器がHP取り出し口（タップ）より上（高低差が負）の場合も、液充満を確保できる条件に限ります。リモートシールは計算対象外です。</p>
-        <div class="input-row"><label for="L_min">液位下限 <span class="sym">L<sub>min</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" step="any" id="L_min" placeholder="例：0"><select id="L_min_unit" aria-label="液位下限の単位"><option value="m">m</option><option value="mm">mm</option></select></div><p class="hint">下側HP取り出し口（タップ）を0とした液位です。0以上で入力します。</p></div>
+        <p class="hint">圧力を伝える管が導圧管、HP・LPは伝送器の高圧側・低圧側の接続口です。</p>
+        <div class="input-row"><label for="L_min">液位下限 <span class="sym">L<sub>min</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" step="any" id="L_min" placeholder="例：0"><select id="L_min_unit" aria-label="液位下限の単位"><option value="m">m</option><option value="mm">mm</option></select></div><p class="hint">下側の取り出し口を0とし、0以上で入力。</p></div>
         <div class="input-row"><label for="L_max">液位上限 <span class="sym">L<sub>max</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" step="any" id="L_max" placeholder="例：3"><select id="L_max_unit" aria-label="液位上限の単位"><option value="m">m</option><option value="mm">mm</option></select></div></div>
         <div class="input-row"><label for="rho">プロセス液密度 <span class="sym">ρ</span></label><div class="input-group"><input type="number" inputmode="decimal" step="any" id="rho" placeholder="例：1000"><span class="unit-label">kg/m³</span></div></div>
-        <div class="input-row"><label for="H_HP">HP取り出し口（タップ）と伝送器の高低差 <span class="sym">h<sub>H</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" step="any" id="H_HP" placeholder="例：0.5"><select id="H_HP_unit" aria-label="HP取り出し口（タップ）と伝送器の高低差の単位"><option value="m">m</option><option value="mm">mm</option></select></div><p class="hint">HP取り出し口（タップ）の高さ − 伝送器中心の高さ。タップが上なら正、下なら負です。</p></div>
-        <div class="input-row" id="row_HLP"><label for="H_LP">湿式液柱上端と伝送器の高低差 <span class="sym">h<sub>L</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" step="any" id="H_LP" placeholder="例：3.5"><select id="H_LP_unit" aria-label="湿式液柱上端と伝送器の高低差の単位"><option value="m">m</option><option value="mm">mm</option></select></div><p class="hint">上側の気相取り出し口（タップ）の高さ − 伝送器中心の高さ。液柱上端は液位上限以上の位置とします。</p></div>
-        <div class="input-row" id="row_rho_seal"><label for="rho_seal">シール液密度 <span class="sym">ρ<sub>seal</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" step="any" id="rho_seal" placeholder="例：1100"><span class="unit-label">kg/m³</span></div><p class="hint">低圧側の管を満たす液の密度です。</p></div>
+        <div class="input-row"><label for="H_HP">HP取り出し口（タップ）と伝送器の高低差 <span class="sym">h<sub>H</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" step="any" id="H_HP" placeholder="例：0.5"><select id="H_HP_unit" aria-label="HP取り出し口（タップ）と伝送器の高低差の単位"><option value="m">m</option><option value="mm">mm</option></select></div><p class="hint">取り出し口の高さ − 伝送器中心の高さ。上なら正、下なら負。</p></div>
+        <div class="input-row" id="row_HLP"><label for="H_LP">湿式液柱上端と伝送器の高低差 <span class="sym">h<sub>L</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" step="any" id="H_LP" placeholder="例：3.5"><select id="H_LP_unit" aria-label="湿式液柱上端と伝送器の高低差の単位"><option value="m">m</option><option value="mm">mm</option></select></div><p class="hint">上端＝上側の気相取り出し口（液位上限以上）。上端の高さ − 伝送器中心の高さ。</p></div>
+        <div class="input-row" id="row_rho_seal"><label for="rho_seal">シール液密度 <span class="sym">ρ<sub>seal</sub></span></label><div class="input-group"><input type="number" inputmode="decimal" step="any" id="rho_seal" placeholder="例：1100"><span class="unit-label">kg/m³</span></div><p class="hint">LP側の管を満たす液の密度。</p></div>
         <div class="btn-row"><button class="btn btn-primary" id="calc-btn">計算する</button><button class="btn btn-ghost" id="reset-btn">リセット</button></div>
         <div id="error" class="error-msg" style="display:none;"></div>
       </div>
@@ -89,6 +88,8 @@
 
   <section class="explain-block">
     <h2>計算式</h2>
+    <details>
+      <summary>式と記号の説明</summary>
     <p>差圧はHP入口圧力からLP入口圧力を引いた値です。開放では液面とLPに同じ大気圧がかかり、密閉では両側に同じ気相圧力がかかるため、共通の圧力が差し引かれます。</p>
     <div class="math-block">$$ \Delta P(L)=\rho g(L+h_\mathrm{H})-C,\quad C=\begin{cases}0&\text{開放・乾式}\\ \rho_\mathrm{seal}g h_\mathrm{L}&\text{湿式}\end{cases} $$</div>
     <div class="math-block">$$ \mathrm{LRV}=\Delta P(L_\mathrm{min}),\quad\mathrm{URV}=\Delta P(L_\mathrm{max}),\quad\mathrm{span}=\rho g(L_\mathrm{max}-L_\mathrm{min}) $$</div>
@@ -101,20 +102,29 @@
       <li>$\Delta P$：差圧 $P_\mathrm{HP}-P_\mathrm{LP}$［Pa］</li>
     </ul>
     <p>LRVは液位下限に対応する差圧、URVは液位上限に対応する差圧です。LRVが正なら零点抑圧（zero suppression）、負なら零点立ち上げ（zero elevation）に相当します。</p>
+    </details>
   </section>
   <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>静止した単一の液体を対象に、両接続口を同じ高さとし、密度を一定として計算します。</p>
+    <p>単一液・密度一定・HP管が同じ密度の液で満たされる条件に限り、リモートシールは対象外です。</p>
+    <details>
+      <summary>配管の条件・対象外・レンジ設定</summary>
+      <p>静止した液体を対象に、伝送器の両接続口を同じ高さとして計算します。HP・LPは接続口の名称で、実際の圧力の大小を表しません。</p>
+      <p>乾式は上部の管を気体のまま保つ構成です。湿式は一定高さまで液で満たし、その液柱による圧力を差し引きます。湿式液柱の上端は上側の気相取り出し口と同じ高さに限定します。</p>
     <ul>
       <li><strong>導圧管</strong>：HP側はプロセス液、湿式LP側はシール液で満たされる条件です。気泡、液抜け、凝縮、蒸発や温度による密度変化は扱いません。上置きの液充満や配管施工の成立性は別に確認します。</li>
       <li><strong>気相</strong>：気体の静水圧と流れによる圧力損失を無視します。気相圧力が両側へ同じように伝わらない構成には使えません。</li>
       <li><strong>対象外</strong>：リモートシール、界面測定、異なる密度のHP封液、真空時の液柱保持の可否、伝送器の耐圧・測定精度は判定しません。</li>
       <li><strong>レンジ設定</strong>：LRV・URV・スパンを伝送器の設定可能範囲と照合します。レンジ設定と、既知の圧力を与えて行う校正は別の作業です。</li>
     </ul>
+    </details>
   </section>
   <section class="explain-block reference-block">
     <h2>参考資料</h2>
+    <details>
+      <summary>出典・利用箇所・ライセンス</summary>
     <ul class="paper-link-list"><li><a href="https://www.ibiblio.org/kuphaldt/socratic/sinst/book/liii.pdf#page=1457" target="_blank" rel="noopener">Lessons In Industrial Instrumentation</a><br><span class="paper-meta">Tony R. Kuphaldt, Chapter 20, §20.3.3–20.3.4（印刷1430–1436頁）。<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>。静水圧式を本ツールの記号・SI単位に合わせて再構成し、日本語で要約しました。図は静水圧式から独自に作図しています。</span></li><li><a href="https://www.emerson.com/is/content/emerson/en/measurement-instrumentation/technical/products/pressure/documents/dl-rmt-00809-0100-4101.pdf#page=35" target="_blank" rel="noopener">Rosemount 2051 Reference Manual</a><br><span class="paper-meta">Emerson, 00809-0100-4101, Rev BB（2024年）, §2.9（PDF 35–37頁）。開放・密閉タンク、乾式・湿式の構成の説明を参照し、日本語で要約しています。原図は転載していません。</span></li></ul>
+    </details>
   </section>
   <section class="related"><h3>関連ツール</h3><div class="related-grid">
     <a href="../ma-signal/" class="related-card"><span class="small">計装制御</span>4-20mA信号換算（スケーリング・開平）</a>
