@@ -1,6 +1,12 @@
 (function () {
   const TOOLS = [
     {
+      title: "差圧液面計のレンジ計算（密閉・開放）",
+      url: "tools/instrumentation-control/dp-level/",
+      category: "計装・制御",
+      keywords: ["差圧液面計", "液面計", "液位", "レベル", "LRV", "URV", "スパン", "乾式導圧管", "湿式導圧管", "ドライレグ", "ウェットレグ", "dp level", "differential pressure"]
+    },
+    {
       title: "調節弁の差圧から流量を推定（液体）",
       url: "tools/instrumentation-control/control-valve-flow/",
       category: "計装・制御",
