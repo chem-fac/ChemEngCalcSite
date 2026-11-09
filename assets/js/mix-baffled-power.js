@@ -155,7 +155,7 @@
       <table class="unit-table"><tbody>
         <tr><td>所要動力</td><td class="num">${fmtNum(P / 1000)} kW</td></tr>
         <tr><td>バッフルあり動力数 <span class="sym">N<sub>p</sub></span></td><td class="num">${fmtNum(Np)} ［-］</td></tr>
-        <tr><td>完全邪魔板条件動力数 <span class="sym">N<sub>Pmax</sub></span></td><td class="num">${fmtNum(Npmax)} ［-］</td></tr>
+        <tr><td>完全邪魔板条件動力数 <span class="sym">N<sub>pmax</sub></span></td><td class="num">${fmtNum(Npmax)} ［-］</td></tr>
         <tr><td>トルク <span class="sym">T</span></td><td class="num">${fmtNum(T)} N·m</td></tr>
       </tbody></table>
       <div class="result-detail-label">中間量</div>
@@ -166,7 +166,7 @@
         <tr><td>バッフル無し動力数 <span class="sym">N<sub>p0</sub></span></td><td class="num">${fmtNum(vals.Np0)} ［-］</td></tr>
       </tbody></table>
       <div class="result-meta">
-        <div>計算式：<span class="sym">N<sub>p</sub></span> = (1 + x<sup>-3</sup>)<sup>-1/3</sup><span class="sym">N<sub>Pmax</sub></span></div>
+        <div>計算式：<span class="sym">N<sub>p</sub></span> = (1 + x<sup>-3</sup>)<sup>-1/3</sup><span class="sym">N<sub>pmax</sub></span></div>
         <div>　　　　　<span class="sym">P</span> = <span class="sym">N<sub>p</sub></span>·<span class="sym">ρ</span>·<span class="sym">n</span>³·<span class="sym">d</span>⁵</div>
         <div>入力：<span class="sym">B</span>/<span class="sym">D</span> = ${fmtNum(vals.B / vals.D)}, <span class="sym">n<sub>B</sub></span> = ${fmtNum(vals.nB)}, <span class="sym">H</span>/<span class="sym">D</span> = ${fmtNum(vals.H / vals.D)}, <span class="sym">n</span> = ${fmtNum(vals.n)} 1/s</div>
         ${boundNote}
