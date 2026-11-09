@@ -1549,11 +1549,18 @@ details.formula .body {
   text-underline-offset: 4px;
   transition: color 0.12s, text-decoration-color 0.12s;
 }
-.profile-link::after {
-  content: " ↗";
-  font-size: 0.75em;
-  color: var(--text-sub);
-  display: inline-block;
+/* 別サイトへのリンクに見える印は付けない。読み上げ用の「（別サイト）」だけ、見えない形で置く */
+.profile-link::after,
+.doc-page .ext::after {
+  content: "（別サイト）";
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 .profile-link:hover { color: var(--brand-dark); text-decoration-color: var(--brand-dark); }
 .profile-link-desc {
@@ -1632,11 +1639,6 @@ details.formula .body {
   content: "A. ";
   color: var(--text);
   font-weight: 700;
-}
-.doc-page .ext::after {
-  content: " ↗";
-  font-size: 13px;
-  color: var(--text-sub);
 }
 
 /* ===== Contact page ===== */
