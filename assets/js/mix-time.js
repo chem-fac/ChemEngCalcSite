@@ -37,34 +37,19 @@
       return setError('回転数・翼径・槽径・動力数 Np はすべて正の数値で入力してください。');
     if(D <= d) return setError('槽径 D は翼径 d より大きい必要があります。');
 
-    let theta, formula, extra='', whole='';
-    let target = '混合時間 <span class="sym">θ<sub>M</sub></span>';
+    let theta, formula, extra='';
     let note = '※ 混合完了の判定条件、投入位置、バッフル条件、翼位置に依存する実験相関の値です。実機適用前に翼ごとの実測データで確認してください。';
     if(mode === 'turb') {
       const Nqd=parseFloat($('Nqd').value);
       if(!isFinite(Nqd)||Nqd<=0) return setError('吐出流量数 Nqd を正の値で入力してください。');
-      // バッフルあり k = 0.092、バッフルなし k = 0.15（固体的回転部の外側の混合時間 θM0）
-      const unbaffled = $('baffle') !== null && $('baffle').value === 'none';
-      const k = unbaffled ? 0.15 : 0.092;
-      const sub = unbaffled ? 'M0' : 'M';
       const dD = d/D;
-      // 1/(n·θM) = k { (d/D)³·Nqd + 0.21·(d/D)·(Np/Nqd)^0.5 } { 1 - exp(-13·(d/D)²) }
-      const inv = k * (Math.pow(dD,3) * Nqd + 0.21 * dD * Math.pow(Np/Nqd, 0.5)) * (1 - Math.exp(-13 * dD * dD));
+      // 1/(n·θM) = 0.092 { (d/D)³·Nqd + 0.21·(d/D)·(Np/Nqd)^0.5 } { 1 - exp(-13·(d/D)²) }
+      const inv = 0.092 * (Math.pow(dD,3) * Nqd + 0.21 * dD * Math.pow(Np/Nqd, 0.5)) * (1 - Math.exp(-13 * dD * dD));
       if(!isFinite(inv)||inv<=0) return setError('入力値の組み合わせで計算結果が数値範囲を超えました。');
       theta = 1 / (n * inv);
-      formula = `乱流・基本式：1/(n·θ<sub>${sub}</sub>) = ${k}·{ (d/D)³·N<sub>qd</sub> + 0.21·(d/D)·(N<sub>p</sub>/N<sub>qd</sub>)<sup>0.5</sup> }·{ 1 - e<sup>-13(d/D)²</sup> }`;
-      extra = `<div>無次元混合時間 <span class="sym">n·θ<sub>${sub}</sub></span> = ${fmtNum(n*theta)}</div>`;
-      if(unbaffled) {
-        target = '固体的回転部の外側の混合時間 <span class="sym">θ<sub>M0</sub></span>';
-        whole = `
-      <div class="result-detail-label">槽全体の混合時間の目安</div>
-      <table class="unit-table"><tbody>
-        <tr><td><span class="sym">θ<sub>M0</sub></span> の2〜3倍</td><td class="num">${fmtNum(2*theta)}〜${fmtNum(3*theta)} s</td></tr>
-      </tbody></table>`;
-        note = '※ バッフルなしの槽では中心に固体的回転部ができ、係数 0.15 で求まるのはその外側だけの混合時間です。原著の実験では、固体的回転部を含む槽全体の混合に <span class="sym">θ<sub>M0</sub></span> の2〜3倍の時間がかかっています。';
-      } else {
-        note = '※ 係数 0.092 はバッフル付きの槽で1か所に投入したときの値です。投入方法やバッフルの配置を工夫しても上限は 0.15 で、値は混合完了の判定条件にも依存します。実機適用前に翼ごとの実測データで確認してください。';
-      }
+      formula = '乱流・基本式：1/(n·θ<sub>M</sub>) = 0.092·{ (d/D)³·N<sub>qd</sub> + 0.21·(d/D)·(N<sub>p</sub>/N<sub>qd</sub>)<sup>0.5</sup> }·{ 1 - e<sup>-13(d/D)²</sup> }';
+      extra = `<div>無次元混合時間 <span class="sym">n·θ<sub>M</sub></span> = ${fmtNum(n*theta)}</div>`;
+      note = '※ 係数 0.092 はバッフル付きの槽で1か所に投入したときの値です。バッフルなしの槽の値は目安です。実機適用前に翼ごとの実測データで確認してください。';
     } else if(mode === 'turbH') {
       const H=getSI('H');
       if(!isFinite(H)||H<=0) return setError('液深さ H を正の値で入力してください。');
@@ -92,14 +77,14 @@
       return setError('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
 
     $('result-area').innerHTML = `
-      <div class="result-target">${target}</div>
+      <div class="result-target">混合時間 <span class="sym">θ<sub>M</sub></span></div>
       <div class="result-value-big">${fmtNum(theta)} <span class="unit">s</span></div>
       <div class="result-detail-label">他単位での値</div>
       <table class="unit-table"><tbody>
         <tr><td>秒</td><td class="num">${fmtNum(theta)}</td></tr>
         <tr><td>分</td><td class="num">${fmtNum(theta/60)}</td></tr>
         <tr><td>時間</td><td class="num">${fmtNum(theta/3600)}</td></tr>
-      </tbody></table>${whole}
+      </tbody></table>
       <div class="result-meta">
         <div>使用した式：${formula}</div>
         ${extra}
@@ -116,7 +101,7 @@
     });
     clearError();
   }
-  function reset(){['n','d','D','H','Np','Nqd','rho','mu'].forEach(f=>{const el=$(f);if(el)el.value='';});if($('baffle'))$('baffle').value='baffled';clearError();clearResult();}
+  function reset(){['n','d','D','H','Np','Nqd','rho','mu'].forEach(f=>{const el=$(f);if(el)el.value='';});clearError();clearResult();}
   document.addEventListener('DOMContentLoaded',()=>{
     document.querySelectorAll('.mode-tab').forEach(t=>{t.addEventListener('click',()=>applyMode(t.dataset.mode));});
     $('calc-btn').addEventListener('click',calculate);
