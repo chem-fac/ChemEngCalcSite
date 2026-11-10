@@ -477,6 +477,13 @@ textarea:focus-visible {
   font-size: 13px;
   color: var(--text-sub);
 }
+.footer-follow {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--text-sub);
+  text-align: right;
+}
+.footer-follow a { white-space: nowrap; }
 
 /* ===== Tool page ===== */
 .tool-page {
@@ -1710,6 +1717,7 @@ details.formula .body {
   .info-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
   .footer-brand { align-items: flex-start; }
+  .footer-follow { text-align: left; }
 }
 @media (max-width: 1199px) {
   .cat-index { grid-template-columns: repeat(5, minmax(0, 1fr)); }

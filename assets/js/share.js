@@ -9,7 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
   initShareButtons();
   initDensityPlaceholders();
   disableNumberInputWheel();
+  trackFollowLinks();
 });
+
+// フッターの「X（@chem_fac）」のクリックを follow_click として数える（全ページ共通）
+function trackFollowLinks() {
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest && e.target.closest('a[data-follow]');
+    if (a && typeof window.gtag === 'function') {
+      window.gtag('event', 'follow_click', { method: a.dataset.follow, link_area: 'footer' });
+    }
+  }, true);
+}
 
 // マウスホイールで数値入力欄(type="number")の値が変わるのを防ぐ（全ページ共通）
 function disableNumberInputWheel() {
