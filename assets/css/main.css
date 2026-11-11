@@ -439,13 +439,7 @@ textarea:focus-visible {
 
 /* ===== Top page: よく使われているツール =====
    前の月に計算した人の多い順の5本（毎月はじめに入れ替える）。
-   更新情報と同じ細い罫線の一覧にし、順位は墨の数字だけ（メダル・色の印・人数は出さない） */
-.popular-note {
-  margin: -6px 0 6px;
-  font-size: 14px;
-  color: var(--text-sub);
-  word-break: auto-phrase;
-}
+   更新情報と同じ細い罫線の一覧にし、順位は墨の数字だけ（メダル・色の印・人数・期間の説明の文は出さない） */
 .popular-list {
   list-style: none;
   margin: 0;
