@@ -437,6 +437,59 @@ textarea:focus-visible {
   font-weight: 500;
 }
 
+/* ===== Top page: よく使われているツール =====
+   前の月に計算した人の多い順の5本（毎月はじめに入れ替える）。
+   更新情報と同じ細い罫線の一覧にし、順位は墨の数字だけ（メダル・色の印・人数は出さない） */
+.popular-note {
+  margin: -6px 0 6px;
+  font-size: 14px;
+  color: var(--text-sub);
+  word-break: auto-phrase;
+}
+.popular-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.popular-list li {
+  display: grid;
+  grid-template-columns: 1.6em minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+}
+.popular-rank {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.popular-body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 14px;
+  row-gap: 2px;
+  min-width: 0;
+}
+.popular-body a {
+  color: var(--brand);
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: color 0.12s, text-decoration-color 0.12s;
+}
+.popular-body a:hover {
+  color: var(--brand-dark);
+  text-decoration-color: var(--brand-dark);
+}
+.popular-cat {
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
 /* ===== Footer ===== */
 .site-footer {
   background: #fff;
