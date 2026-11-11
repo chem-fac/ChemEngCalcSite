@@ -4,15 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ファニングの式・管摩擦係数の計算（配管の圧力損失） | 化学工学計算支援ツール</title>
+  <title>ファニングの式・管摩擦係数の計算（エルボ・弁を含む配管の圧力損失） | 化学工学計算支援ツール</title>
   <meta name="description"
-    content="ファニングの式 ΔP = 4f(ρu²/2)(L/D) で配管直管部の圧力損失を計算するツール。管摩擦係数 f は層流 f = 16/Re、乱流はコールブルック式の反復解で求め、ダルシー・ワイスバッハの式との関係も説明します。">
-<meta name="keywords" content="ファニング, Fanning, 管摩擦係数, 摩擦係数, 圧力損失, ダルシー, Darcy, Weisbach, コールブルック, Colebrook, プラントル, カルマン, ブラジウス, Blasius, ニクラゼ, 粗さ, 粗面管, 平滑管, ヘッド, 動圧, 圧損, ファニングの式, 管摩擦係数 求め方, 圧力損失 計算">
+    content="ファニングの式で配管の圧力損失を計算します。管摩擦係数 f は層流 f = 16/Re、乱流はコールブルックの式で求め、エルボ・弁・入口・出口の損失係数 K も足せます。K は専門書12冊の値を比べて決めています。">
+<meta name="keywords" content="ファニング, Fanning, 管摩擦係数, 摩擦係数, 圧力損失, ダルシー, Darcy, Weisbach, コールブルック, Colebrook, プラントル, カルマン, ブラジウス, Blasius, ニクラゼ, 粗さ, 粗面管, 平滑管, ヘッド, 動圧, 圧損, ファニングの式, 管摩擦係数 求め方, 圧力損失 計算, 継手, エルボ, 弁, バルブ, 損失係数, 抵抗係数, K値, 相当長さ, 局所損失, 配管 損失係数 一覧, エルボ 圧損">
   <link rel="canonical" href="https://tools.chem-fac.com/tools/fluid/fanning/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="化学工学計算支援ツール">
-  <meta property="og:title" content="ファニングの式・管摩擦係数の計算（配管の圧力損失） | 化学工学計算支援ツール">
-  <meta property="og:description" content="ファニングの式 ΔP = 4f(ρu²/2)(L/D) で配管直管部の圧力損失を計算するツール。管摩擦係数 f は層流 f = 16/Re、乱流はコールブルック式の反復解で求め、ダルシー・ワイスバッハの式との関係も説明します。">
+  <meta property="og:title" content="ファニングの式・管摩擦係数の計算（エルボ・弁を含む配管の圧力損失） | 化学工学計算支援ツール">
+  <meta property="og:description" content="ファニングの式で配管の圧力損失を計算します。管摩擦係数 f は層流 f = 16/Re、乱流はコールブルックの式で求め、エルボ・弁・入口・出口の損失係数 K も足せます。K は専門書12冊の値を比べて決めています。">
   <meta property="og:url" content="https://tools.chem-fac.com/tools/fluid/fanning/">
   <meta property="og:image" content="https://tools.chem-fac.com/assets/img/og/tools-fluid-fanning.png">
 <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
   <meta property="og:locale" content="ja_JP">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ファニングの式・管摩擦係数（圧力損失）","url":"https://tools.chem-fac.com/tools/fluid/fanning/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"ファニングの式 ΔP = 4f(ρu²/2)(L/D) で配管直管部の圧力損失を計算するツール。管摩擦係数 f は層流 f = 16/Re、乱流はコールブルック式の反復解で求め、ダルシー・ワイスバッハの式との関係も説明します。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"ファニング, Fanning, 管摩擦係数, 摩擦係数, 圧力損失, ダルシー, Darcy, Weisbach, コールブルック, Colebrook, プラントル, カルマン, ブラジウス, Blasius, ニクラゼ, 粗さ, 粗面管, 平滑管, ヘッド, 動圧, 圧損","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-07"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ファニングの式・管摩擦係数（圧力損失）","url":"https://tools.chem-fac.com/tools/fluid/fanning/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"ファニングの式で配管の圧力損失を計算します。管摩擦係数 f は層流 f = 16/Re、乱流はコールブルックの式で求め、エルボ・弁・入口・出口の損失係数 K も足せます。K は専門書12冊の値を比べて決めています。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"ファニング, Fanning, 管摩擦係数, 摩擦係数, 圧力損失, ダルシー, Darcy, Weisbach, コールブルック, Colebrook, プラントル, カルマン, ブラジウス, Blasius, ニクラゼ, 粗さ, 粗面管, 平滑管, ヘッド, 動圧, 圧損, 継手, エルボ, 弁, バルブ, 損失係数, K値, 相当長さ","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-12"}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -76,7 +76,7 @@
       <div class="tool-hero-content">
         <span class="cat-tag" data-cat="fluid">流動</span>
         <h1>ファニングの式・管摩擦係数（圧力損失）</h1>
-        <p class="tool-subcopy">$\Delta P = 4f \cdot \dfrac{\rho u^{2}}{2} \cdot \dfrac{L}{D}$ で配管の圧力損失を計算します。</p>
+        <p class="tool-subcopy">$\Delta P = 4f \cdot \dfrac{\rho u^{2}}{2} \cdot \dfrac{L}{D}$ で配管の圧力損失を計算します。エルボ・弁・入口・出口の損失係数 $K$ も足せます。</p>
       </div>
     </section>
 
@@ -87,7 +87,7 @@
         <div class="calc-pane calc-input-pane">
           <h2>入力</h2>
         <!-- value-figure -->
-        <figure class="value-figure input-row-full" data-cat="fluid"><div class="vf-panels"><div class="vf-panel"><svg class="vf-svg" width="400" height="252" viewBox="0 0 400 252" role="img" aria-label="直管：管内径 D、配管長さ L、管内壁粗さ ε、平均流速 u" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="64" width="368" height="54" class="vf-bore"/><rect x="16" y="58" width="368" height="6" class="vf-wallh"/><rect x="16" y="118" width="368" height="6" class="vf-wallh"/><line x1="16" y1="91" x2="384" y2="91" class="vf-cl"/><line x1="64" y1="50" x2="64" y2="132" class="vf-section"/><text x="64" y="46" class="vf-note" text-anchor="middle">①</text><line x1="316" y1="50" x2="316" y2="132" class="vf-section"/><text x="316" y="46" class="vf-note" text-anchor="middle">②</text><g class="vf-g" data-for="L"><line x1="64" y1="134" x2="64" y2="157" class="vf-ext"/></g><g class="vf-g" data-for="L"><line x1="316" y1="134" x2="316" y2="157" class="vf-ext"/></g><g class="vf-g" data-for="L"><line x1="64" y1="152" x2="316" y2="152" class="vf-dim"/><polygon points="64,152 71,149.4 71,154.6" class="vf-arrow"/><polygon points="316,152 309,154.6 309,149.4" class="vf-arrow"/><text x="84" y="170" class="vf-sym" text-anchor="middle"><tspan>L</tspan></text><text x="96" y="170" class="vf-name" text-anchor="start">配管長さ（直管）</text></g><g class="vf-g" data-for="D"><line x1="352" y1="64" x2="352" y2="118" class="vf-dim"/><polygon points="352,64 354.6,71 349.4,71" class="vf-arrow"/><polygon points="352,118 349.4,111 354.6,111" class="vf-arrow"/><text x="344" y="86" class="vf-sym" text-anchor="end"><tspan>D</tspan></text></g><g class="vf-g" data-for="D"><text x="344.0" y="106.0" class="vf-name" text-anchor="end">管内径</text></g><polyline points="96,82 170,82" class="vf-flow"/><polygon points="170,82 162,85.2 162,78.8" class="vf-flowhead"/><text x="182" y="88" class="vf-sym" text-anchor="start"><tspan>u</tspan></text><g class="vf-g" data-for="u"><text x="196" y="88" class="vf-name">断面平均流速</text></g><circle cx="250" cy="118" r="7" class="vf-zoom"/><line x1="244" y1="124" x2="210" y2="190" class="vf-zoomline"/><rect x="120" y="190" width="150" height="56" class="vf-zoombox"/><polygon points="121,224 125.5,213 130,224 134.5,217 139,224 143.5,213 148,224 152.5,217 157,224 161.5,213 166,224 170.5,217 175,224 179.5,213 184,224 188.5,217 193,224 197.5,213 202,224 206.5,217 211,224 215.5,213 220,224 224.5,217 229,224 233.5,213 238,224 242.5,217 247,224 251.5,213 256,224 260.5,217 265,224 269,224 269,245 121,245" class="vf-wallh"/><g class="vf-g" data-for="eps"><line x1="250" y1="213" x2="289" y2="213" class="vf-ext"/></g><g class="vf-g" data-for="eps"><line x1="269" y1="224" x2="289" y2="224" class="vf-ext"/></g><g class="vf-g" data-for="eps"><line x1="284" y1="199" x2="284" y2="238" class="vf-dim"/><polygon points="284,213 281.4,206 286.6,206" class="vf-arrow"/><polygon points="284,224 286.6,231 281.4,231" class="vf-arrow"/></g><text x="292" y="222" class="vf-sym" text-anchor="start"><tspan>ε</tspan></text><g class="vf-g" data-for="eps"><text x="292.0" y="240.0" class="vf-name">粗さ（代表値）</text></g><text x="124" y="205" class="vf-note" text-anchor="start">管内壁の拡大</text></svg></div></div><figcaption><span class="sym">D</span> は管の内面から内面までの実内径（呼び径ではない）、<span class="sym">L</span> は圧力損失を求める直管の長さ（図の①〜②）です。エルボや弁の分は相当長を別に足します。<span class="sym">ε</span> は凹凸を測った値ではなく、管の材料・状態ごとの代表値を使います。</figcaption></figure>
+        <figure class="value-figure input-row-full" data-cat="fluid"><div class="vf-panels"><div class="vf-panel"><svg class="vf-svg" width="400" height="252" viewBox="0 0 400 252" role="img" aria-label="直管：管内径 D、直管の長さ L、管内壁粗さ ε、平均流速 u" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="56" width="368" height="68" class="vf-bore"/><rect x="16" y="50" width="368" height="6" class="vf-wallh"/><rect x="16" y="124" width="368" height="6" class="vf-wallh"/><line x1="16" y1="90" x2="384" y2="90" class="vf-cl"/><line x1="64" y1="42" x2="64" y2="138" class="vf-section"/><text x="64" y="35" class="vf-note" text-anchor="middle">①</text><line x1="272" y1="42" x2="272" y2="138" class="vf-section"/><text x="272" y="35" class="vf-note" text-anchor="middle">②</text><g class="vf-g" data-for="L"><line x1="64" y1="140" x2="64" y2="163" class="vf-ext"/></g><g class="vf-g" data-for="L"><line x1="272" y1="140" x2="272" y2="163" class="vf-ext"/></g><g class="vf-g" data-for="L"><line x1="64" y1="158" x2="272" y2="158" class="vf-dim"/><polygon points="64,158 71,155.4 71,160.6" class="vf-arrow"/><polygon points="272,158 265,160.6 265,155.4" class="vf-arrow"/><text x="84" y="179" class="vf-sym" text-anchor="middle"><tspan>L</tspan></text><text x="96" y="179" class="vf-name" text-anchor="start">直管の長さ</text></g><g class="vf-g" data-for="D"><line x1="352" y1="56" x2="352" y2="124" class="vf-dim"/><polygon points="352,56 354.6,63 349.4,63" class="vf-arrow"/><polygon points="352,124 349.4,117 354.6,117" class="vf-arrow"/><text x="344" y="113" class="vf-sym" text-anchor="end"><tspan>D</tspan></text></g><g class="vf-g" data-for="D"><text x="344.0" y="79.5" class="vf-name" text-anchor="end">管内径</text></g><polyline points="84,73 150,73" class="vf-flow"/><polygon points="150,73 142,76.2 142,69.8" class="vf-flowhead"/><text x="160" y="79.5" class="vf-sym" text-anchor="start"><tspan>u</tspan></text><g class="vf-g" data-for="u"><text x="174" y="79.5" class="vf-name">断面平均流速</text></g><circle cx="300" cy="124" r="7" class="vf-zoom"/><line x1="297" y1="131" x2="270" y2="190" class="vf-zoomline"/><rect x="120" y="190" width="150" height="56" class="vf-zoombox"/><polygon points="121,224 125.5,213 130,224 134.5,217 139,224 143.5,213 148,224 152.5,217 157,224 161.5,213 166,224 170.5,217 175,224 179.5,213 184,224 188.5,217 193,224 197.5,213 202,224 206.5,217 211,224 215.5,213 220,224 224.5,217 229,224 233.5,213 238,224 242.5,217 247,224 251.5,213 256,224 260.5,217 265,224 269,224 269,245 121,245" class="vf-wallh"/><g class="vf-g" data-for="eps"><line x1="250" y1="213" x2="287" y2="213" class="vf-ext"/></g><g class="vf-g" data-for="eps"><line x1="269" y1="224" x2="287" y2="224" class="vf-ext"/></g><g class="vf-g" data-for="eps"><line x1="284" y1="199" x2="284" y2="238" class="vf-dim"/><polygon points="284,213 281.4,206 286.6,206" class="vf-arrow"/><polygon points="284,224 286.6,231 281.4,231" class="vf-arrow"/></g><text x="292" y="222" class="vf-sym" text-anchor="start"><tspan>ε</tspan></text><g class="vf-g" data-for="eps"><text x="292.0" y="244.0" class="vf-name">粗さ（代表値）</text></g><text x="114" y="210" class="vf-note" text-anchor="end">管内壁の拡大</text></svg></div></div><figcaption><span class="sym">D</span> は管の内面から内面までの実内径（呼び径ではない）、<span class="sym">L</span> は継手・弁を除いた直管の長さの合計（図の①〜②を足したもの）です。継手・弁は長さに入れず、下の表に個数を入れます。<span class="sym">ε</span> は凹凸を測った値ではなく、管の材料・状態ごとの代表値を使います。</figcaption></figure>
         <!-- /value-figure -->
 
           <div class="input-row">
@@ -129,15 +129,15 @@
           </div>
 
           <div class="input-row">
-            <label for="L">配管長さ <span class="sym">L</span></label>
+            <label for="L">直管の長さ <span class="sym">L</span></label>
             <div class="input-group">
               <input type="number" inputmode="decimal" id="L" step="any" placeholder="例：50">
-              <select id="L_unit" aria-label="配管長さの単位">
+              <select id="L_unit" aria-label="直管の長さの単位">
                 <option value="m">m</option>
                 <option value="km">km</option>
               </select>
             </div>
-            <p class="hint">直管の総延長を入力してください。エルボ・バルブの相当長を含めたい場合は別途加算してください。</p>
+            <p class="hint">継手・弁を除いた直管の長さの合計を入力してください。継手・弁は下の表に個数を入れます。</p>
           </div>
 
           <div class="input-row">
@@ -181,6 +181,48 @@
             <p class="hint">未入力ならステンレス配管・平滑仕上げ（ε = 0.003 mm）として計算します。鋼管・鋳鉄管など他の材質ではプリセットを選ぶか、値を入力してください。明示的に <code>0</code> を入力すると平滑管として計算します。</p>
           </div>
 
+          <p class="input-row-full input-section-title">継手・弁の個数</p>
+          <div class="input-row input-row-full">
+            <div class="data-table-wrap">
+              <table class="data-table" id="fittings">
+                <thead><tr><th>継手・管の出入口</th><th class="num">K</th><th class="num">個数</th></tr></thead>
+                <tbody>
+                  <tr><td><label for="n_elbow90">90°エルボ（標準）</label></td><td class="num">0.75</td><td class="num"><input type="number" inputmode="decimal" id="n_elbow90" data-k="0.75" min="0" step="1" placeholder="例：0"></td></tr>
+                  <tr><td><label for="n_elbow90lr">90°ロングエルボ</label></td><td class="num">0.32</td><td class="num"><input type="number" inputmode="decimal" id="n_elbow90lr" data-k="0.32" min="0" step="1" placeholder="例：4"></td></tr>
+                  <tr><td><label for="n_elbow45">45°エルボ（標準）</label></td><td class="num">0.35</td><td class="num"><input type="number" inputmode="decimal" id="n_elbow45" data-k="0.35" min="0" step="1" placeholder="例：0"></td></tr>
+                  <tr><td><label for="n_bend180">180°ベンド</label></td><td class="num">1.5</td><td class="num"><input type="number" inputmode="decimal" id="n_bend180" data-k="1.5" min="0" step="1" placeholder="例：0"></td></tr>
+                  <tr><td><label for="n_tee_run">ティー（直進）</label></td><td class="num">0.40</td><td class="num"><input type="number" inputmode="decimal" id="n_tee_run" data-k="0.4" min="0" step="1" placeholder="例：0"></td></tr>
+                  <tr><td><label for="n_tee_branch">ティー（分岐を通る）</label></td><td class="num">1.2</td><td class="num"><input type="number" inputmode="decimal" id="n_tee_branch" data-k="1.2" min="0" step="1" placeholder="例：0"></td></tr>
+                  <tr><td><label for="n_union">ユニオン・カップリング</label></td><td class="num">0.040</td><td class="num"><input type="number" inputmode="decimal" id="n_union" data-k="0.04" min="0" step="1" placeholder="例：0"></td></tr>
+                  <tr><td><label for="n_inlet">入口（タンクから管へ・角のある入口）</label></td><td class="num">0.50</td><td class="num"><input type="number" inputmode="decimal" id="n_inlet" data-k="0.5" min="0" step="1" placeholder="例：1"></td></tr>
+                  <tr><td><label for="n_outlet">出口（管からタンクへ）</label></td><td class="num">1.0</td><td class="num"><input type="number" inputmode="decimal" id="n_outlet" data-k="1.0" min="0" step="1" placeholder="例：1"></td></tr>
+                </tbody>
+                <tbody>
+                  <tr><th>弁</th><th class="num">K</th><th class="num">個数</th></tr>
+                  <tr><td><label for="n_gate">仕切弁（ゲート弁）</label></td><td class="num">0.17</td><td class="num"><input type="number" inputmode="decimal" id="n_gate" data-k="0.17" min="0" step="1" placeholder="例：2"></td></tr>
+                  <tr><td><label for="n_globe">玉形弁</label></td><td class="num">6.0</td><td class="num"><input type="number" inputmode="decimal" id="n_globe" data-k="6.0" min="0" step="1" placeholder="例：0"></td></tr>
+                  <tr><td><label for="n_angle">アングル弁</label></td><td class="num">3.0</td><td class="num"><input type="number" inputmode="decimal" id="n_angle" data-k="3.0" min="0" step="1" placeholder="例：0"></td></tr>
+                  <tr><td><label for="n_yvalve">Y形弁</label></td><td class="num">3.0</td><td class="num"><input type="number" inputmode="decimal" id="n_yvalve" data-k="3.0" min="0" step="1" placeholder="例：0"></td></tr>
+                  <tr><td><label for="n_diaphragm">ダイアフラム弁</label></td><td class="num">2.3</td><td class="num"><input type="number" inputmode="decimal" id="n_diaphragm" data-k="2.3" min="0" step="1" placeholder="例：0"></td></tr>
+                  <tr><td><label for="n_butterfly">バタフライ弁（開度85°）</label></td><td class="num">0.24</td><td class="num"><input type="number" inputmode="decimal" id="n_butterfly" data-k="0.24" min="0" step="1" placeholder="例：0"></td></tr>
+                  <tr><td><label for="n_ball">ボール弁（縮径形）</label></td><td class="num">0.23</td><td class="num"><input type="number" inputmode="decimal" id="n_ball" data-k="0.23" min="0" step="1" placeholder="例：0"></td></tr>
+                  <tr><td><label for="n_check">スイング逆止弁</label></td><td class="num">1.8</td><td class="num"><input type="number" inputmode="decimal" id="n_check" data-k="1.8" min="0" step="1" placeholder="例：1"></td></tr>
+                  <tr><td><label for="n_foot">フート弁</label></td><td class="num">15</td><td class="num"><input type="number" inputmode="decimal" id="n_foot" data-k="15" min="0" step="1" placeholder="例：0"></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="hint">直管だけを計算するときは空欄のままにします。弁の K は全開（バタフライ弁は開度85°）の値です。絞って使う弁はこの表の個数に入れず、その開度の K を「その他の K の合計」に足してください。</p>
+          </div>
+
+          <div class="input-row">
+            <label for="k_other">その他の K の合計 <span class="sym">K<sub>他</sub></span>（任意）</label>
+            <div class="input-group">
+              <input type="number" inputmode="decimal" id="k_other" step="any" placeholder="例：0">
+              <span class="unit-label">-</span>
+            </div>
+            <p class="hint">表に無いもの（ストレーナ・流量計・半開の弁など）の K を足して入れます。メーカーの値を使ってください。</p>
+          </div>
+
           <div class="btn-row">
             <button class="btn btn-primary" id="calc-btn">計算する</button>
             <button class="btn btn-ghost" id="reset-btn">リセット</button>
@@ -211,7 +253,7 @@
         <li>$f$：管摩擦係数［-］</li>
         <li>$\rho$：流体密度［kg/m³］</li>
         <li>$u$：平均流速［m/s］</li>
-        <li>$L$：配管長さ［m］</li>
+        <li>$L$：直管の長さ［m］</li>
         <li>$D$：配管内径［m］</li>
         <li>$Re = \rho u D / \mu$：レイノルズ数［-］</li>
         <li>$\varepsilon$：配管内壁の凹凸の平均高さ（粗さ）［m］</li>
@@ -237,10 +279,58 @@
       <p>鋼管などプラントで多く使われる粗面管の乱流では、コールブルックの式が標準的です。</p>
       <div class="math-block">$$ \dfrac{1}{\sqrt{4f}} = -2\, \log_{10}\!\left( \dfrac{\varepsilon / D}{3.7} +
         \dfrac{2.51}{Re\sqrt{4f}} \right) $$</div>
+
+      <h3>継手・弁の損失</h3>
+      <p>エルボ・弁・入口・出口の損失は、損失係数 $K$ を使って直管の損失に足します。</p>
+      <div class="math-block">$$ \Delta P = \left( 4f\,\dfrac{L}{D} + \Sigma K \right) \dfrac{\rho u^{2}}{2} $$</div>
+      <ul class="symbol-list">
+        <li>$\Sigma K$：継手・弁の損失係数の合計（個数×K と、その他の K の合計）［-］</li>
+      </ul>
+      <p>同じ損失になる直管の長さ $L_\mathrm{e}$（相当長さ）で表す資料もあり、$K = 4f\,L_\mathrm{e}/D$ で換えられます。</p>
+    </section>
+
+    <section class="explain-block">
+      <h2>継手・弁の損失係数 K の目安</h2>
+      <details class="table-toggle">
+        <summary>K の値の一覧</summary>
+        <div class="table-toggle-body">
+          <div class="data-table-wrap">
+            <table class="regime-table">
+              <thead><tr><th>継手・弁</th><th>このツールの K</th><th>資料の K</th><th>資料の $L_\mathrm{e}/D$</th></tr></thead>
+              <tbody>
+                <tr><th colspan="4">継手・管の出入口</th></tr>
+                <tr><td>90°エルボ（標準）</td><td>0.75</td><td>0.74〜0.9</td><td>20〜40</td></tr>
+                <tr><td>90°ロングエルボ</td><td>0.32</td><td>曲げ半径が内径の1.5倍の曲管で 0.17</td><td>17〜20</td></tr>
+                <tr><td>45°エルボ（標準）</td><td>0.35</td><td>0.3〜0.45</td><td>15〜23</td></tr>
+                <tr><td>180°ベンド</td><td>1.5</td><td>1.5〜2.2</td><td>50〜75</td></tr>
+                <tr><td>ティー（直進）</td><td>0.40</td><td>0.4</td><td>11〜20</td></tr>
+                <tr><td>ティー（分岐を通る）</td><td>1.2</td><td>1.0〜1.8</td><td>40〜90</td></tr>
+                <tr><td>ユニオン・カップリング</td><td>0.040</td><td>0.04</td><td>ほぼ 0</td></tr>
+                <tr><td>入口（角のある入口）</td><td>0.50</td><td>0.5</td><td>-</td></tr>
+                <tr><td>出口（管からタンクへ）</td><td>1.0</td><td>1.0</td><td>-</td></tr>
+                <tr><th colspan="4">弁</th></tr>
+                <tr><td>仕切弁（ゲート弁）全開</td><td>0.17</td><td>0.05〜0.2</td><td>0.7〜11</td></tr>
+                <tr><td>玉形弁 全開</td><td>6.0</td><td>6.0〜10</td><td>300〜330</td></tr>
+                <tr><td>アングル弁 全開</td><td>3.0</td><td>2.0〜5.0</td><td>159〜170</td></tr>
+                <tr><td>Y形弁 全開</td><td>3.0</td><td>3.0</td><td>-</td></tr>
+                <tr><td>ダイアフラム弁 全開</td><td>2.3</td><td>2.3</td><td>125</td></tr>
+                <tr><td>バタフライ弁 開度85°</td><td>0.24</td><td>0.24</td><td>-</td></tr>
+                <tr><td>ボール弁（縮径形）全開</td><td>0.23</td><td>0.23。管と同じ内径のフルボア形は、仕切弁より損失が小さい</td><td>-</td></tr>
+                <tr><td>スイング逆止弁</td><td>1.8</td><td>0.6〜2.0</td><td>76〜110</td></tr>
+                <tr><td>フート弁</td><td>15</td><td>1.5〜15</td><td>420</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>このツールの K は、専門書12冊の値の中央値を有効数字2桁に丸めたものです。K の無い資料は $L_\mathrm{e}/D$ に 4f = 0.019（市販鋼管 50A の完全乱流での値）を掛け、幅のある値は中央の値を使いました。弁の K は、弁と管の内径が同じとして管内の流速で使います。</p>
+        </div>
+      </details>
     </section>
 
     <section class="explain-block">
       <h2>代表的な管内壁粗さ ε の目安</h2>
+      <details class="table-toggle">
+        <summary>粗さの値の一覧</summary>
+        <div class="table-toggle-body">
       <table class="regime-table">
         <thead>
           <tr>
@@ -299,16 +389,19 @@
       </table>
       <p>粗さは経年劣化やスケール付着で大きく変動します。設計値はあくまで目安として扱い、重要案件ではメーカー情報や実測値を確認してください。</p>
       <p>出典：<a href="https://www.engineeringtoolbox.com/surface-roughness-ventilation-ducts-d_209.html" target="_blank" rel="noopener">The Engineering ToolBox — Surfaces - Roughness &amp; Surface Coefficients</a> ／ <a href="https://docs.bentley.com/LiveContent/web/Bentley%20HAMMER%20SS6-v1/en/GUID-DFA7FCDD-F131-4209-9CA7-EEF8E6E883A7.html" target="_blank" rel="noopener">Bentley HAMMER — Darcy-Weisbach Roughness Heights e for Closed Conduits</a></p>
+        </div>
+      </details>
     </section>
 
     <section class="explain-block notes-block">
     <h2>適用範囲と注意事項</h2>
-    <p>密度と流速が一定の円形満管で、直管の摩擦圧力損失を求めます。</p>
+    <p>密度と流速が一定の円形満管で、直管の摩擦損失と継手・弁の損失を求めます。</p>
     <ul>
       <li><strong>十分に発達した流れ</strong>：内径に比べ十分長い直管の液体や、圧力変化の小さい気体が対象です。密度が大きく変わる気体は区間分割や圧縮性流れの式で計算します。非ニュートン流体・気液二相流は対象外です。</li>
       <li><strong>粗さ比は0.05以下</strong>：これを超える値は受け付けません。粗さが空欄ならステンレス配管・平滑仕上げの0.003 mmを使います。炭素鋼などでは過小評価になる場合があるため、管種や経年のスケール付着に合わせて入力してください。</li>
       <li><strong>遷移域は参考値</strong>：$2{,}300 < Re < 4{,}000$ は層流・乱流のどちらにもなり得ます。本ツールは乱流側の式を使います。</li>
-      <li><strong>局部損失と高低差は別加算</strong>：入口・出口・曲がり・弁・管径変化の損失、配管の高低差による圧力変化は含みません。</li>
+      <li><strong>継手・弁の K は全開・乱流の値</strong>：K は $Re$ の大きい乱流での全開の値です（バタフライ弁は開度85°）。絞って使う弁は個数に入れず、その開度の K を「その他の K の合計」に足してください。フート弁（1.5〜15）・逆止弁（0.6〜2.0）・アングル弁（2.0〜5.0）と小口径の仕切弁（口径15 mm で 1.0）は、資料や口径で値が大きく違います。メーカーの値があれば、そちらを使ってください。</li>
+      <li><strong>高低差と管径の変化は含まない</strong>：配管の高低差による圧力変化は含みません。内径が変わる配管は区間ごとに計算して足し、拡大・縮小部の損失も加えてください。</li>
     </ul>
   </section>
 
@@ -325,6 +418,29 @@
           <span class="ref-cta">Amazonで見る</span>
         </div>
       </a>
+      <a href="https://amzn.to/48Hi37k" class="reference-card" data-asin="4254250339" target="_blank" rel="noopener nofollow sponsored">
+        <div class="ref-image" aria-hidden="true"></div>
+        <div class="ref-body">
+          <span class="ref-tag">書籍</span>
+          <p class="ref-title">化学工学 ―解説と演習―</p>
+          <p class="ref-meta">多田 豊 編 / 朝倉書店</p>
+          <span class="ref-cta">Amazonで見る</span>
+        </div>
+      </a>
+      <ul class="paper-link-list">
+        <li><a href="https://doi.org/10.24546/90008260" target="_blank" rel="noopener">輸送プロセス化学工学</a><br><span class="paper-meta">片岡 邦夫, 関西化学機械製作, 2021</span></li>
+        <li>実用 化学装置設計ガイド<br><span class="paper-meta">化学工学会 編, 工業調査会, 1991</span></li>
+        <li>配管技術ノート<br><span class="paper-meta">大野 光之, 工業調査会, 2004</span></li>
+        <li>新しい化学工学<br><span class="paper-meta">化学工学教育研究会 編, 産業図書, 1990</span></li>
+        <li>解説化学工学（改訂版）<br><span class="paper-meta">竹内 雍・松岡 正邦・越智 健二・茅原 一之, 培風館, 2001</span></li>
+        <li>化学工学便覧 改訂六版<br><span class="paper-meta">化学工学会 編, 丸善, 1999</span></li>
+        <li>機械工学便覧 α4 流体工学<br><span class="paper-meta">日本機械学会 編, 日本機械学会, 2006</span></li>
+        <li>はじめての流体力学<br><span class="paper-meta">上野 和之, 講談社, 2026</span></li>
+        <li>ポンプの上手な使い方<br><span class="paper-meta">須藤 寿雄・横山 重吉, パワー社, 1989</span></li>
+        <li>わかる！ポンプの選び方・使い方<br><span class="paper-meta">高田 秋一・堀川 武廣, オーム社, 2000</span></li>
+        <li>図解入門 よくわかる最新 配管設備の基本と仕組み<br><span class="paper-meta">土井 巖, 秀和システム, 2016</span></li>
+        <li>トコトンやさしいバルブの本<br><span class="paper-meta">小岩井 隆, 日刊工業新聞社, 2017</span></li>
+      </ul>
     </section>
 
     <!-- ===== Related tools ===== -->

@@ -750,6 +750,37 @@ details.formula .body {
   padding: 22px 28px;
 }
 
+/* 長い目安の表（損失係数の一覧・粗さの表など）を閉じておく部品。式・適用条件・参考資料には使わない */
+details.table-toggle {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: #fff;
+  margin: 14px 0 16px;
+}
+details.table-toggle > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+details.table-toggle > summary::-webkit-details-marker { display: none; }
+details.table-toggle > summary::after {
+  content: "開く";
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brand);
+  white-space: nowrap;
+}
+details.table-toggle[open] > summary::after { content: "閉じる"; }
+details.table-toggle[open] > summary { border-bottom: 1px solid var(--border); }
+.table-toggle-body { padding: 4px 16px 14px; }
+.table-toggle-body .regime-table { margin-top: 8px; }
+
 .related h3 {
   font-size: 16px;
   margin: 0 0 14px;

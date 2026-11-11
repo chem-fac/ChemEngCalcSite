@@ -133,7 +133,7 @@
     const fields = { rho, u, D, L, mu };
     for (const k in fields) {
       if (!isFinite(fields[k]) || fields[k] <= 0) {
-        return setError('密度・流速・管内径・配管長さ・粘度は正の数値で入力してください。');
+        return setError('密度・流速・管内径・直管の長さ・粘度は正の数値で入力してください。');
       }
     }
     if (eps < 0) return setError('管内壁粗さは0以上で入力してください。');
@@ -156,8 +156,12 @@
 
     const lambda = 4 * f;                                     // Darcy–Weisbach
     const dynamicHead = 0.5 * rho * u * u;                    // ρu²/2
-    const dP = lambda * (L / D) * dynamicHead;                // ΔP [Pa]
-    const dPperL = dP / L;                                    // [Pa/m]
+    const dPstraight = lambda * (L / D) * dynamicHead;        // 直管の摩擦損失 [Pa]
+    const fit = readFittings();
+    if (fit.error) return setError(fit.error);
+    const dPfit = fit.kSum * dynamicHead;                     // 継手・弁の損失 [Pa]
+    const dP = dPstraight + dPfit;                            // ΔP [Pa]
+    const dPperL = dPstraight / L;                            // 直管1 mあたり [Pa/m]
     const headLoss = dP / (rho * 9.80665);                    // [m of fluid head]
 
     if (!isFinite(dP) || dP <= 0) {
@@ -167,13 +171,56 @@
     $('result-area').innerHTML = render({
       Re, regime, f, lambda, dP, dPperL, headLoss, A, formula,
       epsOverD, rho, u, D, L, mu, eps, epsDefaulted,
+      dPstraight, dPfit, kSum: fit.kSum, items: fit.items,
     });
+  }
+
+  // 継手・弁の表（個数×K）と、その他の K の合計
+  function readFittings() {
+    const items = [];
+    let kSum = 0;
+    for (const inp of document.querySelectorAll('#fittings input[data-k]')) {
+      const s = inp.value.trim();
+      if (s === '') continue;
+      const n = Number(s);
+      const label = document.querySelector(`label[for="${inp.id}"]`).textContent.trim();
+      if (!isFinite(n) || n < 0 || !Number.isInteger(n)) {
+        return { error: `${label}の個数は0以上の整数で入力してください。` };
+      }
+      if (n === 0) continue;
+      const k = Number(inp.dataset.k);
+      items.push({ label, n, k, sub: n * k });
+      kSum += n * k;
+    }
+    const otherEl = $('k_other');
+    const other = otherEl ? otherEl.value.trim() : '';
+    if (other !== '') {
+      const v = Number(other);
+      if (!isFinite(v) || v < 0) return { error: 'その他の K の合計は0以上で入力してください。' };
+      if (v > 0) {
+        items.push({ label: 'その他の K の合計', n: null, k: v, sub: v });
+        kSum += v;
+      }
+    }
+    return { items, kSum };
   }
 
   function render(r) {
     return `
       <div class="result-target">圧力損失 <span class="sym">ΔP</span></div>
       <div class="result-value-big">${fmtNum(r.dP / 1000)} <span class="unit">kPa</span></div>
+      ${r.kSum > 0 ? `
+      <div class="result-detail-label">損失の内訳</div>
+      <table class="unit-table"><tbody>
+        <tr><td>直管の摩擦損失</td><td class="num">${fmtNum(r.dPstraight / 1000)} kPa（${fmtNum(r.dPstraight / r.dP * 100, 3)} %）</td></tr>
+        <tr><td>継手・弁の損失</td><td class="num">${fmtNum(r.dPfit / 1000)} kPa（${fmtNum(r.dPfit / r.dP * 100, 3)} %）</td></tr>
+        <tr><td>直管の損失 <span class="sym">4fL/D</span></td><td class="num">${fmtNum(r.lambda * r.L / r.D)}</td></tr>
+        <tr><td>損失係数の合計 <span class="sym">ΣK</span></td><td class="num">${fmtNum(r.kSum)}</td></tr>
+      </tbody></table>
+      <div class="result-detail-label">継手・弁の K</div>
+      <table class="unit-table"><tbody>
+        ${r.items.map(it => `<tr><td>${it.label}</td><td class="num">${it.n === null ? '' : `${it.n} 個 × ${fmtNum(it.k)} = `}${fmtNum(it.sub)}</td></tr>`).join('')}
+      </tbody></table>` : ''}
 
       <div class="result-detail-label">他単位での値</div>
       <table class="unit-table"><tbody>
@@ -195,7 +242,7 @@
       </tbody></table>
 
       <div class="result-meta">
-        <div>配管長さあたりの圧力損失 <span class="sym">ΔP/L</span> = ${fmtNum(r.dPperL)} Pa/m (= ${fmtNum(r.dPperL / 1000)} kPa/m)</div>
+        <div>直管1 mあたりの摩擦損失 = ${fmtNum(r.dPperL)} Pa/m (= ${fmtNum(r.dPperL / 1000)} kPa/m)</div>
         <div>動圧 <span class="sym">ρu²/2</span> = ${fmtNum(0.5 * r.rho * r.u * r.u)} Pa</div>
         <div>断面積 <span class="sym">A</span> = ${fmtNum(r.A * 10000)} cm² (= ${fmtNum(r.A)} m²)</div>
         ${r.epsDefaulted
@@ -204,13 +251,15 @@
                 ? `<div>相対粗さ <span class="sym">ε/D</span> = ${fmtNum(r.epsOverD)} （ε = ${fmtNum(r.eps * 1000)} mm）</div>`
                 : '<div>管内壁粗さ：0（平滑管として計算）</div>')}
         <div>入力 <span class="sym">ρ</span> = ${fmtNum(r.rho)} kg/m³, <span class="sym">u</span> = ${fmtNum(r.u)} m/s, <span class="sym">D</span> = ${fmtNum(r.D * 1000)} mm, <span class="sym">L</span> = ${fmtNum(r.L)} m, <span class="sym">μ</span> = ${fmtNum(r.mu * 1000)} mPa·s</div>
+        ${r.kSum > 0 && r.Re < 4000 ? '<div class="result-note result-note-warn">※ Re が 4,000 未満です。継手・弁の K は乱流の値なので、継手・弁の損失はずれます。</div>' : ''}
         ${r.regime === 'transition' ? '<div class="result-note">※ レイノルズ数が遷移域（2,300〜4,000）にあります。このツールでは乱流側の式で参考計算していますが、実際の摩擦係数は条件により変動しやすいため、設計値として使う場合は安全側の評価や実測値を確認してください。</div>' : ''}
       </div>
     `;
   }
 
   function reset() {
-    ['rho', 'u', 'D', 'L', 'mu', 'eps'].forEach(f => { const el = $(f); if (el) el.value = ''; });
+    ['rho', 'u', 'D', 'L', 'mu', 'eps', 'k_other'].forEach(f => { const el = $(f); if (el) el.value = ''; });
+    document.querySelectorAll('#fittings input').forEach(el => { el.value = ''; });
     const sel = $('eps_preset'); if (sel) sel.value = '';
     clearError();
     clearResult();

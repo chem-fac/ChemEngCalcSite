@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://tools.chem-fac.com/</loc>
-    <lastmod>2026-11-11</lastmod>
+    <lastmod>2026-11-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -38,7 +38,7 @@
   </url>
   <url>
     <loc>https://tools.chem-fac.com/tools/fluid/fanning/</loc>
-    <lastmod>2026-11-07</lastmod>
+    <lastmod>2026-11-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -415,7 +415,7 @@
   </url>
   <url>
     <loc>https://tools.chem-fac.com/updates/</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-11-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.4</priority>
   </url>
