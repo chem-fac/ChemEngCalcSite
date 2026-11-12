@@ -7,7 +7,7 @@
   <title>ファニングの式・管摩擦係数の計算（エルボ・弁を含む配管の圧力損失） | 化学工学計算支援ツール</title>
   <meta name="description"
     content="ファニングの式で配管の圧力損失を計算します。管摩擦係数 f は層流 f = 16/Re、乱流はコールブルックの式で求め、エルボ・弁・入口・出口の損失係数 K も足せます。K は専門書12冊の値を比べて決めています。">
-<meta name="keywords" content="ファニング, Fanning, 管摩擦係数, 摩擦係数, 圧力損失, ダルシー, Darcy, Weisbach, コールブルック, Colebrook, プラントル, カルマン, ブラジウス, Blasius, ニクラゼ, 粗さ, 粗面管, 平滑管, ヘッド, 動圧, 圧損, ファニングの式, 管摩擦係数 求め方, 圧力損失 計算, 継手, エルボ, 弁, バルブ, 損失係数, 抵抗係数, K値, 相当長さ, 局所損失, 配管 損失係数 一覧, エルボ 圧損, ゲート弁, グローブ弁, 玉形弁, 仕切弁, 逆止弁, ボール弁, バタフライ弁">
+<meta name="keywords" content="ファニング, Fanning, 管摩擦係数, 摩擦係数, 圧力損失, ダルシー, Darcy, Weisbach, コールブルック, Colebrook, プラントル, カルマン, ブラジウス, Blasius, ニクラゼ, 粗さ, 粗面管, 平滑管, ヘッド, 動圧, 圧損, ファニングの式, 管摩擦係数 求め方, 圧力損失 計算, 継手, エルボ, 弁, バルブ, 損失係数, 抵抗係数, K値, 相当長さ, 局所損失, 配管 損失係数 一覧, エルボ 圧損, ゲート弁, グローブ弁, 玉形弁, 仕切弁, チャッキ弁, 逆止弁, ボール弁, バタフライ弁">
   <link rel="canonical" href="https://tools.chem-fac.com/tools/fluid/fanning/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="化学工学計算支援ツール">
@@ -20,7 +20,7 @@
   <meta property="og:locale" content="ja_JP">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@chem_fac">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ファニングの式・管摩擦係数（圧力損失）","url":"https://tools.chem-fac.com/tools/fluid/fanning/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"ファニングの式で配管の圧力損失を計算します。管摩擦係数 f は層流 f = 16/Re、乱流はコールブルックの式で求め、エルボ・弁・入口・出口の損失係数 K も足せます。K は専門書12冊の値を比べて決めています。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"ファニング, Fanning, 管摩擦係数, 摩擦係数, 圧力損失, ダルシー, Darcy, Weisbach, コールブルック, Colebrook, プラントル, カルマン, ブラジウス, Blasius, ニクラゼ, 粗さ, 粗面管, 平滑管, ヘッド, 動圧, 圧損, 継手, エルボ, 弁, バルブ, 損失係数, K値, 相当長さ, ゲート弁, グローブ弁, 逆止弁","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-13"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ファニングの式・管摩擦係数（圧力損失）","url":"https://tools.chem-fac.com/tools/fluid/fanning/","applicationCategory":"EngineeringApplication","operatingSystem":"Any","description":"ファニングの式で配管の圧力損失を計算します。管摩擦係数 f は層流 f = 16/Re、乱流はコールブルックの式で求め、エルボ・弁・入口・出口の損失係数 K も足せます。K は専門書12冊の値を比べて決めています。","inLanguage":"ja","isAccessibleForFree":true,"keywords":"ファニング, Fanning, 管摩擦係数, 摩擦係数, 圧力損失, ダルシー, Darcy, Weisbach, コールブルック, Colebrook, プラントル, カルマン, ブラジウス, Blasius, ニクラゼ, 粗さ, 粗面管, 平滑管, ヘッド, 動圧, 圧損, 継手, エルボ, 弁, バルブ, 損失係数, K値, 相当長さ, ゲート弁, グローブ弁, チャッキ弁, 逆止弁","about":"流動","author":{"@type":"Person","name":"かねまる","url":"https://chem-fac.com/about-chemfac/"},"dateModified":"2026-11-13"}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -200,16 +200,16 @@
                 </tbody>
                 <tbody>
                   <tr><th>弁</th><th class="num">K</th><th class="num">個数</th></tr>
-                  <tr><td><label for="n_gate">ゲート弁</label></td><td class="num">0.17</td><td class="num"><input type="number" inputmode="decimal" id="n_gate" data-k="0.17" min="0" step="1" placeholder="例：2"></td></tr>
-                  <tr><td><label for="n_globe">グローブ弁</label></td><td class="num">6.0</td><td class="num"><input type="number" inputmode="decimal" id="n_globe" data-k="6.0" min="0" step="1" placeholder="例：0"></td></tr>
+                  <tr><td><label for="n_gate">ゲート弁（仕切弁）</label></td><td class="num">0.17</td><td class="num"><input type="number" inputmode="decimal" id="n_gate" data-k="0.17" min="0" step="1" placeholder="例：2"></td></tr>
+                  <tr><td><label for="n_globe">グローブ弁（玉形弁）</label></td><td class="num">6.0</td><td class="num"><input type="number" inputmode="decimal" id="n_globe" data-k="6.0" min="0" step="1" placeholder="例：0"></td></tr>
                   <tr><td><label for="n_angle">アングル弁</label></td><td class="num">3.0</td><td class="num"><input type="number" inputmode="decimal" id="n_angle" data-k="3.0" min="0" step="1" placeholder="例：0"></td></tr>
                   <tr><td><label for="n_yvalve">Y形弁</label></td><td class="num">3.0</td><td class="num"><input type="number" inputmode="decimal" id="n_yvalve" data-k="3.0" min="0" step="1" placeholder="例：0"></td></tr>
                   <tr><td><label for="n_diaphragm">ダイアフラム弁</label></td><td class="num">2.3</td><td class="num"><input type="number" inputmode="decimal" id="n_diaphragm" data-k="2.3" min="0" step="1" placeholder="例：0"></td></tr>
                   <tr><td><label for="n_butterfly">バタフライ弁（開度85°）</label></td><td class="num">0.24</td><td class="num"><input type="number" inputmode="decimal" id="n_butterfly" data-k="0.24" min="0" step="1" placeholder="例：0"></td></tr>
                   <tr><td><label for="n_ball">ボール弁（縮径形）</label></td><td class="num">0.23</td><td class="num"><input type="number" inputmode="decimal" id="n_ball" data-k="0.23" min="0" step="1" placeholder="例：0"></td></tr>
                   <tr><td><label for="n_cock">コック（プラグ弁・開度85°）</label></td><td class="num">0.050</td><td class="num"><input type="number" inputmode="decimal" id="n_cock" data-k="0.05" min="0" step="1" placeholder="例：0"></td></tr>
-                  <tr><td><label for="n_check">スイング逆止弁</label></td><td class="num">1.8</td><td class="num"><input type="number" inputmode="decimal" id="n_check" data-k="1.8" min="0" step="1" placeholder="例：1"></td></tr>
-                  <tr><td><label for="n_check_lift">リフト逆止弁</label></td><td class="num">10</td><td class="num"><input type="number" inputmode="decimal" id="n_check_lift" data-k="10" min="0" step="1" placeholder="例：0"></td></tr>
+                  <tr><td><label for="n_check">スイングチャッキ弁（逆止弁）</label></td><td class="num">1.8</td><td class="num"><input type="number" inputmode="decimal" id="n_check" data-k="1.8" min="0" step="1" placeholder="例：1"></td></tr>
+                  <tr><td><label for="n_check_lift">リフトチャッキ弁（逆止弁）</label></td><td class="num">10</td><td class="num"><input type="number" inputmode="decimal" id="n_check_lift" data-k="10" min="0" step="1" placeholder="例：0"></td></tr>
                   <tr><td><label for="n_foot">フート弁</label></td><td class="num">15</td><td class="num"><input type="number" inputmode="decimal" id="n_foot" data-k="15" min="0" step="1" placeholder="例：0"></td></tr>
                 </tbody>
               </table>
@@ -313,16 +313,16 @@
                 <tr><td>入口（ベルマウス・丸めた入口）</td><td>0.033</td><td>0.005〜0.06</td><td>-</td></tr>
                 <tr><td>出口（管からタンクへ）</td><td>1.0</td><td>1.0</td><td>-</td></tr>
                 <tr><th colspan="4">弁</th></tr>
-                <tr><td>ゲート弁 全開</td><td>0.17</td><td>0.05〜0.2</td><td>0.7〜11</td></tr>
-                <tr><td>グローブ弁 全開</td><td>6.0</td><td>6.0〜10</td><td>300〜330</td></tr>
+                <tr><td>ゲート弁（仕切弁）全開</td><td>0.17</td><td>0.05〜0.2</td><td>0.7〜11</td></tr>
+                <tr><td>グローブ弁（玉形弁）全開</td><td>6.0</td><td>6.0〜10</td><td>300〜330</td></tr>
                 <tr><td>アングル弁 全開</td><td>3.0</td><td>2.0〜5.0</td><td>159〜170</td></tr>
                 <tr><td>Y形弁 全開</td><td>3.0</td><td>3.0</td><td>-</td></tr>
                 <tr><td>ダイアフラム弁 全開</td><td>2.3</td><td>2.3</td><td>125</td></tr>
                 <tr><td>バタフライ弁 開度85°</td><td>0.24</td><td>0.24</td><td>-</td></tr>
                 <tr><td>ボール弁（縮径形）全開</td><td>0.23</td><td>0.23。管と同じ内径のフルボア形は、ゲート弁より損失が小さい</td><td>-</td></tr>
                 <tr><td>コック（プラグ弁）開度85°</td><td>0.050</td><td>0.05</td><td>-</td></tr>
-                <tr><td>スイング逆止弁</td><td>1.8</td><td>0.6〜2.0</td><td>76〜110</td></tr>
-                <tr><td>リフト逆止弁</td><td>10</td><td>10</td><td>500</td></tr>
+                <tr><td>スイングチャッキ弁（逆止弁）</td><td>1.8</td><td>0.6〜2.0</td><td>76〜110</td></tr>
+                <tr><td>リフトチャッキ弁（逆止弁）</td><td>10</td><td>10</td><td>500</td></tr>
                 <tr><td>フート弁</td><td>15</td><td>1.5〜15</td><td>420</td></tr>
               </tbody>
             </table>
@@ -406,7 +406,7 @@
       <li><strong>十分に発達した流れ</strong>：内径に比べ十分長い直管の液体や、圧力変化の小さい気体が対象です。密度が大きく変わる気体は区間分割や圧縮性流れの式で計算します。非ニュートン流体・気液二相流は対象外です。</li>
       <li><strong>粗さ比は0.05以下</strong>：これを超える値は受け付けません。粗さが空欄ならステンレス配管・平滑仕上げの0.003 mmを使います。炭素鋼などでは過小評価になる場合があるため、管種や経年のスケール付着に合わせて入力してください。</li>
       <li><strong>遷移域は参考値</strong>：$2{,}300 < Re < 4{,}000$ は層流・乱流のどちらにもなり得ます。本ツールは乱流側の式を使います。</li>
-      <li><strong>継手・弁の K は全開・乱流の値</strong>：K は $Re$ の大きい乱流での全開の値です（バタフライ弁は開度85°）。絞って使う弁は個数に入れず、その開度の K を「その他の K の合計」に足してください。フート弁（1.5〜15）・スイング逆止弁（0.6〜2.0）・アングル弁（2.0〜5.0）と小口径のゲート弁（口径15 mm で 1.0）は、資料や口径で値が大きく違います。メーカーの値があれば、そちらを使ってください。</li>
+      <li><strong>継手・弁の K は全開・乱流の値</strong>：K は $Re$ の大きい乱流での全開の値です（バタフライ弁は開度85°）。絞って使う弁は個数に入れず、その開度の K を「その他の K の合計」に足してください。フート弁（1.5〜15）・スイングチャッキ弁（0.6〜2.0）・アングル弁（2.0〜5.0）と小口径のゲート弁（口径15 mm で 1.0）は、資料や口径で値が大きく違います。メーカーの値があれば、そちらを使ってください。</li>
       <li><strong>高低差と管径の変化は含まない</strong>：配管の高低差による圧力変化は含みません。内径が変わる配管は区間ごとに計算して足し、拡大・縮小部の損失も加えてください。</li>
     </ul>
   </section>
