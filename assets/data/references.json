@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T19:24:22.547450+00:00",
+  "generated_at": "2026-11-12T20:02:15.118147+00:00",
   "marketplace": "www.amazon.co.jp",
   "product_data_status": "fresh",
   "items": {
@@ -165,6 +165,127 @@
       "image_height": 500,
       "affiliate_url": "https://www.amazon.co.jp/dp/4905957206?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1",
       "fallback_meta": "川村 貞夫・石川 洋次郎 著 / 工業技術社",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
+    },
+    "4769340761": {
+      "asin": "4769340761",
+      "title": "実用化学装置設計ガイト",
+      "image_url": "https://m.media-amazon.com/images/I/41sUypPCBFL._SL500_.jpg",
+      "image_width": 300,
+      "image_height": 400,
+      "affiliate_url": "https://www.amazon.co.jp/dp/4769340761?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1",
+      "fallback_meta": "化学工学会 編 / 工業調査会",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
+    },
+    "4769341598": {
+      "asin": "4769341598",
+      "title": "配管技術ノート",
+      "image_url": "https://m.media-amazon.com/images/I/41GY1SR1+0L._SL500_.jpg",
+      "image_width": 360,
+      "image_height": 500,
+      "affiliate_url": "https://www.amazon.co.jp/dp/4769341598?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1",
+      "fallback_meta": "大野 光之 著 / 工業調査会",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
+    },
+    "4782825285": {
+      "asin": "4782825285",
+      "title": "新しい化学工学",
+      "image_url": "https://m.media-amazon.com/images/I/41rjFGAmMlL._SL500_.jpg",
+      "image_width": 356,
+      "image_height": 500,
+      "affiliate_url": "https://www.amazon.co.jp/dp/4782825285?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1",
+      "fallback_meta": "化学工学教育研究会 編 / 産業図書",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
+    },
+    "4563045624": {
+      "asin": "4563045624",
+      "title": "解説化学工学 改訂版",
+      "image_url": "https://m.media-amazon.com/images/I/41eAOmKMDSL._SL500_.jpg",
+      "image_width": 375,
+      "image_height": 500,
+      "affiliate_url": "https://www.amazon.co.jp/dp/4563045624?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1",
+      "fallback_meta": "竹内 雍・松岡 正邦・越智 健二・茅原 一之 著 / 培風館",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
+    },
+    "4621045350": {
+      "asin": "4621045350",
+      "title": "化学工学便覧 改訂6版",
+      "image_url": "https://m.media-amazon.com/images/I/41hSWWCTDXL._SL500_.jpg",
+      "image_width": 378,
+      "image_height": 500,
+      "affiliate_url": "https://www.amazon.co.jp/dp/4621045350?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1",
+      "fallback_meta": "化学工学会 編 / 丸善",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
+    },
+    "4888981353": {
+      "asin": "4888981353",
+      "title": "機械工学便覧 (基礎編α4)",
+      "image_url": "https://m.media-amazon.com/images/I/41Q5EVSMTBL._SL500_.jpg",
+      "image_width": 300,
+      "image_height": 428,
+      "affiliate_url": "https://www.amazon.co.jp/dp/4888981353?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1",
+      "fallback_meta": "日本機械学会 編 / 日本機械学会",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
+    },
+    "4065419735": {
+      "asin": "4065419735",
+      "title": "はじめての流体力学 (KS理工学専門書)",
+      "image_url": "https://m.media-amazon.com/images/I/41yfBfH9qiL._SL500_.jpg",
+      "image_width": 348,
+      "image_height": 500,
+      "affiliate_url": "https://www.amazon.co.jp/dp/4065419735?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1",
+      "fallback_meta": "上野 和之 著 / 講談社",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
+    },
+    "4827730253": {
+      "asin": "4827730253",
+      "title": "ポンプの上手な使い方",
+      "image_url": "https://m.media-amazon.com/images/I/41b50MPK4QL._SL500_.jpg",
+      "image_width": 356,
+      "image_height": 500,
+      "affiliate_url": "https://www.amazon.co.jp/dp/4827730253?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1",
+      "fallback_meta": "須藤 寿雄・横山 重吉 著 / パワー社",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
+    },
+    "4274087018": {
+      "asin": "4274087018",
+      "title": "わかる!ポンプの選び方・使い方",
+      "image_url": "https://m.media-amazon.com/images/I/51UCucROS6L._SL500_.jpg",
+      "image_width": 350,
+      "image_height": 500,
+      "affiliate_url": "https://www.amazon.co.jp/dp/4274087018?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1",
+      "fallback_meta": "高田 秋一・堀川 武廣 著 / オーム社",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
+    },
+    "4798047392": {
+      "asin": "4798047392",
+      "title": "図解入門 よくわかる最新 配管設備の基本と仕組み (How-nual図解入門Visual Guide Book)",
+      "image_url": "https://m.media-amazon.com/images/I/61Vxk4Wy+VL._SL500_.jpg",
+      "image_width": 356,
+      "image_height": 500,
+      "affiliate_url": "https://www.amazon.co.jp/dp/4798047392?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1",
+      "fallback_meta": "土井 巖 著 / 秀和システム",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
+    },
+    "4526077380": {
+      "asin": "4526077380",
+      "title": "トコトンやさしいバルブの本 (今日からモノ知りシリーズ)",
+      "image_url": "https://m.media-amazon.com/images/I/51H3y85iSML._SL500_.jpg",
+      "image_width": 354,
+      "image_height": 500,
+      "affiliate_url": "https://www.amazon.co.jp/dp/4526077380?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1",
+      "fallback_meta": "小岩井 隆 著 / 日刊工業新聞社",
       "publisher_cover": null,
       "publisher_cover_credit": null
     }
