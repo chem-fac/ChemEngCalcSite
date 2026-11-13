@@ -2733,10 +2733,9 @@ html:not(.js) .ta-js-only { display: none; }
 [data-cat="mixing"],[data-c="mixing"],[data-cat="crystallization"],[data-c="crystallization"],[data-cat="separation"],[data-c="separation"],[data-cat="dust-collection"],[data-c="dust-collection"],[data-cat="powder"],[data-c="powder"],[data-cat="fluidized-bed"],[data-c="fluidized-bed"]{--cat:var(--accent-nando)}
 [data-cat="instrumentation-control"],[data-c="instrumentation-control"]{--cat:var(--accent-akamurasaki)}
 [data-cat="safety"],[data-c="safety"]{--cat:var(--accent-enji)}
-/* ツールのページ：見出しの上に分野名（■＋名前）を分野の色で。安全は三角 */
+/* ツールのページ：見出しの上に分野名（■＋名前）を分野の色で */
 .tool-hero .cat-tag[data-cat]{display:inline-flex;align-items:center;gap:.45em;margin:0 0 .4rem;font-size:.8125rem;font-weight:700;line-height:1.4;color:var(--cat,var(--text-sub));letter-spacing:.02em}
 .tool-hero .cat-tag[data-cat]::before{content:"";flex:none;width:.62em;height:.62em;background:var(--cat,var(--text-sub))}
-.tool-hero .cat-tag[data-cat="safety"]::before{width:.8em;height:.72em;clip-path:polygon(50% 0,100% 100%,0 100%)}
 /* 全ツール一覧：分野の見出しの前に■ */
 .ta-cat[data-c] .ta-cat-head::before{content:"";display:inline-block;width:.6em;height:.6em;margin-right:.5em;vertical-align:.08em;background:var(--cat,var(--text-sub))}
 /* 入力値の位置の図（value-figure）：式に入れる値が装置のどこを指すかを示す。
