@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T00:35:53.817586+00:00",
+  "generated_at": "2026-11-13T03:52:12.212963+00:00",
   "marketplace": "www.amazon.co.jp",
   "product_data_status": "fresh",
   "items": {
@@ -75,7 +75,7 @@
       "image_url": "https://m.media-amazon.com/images/I/41tRCfKB4xL._SL500_.jpg",
       "image_width": 354,
       "image_height": 500,
-      "affiliate_url": "https://www.amazon.co.jp/dp/B0DZ1QFVKD?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1",
+      "affiliate_url": "https://www.amazon.co.jp/dp/B0DZ1QFVKD?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1&nodl=1",
       "fallback_meta": "二井 晋・小林 敬幸・向井 康人・橋爪 進・衣笠 巧 著 / 裳華房",
       "publisher_cover": "/assets/img/covers/B0DZ1QFVKD.jpg",
       "publisher_cover_credit": "提供：裳華房"
@@ -86,7 +86,7 @@
       "image_url": "https://m.media-amazon.com/images/I/21Led3LP+9L._SL500_.jpg",
       "image_width": 352,
       "image_height": 500,
-      "affiliate_url": "https://www.amazon.co.jp/dp/B0D8S14QGF?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1",
+      "affiliate_url": "https://www.amazon.co.jp/dp/B0D8S14QGF?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1&nodl=1",
       "fallback_meta": "佐藤 一雄 著 / 丸善出版",
       "publisher_cover": "/assets/img/covers/B0D8S14QGF.jpg",
       "publisher_cover_credit": null
