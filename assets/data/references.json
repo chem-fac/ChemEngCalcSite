@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T20:02:15.118147+00:00",
+  "generated_at": "2026-11-13T00:35:53.817586+00:00",
   "marketplace": "www.amazon.co.jp",
   "product_data_status": "fresh",
   "items": {
@@ -286,6 +286,50 @@
       "image_height": 500,
       "affiliate_url": "https://www.amazon.co.jp/dp/4526077380?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1",
       "fallback_meta": "小岩井 隆 著 / 日刊工業新聞社",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
+    },
+    "4785332190": {
+      "asin": "4785332190",
+      "title": "化学プロセス工学 (化学の指針シリーズ)",
+      "image_url": "https://m.media-amazon.com/images/I/41ZKIBIAoiL._SL500_.jpg",
+      "image_width": 353,
+      "image_height": 500,
+      "affiliate_url": "https://www.amazon.co.jp/dp/4785332190?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1",
+      "fallback_meta": "小野木 克明・田川 智彦・小林 敬幸・二井 晋 著 / 裳華房",
+      "publisher_cover": "/assets/img/covers/4785332190.jpg",
+      "publisher_cover_credit": "提供：裳華房"
+    },
+    "4526070807": {
+      "asin": "4526070807",
+      "title": "今日からモノ知りシリーズ トコトンやさしい配管の本",
+      "image_url": "https://m.media-amazon.com/images/I/5173JTbfz5L._SL500_.jpg",
+      "image_width": 359,
+      "image_height": 500,
+      "affiliate_url": "https://www.amazon.co.jp/dp/4526070807?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1",
+      "fallback_meta": "西野 悠司 著 / 日刊工業新聞社",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
+    },
+    "4819024140": {
+      "asin": "4819024140",
+      "title": "化学プラント配管設計の基本: 配管技術者への道しるべ",
+      "image_url": "https://m.media-amazon.com/images/I/51zkw73TteL._SL500_.jpg",
+      "image_width": 356,
+      "image_height": 500,
+      "affiliate_url": "https://www.amazon.co.jp/dp/4819024140?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1",
+      "fallback_meta": "石井 泰範 著 / 日本工業出版",
+      "publisher_cover": null,
+      "publisher_cover_credit": null
+    },
+    "487326457X": {
+      "asin": "487326457X",
+      "title": "プラント操作の基礎知識 改訂版",
+      "image_url": "https://m.media-amazon.com/images/I/517k4jG9OfL._SL500_.jpg",
+      "image_width": 352,
+      "image_height": 500,
+      "affiliate_url": "https://www.amazon.co.jp/dp/487326457X?tag=chemengcalc-22&linkCode=ogi&th=1&psc=1",
+      "fallback_meta": "今西 忠 著 / 化学工業日報社",
       "publisher_cover": null,
       "publisher_cover_credit": null
     }
