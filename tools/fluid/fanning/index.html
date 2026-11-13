@@ -156,7 +156,7 @@
           <div class="input-row">
             <label for="eps">管内壁粗さ <span class="sym">ε</span>（任意）</label>
             <div class="input-group">
-              <input type="text" id="eps" inputmode="decimal" placeholder="例：0.045">
+              <input type="text" id="eps" inputmode="decimal" placeholder="例：0.05">
               <select id="eps_unit" aria-label="粗さの単位">
                 <option value="mm">mm</option>
                 <option value="um">μm</option>
@@ -167,18 +167,15 @@
               <label for="eps_preset">代表的な粗さプリセット</label>
               <select id="eps_preset">
                 <option value="">（選択してください）</option>
-                <option value="plastic">樹脂管 PVC・PEなど：0.005 mm</option>
-                <option value="drawn">銅・真鍮・アルミ引抜管 新品：0.0015 mm</option>
-                <option value="sus">ステンレス配管・平滑仕上げ：0.003 mm</option>
-                <option value="sus_ep">電解研磨ステンレス：0.0005 mm</option>
-                <option value="steel">炭素鋼管・新品：0.045 mm</option>
-                <option value="galvan">亜鉛めっき鋼管：0.15 mm</option>
-                <option value="rusty">鋼管・腐食あり：0.5 mm</option>
-                <option value="cast_new">鋳鉄管・新品：0.26 mm</option>
-                <option value="concrete">コンクリート管・平均：0.36 mm</option>
+                <option value="drawn">引抜管（銅管・黄銅管など）：0.0015 mm</option>
+                <option value="plastic">樹脂管 PVC・PE など：0.0015 mm</option>
+                <option value="commercial">市販鋼管：0.05 mm</option>
+                <option value="asphalt">アスファルト塗り鋳鉄管：0.12 mm</option>
+                <option value="galvan">亜鉛引き鉄管：0.15 mm</option>
+                <option value="cast_new">鋳鉄管：0.26 mm</option>
               </select>
             </div>
-            <p class="hint">未入力ならステンレス配管・平滑仕上げ（ε = 0.003 mm）として計算します。鋼管・鋳鉄管など他の材質ではプリセットを選ぶか、値を入力してください。明示的に <code>0</code> を入力すると平滑管として計算します。</p>
+            <p class="hint">空欄なら市販鋼管（新しい管）の 0.05 mm で計算します。ほかの管はプリセットを選ぶか、ページ下の「管内壁粗さ ε の目安」の値を入力してください。<code>0</code> を入力すると平滑管として計算します。</p>
           </div>
 
           <p class="input-row-full input-section-title">継手・弁の個数</p>
@@ -333,68 +330,36 @@
     </section>
 
     <section class="explain-block">
-      <h2>代表的な管内壁粗さ ε の目安</h2>
+      <h2>管内壁粗さ ε の目安</h2>
       <details class="table-toggle">
         <summary>粗さの値の一覧</summary>
         <div class="table-toggle-body">
-      <table class="regime-table">
-        <thead>
-          <tr>
-            <th>配管</th>
-            <th>推奨代表値 <span class="sym">ε</span> [mm]</th>
-            <th>参考範囲 [mm]</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>樹脂管 PVC・PEなど</td>
-            <td><strong>0.005</strong></td>
-            <td>0.0015 〜 0.007</td>
-          </tr>
-          <tr>
-            <td>銅・真鍮・アルミ引抜管 新品</td>
-            <td><strong>0.0015</strong></td>
-            <td>0.001 〜 0.002</td>
-          </tr>
-          <tr>
-            <td>ステンレス配管・平滑仕上げ</td>
-            <td><strong>0.003</strong></td>
-            <td>0.0004 〜 0.006</td>
-          </tr>
-          <tr>
-            <td>電解研磨ステンレス</td>
-            <td><strong>0.0005</strong></td>
-            <td>0.0001 〜 0.0008</td>
-          </tr>
-          <tr>
-            <td>炭素鋼管・新品</td>
-            <td><strong>0.045</strong></td>
-            <td>0.045 〜 0.09</td>
-          </tr>
-          <tr>
-            <td>亜鉛めっき鋼管</td>
-            <td><strong>0.15</strong></td>
-            <td>0.15</td>
-          </tr>
-          <tr>
-            <td>鋼管・腐食あり</td>
-            <td><strong>0.5</strong></td>
-            <td>0.15 〜 4</td>
-          </tr>
-          <tr>
-            <td>鋳鉄管・新品</td>
-            <td><strong>0.26</strong></td>
-            <td>0.25 〜 0.8</td>
-          </tr>
-          <tr>
-            <td>コンクリート管・平均</td>
-            <td><strong>0.36</strong></td>
-            <td>0.3 〜 1.0</td>
-          </tr>
-        </tbody>
-      </table>
-      <p>粗さは経年劣化やスケール付着で大きく変動します。設計値はあくまで目安として扱い、重要案件ではメーカー情報や実測値を確認してください。</p>
-      <p>出典：<a href="https://www.engineeringtoolbox.com/surface-roughness-ventilation-ducts-d_209.html" target="_blank" rel="noopener">The Engineering ToolBox — Surfaces - Roughness &amp; Surface Coefficients</a> ／ <a href="https://docs.bentley.com/LiveContent/web/Bentley%20HAMMER%20SS6-v1/en/GUID-DFA7FCDD-F131-4209-9CA7-EEF8E6E883A7.html" target="_blank" rel="noopener">Bentley HAMMER — Darcy-Weisbach Roughness Heights e for Closed Conduits</a></p>
+          <div class="data-table-wrap">
+            <table class="regime-table">
+              <thead><tr><th>管</th><th>このツールの <span class="sym">ε</span>［mm］</th><th>資料の <span class="sym">ε</span>［mm］</th></tr></thead>
+              <tbody>
+                <tr><th colspan="3">専門書の値（新しい管）</th></tr>
+                <tr><td>引抜管（銅管・黄銅管など）</td><td>0.0015</td><td>0.0015〜0.00152（引抜鋼管として 0.002〜0.01 の資料もある）</td></tr>
+                <tr><td>市販鋼管</td><td>0.05</td><td>0.045〜0.05</td></tr>
+                <tr><td>アスファルト塗り鋳鉄管</td><td>0.12</td><td>0.12〜0.122</td></tr>
+                <tr><td>亜鉛引き鉄管</td><td>0.15</td><td>0.15〜0.152</td></tr>
+                <tr><td>鋳鉄管</td><td>0.26</td><td>0.259〜0.26（0.25〜0.5 の資料もある）</td></tr>
+                <tr><td>木管</td><td>-</td><td>0.18〜0.92</td></tr>
+                <tr><td>コンクリート管</td><td>-</td><td>0.3〜3.05</td></tr>
+                <tr><td>リベット継ぎ鋼管</td><td>-</td><td>0.9〜9.15</td></tr>
+                <tr><th colspan="3">専門書の記述から求めた値</th></tr>
+                <tr><td>樹脂管 PVC・PE など</td><td>0.0015</td><td>値は無い（平滑な管とされる）</td></tr>
+                <tr><td>さびた鋼管</td><td>-</td><td>軽いさび 約0.1〜0.16、さびこぶ 約1〜3（損失の倍率から求めた値）</td></tr>
+                <tr><th colspan="3">専門書に値が無い管（Web の資料）</th></tr>
+                <tr><td>ステンレス管</td><td>-</td><td>旋削 0.0004〜0.006、ビーズブラスト 0.001〜0.006</td></tr>
+                <tr><td>電解研磨ステンレス管</td><td>-</td><td>0.0001〜0.0008</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>このツールの ε は、専門書（管の種類ごとに5〜8冊）の値の中央値です。幅のある値は中央の値を使い、図の数字が線の位置と合わない2つ（化学プロセス工学の亜鉛引き鉄管 0.05、ポンプの上手な使い方の引抜管 0.005）は除きました。幅だけを示す木管などは、値を決めていません。</p>
+          <p>樹脂管の ε の値は、調べた専門書にはありません。ただ、専門書では金属管より摩擦係数の小さい滑らかな管として扱われています（化学プラント配管設計の基本、プラント操作の基礎知識）。硬質塩化ビニル管の損失も新しい鋼管の約0.84倍で（ポンプの上手な使い方の倍率 0.7 と 0.83 の比）、平滑管とほぼ同じです。そこで、平滑な管の値として引抜管と同じ 0.0015 mm を使います。</p>
+          <p>さびた鋼管の幅は、ポンプの上手な使い方の損失の倍率から求めました。新しい鋼管（0.05 mm）に比べて損失が軽いさびで約1.1倍、さびこぶで約2.4倍になる ε を、内径 25〜300 mm・水の流速 1〜2 m/s で計算した値です。使い続けた管の $T$ 年後の粗さは $\varepsilon = \varepsilon_0 + \alpha T$（$\varepsilon_0$ は新しい管の値）で、$\alpha$ は水質と管の種類で 0.06〜2.1 mm/年程度です（機械工学便覧 α4）。</p>
+          <p>ステンレス管の ε は、調べた専門書に無いため、<a href="https://www.engineeringtoolbox.com/surface-roughness-ventilation-ducts-d_209.html" target="_blank" rel="noopener">The Engineering ToolBox の粗さの表</a>の幅だけを示します。</p>
         </div>
       </details>
     </section>
@@ -404,7 +369,7 @@
     <p>密度と流速が一定の円形満管で、直管の摩擦損失と継手・弁の損失を求めます。</p>
     <ul>
       <li><strong>十分に発達した流れ</strong>：内径に比べ十分長い直管の液体や、圧力変化の小さい気体が対象です。密度が大きく変わる気体は区間分割や圧縮性流れの式で計算します。非ニュートン流体・気液二相流は対象外です。</li>
-      <li><strong>粗さ比は0.05以下</strong>：これを超える値は受け付けません。粗さが空欄ならステンレス配管・平滑仕上げの0.003 mmを使います。炭素鋼などでは過小評価になる場合があるため、管種や経年のスケール付着に合わせて入力してください。</li>
+      <li><strong>粗さ比は0.05以下</strong>：これを超える値は受け付けません。粗さが空欄なら市販鋼管（新しい管）の 0.05 mm を使います。さびた管や平滑な管では、管に合う値を入力してください。</li>
       <li><strong>遷移域は参考値</strong>：$2{,}300 < Re < 4{,}000$ は層流・乱流のどちらにもなり得ます。本ツールは乱流側の式を使います。</li>
       <li><strong>継手・弁の K は全開・乱流の値</strong>：K は $Re$ の大きい乱流での全開の値です（バタフライ弁は開度85°）。絞って使う弁は個数に入れず、その開度の K を「その他の K の合計」に足してください。フート弁（1.5〜15）・スイングチャッキ弁（0.6〜2.0）・アングル弁（2.0〜5.0）と小口径のゲート弁（口径15 mm で 1.0）は、資料や口径で値が大きく違います。メーカーの値があれば、そちらを使ってください。</li>
       <li><strong>高低差と管径の変化は含まない</strong>：配管の高低差による圧力変化は含みません。内径が変わる配管は区間ごとに計算して足し、拡大・縮小部の損失も加えてください。</li>
@@ -532,8 +497,45 @@
           <span class="ref-cta">Amazonで見る</span>
         </div>
       </a>
+      <a href="https://www.amazon.co.jp/dp/4785332190?tag=chemengcalc-22" class="reference-card" data-asin="4785332190" target="_blank" rel="noopener nofollow sponsored">
+        <div class="ref-image" aria-hidden="true"></div>
+        <div class="ref-body">
+          <span class="ref-tag">書籍</span>
+          <p class="ref-title">化学プロセス工学</p>
+          <p class="ref-meta">小野木 克明・田川 智彦・小林 敬幸・二井 晋 著 / 裳華房</p>
+          <span class="ref-cta">Amazonで見る</span>
+        </div>
+      </a>
+      <a href="https://www.amazon.co.jp/dp/4526070807?tag=chemengcalc-22" class="reference-card" data-asin="4526070807" target="_blank" rel="noopener nofollow sponsored">
+        <div class="ref-image" aria-hidden="true"></div>
+        <div class="ref-body">
+          <span class="ref-tag">書籍</span>
+          <p class="ref-title">トコトンやさしい配管の本</p>
+          <p class="ref-meta">西野 悠司 著 / 日刊工業新聞社</p>
+          <span class="ref-cta">Amazonで見る</span>
+        </div>
+      </a>
+      <a href="https://www.amazon.co.jp/dp/4819024140?tag=chemengcalc-22" class="reference-card" data-asin="4819024140" target="_blank" rel="noopener nofollow sponsored">
+        <div class="ref-image" aria-hidden="true"></div>
+        <div class="ref-body">
+          <span class="ref-tag">書籍</span>
+          <p class="ref-title">化学プラント配管設計の基本</p>
+          <p class="ref-meta">石井 泰範 著 / 日本工業出版</p>
+          <span class="ref-cta">Amazonで見る</span>
+        </div>
+      </a>
+      <a href="https://www.amazon.co.jp/dp/487326457X?tag=chemengcalc-22" class="reference-card" data-asin="487326457X" target="_blank" rel="noopener nofollow sponsored">
+        <div class="ref-image" aria-hidden="true"></div>
+        <div class="ref-body">
+          <span class="ref-tag">書籍</span>
+          <p class="ref-title">プラント操作の基礎知識（改訂版）</p>
+          <p class="ref-meta">今西 忠 著 / 化学工業日報社</p>
+          <span class="ref-cta">Amazonで見る</span>
+        </div>
+      </a>
       <ul class="paper-link-list">
         <li><a href="https://doi.org/10.24546/90008260" target="_blank" rel="noopener">輸送プロセス化学工学</a><br><span class="paper-meta">片岡 邦夫, 関西化学機械製作, 2021</span></li>
+        <li><a href="https://www.engineeringtoolbox.com/surface-roughness-ventilation-ducts-d_209.html" target="_blank" rel="noopener">Surfaces - Roughness &amp; Surface Coefficients</a><br><span class="paper-meta">The Engineering ToolBox（Web）</span></li>
       </ul>
     </section>
 

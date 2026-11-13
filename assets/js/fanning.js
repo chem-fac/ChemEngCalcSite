@@ -15,17 +15,14 @@
   const SUP_MAP = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹', '-': '⁻', '+': '' };
   const toSup = (s) => String(s).split('').map(c => SUP_MAP[c] !== undefined ? SUP_MAP[c] : c).join('');
 
-  // 単位はメートル。出典: engineeringtoolbox / Bentley HAMMER（Darcy-Weisbach roughness）
+  // 単位はメートル。値はページの「管内壁粗さ ε の目安」の表と同じ
   const ROUGHNESS_PRESETS = {
-    plastic:   0.005e-3,  // 樹脂管 PVC・PEなど
-    drawn:     0.0015e-3, // 銅・真鍮・アルミ引抜管 新品
-    sus:       0.003e-3,  // ステンレス配管・平滑仕上げ
-    sus_ep:    0.0005e-3, // 電解研磨ステンレス
-    steel:     0.045e-3,  // 炭素鋼管・新品
-    galvan:    0.15e-3,   // 亜鉛めっき鋼管
-    rusty:     0.5e-3,    // 鋼管・腐食あり
-    cast_new:  0.26e-3,   // 鋳鉄管・新品
-    concrete:  0.36e-3,   // コンクリート管・平均
+    drawn:      0.0015e-3, // 引抜管（銅管・黄銅管など）：専門書の値
+    plastic:    0.0015e-3, // 樹脂管 PVC・PE など：専門書に値は無いが平滑な管とされるので引抜管と同じ値
+    commercial: 0.05e-3,   // 市販鋼管：専門書の値
+    asphalt:    0.12e-3,   // アスファルト塗り鋳鉄管：専門書の値
+    galvan:     0.15e-3,   // 亜鉛引き鉄管：専門書の値
+    cast_new:   0.26e-3,   // 鋳鉄管：専門書の値
   };
 
   function fmtNum(v, sig = 4) {
@@ -109,8 +106,8 @@
     return { laminar: '層流', transition: '遷移域', turbulent: '乱流' }[key] || '—';
   }
 
-  // 未入力時の既定値：ステンレス配管・平滑仕上げ ε = 0.003 mm = 3e-6 m
-  const EPS_DEFAULT = 3e-6;
+  // 未入力時の既定値：市販鋼管（新しい管）ε = 0.05 mm = 5e-5 m
+  const EPS_DEFAULT = 5e-5;
 
   // 相対粗さ ε/D の上限（コールブルック式・Moody線図の適用範囲）
   const EPS_OVER_D_MAX = 0.05;
@@ -146,6 +143,9 @@
       return setError('入力値の組み合わせで計算結果が数値範囲を超えました。各値の桁数を見直してください。');
     }
     if (!isFinite(epsOverD) || epsOverD > EPS_OVER_D_MAX) {
+      if (epsBlank) {
+        return setError('粗さが空欄なので市販鋼管の 0.05 mm を使いますが、この管内径には大きすぎます（ε/D が0.05を超えます）。細い管では、粗さに0（平滑管）か、その管の値を入力してください。');
+      }
       return setError('管内壁粗さが管内径に対して大きすぎます。コールブルック式の適用目安として ε/D は0.05以下にしてください。小径の平滑管として計算する場合は粗さに0を入力してください。');
     }
 
@@ -246,7 +246,7 @@
         <div>動圧 <span class="sym">ρu²/2</span> = ${fmtNum(0.5 * r.rho * r.u * r.u)} Pa</div>
         <div>断面積 <span class="sym">A</span> = ${fmtNum(r.A * 10000)} cm² (= ${fmtNum(r.A)} m²)</div>
         ${r.epsDefaulted
-            ? `<div>管内壁粗さ：未入力のためステンレス配管・平滑仕上げとして計算（ε = ${fmtNum(r.eps * 1000)} mm、ε/D = ${fmtNum(r.epsOverD)}）</div>`
+            ? `<div>管内壁粗さ：未入力のため市販鋼管（新しい管）として計算（ε = ${fmtNum(r.eps * 1000)} mm、ε/D = ${fmtNum(r.epsOverD)}）</div>`
             : (r.eps > 0
                 ? `<div>相対粗さ <span class="sym">ε/D</span> = ${fmtNum(r.epsOverD)} （ε = ${fmtNum(r.eps * 1000)} mm）</div>`
                 : '<div>管内壁粗さ：0（平滑管として計算）</div>')}
@@ -278,7 +278,15 @@
     $('reset-btn').addEventListener('click', reset);
     const sel = $('eps_preset');
     if (sel) {
-      sel.addEventListener('change', () => applyEpsPreset(sel.value));
+      // 共有リンクなどで粗さの値が入っているときは、プリセットで上書きしない（値が違えば選択を外す）
+      sel.addEventListener('change', (e) => {
+        if (e.isTrusted || $('eps').value.trim() === '') { applyEpsPreset(sel.value); return; }
+        const p = ROUGHNESS_PRESETS[sel.value];
+        const cur = readSI('eps').value;
+        if (p == null || !(Math.abs(cur - p) <= p * 1e-9)) sel.value = '';
+      });
+      // 粗さを手で入力したら、プリセットの選択を外す
+      $('eps').addEventListener('input', (e) => { if (e.isTrusted) sel.value = ''; });
     }
   });
 })();
