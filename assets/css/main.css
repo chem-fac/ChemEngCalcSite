@@ -81,7 +81,7 @@ textarea:focus-visible {
   align-items: center;
   gap: 10px;
   font-weight: 700;
-  font-size: 17px;
+  font-size: 18px;
   color: var(--text);
 }
 .logo:hover { text-decoration: none; }
@@ -90,7 +90,7 @@ textarea:focus-visible {
 .site-nav {
   display: flex;
   gap: 28px;
-  font-size: 14px;
+  font-size: 15px;
 }
 .site-nav a {
   color: var(--text-sub);
@@ -106,7 +106,7 @@ textarea:focus-visible {
   padding: 40px 32px 32px;
 }
 .top-intro h1 {
-  font-size: clamp(24px, 1.6vw + 16px, 34px);
+  font-size: clamp(24px, 1.6vw + 16px, 32px);
   font-weight: 700;
   line-height: 1.35;
   margin: 0 0 10px;
@@ -189,7 +189,7 @@ textarea:focus-visible {
 .search-hit-title { font-size: 15px; font-weight: 500; }
 .search-empty {
   padding: 14px 16px;
-  font-size: 13.5px;
+  font-size: 13px;
   color: var(--text-sub);
 }
 
@@ -249,7 +249,7 @@ textarea:focus-visible {
 .cat-link-name {
   display: block;
   word-break: auto-phrase;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 700;
   line-height: 1.5;
   color: var(--brand);
@@ -264,7 +264,7 @@ textarea:focus-visible {
   display: block;
   word-break: auto-phrase;
   margin-top: 2px;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.65;
   color: var(--text-sub);
 }
@@ -273,7 +273,7 @@ textarea:focus-visible {
 .cat-search-section { margin-bottom: 32px; }
 .cat-search-empty {
   margin-top: 12px;
-  font-size: 13.5px;
+  font-size: 13px;
   color: var(--text-sub);
 }
 .tool-list-section { margin-bottom: 40px; }
@@ -319,7 +319,7 @@ textarea:focus-visible {
   text-underline-offset: 3px;
 }
 .tool-list-desc {
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.7;
   color: var(--text-sub);
   margin: 0;
@@ -346,14 +346,14 @@ textarea:focus-visible {
   margin-bottom: 8px;
 }
 .cat-empty-text {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.85;
   color: var(--text-sub);
   margin: 0 0 18px;
 }
 .cat-empty-back {
   display: inline-block;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--brand);
   text-decoration: none;
@@ -402,7 +402,7 @@ textarea:focus-visible {
 .info-list .item-desc { color: var(--text-sub); font-size: 13px; }
 .info-list.updates .date {
   color: var(--text-sub);
-  font-size: 14px;
+  font-size: 13px;
   font-variant-numeric: tabular-nums;
   flex-shrink: 0;
   width: 84px;
@@ -499,7 +499,7 @@ textarea:focus-visible {
   gap: 40px;
 }
 .footer-col h4 {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   margin: 0 0 12px;
   color: var(--text);
@@ -509,7 +509,7 @@ textarea:focus-visible {
   padding: 0;
   margin: 0;
 }
-.footer-col li { margin-bottom: 8px; font-size: 14px; }
+.footer-col li { margin-bottom: 8px; font-size: 13px; }
 .footer-col a { color: var(--text-sub); }
 .footer-col a:hover { color: var(--brand); }
 .footer-brand {
@@ -559,7 +559,7 @@ textarea:focus-visible {
 }
 .input-row label {
   display: block;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   margin-bottom: 6px;
   color: var(--text);
@@ -597,7 +597,7 @@ textarea:focus-visible {
   padding: 10px 8px;
   border: 1px solid var(--border);
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 15px;
   background: #fff;
   font-family: inherit;
   min-width: 90px;
@@ -607,7 +607,7 @@ textarea:focus-visible {
   min-width: 4.5em;
   padding: 10px 0 10px 2px;
   color: var(--text);
-  font-size: 14px;
+  font-size: 15px;
   text-align: left;
 }
 .unit-label {
@@ -615,7 +615,7 @@ textarea:focus-visible {
   min-width: 4.5em;
   padding: 10px 0 10px 2px;
   color: var(--text);
-  font-size: 14px;
+  font-size: 15px;
   text-align: left;
   white-space: nowrap;
 }
@@ -714,7 +714,7 @@ textarea:focus-visible {
   color: var(--text-sub);
   text-align: left;
   padding: 16px 20px 18px;
-  font-size: 14px;
+  font-size: 13px;
   background: var(--surface);
   border-radius: 4px;
 }
@@ -814,7 +814,7 @@ details.table-toggle[open] > summary { border-bottom: 1px solid var(--border); }
   color: #b32424;
   padding: 12px 16px;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 15px;
   margin-top: 14px;
 }
 
@@ -833,7 +833,7 @@ details.table-toggle[open] > summary { border-bottom: 1px solid var(--border); }
   display: block;
 }
 .tool-hero h1 {
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 700;
   margin: 0 0 12px;
   line-height: 1.35;
@@ -871,7 +871,7 @@ details.table-toggle[open] > summary { border-bottom: 1px solid var(--border); }
   padding: 16px 12px;
   background: transparent;
   border: none;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--text-sub);
   font-family: inherit;
@@ -1149,7 +1149,7 @@ details.table-toggle[open] > summary { border-bottom: 1px solid var(--border); }
   font-variant-numeric: tabular-nums;
 }
 .result-value-big .unit {
-  font-size: 14px;
+  font-size: 15px;
   color: var(--text-sub);
   font-weight: 500;
   margin-left: 6px;
@@ -1170,7 +1170,7 @@ details.table-toggle[open] > summary { border-bottom: 1px solid var(--border); }
 .unit-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: 15px;
   margin-bottom: 14px;
   background: #fff;
   border-top: 1px solid var(--ink);
@@ -1253,7 +1253,7 @@ details.table-toggle[open] > summary { border-bottom: 1px solid var(--border); }
   padding: 6px 18px;
   border-radius: 4px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 15px;
   color: #fff;
   background: #6e746e;
 }
@@ -1337,7 +1337,7 @@ details.table-toggle[open] > summary { border-bottom: 1px solid var(--border); }
 .regime-comment {
   border-top: 1px solid var(--border);
   padding: 12px 0 0;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.75;
   color: var(--text);
   margin-bottom: 14px;
@@ -1482,7 +1482,7 @@ details.table-toggle[open] > summary { border-bottom: 1px solid var(--border); }
   width: 100%;
   border-collapse: collapse;
   margin: 14px 0 16px;
-  font-size: 14px;
+  font-size: 15px;
 }
 .regime-table th,
 .regime-table td {
@@ -1510,7 +1510,7 @@ details.table-toggle[open] > summary { border-bottom: 1px solid var(--border); }
   margin-bottom: 10px;
 }
 .example-conds {
-  font-size: 13.5px;
+  font-size: 13px;
   color: var(--text);
   background: #fff;
   border: 1px solid var(--border);
@@ -1519,7 +1519,7 @@ details.table-toggle[open] > summary { border-bottom: 1px solid var(--border); }
   margin-bottom: 12px !important;
 }
 .example-result {
-  font-size: 13.5px !important;
+  font-size: 13px !important;
   color: var(--text-sub);
   margin: 0 !important;
 }
@@ -1651,7 +1651,7 @@ details.table-toggle[open] > summary { border-bottom: 1px solid var(--border); }
 .profile-link-desc {
   grid-column: 2;
   word-break: auto-phrase;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-sub);
   line-height: 1.5;
 }
@@ -1676,11 +1676,11 @@ details.table-toggle[open] > summary { border-bottom: 1px solid var(--border); }
 }
 .doc-page .doc-meta {
   color: var(--text-sub);
-  font-size: 14px;
+  font-size: 13px;
   margin: 0 0 28px;
 }
 .doc-page h2 {
-  font-size: 19px;
+  font-size: 20px;
   font-weight: 700;
   line-height: 1.4;
   color: var(--text);
@@ -1813,7 +1813,7 @@ details.table-toggle[open] > summary { border-bottom: 1px solid var(--border); }
 }
 @media (max-width: 359px) {
   .cat-link img { width: 80px; height: 72px; }
-  .cat-link-name { font-size: 14px; }
+  .cat-link-name { font-size: 13px; }
 }
 @media (max-width: 768px) {
   html, body { overflow-x: hidden; max-width: 100vw; }
@@ -1843,7 +1843,7 @@ details.table-toggle[open] > summary { border-bottom: 1px solid var(--border); }
   }
   .tool-page { padding: 24px 16px; }
   .tool-hero { padding: 16px 0 4px; margin-bottom: 20px; }
-  .tool-hero h1 { font-size: 22px; }
+  .tool-hero h1 { font-size: 24px; }
   .tool-layout { grid-template-columns: 1fr; }
   .related-grid { grid-template-columns: 1fr; }
   .calc-grid { grid-template-columns: 1fr; }
@@ -2262,12 +2262,12 @@ body.has-share-bottom .site-footer { padding-bottom: 64px; }
   margin: 0 0 6px;
 }
 .reference-card .ref-meta {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-sub);
   margin: 0 0 8px;
 }
 .reference-card .ref-cta {
-  font-size: 14px;
+  font-size: 15px;
   color: var(--brand);
   font-weight: 600;
 }
@@ -2323,7 +2323,7 @@ input[type="number"] {
 .result-stale-note:empty { margin: 0; }
 .btn-small {
   padding: 8px 14px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
 }
 .btn-ghost.btn-small { padding: 8px 2px; }
@@ -2346,7 +2346,7 @@ input[type="number"] {
 .btn-tools-all:hover { color: var(--brand-dark); }
 .cat-pending-note {
   margin: 0;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-sub);
 }
 
@@ -2373,7 +2373,7 @@ input[type="number"] {
   padding: 26px 32px 22px;
 }
 .ta-head h1 {
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 700;
   margin: 0 0 8px;
 }
@@ -2442,7 +2442,7 @@ input[type="number"] {
   border-radius: 2px;
   transition: border-color 0.12s, color 0.12s;
 }
-.ta-rail-g { font-size: 14px; font-weight: 700; color: var(--text); }
+.ta-rail-g { font-size: 15px; font-weight: 700; color: var(--text); }
 .ta-rail-c { font-size: 13px; color: var(--text-sub); padding-left: 20px; }
 .ta-rail-g:hover,
 .ta-rail-c:hover { color: var(--brand); text-decoration: underline; }
@@ -2486,9 +2486,9 @@ input[type="number"] {
   padding: 10px 0;
 }
 .ta-count,
-.ta-count-static { margin: 0; font-size: 14px; color: var(--text-sub); white-space: nowrap; }
+.ta-count-static { margin: 0; font-size: 13px; color: var(--text-sub); white-space: nowrap; }
 .ta-count b {
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--text);
   font-variant-numeric: tabular-nums;
@@ -2509,7 +2509,7 @@ input[type="number"] {
 }
 .ta-chip:hover { border-color: var(--brand); color: var(--brand); }
 .ta-chip:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
-.ta-x { font-size: 14px; line-height: 1; color: var(--text-sub); }
+.ta-x { font-size: 13px; line-height: 1; color: var(--text-sub); }
 .ta-chip:hover .ta-x { color: var(--brand); }
 .ta-sr {
   position: absolute;
@@ -2524,7 +2524,7 @@ input[type="number"] {
   background: none;
   border: none;
   padding: 3px 2px;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--brand);
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -2541,7 +2541,7 @@ html:not(.js) .ta-js-only { display: none; }
 .ta-group-head { padding-top: 44px; }
 .ta-group:first-child .ta-group-head { padding-top: 26px; }
 .ta-group-head h2 {
-  font-size: 21px;
+  font-size: 20px;
   font-weight: 700;
   margin: 0 0 4px;
   display: flex;
@@ -2557,7 +2557,7 @@ html:not(.js) .ta-js-only { display: none; }
 .ta-gn { font-size: 13px; }
 .ta-gn::after,
 .ta-cn::after { content: "本"; }
-.ta-group-lead { margin: 0; font-size: 14px; color: var(--text-sub); }
+.ta-group-lead { margin: 0; font-size: 15px; color: var(--text-sub); }
 
 .ta-cat { scroll-margin-top: calc(var(--ta-header-h) + var(--ta-bar-h) + 8px); }
 .ta-cat-head {
@@ -2600,7 +2600,7 @@ html:not(.js) .ta-js-only { display: none; }
 .ta-rname { font-size: 15px; font-weight: 500; line-height: 1.55; margin: 0; color: var(--brand); transition: color 0.12s; }
 .ta-row:hover .ta-rname { color: var(--brand-dark); text-decoration: underline; text-underline-offset: 3px; }
 .ta-rdesc {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-sub);
   line-height: 1.6;
   overflow: hidden;
@@ -2611,7 +2611,7 @@ html:not(.js) .ta-js-only { display: none; }
 }
 
 /* --- 0件 --- */
-.ta-empty { display: none; padding: 40px 0; color: var(--text-sub); font-size: 14px; }
+.ta-empty { display: none; padding: 40px 0; color: var(--text-sub); font-size: 15px; }
 .ta-none .ta-empty { display: block; }
 /* 0件のときだけ出る復帰ボタン（分野の指定だけ外してキーワードは残す） */
 .ta-clearfields {
@@ -2621,7 +2621,7 @@ html:not(.js) .ta-js-only { display: none; }
   border: 1px solid var(--border);
   border-radius: 4px;
   padding: 5px 12px;
-  font-size: 14px;
+  font-size: 15px;
   font-family: inherit;
   color: var(--brand);
   cursor: pointer;
@@ -2665,7 +2665,7 @@ html:not(.js) .ta-js-only { display: none; }
     border: 1px solid var(--border);
     border-radius: 2px;
     padding: 5px 12px;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
   }
   .ta-rail-g[aria-current="true"] { border-color: var(--brand); }
@@ -2694,7 +2694,7 @@ html:not(.js) .ta-js-only { display: none; }
   margin-top: 40px;
   padding-top: 14px;
   border-top: 1px solid var(--border);
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.8;
   color: var(--text-sub);
 }
@@ -2746,7 +2746,7 @@ html:not(.js) .ta-js-only { display: none; }
 .value-figure .vf-panel { flex: 0 1 auto; min-width: 0; max-width: 100%; }
 .value-figure .vf-panel[hidden] { display: none; }
 .value-figure .vf-svg { display: block; max-width: 100%; height: auto; overflow: visible; }
-.value-figure figcaption { flex: 1 1 260px; font-size: 14px; line-height: 1.75; color: var(--text-sub); max-width: 40em; }
+.value-figure figcaption { flex: 1 1 260px; font-size: 13px; line-height: 1.75; color: var(--text-sub); max-width: 40em; }
 .value-figure .vf-panel-note { font-size: 14px; line-height: 1.75; color: var(--text-sub); margin: 6px 0 0; max-width: 400px; }
 .value-figure .vf-panel-note .sym, .value-figure figcaption .sym { font-family: "Times New Roman", "Noto Serif JP", serif; font-style: italic; color: var(--text); }
 .vf-svg text { font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic UI", sans-serif; }
@@ -2843,11 +2843,25 @@ html:not(.js) .ta-js-only { display: none; }
   border-radius: 4px;
   background: #fff;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 15px;
   box-sizing: border-box;
 }
 /* 選んだ行（最も合うモデルなど）は面を敷かず、緑の文字で示す */
 .data-table tr.row-best td { color: var(--brand); font-weight: 600; }
+/* 名前・値・個数の表：値を名前の近くに置き、個数の欄は数字の桁の幅にする */
+.data-table-count { width: auto; min-width: min(100%, 560px); }
+.data-table-count th:first-child,
+.data-table-count td:first-child { padding-right: 40px; }
+.data-table-count th.num:last-child,
+.data-table-count td.num:last-child { padding-left: 24px; text-align: left; }
+.data-table-count td.num:last-child input { width: 7em; }
+@media (max-width: 600px) {
+  .data-table-count th:first-child,
+  .data-table-count td:first-child { padding-right: 8px; }
+  .data-table-count th.num:last-child,
+  .data-table-count td.num:last-child { padding-left: 8px; }
+  .data-table-count td.num:last-child input { width: 5.5em; }
+}
 /* 横に送っても1列目を残す表（飽和蒸気表の全表） */
 .data-table-sticky td:first-child,
 .data-table-sticky th:first-child { position: sticky; left: 0; background: #fff; }
@@ -2884,7 +2898,7 @@ html:not(.js) .ta-js-only { display: none; }
   border-radius: 4px;
   background: #fff;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 /* 結果の欄の区切り（ポンプ計算のように、いくつかの結果を縦に並べるとき） */
