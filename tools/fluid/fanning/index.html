@@ -180,8 +180,8 @@
 
           <p class="input-row-full input-section-title">継手・弁の個数</p>
           <div class="input-row input-row-full">
-            <div class="data-table-wrap">
-              <table class="data-table data-table-count" id="fittings">
+            <div class="data-table-pair" id="fittings">
+              <table class="data-table data-table-count">
                 <thead><tr><th>継手・管の出入口</th><th class="num">K</th><th class="num">個数</th></tr></thead>
                 <tbody>
                   <tr><td><label for="n_elbow90">90°エルボ（標準）</label></td><td class="num">0.75</td><td class="num"><input type="number" inputmode="decimal" id="n_elbow90" data-k="0.75" min="0" step="1" placeholder="例：0"></td></tr>
@@ -195,8 +195,10 @@
                   <tr><td><label for="n_inlet_round">入口（ベルマウス・丸めた入口）</label></td><td class="num">0.033</td><td class="num"><input type="number" inputmode="decimal" id="n_inlet_round" data-k="0.033" min="0" step="1" placeholder="例：0"></td></tr>
                   <tr><td><label for="n_outlet">出口（管からタンクへ）</label></td><td class="num">1.0</td><td class="num"><input type="number" inputmode="decimal" id="n_outlet" data-k="1.0" min="0" step="1" placeholder="例：1"></td></tr>
                 </tbody>
+              </table>
+              <table class="data-table data-table-count">
+                <thead><tr><th>弁</th><th class="num">K</th><th class="num">個数</th></tr></thead>
                 <tbody>
-                  <tr><th>弁</th><th class="num">K</th><th class="num">個数</th></tr>
                   <tr><td><label for="n_gate">ゲート弁（仕切弁）</label></td><td class="num">0.17</td><td class="num"><input type="number" inputmode="decimal" id="n_gate" data-k="0.17" min="0" step="1" placeholder="例：2"></td></tr>
                   <tr><td><label for="n_globe">グローブ弁（玉形弁）</label></td><td class="num">6.0</td><td class="num"><input type="number" inputmode="decimal" id="n_globe" data-k="6.0" min="0" step="1" placeholder="例：0"></td></tr>
                   <tr><td><label for="n_angle">アングル弁</label></td><td class="num">3.0</td><td class="num"><input type="number" inputmode="decimal" id="n_angle" data-k="3.0" min="0" step="1" placeholder="例：0"></td></tr>

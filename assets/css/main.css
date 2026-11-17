@@ -2862,6 +2862,21 @@ html:not(.js) .ta-js-only { display: none; }
   .data-table-count td.num:last-child { padding-left: 8px; }
   .data-table-count td.num:last-child input { width: 5.5em; }
 }
+/* 同じ形の表を2つ横に並べる（継手と弁の個数など）。2つ並ぶ幅が無いときは縦に積む */
+.data-table-pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 430px), 1fr));
+  gap: 16px 32px;
+  align-items: start;
+  margin-top: 8px;
+}
+.data-table-pair > .data-table { width: 100%; min-width: 0; margin-top: 0; }
+@media (min-width: 601px) {
+  .data-table-pair .data-table-count th:first-child,
+  .data-table-pair .data-table-count td:first-child { padding-right: 16px; }
+  .data-table-pair .data-table-count th.num:last-child,
+  .data-table-pair .data-table-count td.num:last-child { padding-left: 16px; }
+}
 /* 横に送っても1列目を残す表（飽和蒸気表の全表） */
 .data-table-sticky td:first-child,
 .data-table-sticky th:first-child { position: sticky; left: 0; background: #fff; }
