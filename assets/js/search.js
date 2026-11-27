@@ -7,10 +7,10 @@
       keywords: ["差圧液面計", "液面計", "液位", "レベル", "LRV", "URV", "スパン", "乾式導圧管", "湿式導圧管", "ドライレグ", "ウェットレグ", "dp level", "differential pressure"]
     },
     {
-      title: "調節弁の差圧から流量を推定（液体）",
+      title: "コントロールバルブの差圧から流量を推定（液体）",
       url: "tools/instrumentation-control/control-valve-flow/",
       category: "計装・制御",
-      keywords: ["調節弁", "Cv", "Kv", "実効Cv", "差圧", "流量", "液体", "水", "密度", "control valve"]
+      keywords: ["コントロールバルブ", "調節弁", "Cv", "Kv", "実効Cv", "差圧", "流量", "液体", "水", "密度", "control valve"]
     },
     {
       title: "レイノルズ数（配管）",
@@ -371,7 +371,7 @@
       title: "計装・制御（カテゴリ）",
       url: "tools/instrumentation-control/",
       category: "カテゴリ",
-      keywords: ["計装", "制御", "プロセス制御", "PID", "センサ", "トランスミッタ", "調節弁", "制御弁", "流量計", "温度計", "圧力計", "instrumentation", "control", "process control"]
+      keywords: ["計装", "制御", "プロセス制御", "PID", "センサ", "トランスミッタ", "コントロールバルブ", "調節弁", "制御弁", "流量計", "温度計", "圧力計", "instrumentation", "control", "process control"]
     },
     {
       title: "0.6乗則・0.7乗則による設備費の換算",
